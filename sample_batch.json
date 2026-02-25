@@ -1,0 +1,29 @@
+{
+  "batch_index": 0,
+  "sources": [
+    {
+      "source_id": "s1",
+      "batch_index": 0,
+      "tokens": ["earthquake", "damage", "city"],
+      "text": null,
+      "timestamp_unix_ms": null,
+      "metadata": null
+    },
+    {
+      "source_id": "s2",
+      "batch_index": 0,
+      "tokens": ["earthquake", "rescue", "city"],
+      "text": null,
+      "timestamp_unix_ms": null,
+      "metadata": null
+    },
+    {
+      "source_id": "s3",
+      "batch_index": 0,
+      "tokens": ["storm", "damage", "coast"],
+      "text": null,
+      "timestamp_unix_ms": null,
+      "metadata": null
+    }
+  ]
+}

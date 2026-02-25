@@ -1,0 +1,16 @@
+{
+  "hkt_builder": {
+    "minimum_threshold_against_max_word_count": 0.5,
+    "similarity_threshold": 0.5,
+    "minimum_number_of_sources_to_create_branch_for_node": 20
+  },
+  "seca_thresholds": {
+    "alpha": 0.7,
+    "beta": 0.5,
+    "alpha_error_threshold": 0.1,
+    "beta_error_threshold": 0.2,
+    "word_importance_error_threshold": 0.3
+  },
+  "memory_mode": "Full",
+  "max_batches_in_memory": null
+}
