@@ -2,6 +2,7 @@ use realtime_seca_core::{
     HktBuilderConfig, MemoryMode, SecaConfig, SecaEngine, SecaThresholdConfig, SourceBatch,
     SourceRecord,
 };
+use realtime_seca_core::config::TriggerPolicyMode;
 
 fn base_config() -> SecaConfig {
     SecaConfig {
@@ -19,6 +20,7 @@ fn base_config() -> SecaConfig {
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,
+        trigger_policy_mode: TriggerPolicyMode::Placeholder,
     }
 }
 

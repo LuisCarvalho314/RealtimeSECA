@@ -45,6 +45,7 @@ impl Default for SecaThresholdConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
+            
         }
     }
 }
@@ -55,6 +56,7 @@ pub struct SecaConfig {
     pub seca_thresholds: SecaThresholdConfig,
     pub memory_mode: MemoryMode,
     pub max_batches_in_memory: Option<u32>,
+    pub trigger_policy_mode: TriggerPolicyMode,
 }
 
 impl Default for SecaConfig {
@@ -64,6 +66,13 @@ impl Default for SecaConfig {
             seca_thresholds: SecaThresholdConfig::default(),
             memory_mode: MemoryMode::Full,
             max_batches_in_memory: None,
+            trigger_policy_mode: TriggerPolicyMode::Placeholder,
         }
     }
+}
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+
+pub enum TriggerPolicyMode {
+    Placeholder,
+    PaperDiagnosticScaffold,
 }

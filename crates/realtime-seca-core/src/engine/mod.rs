@@ -19,7 +19,7 @@ mod trigger;
 
 #[cfg(test)]
 mod tests;
-use self::batch_stats::compute_batch_word_stats;
+use self::batch_stats::{compute_batch_word_stats, compute_trigger_metrics_from_batch_stats};
 
 #[derive(Debug, Clone)]
 pub struct SecaEngine {
@@ -80,7 +80,6 @@ impl SecaEngine {
         &self.config
     }
 
-
     pub fn detect_clusters_direct(&self) -> Result<ClusteringResult, SecaError> {
         if !self.has_baseline {
             return Err(SecaError::StateError {
@@ -106,8 +105,6 @@ impl SecaEngine {
             notes: vec!["indirect clustering stub".to_string()],
         })
     }
-
-
 
     pub fn process_batch(
         &mut self,
@@ -163,6 +160,7 @@ impl SecaEngine {
         ));
 
         let trigger_plan = self.evaluate_seca_trigger_plan_for_batch(&batch)?;
+        debug_assert_eq!(trigger_plan.batch_index, batch.batch_index);
 
         notes.extend(trigger_plan.notes.clone());
 
@@ -170,6 +168,33 @@ impl SecaEngine {
 
         // Store batch according to memory mode
         self.processed_batches.push(batch.clone());
+
+        // Stage 4A scaffold metrics at batch-level (diagnostic only for now).
+        // These do NOT drive reconstruction decisions yet; recursive HKT scope trigger plan remains authoritative.
+        let batch_trigger_metrics =
+            compute_trigger_metrics_from_batch_stats(&batch_stats, &self.config.seca_thresholds);
+
+        notes.push(format!(
+            "Batch trigger metrics (scaffold): alpha_est={:.4}, beta_est={:.4}, alpha_err={:.4}, beta_err={:.4}, word_importance_error={:.4}",
+            batch_trigger_metrics.alpha_estimate,
+            batch_trigger_metrics.beta_estimate,
+            batch_trigger_metrics.alpha_error,
+            batch_trigger_metrics.beta_error,
+            batch_trigger_metrics.word_importance_error,
+        ));
+
+        if batch_trigger_metrics.should_reconstruct {
+            for reason in &batch_trigger_metrics.trigger_reasons {
+                notes.push(format!(
+                    "Batch trigger metrics reason (scaffold): {}",
+                    reason
+                ));
+            }
+        } else {
+            notes.push(
+                "Batch trigger metrics reason (scaffold): no thresholds exceeded".to_string(),
+            );
+        }
 
         match self.config.memory_mode {
             crate::config::MemoryMode::Full => {
@@ -266,11 +291,4 @@ impl SecaEngine {
     pub fn last_batch_word_stats_summary(&self) -> Option<&BatchWordStatsSummary> {
         self.last_batch_word_stats_summary.as_ref()
     }
-
-
-
 }
-
-
-
-
