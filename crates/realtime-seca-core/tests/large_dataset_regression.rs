@@ -1,7 +1,5 @@
-use realtime_seca_core::{
-    HktBuilderConfig, SecaEngine, SourceBatch,
-};
 use realtime_seca_core::config::{MemoryMode, SecaConfig, SecaThresholdConfig, TriggerPolicyMode};
+use realtime_seca_core::{HktBuilderConfig, SecaEngine, SourceBatch};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::Path;
@@ -19,8 +17,6 @@ fn test_config() -> SecaConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
-
-
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,

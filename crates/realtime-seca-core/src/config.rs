@@ -45,7 +45,6 @@ impl Default for SecaThresholdConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
-            
         }
     }
 }

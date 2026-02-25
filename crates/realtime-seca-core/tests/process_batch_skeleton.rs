@@ -1,8 +1,8 @@
+use realtime_seca_core::config::TriggerPolicyMode;
 use realtime_seca_core::{
     HktBuilderConfig, MemoryMode, SecaConfig, SecaEngine, SecaThresholdConfig, SourceBatch,
     SourceRecord,
 };
-use realtime_seca_core::config::TriggerPolicyMode;
 
 fn base_config() -> SecaConfig {
     SecaConfig {
