@@ -1,4 +1,6 @@
-use realtime_seca_core::config::TriggerPolicyMode;
+use realtime_seca_core::config::{
+    AlphaErrorOption, BetaErrorOption, TriggerPolicyMode, WordImportanceErrorOption,
+};
 use realtime_seca_core::{
     HktBuilderConfig, MemoryMode, SecaConfig, SecaEngine, SecaThresholdConfig, SourceBatch,
     SourceRecord,
@@ -17,6 +19,17 @@ fn base_config() -> SecaConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
+            alpha_option1_threshold: 0.1,
+            alpha_option2_threshold: 0.2,
+            alpha_option3_threshold: 0.3,
+            beta_option1_threshold: 0.13,
+            beta_option2_threshold: 0.2,
+            beta_option3_threshold: 0.2,
+            word_importance_option1_threshold: 0.3,
+            word_importance_option2_threshold: 0.2,
+            selected_alpha_option: AlphaErrorOption::Option1,
+            selected_beta_option: BetaErrorOption::Option1,
+            selected_word_importance_option: WordImportanceErrorOption::Option1,
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,
@@ -312,6 +325,9 @@ fn process_batch_relaxed_thresholds_can_skip_reconstruction_under_paper_policy()
     config.seca_thresholds.alpha_error_threshold = 1.0;
     config.seca_thresholds.beta_error_threshold = 1.0;
     config.seca_thresholds.word_importance_error_threshold = 1.0;
+    config.seca_thresholds.alpha_option1_threshold = 1.0;
+    config.seca_thresholds.beta_option1_threshold = 1.0;
+    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -337,6 +353,9 @@ fn process_batch_can_trigger_reconstruction_with_strict_thresholds() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
+    config.seca_thresholds.alpha_option1_threshold = 0.0;
+    config.seca_thresholds.beta_option1_threshold = 0.0;
+    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -355,13 +374,16 @@ fn process_batch_can_trigger_reconstruction_with_strict_thresholds() {
 }
 
 #[test]
-fn process_batch_paper_policy_relaxed_thresholds_keep_tree_unchanged() {
+fn process_batch_paper_policy_relaxed_thresholds_evolve_tree_without_rebuild() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 1.0;
     config.seca_thresholds.beta = 0.0;
     config.seca_thresholds.alpha_error_threshold = 1.0;
     config.seca_thresholds.beta_error_threshold = 1.0;
     config.seca_thresholds.word_importance_error_threshold = 1.0;
+    config.seca_thresholds.alpha_option1_threshold = 1.0;
+    config.seca_thresholds.beta_option1_threshold = 1.0;
+    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -375,9 +397,9 @@ fn process_batch_paper_policy_relaxed_thresholds_keep_tree_unchanged() {
     let after =
         serde_json::to_string_pretty(&engine.export_baseline_tree_verbose().unwrap()).unwrap();
 
-    assert_eq!(
+    assert_ne!(
         before, after,
-        "tree should remain unchanged when no rebuild is triggered under paper policy"
+        "tree should evolve via state1 mapping updates even when no rebuild is triggered"
     );
 }
 
@@ -389,6 +411,9 @@ fn process_batch_trigger_rebuilds_tree_from_stored_batches() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
+    config.seca_thresholds.alpha_option1_threshold = 0.0;
+    config.seca_thresholds.beta_option1_threshold = 0.0;
+    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -428,6 +453,9 @@ fn process_batch_trigger_path_notes_mention_rebuild_completed() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
+    config.seca_thresholds.alpha_option1_threshold = 0.0;
+    config.seca_thresholds.beta_option1_threshold = 0.0;
+    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -452,6 +480,9 @@ fn process_batch_paper_policy_no_trigger_notes_mention_no_rebuild() {
     config.seca_thresholds.alpha_error_threshold = 1.0;
     config.seca_thresholds.beta_error_threshold = 1.0;
     config.seca_thresholds.word_importance_error_threshold = 1.0;
+    config.seca_thresholds.alpha_option1_threshold = 1.0;
+    config.seca_thresholds.beta_option1_threshold = 1.0;
+    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -476,6 +507,9 @@ fn process_batch_rebuild_path_is_deterministic_for_same_sequence() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
+    config.seca_thresholds.alpha_option1_threshold = 0.0;
+    config.seca_thresholds.beta_option1_threshold = 0.0;
+    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine_a = SecaEngine::new(config.clone()).unwrap();
     engine_a.build_baseline_tree(baseline_batch()).unwrap();

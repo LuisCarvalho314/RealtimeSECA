@@ -47,11 +47,12 @@ impl HktBuilder {
     pub fn build_full_tree(
         &self,
         source_word_records_sorted: Vec<SourceWordRecord>,
+        is_state1: bool,
     ) -> Result<HktBuildOutput, SecaError> {
         let mut state = BuilderState::default();
 
         let root_input = records_to_map_by_source_word_id(source_word_records_sorted);
-        let root_hkt = self.create_hkt(&mut state, root_input, 0)?;
+        let root_hkt = self.create_hkt(&mut state, root_input, 0, is_state1)?;
 
         if let Some(root_hkt) = root_hkt {
             let root_hkt_id = root_hkt.hkt_id;
@@ -70,6 +71,7 @@ impl HktBuilder {
                 &root_hkt_clone_for_recursion,
                 &root_scope_records,
                 0,
+                is_state1,
             )?;
         }
 
@@ -84,6 +86,7 @@ impl HktBuilder {
         state: &mut BuilderState,
         mut source_word_map: BTreeMap<i32, SourceWordRecord>,
         parent_node_id: i32,
+        is_state1: bool,
     ) -> Result<Option<Hkt>, SecaError> {
         let expected_words = self.find_expected_words_general(&source_word_map);
 
@@ -92,7 +95,7 @@ impl HktBuilder {
         }
 
         let hkt_id = state.next_hkt_id();
-        let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words.clone());
+        let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words.clone(), is_state1);
 
         // Preserve the input scope for branch generation (analogous to C# mainWordDS / sourceWordDS usage).
         state
@@ -134,6 +137,11 @@ impl HktBuilder {
                 hkt.nodes[node_index]
                     .source_ids
                     .extend(sources_of_expected_word.iter().copied());
+                if !sources_of_expected_word.is_empty() {
+                    hkt.nodes[node_index]
+                        .word_source_ids
+                        .insert(expected_word_id, sources_of_expected_word.clone());
+                }
 
                 let collided_node_id = hkt.nodes[node_index].node_id;
                 if let Some(global_node) = state.nodes_by_id.get_mut(&collided_node_id) {
@@ -141,6 +149,11 @@ impl HktBuilder {
                     global_node
                         .source_ids
                         .extend(sources_of_expected_word.iter().copied());
+                    if !sources_of_expected_word.is_empty() {
+                        global_node
+                            .word_source_ids
+                            .insert(expected_word_id, sources_of_expected_word.clone());
+                    }
                 }
 
                 self.remove_word_and_its_corresponding_sources(
@@ -184,6 +197,7 @@ impl HktBuilder {
         hkt: &Hkt,
         source_word_scope: &[SourceWordRecord],
         current_hkt_level: usize,
+        is_state1: bool,
     ) -> Result<(), SecaError> {
         let _ = current_hkt_level; // kept for parity/future instrumentation
 
@@ -231,7 +245,7 @@ impl HktBuilder {
             }
 
             let child_input_map = records_to_map_by_source_word_id(sorted_scope.clone());
-            let child_hkt = self.create_hkt(state, child_input_map, node.node_id)?;
+            let child_hkt = self.create_hkt(state, child_input_map, node.node_id, is_state1)?;
 
             if let Some(child_hkt) = child_hkt {
                 let child_hkt_clone = child_hkt.clone();
@@ -250,6 +264,7 @@ impl HktBuilder {
                         &child_hkt_clone,
                         &recurse_scope,
                         current_hkt_level + 1,
+                        is_state1,
                     )?;
                 }
             }
@@ -314,10 +329,15 @@ impl HktBuilder {
         let mut node = Node::new(new_node_id, hkt_id);
         node.word_ids.insert(word_id);
 
+        let mut sources_for_word: BTreeSet<i64> = BTreeSet::new();
         for record in source_word_map.values() {
             if record.word_id == word_id {
-                node.source_ids.insert(record.source_id);
+                sources_for_word.insert(record.source_id);
             }
+        }
+        node.source_ids.extend(sources_for_word.iter().copied());
+        if !sources_for_word.is_empty() {
+            node.word_source_ids.insert(word_id, sources_for_word);
         }
 
         if node.source_ids.is_empty() {
@@ -455,8 +475,8 @@ fn records_to_map_by_source_word_id(
     records: Vec<SourceWordRecord>,
 ) -> BTreeMap<i32, SourceWordRecord> {
     let mut map = BTreeMap::new();
-    for record in records {
-        map.insert(record.source_word_id, record);
+    for (index, record) in records.into_iter().enumerate() {
+        map.insert((index as i32) + 1, record);
     }
     map
 }
@@ -467,8 +487,6 @@ fn sort_source_word_records_desc(records: &mut [SourceWordRecord]) {
         right_record
             .word_number_of_sources
             .cmp(&left_record.word_number_of_sources)
-            .then_with(|| left_record.word_id.cmp(&right_record.word_id))
-            .then_with(|| left_record.source_id.cmp(&right_record.source_id))
             .then_with(|| left_record.source_word_id.cmp(&right_record.source_word_id))
     });
 }

@@ -1,6 +1,6 @@
 use crate::config::SecaConfig;
 use crate::error::SecaError;
-use crate::tree::{HktBuildOutput, HktBuilder, SourceWordRecord};
+use crate::tree::{Hkt, HktBuildOutput, HktBuilder, SourceWordRecord};
 use crate::types::{
     BaselineHktExport, BaselineHktVerboseExport, BaselineNodeExport, BaselineNodeVerboseExport,
     BaselineTreeExport, BaselineTreeVerboseExport, BatchProcessingResult, BatchWordStatsSummary,
@@ -35,6 +35,16 @@ pub struct SecaEngine {
     last_batch_word_stats_summary: Option<BatchWordStatsSummary>,
     source_id_by_url: BTreeMap<String, i64>,
     url_by_source_id: BTreeMap<i64, String>,
+    archived_subtrees_by_root_id: BTreeMap<i32, HktBuildOutput>,
+    logically_removed_hkts_by_id: BTreeMap<i32, LogicalRemovedHkt>,
+    next_hkt_id: i32,
+    next_node_id: i32,
+}
+
+#[derive(Debug, Clone)]
+struct LogicalRemovedHkt {
+    hkt: Hkt,
+    old_parent_node_id: i32,
 }
 
 impl SecaEngine {
@@ -50,6 +60,31 @@ impl SecaEngine {
             return Err(SecaError::InvalidConfiguration {
                 message: "seca_thresholds.beta must be in [0, 1]".to_string(),
             });
+        }
+
+        let option_thresholds: [(&str, f64); 8] = [
+            ("seca_thresholds.alpha_option1_threshold", thresholds.alpha_option1_threshold),
+            ("seca_thresholds.alpha_option2_threshold", thresholds.alpha_option2_threshold),
+            ("seca_thresholds.alpha_option3_threshold", thresholds.alpha_option3_threshold),
+            ("seca_thresholds.beta_option1_threshold", thresholds.beta_option1_threshold),
+            ("seca_thresholds.beta_option2_threshold", thresholds.beta_option2_threshold),
+            ("seca_thresholds.beta_option3_threshold", thresholds.beta_option3_threshold),
+            (
+                "seca_thresholds.word_importance_option1_threshold",
+                thresholds.word_importance_option1_threshold,
+            ),
+            (
+                "seca_thresholds.word_importance_option2_threshold",
+                thresholds.word_importance_option2_threshold,
+            ),
+        ];
+
+        for (label, value) in option_thresholds {
+            if !(0.0..=1.0).contains(&value) {
+                return Err(SecaError::InvalidConfiguration {
+                    message: format!("{label} must be in [0, 1]"),
+                });
+            }
         }
 
         let hkt = &config.hkt_builder;
@@ -79,6 +114,10 @@ impl SecaEngine {
             last_batch_word_stats_summary: None,
             source_id_by_url: BTreeMap::new(),
             url_by_source_id: BTreeMap::new(),
+            archived_subtrees_by_root_id: BTreeMap::new(),
+            logically_removed_hkts_by_id: BTreeMap::new(),
+            next_hkt_id: 1,
+            next_node_id: 1,
         })
     }
     pub fn set_rebuild_mode(&mut self, rebuild_mode: rebuild::RebuildMode) {
@@ -309,12 +348,13 @@ impl SecaEngine {
                 );
             }
 
-            // New transitional note (keeps visibility of the selected-HKT intent)
-            notes.push(
-                  "Reconstruction action: selected-HKT rebuild requested (currently full rebuild fallback)
-  completed"
-                      .to_string(),
-              );
+            if self.rebuild_mode != crate::engine::rebuild::RebuildMode::SubtreeTargeted {
+                // Transitional note for non-subtree modes (keeps visibility of the selected-HKT intent)
+                notes.push(
+                    "Reconstruction action: selected-HKT rebuild requested (currently full rebuild fallback) completed"
+                        .to_string(),
+                );
+            }
 
             let report =
                 self.build_selected_hkt_execution_report(&batch, &selected_rebuild_plan)?;
@@ -328,7 +368,7 @@ impl SecaEngine {
                     reason_codes.push("SECA_HYBRID_REBUILD_FALLBACK_EXECUTED".to_string());
                 }
                 crate::engine::rebuild::RebuildMode::SubtreeTargeted => {
-                    reason_codes.push("SECA_SELECTED_REBUILD_FALLBACK_EXECUTED".to_string());
+                    reason_codes.push("SECA_SELECTED_REBUILD_EXECUTED".to_string());
                 }
             }
         } else {

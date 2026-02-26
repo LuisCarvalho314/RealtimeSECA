@@ -40,6 +40,17 @@ pub struct SecaThresholdConfig {
     pub alpha_error_threshold: f64,
     pub beta_error_threshold: f64,
     pub word_importance_error_threshold: f64,
+    pub alpha_option1_threshold: f64,
+    pub alpha_option2_threshold: f64,
+    pub alpha_option3_threshold: f64,
+    pub beta_option1_threshold: f64,
+    pub beta_option2_threshold: f64,
+    pub beta_option3_threshold: f64,
+    pub word_importance_option1_threshold: f64,
+    pub word_importance_option2_threshold: f64,
+    pub selected_alpha_option: AlphaErrorOption,
+    pub selected_beta_option: BetaErrorOption,
+    pub selected_word_importance_option: WordImportanceErrorOption,
 }
 
 impl Default for SecaThresholdConfig {
@@ -50,6 +61,17 @@ impl Default for SecaThresholdConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
+            alpha_option1_threshold: 0.1,
+            alpha_option2_threshold: 0.2,
+            alpha_option3_threshold: 0.3,
+            beta_option1_threshold: 0.13,
+            beta_option2_threshold: 0.2,
+            beta_option3_threshold: 0.2,
+            word_importance_option1_threshold: 0.3,
+            word_importance_option2_threshold: 0.2,
+            selected_alpha_option: AlphaErrorOption::Option1,
+            selected_beta_option: BetaErrorOption::Option1,
+            selected_word_importance_option: WordImportanceErrorOption::Option1,
         }
     }
 }
@@ -79,4 +101,24 @@ impl Default for SecaConfig {
 pub enum TriggerPolicyMode {
     Placeholder,
     PaperDiagnosticScaffold,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+pub enum AlphaErrorOption {
+    Option1,
+    Option2,
+    Option3,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+pub enum BetaErrorOption {
+    Option1,
+    Option2,
+    Option3,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+pub enum WordImportanceErrorOption {
+    Option1,
+    Option2,
 }

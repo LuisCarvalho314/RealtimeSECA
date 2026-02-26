@@ -1,4 +1,7 @@
-use realtime_seca_core::config::{MemoryMode, SecaConfig, SecaThresholdConfig, TriggerPolicyMode};
+use realtime_seca_core::config::{
+    AlphaErrorOption, BetaErrorOption, MemoryMode, SecaConfig, SecaThresholdConfig,
+    TriggerPolicyMode, WordImportanceErrorOption,
+};
 use realtime_seca_core::{HktBuilderConfig, SecaEngine, SourceBatch};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -17,6 +20,17 @@ fn test_config() -> SecaConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
+            alpha_option1_threshold: 0.1,
+            alpha_option2_threshold: 0.2,
+            alpha_option3_threshold: 0.3,
+            beta_option1_threshold: 0.13,
+            beta_option2_threshold: 0.2,
+            beta_option3_threshold: 0.2,
+            word_importance_option1_threshold: 0.3,
+            word_importance_option2_threshold: 0.2,
+            selected_alpha_option: AlphaErrorOption::Option1,
+            selected_beta_option: BetaErrorOption::Option1,
+            selected_word_importance_option: WordImportanceErrorOption::Option1,
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,
