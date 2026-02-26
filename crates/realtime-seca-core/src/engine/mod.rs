@@ -63,12 +63,30 @@ impl SecaEngine {
         }
 
         let option_thresholds: [(&str, f64); 8] = [
-            ("seca_thresholds.alpha_option1_threshold", thresholds.alpha_option1_threshold),
-            ("seca_thresholds.alpha_option2_threshold", thresholds.alpha_option2_threshold),
-            ("seca_thresholds.alpha_option3_threshold", thresholds.alpha_option3_threshold),
-            ("seca_thresholds.beta_option1_threshold", thresholds.beta_option1_threshold),
-            ("seca_thresholds.beta_option2_threshold", thresholds.beta_option2_threshold),
-            ("seca_thresholds.beta_option3_threshold", thresholds.beta_option3_threshold),
+            (
+                "seca_thresholds.alpha_option1_threshold",
+                thresholds.alpha_option1_threshold,
+            ),
+            (
+                "seca_thresholds.alpha_option2_threshold",
+                thresholds.alpha_option2_threshold,
+            ),
+            (
+                "seca_thresholds.alpha_option3_threshold",
+                thresholds.alpha_option3_threshold,
+            ),
+            (
+                "seca_thresholds.beta_option1_threshold",
+                thresholds.beta_option1_threshold,
+            ),
+            (
+                "seca_thresholds.beta_option2_threshold",
+                thresholds.beta_option2_threshold,
+            ),
+            (
+                "seca_thresholds.beta_option3_threshold",
+                thresholds.beta_option3_threshold,
+            ),
             (
                 "seca_thresholds.word_importance_option1_threshold",
                 thresholds.word_importance_option1_threshold,
