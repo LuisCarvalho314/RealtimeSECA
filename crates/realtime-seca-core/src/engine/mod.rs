@@ -24,6 +24,7 @@ use self::batch_stats::{compute_batch_word_stats, compute_trigger_metrics_from_b
 #[derive(Debug, Clone)]
 pub struct SecaEngine {
     config: SecaConfig,
+    rebuild_mode: rebuild::RebuildMode,
     last_processed_batch_index: Option<u32>,
     last_update_explanation: Option<UpdateExplanation>,
     has_baseline: bool,
@@ -65,6 +66,7 @@ impl SecaEngine {
 
         Ok(Self {
             config,
+            rebuild_mode: rebuild::RebuildMode::FullFromAllBatches,
             last_processed_batch_index: None,
             last_update_explanation: None,
             has_baseline: false,
@@ -75,7 +77,12 @@ impl SecaEngine {
             last_batch_word_stats_summary: None,
         })
     }
-
+    pub fn set_rebuild_mode(&mut self, rebuild_mode: rebuild::RebuildMode) {
+        self.rebuild_mode = rebuild_mode;
+    }
+    pub fn rebuild_mode(&self) -> rebuild::RebuildMode {
+        self.rebuild_mode
+    }
     pub fn config(&self) -> &SecaConfig {
         &self.config
     }
@@ -247,12 +254,14 @@ impl SecaEngine {
         });
 
         if reconstruction_triggered {
-            self.rebuild_from_stored_batches()?;
-            notes.push(
-                "Reconstruction action: full rebuild from stored batches completed".to_string(),
-            );
+            notes.push(format!(
+                "SECA trigger action plan: HKT-local reconstruction requested for {:?}",
+                trigger_plan.reconstruct_hkt_ids
+            ));
         } else {
-            notes.push("Reconstruction action: no rebuild performed".to_string());
+            notes.push(
+                "SECA trigger action plan: no HKT-local reconstruction requested".to_string(),
+            );
         }
 
         let mut reason_codes = vec![
@@ -265,10 +274,54 @@ impl SecaEngine {
 
         if reconstruction_triggered {
             reason_codes.push("SECA_RECONSTRUCTION_TRIGGERED".to_string());
-            reason_codes.push("SECA_FULL_REBUILD_EXECUTED".to_string());
+            reason_codes.push("SECA_REBUILD_ACTION_REQUESTED".to_string());
         } else {
             reason_codes.push("SECA_RECONSTRUCTION_SKIPPED".to_string());
         }
+
+        if reconstruction_triggered {
+            let selected_rebuild_plan =
+                self.build_selected_hkt_rebuild_plan_from_trigger_plan(&batch, &trigger_plan)?;
+            notes.push(self.format_selected_hkt_rebuild_plan_note(&selected_rebuild_plan));
+
+            self.execute_rebuild_action_for_trigger_plan(&trigger_plan.reconstruct_hkt_ids)?;
+
+            // Backward-compatible note for existing tests
+            notes.push(
+                "Reconstruction action: full rebuild from stored batches completed".to_string(),
+            );
+
+            // New transitional note (keeps visibility of the selected-HKT intent)
+            notes.push(
+        "Reconstruction action: selected-HKT rebuild requested (currently full rebuild fallback) completed"
+            .to_string(),
+    );
+            let report =
+                self.build_selected_hkt_execution_report(&batch, &selected_rebuild_plan)?;
+            notes.push(self.format_selected_hkt_execution_report_note(&report));
+
+            match self.rebuild_mode {
+                crate::engine::rebuild::RebuildMode::FullFromAllBatches => {
+                    reason_codes.push("SECA_FULL_REBUILD_EXECUTED".to_string());
+                }
+                crate::engine::rebuild::RebuildMode::HybridFullOnRootTrigger => {
+                    reason_codes.push("SECA_HYBRID_REBUILD_FALLBACK_EXECUTED".to_string());
+                }
+                crate::engine::rebuild::RebuildMode::SubtreeTargeted => {
+                    reason_codes.push("SECA_SELECTED_REBUILD_FALLBACK_EXECUTED".to_string());
+                }
+            }
+
+            if self.rebuild_mode == crate::engine::rebuild::RebuildMode::SubtreeTargeted {
+                let dry_run =
+                    self.build_selected_hkt_subtree_dry_run_report(&selected_rebuild_plan)?;
+                notes.push(self.format_selected_hkt_subtree_dry_run_report_note(&dry_run));
+            }
+        } else {
+            // Backward-compatible note for existing tests
+            notes.push("Reconstruction action: no rebuild performed".to_string());
+        }
+
         self.last_update_explanation = Some(UpdateExplanation {
             summary: format!(
                 "Processed batch {} (trigger evaluated: reconstruction_triggered={})",

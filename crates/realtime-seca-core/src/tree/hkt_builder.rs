@@ -413,14 +413,22 @@ impl HktBuilder {
     }
 
     fn update_word_number_of_sources(&self, records: &mut [SourceWordRecord]) {
-        let mut counts_by_word_id: HashMap<i32, usize> = HashMap::new();
+        use std::collections::{BTreeSet, HashMap};
+
+        let mut source_ids_by_word_id: HashMap<i32, BTreeSet<i32>> = HashMap::new();
 
         for record in records.iter() {
-            *counts_by_word_id.entry(record.word_id).or_insert(0) += 1;
+            source_ids_by_word_id
+                .entry(record.word_id)
+                .or_default()
+                .insert(record.source_id);
         }
 
         for record in records.iter_mut() {
-            record.word_number_of_sources = *counts_by_word_id.get(&record.word_id).unwrap_or(&0);
+            record.word_number_of_sources = source_ids_by_word_id
+                .get(&record.word_id)
+                .map(|source_ids| source_ids.len())
+                .unwrap_or(0);
         }
     }
 }

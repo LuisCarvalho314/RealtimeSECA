@@ -6,6 +6,11 @@ pub enum MemoryMode {
     SlidingWindow,
 }
 
+pub enum IncrementalStrategy {
+    FullRebuildOnly,
+    Hybrid,
+    TargetedSubtree,
+}
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct HktBuilderConfig {
     /// Equivalent to "minimum_threshold_against_max_word_count" in the C# HKT builder.
