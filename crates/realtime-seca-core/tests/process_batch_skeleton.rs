@@ -20,7 +20,7 @@ fn base_config() -> SecaConfig {
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,
-        trigger_policy_mode: TriggerPolicyMode::Placeholder,
+        trigger_policy_mode: TriggerPolicyMode::PaperDiagnosticScaffold,
     }
 }
 
@@ -305,7 +305,7 @@ fn process_batch_notes_include_recursive_trigger_plan_messages() {
 }
 
 #[test]
-fn process_batch_can_skip_reconstruction_with_relaxed_thresholds() {
+fn process_batch_relaxed_thresholds_can_skip_reconstruction_under_paper_policy() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 1.0;
     config.seca_thresholds.beta = 0.0;
@@ -319,7 +319,7 @@ fn process_batch_can_skip_reconstruction_with_relaxed_thresholds() {
     let result = engine.process_batch(batch_one()).unwrap();
     assert!(
         !result.reconstruction_triggered,
-        "expected no trigger under very relaxed thresholds"
+        "expected no trigger under relaxed thresholds with paper policy"
     );
 
     let explanation = engine.explain_last_update().unwrap();
@@ -355,7 +355,7 @@ fn process_batch_can_trigger_reconstruction_with_strict_thresholds() {
 }
 
 #[test]
-fn process_batch_no_trigger_keeps_tree_unchanged() {
+fn process_batch_paper_policy_relaxed_thresholds_keep_tree_unchanged() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 1.0;
     config.seca_thresholds.beta = 0.0;
@@ -377,7 +377,7 @@ fn process_batch_no_trigger_keeps_tree_unchanged() {
 
     assert_eq!(
         before, after,
-        "tree should remain unchanged when no rebuild is triggered"
+        "tree should remain unchanged when no rebuild is triggered under paper policy"
     );
 }
 
@@ -445,7 +445,7 @@ fn process_batch_trigger_path_notes_mention_rebuild_completed() {
 }
 
 #[test]
-fn process_batch_no_trigger_path_notes_mention_no_rebuild() {
+fn process_batch_paper_policy_no_trigger_notes_mention_no_rebuild() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 1.0;
     config.seca_thresholds.beta = 0.0;

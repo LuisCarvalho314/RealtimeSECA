@@ -6,7 +6,7 @@ use std::collections::BTreeSet;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceWordRecord {
     pub source_word_id: i32,
-    pub source_id: i32,
+    pub source_id: i64,
     pub word_id: i32,
     pub word: Option<String>,
     pub word_number_of_sources: usize,
@@ -18,7 +18,7 @@ pub struct Node {
     pub node_id: i32,
     pub hkt_id: i32,
     pub word_ids: BTreeSet<i32>,
-    pub source_ids: BTreeSet<i32>,
+    pub source_ids: BTreeSet<i64>,
     pub top_words: BTreeSet<i32>,
     pub words_for_display: Option<String>,
     pub number_of_sources_for_display: Option<usize>,

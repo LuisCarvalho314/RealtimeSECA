@@ -70,7 +70,7 @@ impl Default for SecaConfig {
             seca_thresholds: SecaThresholdConfig::default(),
             memory_mode: MemoryMode::Full,
             max_batches_in_memory: None,
-            trigger_policy_mode: TriggerPolicyMode::Placeholder,
+            trigger_policy_mode: TriggerPolicyMode::PaperDiagnosticScaffold,
         }
     }
 }

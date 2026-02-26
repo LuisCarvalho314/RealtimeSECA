@@ -30,9 +30,11 @@ pub struct SecaEngine {
     has_baseline: bool,
     hkt_build_output: Option<HktBuildOutput>,
     baseline_word_legend: BTreeMap<i32, String>,
-    baseline_source_legend: BTreeMap<i32, String>,
+    baseline_source_legend: BTreeMap<i64, String>,
     processed_batches: Vec<SourceBatch>,
     last_batch_word_stats_summary: Option<BatchWordStatsSummary>,
+    source_id_by_url: BTreeMap<String, i64>,
+    url_by_source_id: BTreeMap<i64, String>,
 }
 
 impl SecaEngine {
@@ -75,6 +77,8 @@ impl SecaEngine {
             baseline_source_legend: std::collections::BTreeMap::new(),
             processed_batches: Vec::new(),
             last_batch_word_stats_summary: None,
+            source_id_by_url: BTreeMap::new(),
+            url_by_source_id: BTreeMap::new(),
         })
     }
     pub fn set_rebuild_mode(&mut self, rebuild_mode: rebuild::RebuildMode) {
@@ -284,18 +288,34 @@ impl SecaEngine {
                 self.build_selected_hkt_rebuild_plan_from_trigger_plan(&batch, &trigger_plan)?;
             notes.push(self.format_selected_hkt_rebuild_plan_note(&selected_rebuild_plan));
 
-            self.execute_rebuild_action_for_trigger_plan(&trigger_plan.reconstruct_hkt_ids)?;
+            if self.rebuild_mode == crate::engine::rebuild::RebuildMode::SubtreeTargeted {
+                let dry_run = self.build_selected_hkt_subtree_dry_run_report(
+                    &selected_rebuild_plan,
+                    &trigger_plan,
+                )?;
+                notes.push(self.format_selected_hkt_subtree_dry_run_report_note(&dry_run));
+            }
 
-            // Backward-compatible note for existing tests
-            notes.push(
-                "Reconstruction action: full rebuild from stored batches completed".to_string(),
-            );
+            if self.rebuild_mode == crate::engine::rebuild::RebuildMode::SubtreeTargeted {
+                self.rebuild_selected_hkts_from_trigger_plan(&batch, &trigger_plan)?;
+                notes.push(
+                    "Reconstruction action: selected-HKT subtree rebuild completed".to_string(),
+                );
+            } else {
+                self.execute_rebuild_action_for_trigger_plan(&trigger_plan.reconstruct_hkt_ids)?;
+                // Backward-compatible note for existing tests
+                notes.push(
+                    "Reconstruction action: full rebuild from stored batches completed".to_string(),
+                );
+            }
 
             // New transitional note (keeps visibility of the selected-HKT intent)
             notes.push(
-        "Reconstruction action: selected-HKT rebuild requested (currently full rebuild fallback) completed"
-            .to_string(),
-    );
+                  "Reconstruction action: selected-HKT rebuild requested (currently full rebuild fallback)
+  completed"
+                      .to_string(),
+              );
+
             let report =
                 self.build_selected_hkt_execution_report(&batch, &selected_rebuild_plan)?;
             notes.push(self.format_selected_hkt_execution_report_note(&report));
@@ -310,12 +330,6 @@ impl SecaEngine {
                 crate::engine::rebuild::RebuildMode::SubtreeTargeted => {
                     reason_codes.push("SECA_SELECTED_REBUILD_FALLBACK_EXECUTED".to_string());
                 }
-            }
-
-            if self.rebuild_mode == crate::engine::rebuild::RebuildMode::SubtreeTargeted {
-                let dry_run =
-                    self.build_selected_hkt_subtree_dry_run_report(&selected_rebuild_plan)?;
-                notes.push(self.format_selected_hkt_subtree_dry_run_report_note(&dry_run));
             }
         } else {
             // Backward-compatible note for existing tests
@@ -343,5 +357,45 @@ impl SecaEngine {
 
     pub fn last_batch_word_stats_summary(&self) -> Option<&BatchWordStatsSummary> {
         self.last_batch_word_stats_summary.as_ref()
+    }
+    fn fnv1a_64(input: &str) -> i64 {
+        const FNV_OFFSET: u64 = 0xcbf29ce484222325;
+        const FNV_PRIME: u64 = 0x100000001b3;
+        let mut hash = FNV_OFFSET;
+        for b in input.as_bytes() {
+            hash ^= *b as u64;
+            hash = hash.wrapping_mul(FNV_PRIME);
+        }
+        hash as i64
+    }
+
+    fn stable_source_id(&mut self, url: &str) -> i64 {
+        if let Some(existing) = self.source_id_by_url.get(url) {
+            return *existing;
+        }
+
+        let mut attempt = 0usize;
+        loop {
+            let candidate = if attempt == 0 {
+                Self::fnv1a_64(url)
+            } else {
+                Self::fnv1a_64(&format!("{url}#{attempt}"))
+            };
+
+            match self.url_by_source_id.get(&candidate) {
+                None => {
+                    self.source_id_by_url.insert(url.to_string(), candidate);
+                    self.url_by_source_id.insert(candidate, url.to_string());
+                    return candidate;
+                }
+                Some(existing_url) if existing_url == url => {
+                    self.source_id_by_url.insert(url.to_string(), candidate);
+                    return candidate;
+                }
+                Some(_) => {
+                    attempt += 1;
+                }
+            }
+        }
     }
 }

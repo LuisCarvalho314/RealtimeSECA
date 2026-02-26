@@ -336,7 +336,7 @@ impl HktBuilder {
         &self,
         new_node_id: i32,
         hkt_id: i32,
-        refuge_sources: &BTreeSet<i32>,
+        refuge_sources: &BTreeSet<i64>,
     ) -> Node {
         let mut node = Node::new(new_node_id, hkt_id);
         node.word_ids.insert(-1); // C# refuge marker
@@ -364,7 +364,7 @@ impl HktBuilder {
     fn find_best_collided_node_index(
         &self,
         nodes: &[Node],
-        sources_of_expected_word: &BTreeSet<i32>,
+        sources_of_expected_word: &BTreeSet<i64>,
     ) -> Option<usize> {
         let mut best_index: Option<usize> = None;
         let mut best_score: f64 = f64::MIN;
@@ -415,7 +415,7 @@ impl HktBuilder {
     fn update_word_number_of_sources(&self, records: &mut [SourceWordRecord]) {
         use std::collections::{BTreeSet, HashMap};
 
-        let mut source_ids_by_word_id: HashMap<i32, BTreeSet<i32>> = HashMap::new();
+        let mut source_ids_by_word_id: HashMap<i32, BTreeSet<i64>> = HashMap::new();
 
         for record in records.iter() {
             source_ids_by_word_id
@@ -480,7 +480,7 @@ fn first_entry(source_word_map: &BTreeMap<i32, SourceWordRecord>) -> Option<&Sou
 fn source_ids_for_word(
     source_word_map: &BTreeMap<i32, SourceWordRecord>,
     word_id: i32,
-) -> BTreeSet<i32> {
+) -> BTreeSet<i64> {
     source_word_map
         .values()
         .filter_map(|record| (record.word_id == word_id).then_some(record.source_id))
@@ -490,13 +490,13 @@ fn source_ids_for_word(
 fn find_refugee_sources(
     source_word_map: &BTreeMap<i32, SourceWordRecord>,
     nodes: &[Node],
-) -> BTreeSet<i32> {
-    let all_remaining_sources: BTreeSet<i32> = source_word_map
+) -> BTreeSet<i64> {
+    let all_remaining_sources: BTreeSet<i64> = source_word_map
         .values()
         .map(|record| record.source_id)
         .collect();
 
-    let node_sources: BTreeSet<i32> = nodes
+    let node_sources: BTreeSet<i64> = nodes
         .iter()
         .flat_map(|node| node.source_ids.iter().copied())
         .collect();

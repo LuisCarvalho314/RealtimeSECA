@@ -66,7 +66,7 @@ pub struct BaselineNodeExport {
     pub node_id: i32,
     pub hkt_id: i32,
     pub word_ids: Vec<i32>,
-    pub source_ids: Vec<i32>,
+    pub source_ids: Vec<i64>,
     pub top_words: Vec<i32>,
     pub is_refuge_node: bool,
 }
@@ -106,7 +106,7 @@ pub struct VerboseWordRef {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerboseSourceRef {
-    pub internal_source_id: i32,
+    pub internal_source_id: i64,
     pub external_source_id: String,
 }
 
@@ -118,7 +118,7 @@ pub struct WordLegendEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceLegendEntry {
-    pub internal_source_id: i32,
+    pub internal_source_id: i64,
     pub external_source_id: String,
 }
 
