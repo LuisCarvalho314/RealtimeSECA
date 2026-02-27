@@ -6,6 +6,8 @@ use realtime_seca_core::{
     SourceRecord,
 };
 
+mod common;
+
 fn base_config() -> SecaConfig {
     SecaConfig {
         hkt_builder: HktBuilderConfig {
@@ -526,5 +528,86 @@ fn process_batch_rebuild_path_is_deterministic_for_same_sequence() {
     assert_eq!(
         final_a, final_b,
         "final rebuilt tree should be deterministic"
+    );
+}
+
+#[test]
+fn large_dataset_chunked_seca_light_trims_retained_batches() {
+    let mut config = base_config();
+    config.memory_mode = MemoryMode::SlidingWindow;
+    config.max_batches_in_memory = Some(2);
+    config.seca_thresholds.word_importance_error_threshold = 1.0;
+    config.seca_thresholds.word_importance_option1_threshold = 1.0;
+
+    let mut chunks = common::chunked_large_batches_8();
+    let baseline = chunks.remove(0);
+
+    let mut engine = SecaEngine::new(config).unwrap();
+    engine.build_baseline_tree(baseline).unwrap();
+
+    for batch in chunks {
+        engine.process_batch(batch).unwrap();
+    }
+
+    assert_eq!(engine.stored_batch_count(), 2);
+
+    let explanation = engine.explain_last_update().expect("missing explanation");
+    assert!(
+        explanation
+            .reason_codes
+            .iter()
+            .any(|code| code == "SECA_LIGHT_PRUNING_APPLIED"),
+        "expected SECA_LIGHT_PRUNING_APPLIED reason code"
+    );
+}
+
+#[test]
+fn large_dataset_chunked_seca_light_prunes_old_source_identity_entries() {
+    let mut config = base_config();
+    config.memory_mode = MemoryMode::SlidingWindow;
+    config.max_batches_in_memory = Some(2);
+    config.seca_thresholds.word_importance_error_threshold = 1.0;
+    config.seca_thresholds.word_importance_option1_threshold = 1.0;
+
+    let mut chunks = common::chunked_large_batches_8();
+    let first_chunk_source_ids: Vec<String> = chunks[0]
+        .sources
+        .iter()
+        .map(|source| source.source_id.clone())
+        .collect();
+    let retained_tail_source_ids: Vec<String> = chunks[6]
+        .sources
+        .iter()
+        .chain(chunks[7].sources.iter())
+        .map(|source| source.source_id.clone())
+        .collect();
+
+    let baseline = chunks.remove(0);
+
+    let mut engine = SecaEngine::new(config).unwrap();
+    engine.build_baseline_tree(baseline).unwrap();
+    for batch in chunks {
+        engine.process_batch(batch).unwrap();
+    }
+
+    let exported = engine.export_baseline_tree_verbose().unwrap();
+    let exported_sources: Vec<&str> = exported
+        .source_legend
+        .iter()
+        .map(|entry| entry.external_source_id.as_str())
+        .collect();
+
+    for old_source_id in &first_chunk_source_ids {
+        assert!(
+            !exported_sources.contains(&old_source_id.as_str()),
+            "expected early source to be pruned from source legend: {old_source_id}"
+        );
+    }
+
+    assert!(
+        retained_tail_source_ids
+            .iter()
+            .any(|id| exported_sources.contains(&id.as_str())),
+        "expected at least one source from retained tail batches in source legend"
     );
 }

@@ -4,8 +4,8 @@ use realtime_seca_core::config::{
 };
 use realtime_seca_core::{HktBuilderConfig, SecaEngine, SourceBatch};
 use std::collections::{BTreeMap, BTreeSet};
-use std::fs;
-use std::path::Path;
+
+mod common;
 
 fn test_config() -> SecaConfig {
     SecaConfig {
@@ -39,11 +39,7 @@ fn test_config() -> SecaConfig {
 }
 
 fn load_large_batch() -> SourceBatch {
-    let path = Path::new("tests/data/large_batch.json");
-    let contents = fs::read_to_string(path)
-        .unwrap_or_else(|error| panic!("failed to read {}: {error}", path.display()));
-    serde_json::from_str(&contents)
-        .unwrap_or_else(|error| panic!("failed to parse {}: {error}", path.display()))
+    common::load_large_batch_fixture()
 }
 
 fn build_engine_for_batch(batch: SourceBatch) -> SecaEngine {
@@ -197,4 +193,59 @@ fn large_dataset_has_at_least_one_root_hkt_and_one_node() {
     assert!(root_count >= 1, "expected at least one root HKT");
 
     assert!(!tree.nodes.is_empty(), "expected at least one node");
+}
+
+#[test]
+fn large_dataset_chunked_seca_processes_all_batches_in_sequence() {
+    let mut chunks = common::chunked_large_batches_8();
+    let baseline = chunks.remove(0);
+
+    let mut engine = SecaEngine::new(test_config()).expect("engine should be created");
+    engine
+        .build_baseline_tree(baseline)
+        .expect("baseline build should succeed");
+
+    for expected_batch_index in 1u32..=7u32 {
+        let batch = chunks.remove(0);
+        assert_eq!(batch.batch_index, expected_batch_index);
+        let result = engine.process_batch(batch).expect("batch should process");
+        assert_eq!(result.batch_index, expected_batch_index);
+    }
+
+    let snapshot = engine.snapshot().expect("snapshot should be available");
+    assert_eq!(snapshot.last_processed_batch_index, Some(7));
+}
+
+#[test]
+fn large_dataset_chunked_seca_produces_non_empty_verbose_export() {
+    let mut chunks = common::chunked_large_batches_8();
+    let baseline = chunks.remove(0);
+
+    let mut engine = SecaEngine::new(test_config()).expect("engine should be created");
+    engine
+        .build_baseline_tree(baseline)
+        .expect("baseline build should succeed");
+
+    for batch in chunks {
+        engine
+            .process_batch(batch)
+            .expect("chunked batch should process");
+    }
+
+    let tree = engine
+        .export_baseline_tree_verbose()
+        .expect("verbose export should succeed");
+    validate_verbose_tree_invariants(&tree).expect("tree invariants should hold");
+    assert!(
+        !tree.hkts.is_empty(),
+        "expected hkts after chunked processing"
+    );
+    assert!(
+        !tree.word_legend.is_empty(),
+        "expected word legend after chunked processing"
+    );
+    assert!(
+        !tree.source_legend.is_empty(),
+        "expected source legend after chunked processing"
+    );
 }
