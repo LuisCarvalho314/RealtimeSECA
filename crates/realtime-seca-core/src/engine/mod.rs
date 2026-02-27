@@ -8,7 +8,7 @@ use crate::types::{
     VerboseSourceRef, VerboseWordRef, WordLegendEntry,
 };
 use crate::ENGINE_VERSION;
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet};
 
 mod baseline;
 pub(crate) mod batch_stats;

@@ -1,6 +1,6 @@
 use crate::error::SecaError;
 use crate::tree::models::{Hkt, Node, SourceWordRecord};
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Debug, Clone)]
 pub struct HktBuildOutput {
