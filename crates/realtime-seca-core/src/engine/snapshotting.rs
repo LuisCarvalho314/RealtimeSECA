@@ -3,10 +3,21 @@ use super::*;
 impl SecaEngine {
     pub fn snapshot(&self) -> Result<EngineSnapshot, SecaError> {
         Ok(EngineSnapshot {
-            schema_version: 2,
+            schema_version: 3,
             engine_version: ENGINE_VERSION.to_string(),
             config: self.config.clone(),
+            has_baseline: self.has_baseline,
             last_processed_batch_index: self.last_processed_batch_index,
+            hkt_build_output: self.hkt_build_output.clone(),
+            baseline_word_legend: self.baseline_word_legend.clone(),
+            baseline_source_legend: self.baseline_source_legend.clone(),
+            processed_batches: self.processed_batches.clone(),
+            last_batch_word_stats_summary: self.last_batch_word_stats_summary.clone(),
+            source_id_by_url: self.source_id_by_url.clone(),
+            url_by_source_id: self.url_by_source_id.clone(),
+            source_batch_index_by_internal_source_id: self.source_batch_index_by_internal_source_id.clone(),
+            source_ids_by_batch_index: self.source_ids_by_batch_index.clone(),
+            archived_subtrees_by_root_id: self.archived_subtrees_by_root_id.clone(),
             logically_removed_hkts_by_id: self
                 .logically_removed_hkts_by_id
                 .iter()
@@ -20,15 +31,27 @@ impl SecaEngine {
                     )
                 })
                 .collect(),
+            node_diagnostics_by_id: self.node_diagnostics_by_id.clone(),
+            next_hkt_id: self.next_hkt_id,
+            next_node_id: self.next_node_id,
         })
     }
 
     pub fn load_snapshot(snapshot: EngineSnapshot) -> Result<Self, SecaError> {
         let mut engine = Self::new(snapshot.config)?;
         engine.last_processed_batch_index = snapshot.last_processed_batch_index;
-        engine.has_baseline = snapshot.last_processed_batch_index.is_some();
+        engine.has_baseline = snapshot.has_baseline;
         engine.last_update_explanation = None;
-        engine.hkt_build_output = None;
+        engine.hkt_build_output = snapshot.hkt_build_output;
+        engine.baseline_word_legend = snapshot.baseline_word_legend;
+        engine.baseline_source_legend = snapshot.baseline_source_legend;
+        engine.processed_batches = snapshot.processed_batches;
+        engine.last_batch_word_stats_summary = snapshot.last_batch_word_stats_summary;
+        engine.source_id_by_url = snapshot.source_id_by_url;
+        engine.url_by_source_id = snapshot.url_by_source_id;
+        engine.source_batch_index_by_internal_source_id = snapshot.source_batch_index_by_internal_source_id;
+        engine.source_ids_by_batch_index = snapshot.source_ids_by_batch_index;
+        engine.archived_subtrees_by_root_id = snapshot.archived_subtrees_by_root_id;
         engine.logically_removed_hkts_by_id = snapshot
             .logically_removed_hkts_by_id
             .into_iter()
@@ -42,6 +65,16 @@ impl SecaEngine {
                 )
             })
             .collect();
+        engine.node_diagnostics_by_id = snapshot.node_diagnostics_by_id;
+        engine.next_hkt_id = snapshot.next_hkt_id;
+        engine.next_node_id = snapshot.next_node_id;
+
+        if engine.has_baseline && engine.hkt_build_output.is_none() {
+            return Err(SecaError::StateError {
+                message: "snapshot indicates baseline exists but tree state is missing".to_string(),
+            });
+        }
+
         Ok(engine)
     }
 
@@ -185,6 +218,7 @@ impl SecaEngine {
                     .map(|word_id| map_word_ref(word_id, &self.baseline_word_legend))
                     .collect(),
                 is_refuge_node: node.is_refuge_node(),
+                diagnostics: self.node_diagnostics_by_id.get(&node.node_id).cloned(),
             })
             .collect();
 

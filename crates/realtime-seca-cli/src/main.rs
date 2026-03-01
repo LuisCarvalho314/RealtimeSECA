@@ -1,12 +1,15 @@
 use axum::{extract::Extension, response::IntoResponse, routing::get, Json, Router};
+use chrono::{DateTime, NaiveDate, NaiveDateTime, TimeZone, Utc};
 use realtime_seca_core::{
-    types::BaselineTreeVerboseExport, SecaConfig, SecaEngine, SourceBatch, SourceRecord,
+    types::BaselineTreeVerboseExport, EngineSnapshot, SecaConfig, SecaEngine, SourceBatch,
+    SourceRecord,
 };
 use regex::Regex;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 use std::env;
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use stop_words::{get as get_stop_words, LANGUAGE};
 use tokio::runtime::Runtime;
@@ -29,6 +32,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     match arguments[1].as_str() {
         "baseline" => run_baseline_command(&arguments)?,
         "timeline" => run_timeline_command(&arguments)?,
+        "incremental" => run_incremental_command(&arguments)?,
         "from-csv" => run_from_csv_command(&arguments)?,
         "serve" => run_serve_command(&arguments)?,
         _ => print_usage(&arguments),
@@ -139,13 +143,171 @@ fn run_baseline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::
     Ok(())
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct TimelineManifest {
+    batching_mode: String,
     total_batches: usize,
+    days: Vec<String>,
     sources_total: usize,
-    chunk_count: usize,
-    chunk_size_effective: usize,
+    sources_batched: usize,
+    sources_skipped_invalid_timestamp: usize,
     files: Vec<String>,
+}
+
+fn run_incremental_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
+    if arguments.len() < 3 {
+        print_usage(arguments);
+        return Ok(());
+    }
+
+    let input_path = arguments[2].clone();
+    let mut out_dir: Option<String> = None;
+    let mut config_path: Option<String> = None;
+    let mut snapshot_in_path: Option<String> = None;
+    let mut snapshot_out_path: Option<String> = None;
+    let mut clean_out_dir = false;
+
+    let mut index = 3;
+    while index < arguments.len() {
+        match arguments[index].as_str() {
+            "--out-dir" => {
+                let Some(value) = arguments.get(index + 1) else {
+                    return Err("missing value for --out-dir".into());
+                };
+                out_dir = Some(value.clone());
+                index += 2;
+            }
+            "--config" => {
+                let Some(value) = arguments.get(index + 1) else {
+                    return Err("missing value for --config".into());
+                };
+                config_path = Some(value.clone());
+                index += 2;
+            }
+            "--snapshot-in" => {
+                let Some(value) = arguments.get(index + 1) else {
+                    return Err("missing value for --snapshot-in".into());
+                };
+                snapshot_in_path = Some(value.clone());
+                index += 2;
+            }
+            "--snapshot-out" => {
+                let Some(value) = arguments.get(index + 1) else {
+                    return Err("missing value for --snapshot-out".into());
+                };
+                snapshot_out_path = Some(value.clone());
+                index += 2;
+            }
+            "--clean-out-dir" => {
+                clean_out_dir = true;
+                index += 1;
+            }
+            unknown_flag => return Err(format!("unknown argument: {unknown_flag}").into()),
+        }
+    }
+
+    let out_dir = out_dir.ok_or_else(|| "--out-dir is required".to_string())?;
+    let snapshot_out_path =
+        snapshot_out_path.ok_or_else(|| "--snapshot-out is required".to_string())?;
+    let batch = read_source_batch_json(&input_path)?;
+    if batch.sources.is_empty() {
+        return Err("input batch has no sources".into());
+    }
+
+    let config_from_arg = if let Some(path) = config_path {
+        Some(read_config_json(path)?)
+    } else {
+        None
+    };
+
+    let snapshot_in = snapshot_in_path
+        .as_ref()
+        .map(PathBuf::from)
+        .filter(|path| path.exists());
+
+    let snapshot_from_disk = if let Some(path) = snapshot_in {
+        Some(read_snapshot_json(path)?)
+    } else {
+        None
+    };
+
+    if let (Some(config), Some(snapshot)) = (config_from_arg.as_ref(), snapshot_from_disk.as_ref()) {
+        if &snapshot.config != config {
+            return Err(
+                "snapshot config does not match --config; rebuild variant state or use matching config"
+                    .into(),
+            );
+        }
+    }
+
+    let mut engine = if let Some(snapshot) = snapshot_from_disk {
+        SecaEngine::load_snapshot(snapshot)?
+    } else {
+        let config = config_from_arg.unwrap_or_else(SecaConfig::default);
+        SecaEngine::new(config)?
+    };
+
+    let result = if engine.snapshot()?.last_processed_batch_index.is_some() {
+        engine.process_batch(batch.clone())?
+    } else {
+        engine.build_baseline_tree(batch.clone())?
+    };
+
+    let output_dir = Path::new(&out_dir);
+    if clean_out_dir && output_dir.exists() {
+        fs::remove_dir_all(output_dir)?;
+    }
+    fs::create_dir_all(output_dir)?;
+
+    let file_name = format!("tree_batch_{:04}.json", result.batch_index);
+    let file_path = output_dir.join(&file_name);
+    let verbose_tree_export = engine.export_baseline_tree_verbose()?;
+    let verbose_tree_json = serde_json::to_string_pretty(&verbose_tree_export)?;
+    fs::write(&file_path, verbose_tree_json)?;
+
+    let (_, day_labels, skipped_invalid_timestamp) = split_batch_into_daily_chunks_utc(&batch)?;
+    let manifest_path = output_dir.join("timeline_manifest.json");
+    let mut manifest = if manifest_path.exists() {
+        read_timeline_manifest_json(&manifest_path)?
+    } else {
+        TimelineManifest {
+            batching_mode: "daily_utc_incremental".to_string(),
+            total_batches: 0,
+            days: Vec::new(),
+            sources_total: 0,
+            sources_batched: 0,
+            sources_skipped_invalid_timestamp: 0,
+            files: Vec::new(),
+        }
+    };
+
+    manifest.batching_mode = "daily_utc_incremental".to_string();
+    manifest.total_batches = manifest.total_batches.saturating_add(1);
+    for day in day_labels {
+        if !manifest.days.contains(&day) {
+            manifest.days.push(day);
+        }
+    }
+    manifest.sources_total = manifest.sources_total.saturating_add(batch.sources.len());
+    manifest.sources_batched = manifest.sources_batched.saturating_add(result.sources_processed);
+    manifest.sources_skipped_invalid_timestamp = manifest
+        .sources_skipped_invalid_timestamp
+        .saturating_add(skipped_invalid_timestamp);
+    manifest.files.push(file_name);
+    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
+
+    let snapshot = engine.snapshot()?;
+    let snapshot_json = serde_json::to_string_pretty(&snapshot)?;
+    fs::write(&snapshot_out_path, snapshot_json)?;
+
+    println!("Incremental build completed");
+    println!("Batch index processed: {}", result.batch_index);
+    println!("Sources processed: {}", result.sources_processed);
+    println!("Output directory: {}", output_dir.display());
+    println!("Manifest written to {}", manifest_path.display());
+    println!("Snapshot written to {}", snapshot_out_path);
+
+    Ok(())
 }
 
 fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
@@ -157,8 +319,9 @@ fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::
     let input_path = arguments[2].clone();
     let mut out_dir: Option<String> = None;
     let mut config_path: Option<String> = None;
-    let mut chunk_count: Option<usize> = None;
-    let mut chunk_size: Option<usize> = None;
+    let mut chunk_count_flag_seen = false;
+    let mut chunk_size_flag_seen = false;
+    let mut use_risklive_news_data = false;
     let mut clean_out_dir = false;
 
     let mut index = 3;
@@ -182,52 +345,53 @@ fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::
                 let Some(value) = arguments.get(index + 1) else {
                     return Err("missing value for --chunk-count".into());
                 };
-                chunk_count = Some(value.parse::<usize>()?);
+                let _ = value.parse::<usize>()?;
+                chunk_count_flag_seen = true;
                 index += 2;
             }
             "--chunk-size" => {
                 let Some(value) = arguments.get(index + 1) else {
                     return Err("missing value for --chunk-size".into());
                 };
-                chunk_size = Some(value.parse::<usize>()?);
+                let _ = value.parse::<usize>()?;
+                chunk_size_flag_seen = true;
                 index += 2;
             }
             "--clean-out-dir" => {
                 clean_out_dir = true;
                 index += 1;
             }
+            "--use-risklive-news-data" => {
+                use_risklive_news_data = true;
+                index += 1;
+            }
             unknown_flag => return Err(format!("unknown argument: {unknown_flag}").into()),
         }
     }
 
-    if chunk_count.is_some() && chunk_size.is_some() {
-        return Err("use either --chunk-count or --chunk-size, not both".into());
+    if chunk_count_flag_seen || chunk_size_flag_seen {
+        return Err(
+            "timeline now batches by UTC day; --chunk-count/--chunk-size are no longer supported"
+                .into(),
+        );
     }
 
     let out_dir = out_dir.ok_or_else(|| "--out-dir is required".to_string())?;
-    let batch = read_source_batch_json(&input_path)?;
+    let batch = if use_risklive_news_data {
+        load_risklive_news_data_batch()?
+    } else {
+        read_source_batch_json(&input_path)?
+    };
     if batch.sources.is_empty() {
         return Err("input batch has no sources".into());
     }
 
     let total_sources = batch.sources.len();
-    let resolved_chunk_count = match (chunk_count, chunk_size) {
-        (Some(count), None) => count,
-        (None, Some(size)) => {
-            if size == 0 {
-                return Err("--chunk-size must be > 0".into());
-            }
-            total_sources.div_ceil(size)
-        }
-        (None, None) => 8,
-        (Some(_), Some(_)) => unreachable!(),
-    };
-    if resolved_chunk_count == 0 {
-        return Err("--chunk-count must be > 0".into());
+    let (chunks, days, skipped_invalid_timestamp) = split_batch_into_daily_chunks_utc(&batch)?;
+    if chunks.is_empty() {
+        return Err("no valid timestamped sources found for daily UTC batching".into());
     }
-
-    let chunks = split_batch_into_sequential_chunks(&batch, resolved_chunk_count)?;
-    let chunk_size_effective = chunks.first().map(|chunk| chunk.sources.len()).unwrap_or(0);
+    let sources_batched = chunks.iter().map(|chunk| chunk.sources.len()).sum::<usize>();
 
     let output_dir = Path::new(&out_dir);
     if clean_out_dir && output_dir.exists() {
@@ -260,10 +424,12 @@ fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::
     }
 
     let manifest = TimelineManifest {
+        batching_mode: "daily_utc".to_string(),
         total_batches: files.len(),
+        days,
         sources_total: total_sources,
-        chunk_count: resolved_chunk_count,
-        chunk_size_effective,
+        sources_batched,
+        sources_skipped_invalid_timestamp: skipped_invalid_timestamp,
         files,
     };
     let manifest_path = output_dir.join("timeline_manifest.json");
@@ -273,51 +439,140 @@ fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn std::error::
     println!("Output directory: {}", output_dir.display());
     println!("Manifest written to {}", manifest_path.display());
     println!("Batches exported: {}", manifest.total_batches);
+    println!(
+        "Sources batched: {} (skipped invalid timestamp: {})",
+        manifest.sources_batched, manifest.sources_skipped_invalid_timestamp
+    );
+    if use_risklive_news_data {
+        println!("Input mode: risklive news CSVs (results/data + results/backup_data)");
+    }
 
     Ok(())
 }
 
-fn split_batch_into_sequential_chunks(
+fn load_risklive_news_data_batch() -> Result<SourceBatch, Box<dyn std::error::Error>> {
+    let repo_root = find_risklive_repo_root()
+        .ok_or("unable to locate RiskLive repo root containing results/data or results/backup_data")?;
+
+    let csv_sources: [(&str, PathBuf); 2] = [
+        ("data", repo_root.join("results").join("data").join("news_data.csv")),
+        (
+            "backup",
+            repo_root
+                .join("results")
+                .join("backup_data")
+                .join("news_data.csv"),
+        ),
+    ];
+
+    let mut merged_sources: Vec<SourceRecord> = Vec::new();
+    for (prefix, csv_path) in csv_sources {
+        if !csv_path.exists() {
+            continue;
+        }
+        let batch = convert_csv_to_source_batch(csv_path, 0, 1)?;
+        for mut source in batch.sources {
+            source.source_id = format!("{prefix}::{}", source.source_id);
+            merged_sources.push(source);
+        }
+    }
+
+    if merged_sources.is_empty() {
+        return Err("no sources loaded from results/data/news_data.csv or results/backup_data/news_data.csv".into());
+    }
+
+    Ok(SourceBatch {
+        batch_index: 0,
+        sources: merged_sources,
+    })
+}
+
+fn find_risklive_repo_root() -> Option<PathBuf> {
+    let start = env::current_dir().ok()?;
+    for ancestor in start.ancestors() {
+        let has_data = ancestor
+            .join("results")
+            .join("data")
+            .join("news_data.csv")
+            .exists();
+        let has_backup = ancestor
+            .join("results")
+            .join("backup_data")
+            .join("news_data.csv")
+            .exists();
+        if has_data || has_backup {
+            return Some(ancestor.to_path_buf());
+        }
+    }
+    None
+}
+
+fn split_batch_into_daily_chunks_utc(
     batch: &SourceBatch,
-    chunk_count: usize,
-) -> Result<Vec<SourceBatch>, Box<dyn std::error::Error>> {
-    if chunk_count == 0 {
-        return Err("chunk_count must be > 0".into());
-    }
+) -> Result<(Vec<SourceBatch>, Vec<String>, usize), Box<dyn std::error::Error>> {
     if batch.sources.is_empty() {
-        return Err("cannot split an empty batch".into());
+        return Ok((Vec::new(), Vec::new(), 0));
     }
 
-    let total = batch.sources.len();
-    let base = total / chunk_count;
-    let remainder = total % chunk_count;
-    let mut start = 0usize;
-    let mut chunks = Vec::with_capacity(chunk_count);
+    const MILLIS_PER_DAY: i64 = 86_400_000;
+    let mut grouped_sources_by_day: BTreeMap<i64, Vec<(SourceRecord, i64)>> = BTreeMap::new();
+    let mut skipped_invalid_timestamp = 0usize;
 
-    for chunk_index in 0..chunk_count {
-        let length = base + usize::from(chunk_index < remainder);
-        let end = start + length;
+    for source in &batch.sources {
+        let Some(timestamp_unix_ms) = extract_source_timestamp_unix_ms(source) else {
+            skipped_invalid_timestamp += 1;
+            continue;
+        };
+        let utc_day_index = timestamp_unix_ms.div_euclid(MILLIS_PER_DAY);
+        grouped_sources_by_day
+            .entry(utc_day_index)
+            .or_default()
+            .push((
+                SourceRecord {
+                    source_id: source.source_id.clone(),
+                    batch_index: 0,
+                    tokens: source.tokens.clone(),
+                    text: source.text.clone(),
+                    timestamp_unix_ms: Some(timestamp_unix_ms),
+                    metadata: source.metadata.clone(),
+                },
+                timestamp_unix_ms,
+            ));
+    }
 
-        let chunk_sources = batch.sources[start..end]
-            .iter()
-            .map(|source| SourceRecord {
-                source_id: source.source_id.clone(),
-                batch_index: chunk_index as u32,
-                tokens: source.tokens.clone(),
-                text: source.text.clone(),
-                timestamp_unix_ms: source.timestamp_unix_ms,
-                metadata: source.metadata.clone(),
+    let mut chunks: Vec<SourceBatch> = Vec::with_capacity(grouped_sources_by_day.len());
+    let mut days: Vec<String> = Vec::with_capacity(grouped_sources_by_day.len());
+
+    for (batch_index, (utc_day_index, mut day_sources)) in grouped_sources_by_day.into_iter().enumerate() {
+        let day_start_ms = utc_day_index.saturating_mul(MILLIS_PER_DAY);
+        let day_label = Utc
+            .timestamp_millis_opt(day_start_ms)
+            .single()
+            .map(|dt| dt.format("%Y-%m-%d").to_string())
+            .unwrap_or_else(|| format!("utc-day-{utc_day_index}"));
+
+        day_sources.sort_by(|(source_a, ts_a), (source_b, ts_b)| {
+            ts_a.cmp(ts_b)
+                .then_with(|| source_a.source_id.cmp(&source_b.source_id))
+        });
+
+        let rebatched_sources = day_sources
+            .into_iter()
+            .map(|(mut source, timestamp_unix_ms)| {
+                source.batch_index = batch_index as u32;
+                source.timestamp_unix_ms = Some(timestamp_unix_ms);
+                source
             })
             .collect::<Vec<_>>();
 
         chunks.push(SourceBatch {
-            batch_index: chunk_index as u32,
-            sources: chunk_sources,
+            batch_index: batch_index as u32,
+            sources: rebatched_sources,
         });
-        start = end;
+        days.push(day_label);
     }
 
-    Ok(chunks)
+    Ok((chunks, days, skipped_invalid_timestamp))
 }
 
 fn run_from_csv_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
@@ -554,15 +809,51 @@ fn normalize_whitespace(input: &str) -> String {
 }
 
 fn parse_timestamp_to_unix_ms(value: &str) -> Option<i64> {
+    parse_timestamp_string_to_unix_ms(value)
+}
+
+fn extract_source_timestamp_unix_ms(source: &SourceRecord) -> Option<i64> {
+    if let Some(ts) = source.timestamp_unix_ms {
+        return Some(ts);
+    }
+
+    let metadata = source.metadata.as_ref()?.as_object()?;
+    for key in ["Timestamp", "API_Timestamp", "timestamp", "api_timestamp"] {
+        if let Some(raw) = metadata.get(key).and_then(|value| value.as_str()) {
+            if let Some(ts) = parse_timestamp_string_to_unix_ms(raw) {
+                return Some(ts);
+            }
+        }
+    }
+    None
+}
+
+fn parse_timestamp_string_to_unix_ms(value: &str) -> Option<i64> {
     let trimmed = value.trim();
     if trimmed.is_empty() {
         return None;
     }
 
-    // Keep this simple for now; add chrono later if needed.
-    // If parsing fails, return None.
-    // You can extend to real parsing with chrono once you inspect your CSV formats.
-    let _ = trimmed;
+    if let Ok(dt) = DateTime::parse_from_rfc3339(trimmed) {
+        return Some(dt.timestamp_millis());
+    }
+    if let Ok(dt) = DateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f%:z") {
+        return Some(dt.timestamp_millis());
+    }
+    if let Ok(dt) = DateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%:z") {
+        return Some(dt.timestamp_millis());
+    }
+    if let Ok(naive_dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f") {
+        return Some(Utc.from_utc_datetime(&naive_dt).timestamp_millis());
+    }
+    if let Ok(naive_dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S") {
+        return Some(Utc.from_utc_datetime(&naive_dt).timestamp_millis());
+    }
+    if let Ok(naive_date) = NaiveDate::parse_from_str(trimmed, "%Y-%m-%d") {
+        if let Some(naive_dt) = naive_date.and_hms_opt(0, 0, 0) {
+            return Some(Utc.from_utc_datetime(&naive_dt).timestamp_millis());
+        }
+    }
     None
 }
 
@@ -580,6 +871,20 @@ fn read_config_json(path: impl AsRef<Path>) -> Result<SecaConfig, Box<dyn std::e
     Ok(config)
 }
 
+fn read_snapshot_json(path: impl AsRef<Path>) -> Result<EngineSnapshot, Box<dyn std::error::Error>> {
+    let file_contents = fs::read_to_string(path)?;
+    let snapshot: EngineSnapshot = serde_json::from_str(&file_contents)?;
+    Ok(snapshot)
+}
+
+fn read_timeline_manifest_json(
+    path: impl AsRef<Path>,
+) -> Result<TimelineManifest, Box<dyn std::error::Error>> {
+    let file_contents = fs::read_to_string(path)?;
+    let manifest: TimelineManifest = serde_json::from_str(&file_contents)?;
+    Ok(manifest)
+}
+
 fn print_usage(arguments: &[String]) {
     let executable_name = arguments
         .first()
@@ -587,7 +892,8 @@ fn print_usage(arguments: &[String]) {
         .unwrap_or("realtime-seca-cli");
     eprintln!("Usage:");
     eprintln!("  {executable_name} baseline <input_batch.json> [--config <config.json>] [--snapshot-out <snapshot.json>] [--dump-tree <tree.json>] [--dump-tree-verbose <tree_verbose.json>] [--print-tree]");
-    eprintln!("  {executable_name} timeline <input_batch.json> --out-dir <dir> [--chunk-count <n> | --chunk-size <n>] [--config <config.json>] [--clean-out-dir]");
+    eprintln!("  {executable_name} timeline <input_batch.json> --out-dir <dir> [--config <config.json>] [--clean-out-dir] [--use-risklive-news-data]");
+    eprintln!("  {executable_name} incremental <input_batch.json> --out-dir <dir> --snapshot-out <snapshot.json> [--snapshot-in <snapshot.json>] [--config <config.json>] [--clean-out-dir]");
     eprintln!("  {executable_name} from-csv <input.csv> <output.json> [--batch-index <n>] [--min-tokens <n>]");
 }
 

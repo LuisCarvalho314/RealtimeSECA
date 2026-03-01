@@ -1,8 +1,9 @@
 use crate::error::SecaError;
 use crate::tree::models::{Hkt, Node, SourceWordRecord};
+use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HktBuildOutput {
     pub hkts_by_id: BTreeMap<i32, Hkt>,
     pub nodes_by_id: BTreeMap<i32, Node>,

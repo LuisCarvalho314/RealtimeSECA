@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 use crate::config::SecaConfig;
-use crate::tree::Hkt;
+use crate::tree::{Hkt, HktBuildOutput};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceRecord {
@@ -46,9 +46,41 @@ pub struct EngineSnapshot {
     pub schema_version: u32,
     pub engine_version: String,
     pub config: SecaConfig,
+    #[serde(default)]
+    pub has_baseline: bool,
     pub last_processed_batch_index: Option<u32>,
     #[serde(default)]
+    pub hkt_build_output: Option<HktBuildOutput>,
+    #[serde(default)]
+    pub baseline_word_legend: BTreeMap<i32, String>,
+    #[serde(default)]
+    pub baseline_source_legend: BTreeMap<i64, String>,
+    #[serde(default)]
+    pub processed_batches: Vec<SourceBatch>,
+    #[serde(default)]
+    pub last_batch_word_stats_summary: Option<BatchWordStatsSummary>,
+    #[serde(default)]
+    pub source_id_by_url: BTreeMap<String, i64>,
+    #[serde(default)]
+    pub url_by_source_id: BTreeMap<i64, String>,
+    #[serde(default)]
+    pub source_batch_index_by_internal_source_id: BTreeMap<i64, u32>,
+    #[serde(default)]
+    pub source_ids_by_batch_index: BTreeMap<u32, BTreeSet<i64>>,
+    #[serde(default)]
+    pub archived_subtrees_by_root_id: BTreeMap<i32, HktBuildOutput>,
+    #[serde(default)]
     pub logically_removed_hkts_by_id: BTreeMap<i32, LogicalRemovedHktSnapshot>,
+    #[serde(default)]
+    pub node_diagnostics_by_id: BTreeMap<i32, BaselineNodeDiagnosticsVerboseExport>,
+    #[serde(default = "default_i32_one")]
+    pub next_hkt_id: i32,
+    #[serde(default = "default_i32_one")]
+    pub next_node_id: i32,
+}
+
+fn default_i32_one() -> i32 {
+    1
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -112,6 +144,30 @@ pub struct BaselineNodeVerboseExport {
     pub sources: Vec<VerboseSourceRef>,
     pub top_words: Vec<VerboseWordRef>,
     pub is_refuge_node: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub diagnostics: Option<BaselineNodeDiagnosticsVerboseExport>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BaselineNodeDiagnosticsVerboseExport {
+    pub hkt_id: i32,
+    pub scoped_source_count: usize,
+    pub mapped_source_count: usize,
+    pub should_reconstruct: bool,
+    #[serde(default)]
+    pub trigger_reasons: Vec<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub alpha_error: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub beta_error: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub word_importance_error: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub paper_alpha_error: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub paper_beta_error: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub paper_word_importance_error: Option<f64>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -1510,7 +1510,7 @@ mod tests {
     // -------------------------
 
     #[test]
-    fn load_snapshot_restores_metadata_but_not_tree_state() {
+    fn load_snapshot_restores_full_tree_state_for_incremental_resume() {
         let mut engine = build_small_baseline_engine();
 
         // Make progress so last_processed_batch_index becomes Some(1)
@@ -1540,14 +1540,7 @@ mod tests {
             original_snapshot.last_processed_batch_index
         );
         assert_eq!(loaded_snapshot.config, original_snapshot.config);
-
-        let export_error = loaded.export_baseline_tree().unwrap_err();
-        match export_error {
-            SecaError::StateError { message } => {
-                assert!(message.contains("baseline tree has not been built yet"));
-            }
-            other => panic!("unexpected error variant: {other:?}"),
-        }
+        assert!(loaded.export_baseline_tree().is_ok());
 
         let logical = loaded_snapshot
             .logically_removed_hkts_by_id
@@ -1558,7 +1551,7 @@ mod tests {
         assert!(logical.hkt.nodes.is_empty());
         assert_eq!(logical.old_parent_node_id, 0);
 
-        let process_error = loaded
+        let resumed_result = loaded
             .clone()
             .process_batch(make_batch(
                 loaded_snapshot
@@ -1567,14 +1560,8 @@ mod tests {
                     .saturating_add(1),
                 &[("n2", &["x"])],
             ))
-            .unwrap_err();
-
-        match process_error {
-            SecaError::StateError { message } => {
-                assert!(message.contains("baseline tree has not been built yet"));
-            }
-            other => panic!("unexpected error variant: {other:?}"),
-        }
+            .unwrap();
+        assert_eq!(resumed_result.batch_index, 2);
     }
 
     #[test]
