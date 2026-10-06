@@ -2,7 +2,7 @@ use crate::error::SecaError;
 use crate::tree::models::{Hkt, Node, SourceWordRecord};
 use std::collections::{BTreeMap, BTreeSet};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct HktBuildOutput {
     pub hkts_by_id: BTreeMap<i32, Hkt>,
     pub nodes_by_id: BTreeMap<i32, Node>,
@@ -75,6 +75,12 @@ impl HktBuilder {
             )?;
         }
 
+        // Keep the two existing node indexes identical, including branch top words.
+        for hkt in state.hkts_by_id.values_mut() {
+            for node in &mut hkt.nodes {
+                *node = state.nodes_by_id[&node.node_id].clone();
+            }
+        }
         Ok(HktBuildOutput {
             hkts_by_id: state.hkts_by_id,
             nodes_by_id: state.nodes_by_id,

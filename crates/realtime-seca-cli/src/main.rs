@@ -1,3 +1,6 @@
+mod update;
+use update::run_update_command;
+
 use axum::{extract::Extension, response::IntoResponse, routing::get, Json, Router};
 use realtime_seca_core::{
     types::BaselineTreeVerboseExport, SecaConfig, SecaEngine, SourceBatch, SourceRecord,
@@ -27,8 +30,10 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     match arguments[1].as_str() {
+        "update" => run_update_command(&arguments)?,
         "baseline" => run_baseline_command(&arguments)?,
         "timeline" => run_timeline_command(&arguments)?,
+        "timeline-many" => run_timeline_many_command(&arguments)?,
         "from-csv" => run_from_csv_command(&arguments)?,
         "serve" => run_serve_command(&arguments)?,
         _ => print_usage(&arguments),
@@ -588,6 +593,8 @@ fn print_usage(arguments: &[String]) {
     eprintln!("Usage:");
     eprintln!("  {executable_name} baseline <input_batch.json> [--config <config.json>] [--snapshot-out <snapshot.json>] [--dump-tree <tree.json>] [--dump-tree-verbose <tree_verbose.json>] [--print-tree]");
     eprintln!("  {executable_name} timeline <input_batch.json> --out-dir <dir> [--chunk-count <n> | --chunk-size <n>] [--config <config.json>] [--clean-out-dir]");
+    eprintln!("  {executable_name} update <batch.json> --config <config.json> [--state-in <state.json>] --state-out <state.json> --dump-tree-verbose <tree.json>");
+    eprintln!("  {executable_name} timeline-many <batch0.json> [batch1.json ...] --out-dir <dir> [--config <config.json>]");
     eprintln!("  {executable_name} from-csv <input.csv> <output.json> [--batch-index <n>] [--min-tokens <n>]");
 }
 
@@ -752,4 +759,200 @@ fn print_hkt_recursive(
 
 fn indent(level: usize) -> String {
     "  ".repeat(level)
+}
+
+// RiskLive compatibility extension: preserve each pre-grouped UTC-day batch.
+// The pinned core engine and existing timeline/from-csv implementations are unchanged.
+fn run_timeline_many_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
+    let mut inputs: Vec<String> = Vec::new();
+    let mut out_dir: Option<String> = None;
+    let mut config_path: Option<String> = None;
+    let mut clean_out_dir = false;
+    let mut index = 2;
+    while index < arguments.len() {
+        match arguments[index].as_str() {
+            "--out-dir" | "--config" => {
+                let flag = &arguments[index];
+                let value = arguments
+                    .get(index + 1)
+                    .ok_or_else(|| format!("missing value for {flag}"))?;
+                if flag == "--out-dir" {
+                    out_dir = Some(value.clone());
+                } else {
+                    config_path = Some(value.clone());
+                }
+                index += 2;
+            }
+            "--clean-out-dir" => {
+                clean_out_dir = true;
+                index += 1;
+            }
+            value if value.starts_with('-') => {
+                return Err(format!("unknown argument: {value}").into())
+            }
+            value => {
+                inputs.push(value.to_string());
+                index += 1;
+            }
+        }
+    }
+    if inputs.is_empty() {
+        return Err("timeline-many requires at least one input batch".into());
+    }
+    let out_dir = out_dir.ok_or("--out-dir is required")?;
+    let mut batches: Vec<SourceBatch> = Vec::with_capacity(inputs.len());
+    let mut total_sources = 0;
+    for (position, input) in inputs.iter().enumerate() {
+        let mut batch = read_source_batch_json(input)?;
+        if batch.batch_index as usize != position {
+            return Err(format!(
+                "batch_index {} is out of sequence; expected {position}",
+                batch.batch_index
+            )
+            .into());
+        }
+        if batch.sources.is_empty() {
+            return Err(format!("input batch {position} has no sources").into());
+        }
+        for source in &mut batch.sources {
+            if source.batch_index != batch.batch_index {
+                return Err("source batch_index does not match its input batch".into());
+            }
+            // from-csv restarts synthetic row IDs for every file. Scope those IDs
+            // to the day/batch to avoid merging distinct articles across CSV files.
+            // Caller-supplied non-synthetic identifiers retain their identity.
+            if source.source_id.strip_prefix("row_").is_some_and(|suffix| {
+                !suffix.is_empty() && suffix.bytes().all(|b| b.is_ascii_digit())
+            }) {
+                source.source_id = format!("batch_{}:{}", batch.batch_index, source.source_id);
+            }
+        }
+        total_sources += batch.sources.len();
+        batches.push(batch);
+    }
+    let chunk_size_effective = batches[0].sources.len();
+    let total_batches = batches.len();
+    let config = if let Some(path) = config_path {
+        read_config_json(path)?
+    } else {
+        SecaConfig::default()
+    };
+    let mut engine = SecaEngine::new(config)?;
+    let output_dir = Path::new(&out_dir);
+    if clean_out_dir && output_dir.exists() {
+        fs::remove_dir_all(output_dir)?;
+    }
+    fs::create_dir_all(output_dir)?;
+    let mut files = Vec::with_capacity(total_batches);
+    for (index, batch) in batches.into_iter().enumerate() {
+        if index == 0 {
+            engine.build_baseline_tree(batch)?;
+        } else {
+            engine.process_batch(batch)?;
+        }
+        let name = format!("tree_batch_{index:04}.json");
+        let tree = engine.export_baseline_tree_verbose()?;
+        fs::write(output_dir.join(&name), serde_json::to_string_pretty(&tree)?)?;
+        files.push(name);
+    }
+    let manifest = TimelineManifest {
+        total_batches,
+        sources_total: total_sources,
+        chunk_count: total_batches,
+        chunk_size_effective,
+        files,
+    };
+    fs::write(
+        output_dir.join("timeline_manifest.json"),
+        serde_json::to_string_pretty(&manifest)?,
+    )?;
+    println!("Timeline build completed: {total_batches} daily batches, {total_sources} sources");
+    Ok(())
+}
+
+#[cfg(test)]
+mod risklive_timeline_many_tests {
+    use super::*;
+
+    fn temporary_root() -> std::path::PathBuf {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let path =
+            std::env::temp_dir().join(format!("risklive-seca-{}-{nonce}", std::process::id()));
+        fs::create_dir_all(&path).unwrap();
+        path
+    }
+
+    fn write_batch(root: &Path, index: u32, count: usize) -> String {
+        let sources: Vec<SourceRecord> = (0..count)
+            .map(|row| SourceRecord {
+                source_id: format!("row_{:06}", row + 1),
+                batch_index: index,
+                tokens: vec!["fixture".to_string(), "risk".to_string()],
+                text: Some("fixture risk".to_string()),
+                timestamp_unix_ms: None,
+                metadata: None,
+            })
+            .collect();
+        let batch = SourceBatch {
+            batch_index: index,
+            sources,
+        };
+        let path = root.join(format!("input-{index}.json"));
+        fs::write(&path, serde_json::to_string(&batch).unwrap()).unwrap();
+        path.to_string_lossy().to_string()
+    }
+
+    #[test]
+    fn preserves_unequal_daily_batches_and_scopes_csv_row_ids() {
+        let root = temporary_root();
+        let first = write_batch(&root, 0, 1);
+        let second = write_batch(&root, 1, 2);
+        let out = root.join("output");
+        let args = vec![
+            "cli".into(),
+            "timeline-many".into(),
+            first,
+            second,
+            "--out-dir".into(),
+            out.to_string_lossy().into_owned(),
+        ];
+        run_timeline_many_command(&args).unwrap();
+        let manifest: serde_json::Value =
+            serde_json::from_str(&fs::read_to_string(out.join("timeline_manifest.json")).unwrap())
+                .unwrap();
+        assert_eq!(manifest["total_batches"], 2);
+        assert_eq!(manifest["sources_total"], 3);
+        let first_tree: serde_json::Value =
+            serde_json::from_str(&fs::read_to_string(out.join("tree_batch_0000.json")).unwrap())
+                .unwrap();
+        let second_tree: serde_json::Value =
+            serde_json::from_str(&fs::read_to_string(out.join("tree_batch_0001.json")).unwrap())
+                .unwrap();
+        assert_eq!(first_tree["source_legend"].as_array().unwrap().len(), 1);
+        assert_eq!(second_tree["source_legend"].as_array().unwrap().len(), 3);
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn rejects_out_of_order_input_before_creating_output() {
+        let root = temporary_root();
+        let bad = write_batch(&root, 1, 1);
+        let out = root.join("output");
+        let args = vec![
+            "cli".into(),
+            "timeline-many".into(),
+            bad,
+            "--out-dir".into(),
+            out.to_string_lossy().into_owned(),
+        ];
+        assert!(run_timeline_many_command(&args)
+            .unwrap_err()
+            .to_string()
+            .contains("out of sequence"));
+        assert!(!out.exists());
+        fs::remove_dir_all(root).unwrap();
+    }
 }

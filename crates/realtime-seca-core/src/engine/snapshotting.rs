@@ -3,7 +3,8 @@ use super::*;
 impl SecaEngine {
     pub fn snapshot(&self) -> Result<EngineSnapshot, SecaError> {
         Ok(EngineSnapshot {
-            schema_version: 2,
+            schema_version: 3,
+            state: Some(Box::new(self.clone())),
             engine_version: ENGINE_VERSION.to_string(),
             config: self.config.clone(),
             last_processed_batch_index: self.last_processed_batch_index,
@@ -24,25 +25,25 @@ impl SecaEngine {
     }
 
     pub fn load_snapshot(snapshot: EngineSnapshot) -> Result<Self, SecaError> {
-        let mut engine = Self::new(snapshot.config)?;
-        engine.last_processed_batch_index = snapshot.last_processed_batch_index;
-        engine.has_baseline = snapshot.last_processed_batch_index.is_some();
-        engine.last_update_explanation = None;
-        engine.hkt_build_output = None;
-        engine.logically_removed_hkts_by_id = snapshot
-            .logically_removed_hkts_by_id
-            .into_iter()
-            .map(|(hkt_id, entry)| {
-                (
-                    hkt_id,
-                    crate::engine::LogicalRemovedHkt {
-                        hkt: entry.hkt,
-                        old_parent_node_id: entry.old_parent_node_id,
-                    },
-                )
-            })
-            .collect();
-        Ok(engine)
+        if snapshot.schema_version != 3 || snapshot.engine_version != ENGINE_VERSION {
+            return Err(SecaError::StateError {
+                message: "unsupported model schema/version; replay archived batches explicitly"
+                    .into(),
+            });
+        }
+        let engine = snapshot.state.ok_or_else(|| SecaError::StateError {
+            message: "snapshot has no resumable model state".into(),
+        })?;
+        Self::new(engine.config.clone())?;
+        if engine.config != snapshot.config
+            || engine.last_processed_batch_index != snapshot.last_processed_batch_index
+            || engine.hkt_build_output.is_none()
+        {
+            return Err(SecaError::StateError {
+                message: "inconsistent model snapshot".into(),
+            });
+        }
+        Ok(*engine)
     }
 
     pub fn explain_last_update(&self) -> Option<&UpdateExplanation> {

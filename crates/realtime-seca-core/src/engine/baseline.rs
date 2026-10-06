@@ -63,7 +63,13 @@ impl SecaEngine {
         self.hkt_build_output = Some(hkt_build_output);
         self.has_baseline = true;
         self.processed_batches.clear();
-        self.processed_batches.push(baseline_batch.clone());
+        let mut retained_batch = baseline_batch.clone();
+        for source in &mut retained_batch.sources {
+            source.text = None;
+            source.metadata = None;
+            source.timestamp_unix_ms = None;
+        }
+        self.processed_batches.push(retained_batch);
         self.last_processed_batch_index = Some(baseline_batch.batch_index);
         self.last_update_explanation = Some(UpdateExplanation {
             summary: format!(
@@ -79,6 +85,10 @@ impl SecaEngine {
         Ok(BatchProcessingResult {
             batch_index: baseline_batch.batch_index,
             sources_processed: baseline_batch.sources.len(),
+            active_source_count: self.baseline_source_legend.len(),
+            sources_forgotten: 0,
+            hkts_inspected: 0,
+            reconstructed_hkt_ids: Vec::new(),
             reconstruction_triggered: false,
             notes: vec![
                 "Baseline build completed with phase-1 HKT builder".to_string(),

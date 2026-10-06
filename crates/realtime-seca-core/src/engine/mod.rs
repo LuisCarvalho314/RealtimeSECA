@@ -12,7 +12,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 mod baseline;
 pub(crate) mod batch_stats;
-mod rebuild;
+pub mod rebuild;
 mod scope_mapping;
 mod snapshotting;
 mod trigger;
@@ -21,7 +21,7 @@ mod trigger;
 mod tests;
 use self::batch_stats::{compute_batch_word_stats, compute_trigger_metrics_from_batch_stats};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct SecaEngine {
     config: SecaConfig,
     rebuild_mode: rebuild::RebuildMode,
@@ -43,7 +43,7 @@ pub struct SecaEngine {
     next_node_id: i32,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 struct LogicalRemovedHkt {
     hkt: Hkt,
     old_parent_node_id: i32,
@@ -59,6 +59,13 @@ struct SecaLightPruneReport {
 
 impl SecaEngine {
     pub fn new(config: SecaConfig) -> Result<Self, SecaError> {
+        if config.memory_mode == crate::config::MemoryMode::SlidingWindow
+            && config.max_batches_in_memory.unwrap_or(0) == 0
+        {
+            return Err(SecaError::InvalidConfiguration {
+                message: "SlidingWindow requires max_batches_in_memory > 0".into(),
+            });
+        }
         let thresholds = &config.seca_thresholds;
         if !(0.0..=1.0).contains(&thresholds.alpha) {
             return Err(SecaError::InvalidConfiguration {
@@ -186,9 +193,20 @@ impl SecaEngine {
         })
     }
 
+    /// Commit an update only when every stage succeeds.
     pub fn process_batch(
         &mut self,
         batch: SourceBatch,
+    ) -> Result<BatchProcessingResult, SecaError> {
+        let mut candidate = self.clone();
+        let result = candidate.process_batch_inner(batch)?;
+        *self = candidate;
+        Ok(result)
+    }
+
+    fn process_batch_inner(
+        &mut self,
+        mut batch: SourceBatch,
     ) -> Result<BatchProcessingResult, SecaError> {
         if !self.has_baseline || self.hkt_build_output.is_none() {
             return Err(SecaError::StateError {
@@ -220,17 +238,47 @@ impl SecaEngine {
             });
         }
 
+        // A source contributes once, even when found in several searches/runs.
+        let mut seen: BTreeSet<String> = self
+            .processed_batches
+            .iter()
+            .flat_map(|b| b.sources.iter().map(|s| s.source_id.clone()))
+            .collect();
+        batch
+            .sources
+            .retain(|source| seen.insert(source.source_id.clone()));
+        if batch
+            .sources
+            .iter()
+            .any(|s| s.source_id.is_empty() || s.batch_index != batch.batch_index)
+        {
+            return Err(SecaError::StateError {
+                message: "invalid source ID or batch index".into(),
+            });
+        }
         self.register_batch_sources(&batch);
+        let known: BTreeSet<String> = self.baseline_word_legend.values().cloned().collect();
+        let batch_stats = compute_batch_word_stats(&batch, &self.baseline_word_legend);
+        let new_tokens: BTreeSet<String> = batch
+            .sources
+            .iter()
+            .flat_map(|s| s.tokens.iter())
+            .map(|t| t.trim().to_string())
+            .filter(|t| !t.is_empty() && !known.contains(t))
+            .collect();
+        let mut next_word_id = self.baseline_word_legend.keys().max().copied().unwrap_or(0) + 1;
+        for token in new_tokens {
+            self.baseline_word_legend.insert(next_word_id, token);
+            next_word_id += 1;
+        }
 
         let sources_processed = batch.sources.len();
 
-        // Placeholder behavior for now: no significance/reconstruction yet.
+        // HKT-local equations, rather than batch-level diagnostics, drive updates.
         let mut notes = vec![
-            "Incremental process_batch skeleton executed".to_string(),
-            "SECA significance/reconstruction logic not implemented yet".to_string(),
+            "Incremental SECA batch update executed".to_string(),
+            "Top-down HKT significance and selective reconstruction enabled".to_string(),
         ];
-
-        let batch_stats = compute_batch_word_stats(&batch, &self.baseline_word_legend);
 
         notes.push(format!(
             "Batch word stats: unique={}, known={}, new={}, max_df={}, sources={}",
@@ -249,7 +297,13 @@ impl SecaEngine {
         let reconstruction_triggered = trigger_plan.any_reconstruction_triggered;
 
         // Store batch according to memory mode
-        self.processed_batches.push(batch.clone());
+        let mut retained_batch = batch.clone();
+        for source in &mut retained_batch.sources {
+            source.text = None;
+            source.metadata = None;
+            source.timestamp_unix_ms = None;
+        }
+        self.processed_batches.push(retained_batch);
 
         // Stage 4A scaffold metrics at batch-level (diagnostic only for now).
         // These do NOT drive reconstruction decisions yet; recursive HKT scope trigger plan remains authoritative.
@@ -276,46 +330,6 @@ impl SecaEngine {
             notes.push(
                 "Batch trigger metrics reason (scaffold): no thresholds exceeded".to_string(),
             );
-        }
-
-        match self.config.memory_mode {
-            crate::config::MemoryMode::Full => {
-                notes.push(format!(
-                    "Memory mode: Full (stored batches: {})",
-                    self.processed_batches.len()
-                ));
-            }
-            crate::config::MemoryMode::SlidingWindow => {
-                if let Some(max_batches) = self.config.max_batches_in_memory {
-                    let max_batches_usize =
-                        usize::try_from(max_batches).map_err(|_| SecaError::StateError {
-                            message: "max_batches_in_memory conversion overflow".to_string(),
-                        })?;
-
-                    if max_batches_usize == 0 {
-                        return Err(SecaError::InvalidConfiguration {
-                            message: "max_batches_in_memory must be > 0 when using SlidingWindow"
-                                .to_string(),
-                        });
-                    }
-
-                    if self.processed_batches.len() > max_batches_usize {
-                        let excess = self.processed_batches.len() - max_batches_usize;
-                        self.processed_batches.drain(0..excess);
-                    }
-
-                    notes.push(format!(
-                        "Memory mode: SlidingWindow (stored batches: {}, max: {})",
-                        self.processed_batches.len(),
-                        max_batches
-                    ));
-                } else {
-                    notes.push(
-                    "Memory mode: SlidingWindow (max_batches_in_memory not set; no trimming applied)"
-                        .to_string(),
-                );
-                }
-            }
         }
 
         self.last_processed_batch_index = Some(batch.batch_index);
@@ -347,6 +361,7 @@ impl SecaEngine {
             "SECA_TRIGGER_EVALUATED".to_string(),
         ];
         let mut seca_light_pruning_applied = false;
+        let mut sources_forgotten = 0;
 
         if reconstruction_triggered {
             reason_codes.push("SECA_RECONSTRUCTION_TRIGGERED".to_string());
@@ -417,6 +432,7 @@ impl SecaEngine {
                 prune_report.pruned_node_count,
                 prune_report.pruned_hkt_count
             ));
+            sources_forgotten = prune_report.pruned_source_count;
             seca_light_pruning_applied = true;
         }
 
@@ -435,6 +451,14 @@ impl SecaEngine {
         Ok(BatchProcessingResult {
             batch_index: batch.batch_index,
             sources_processed,
+            sources_forgotten,
+            active_source_count: self.baseline_source_legend.len(),
+            hkts_inspected: trigger_plan
+                .notes
+                .iter()
+                .filter(|note| note.contains(": scoped_sources="))
+                .count(),
+            reconstructed_hkt_ids: trigger_plan.reconstruct_hkt_ids.clone(),
             reconstruction_triggered,
             notes,
         })
@@ -546,113 +570,47 @@ impl SecaEngine {
         pruned_source_ids.retain(|source_id| !active_source_ids.contains(source_id));
 
         for source_id in &pruned_source_ids {
-            self.source_batch_index_by_internal_source_id.remove(source_id);
+            self.source_batch_index_by_internal_source_id
+                .remove(source_id);
             if let Some(external_source_id) = self.url_by_source_id.remove(source_id) {
                 self.source_id_by_url.remove(external_source_id.as_str());
             }
             self.baseline_source_legend.remove(source_id);
         }
 
-        let mut pruned_node_ids: BTreeSet<i32> = BTreeSet::new();
-        let mut dead_hkt_roots: BTreeSet<i32> = BTreeSet::new();
-
-        let hkt_build_output =
-            self.hkt_build_output
-                .as_mut()
-                .ok_or_else(|| SecaError::StateError {
-                    message: "cannot apply SECA-Light pruning: baseline tree missing".to_string(),
-                })?;
-
-        let mut child_hkt_ids_by_parent_node_id: BTreeMap<i32, Vec<i32>> = BTreeMap::new();
-        for hkt in hkt_build_output.hkts_by_id.values() {
-            if hkt.parent_node_id != 0 {
-                child_hkt_ids_by_parent_node_id
-                    .entry(hkt.parent_node_id)
-                    .or_default()
-                    .push(hkt.hkt_id);
-            }
-        }
-
-        for hkt in hkt_build_output.hkts_by_id.values_mut() {
-            let mut dead_nodes_for_hkt = 0usize;
-            for node in &mut hkt.nodes {
-                node.source_ids.retain(|source_id| active_source_ids.contains(source_id));
-                node.source_ids_new_from_batches
-                    .retain(|source_id| active_source_ids.contains(source_id));
-                node.word_source_ids.retain(|_, source_ids| {
-                    source_ids.retain(|source_id| active_source_ids.contains(source_id));
-                    !source_ids.is_empty()
-                });
-                node.word_source_ids_new_from_batches.retain(|_, source_ids| {
-                    source_ids.retain(|source_id| active_source_ids.contains(source_id));
-                    !source_ids.is_empty()
-                });
-
-                let total_sources_in_node: usize =
-                    node.word_source_ids.values().map(BTreeSet::len).sum();
-                if total_sources_in_node == 0 {
-                    pruned_node_ids.insert(node.node_id);
-                    dead_nodes_for_hkt += 1;
+        self.processed_batches
+            .retain(|batch| batch.batch_index >= window_start);
+        let prune_tree = |tree: &mut HktBuildOutput| {
+            for hkt in tree.hkts_by_id.values_mut() {
+                for node in &mut hkt.nodes {
+                    node.source_ids.retain(|id| active_source_ids.contains(id));
+                    node.source_ids_new_from_batches
+                        .retain(|id| active_source_ids.contains(id));
+                    for memberships in [
+                        &mut node.word_source_ids,
+                        &mut node.word_source_ids_new_from_batches,
+                    ] {
+                        memberships.retain(|_, ids| {
+                            ids.retain(|id| active_source_ids.contains(id));
+                            !ids.is_empty()
+                        });
+                    }
+                    node.number_of_sources_for_display = Some(node.source_ids.len());
+                    tree.nodes_by_id.insert(node.node_id, node.clone());
                 }
             }
-
-            if dead_nodes_for_hkt == hkt.nodes.len() {
-                dead_hkt_roots.insert(hkt.hkt_id);
-            }
+        };
+        if let Some(tree) = self.hkt_build_output.as_mut() {
+            prune_tree(tree);
         }
-
-        let mut dead_hkt_ids: BTreeSet<i32> = BTreeSet::new();
-        let mut stack: Vec<i32> = dead_hkt_roots.iter().copied().collect();
-        while let Some(hkt_id) = stack.pop() {
-            if !dead_hkt_ids.insert(hkt_id) {
-                continue;
-            }
-
-            let node_ids = match hkt_build_output.hkts_by_id.get(&hkt_id) {
-                Some(hkt) => hkt.nodes.iter().map(|node| node.node_id).collect::<Vec<_>>(),
-                None => Vec::new(),
-            };
-
-            for node_id in node_ids {
-                pruned_node_ids.insert(node_id);
-                if let Some(child_hkts) = child_hkt_ids_by_parent_node_id.get(&node_id) {
-                    stack.extend(child_hkts.iter().copied());
-                }
-            }
-        }
-
-        if dead_hkt_ids.len() == hkt_build_output.hkts_by_id.len() && !dead_hkt_ids.is_empty() {
-            dead_hkt_ids.clear();
-            pruned_node_ids.clear();
-        }
-
-        for hkt in hkt_build_output.hkts_by_id.values_mut() {
-            if dead_hkt_ids.contains(&hkt.hkt_id) {
-                continue;
-            }
-            hkt.nodes
-                .retain(|node| !pruned_node_ids.contains(&node.node_id));
-            for node in &hkt.nodes {
-                if let Some(global_node) = hkt_build_output.nodes_by_id.get_mut(&node.node_id) {
-                    *global_node = node.clone();
-                }
-            }
-        }
-
-        for dead_hkt_id in &dead_hkt_ids {
-            hkt_build_output.hkts_by_id.remove(dead_hkt_id);
-            self.logically_removed_hkts_by_id.remove(dead_hkt_id);
-        }
-
-        for dead_node_id in &pruned_node_ids {
-            hkt_build_output.nodes_by_id.remove(dead_node_id);
-        }
-
+        // Historical trees belong in output snapshots, not active model memory.
+        self.archived_subtrees_by_root_id.clear();
+        self.logically_removed_hkts_by_id.clear();
         Ok(Some(SecaLightPruneReport {
             active_source_count: active_source_ids.len(),
             pruned_source_count: pruned_source_ids.len(),
-            pruned_node_count: pruned_node_ids.len(),
-            pruned_hkt_count: dead_hkt_ids.len(),
+            pruned_node_count: 0,
+            pruned_hkt_count: 0,
         }))
     }
 

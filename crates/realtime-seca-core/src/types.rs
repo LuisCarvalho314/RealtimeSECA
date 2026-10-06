@@ -25,6 +25,14 @@ pub struct SourceBatch {
 pub struct BatchProcessingResult {
     pub batch_index: u32,
     pub sources_processed: usize,
+    #[serde(default)]
+    pub sources_forgotten: usize,
+    #[serde(default)]
+    pub active_source_count: usize,
+    #[serde(default)]
+    pub hkts_inspected: usize,
+    #[serde(default)]
+    pub reconstructed_hkt_ids: Vec<i32>,
     pub reconstruction_triggered: bool,
     pub notes: Vec<String>,
 }
@@ -47,6 +55,8 @@ pub struct EngineSnapshot {
     pub engine_version: String,
     pub config: SecaConfig,
     pub last_processed_batch_index: Option<u32>,
+    #[serde(default)]
+    pub state: Option<Box<crate::engine::SecaEngine>>,
     #[serde(default)]
     pub logically_removed_hkts_by_id: BTreeMap<i32, LogicalRemovedHktSnapshot>,
 }

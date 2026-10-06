@@ -71,6 +71,9 @@ impl SecaEngine {
         ancestor: &AncestorContext,
         plan: &mut RecursiveTriggerPlan,
     ) -> Result<(), SecaError> {
+        if scoped_batch_source_indexes.is_empty() {
+            return Ok(());
+        }
         let scope_snapshot = self.snapshot_hkt_scope(hkt_id)?;
         let mapped_scope =
             self.map_batch_into_hkt_scope(batch, scoped_batch_source_indexes, &scope_snapshot)?;
@@ -86,7 +89,7 @@ impl SecaEngine {
             } else {
                 None
             };
-        let scope_snapshot = update_stage.apply_to_snapshot(&scope_snapshot);
+        // Metrics refer to state0 words; mapping must not change that vocabulary.
         let decision = self.evaluate_scope_trigger_decision(
             &scope_snapshot,
             &mapped_scope,
@@ -315,6 +318,12 @@ impl SecaEngine {
             node.word_source_ids_new_from_batches.clear();
             node.word_ids_new_from_batches.clear();
 
+            if let Some(ids) = update_stage
+                .node_state1_source_ids_by_node_id
+                .get(&node.node_id)
+            {
+                node.source_ids_new_from_batches.extend(ids.iter().copied());
+            }
             if !node.is_refuge_node() {
                 if let Some(state1_sources_by_word) = update_stage
                     .node_state1_sources_by_word_id
@@ -328,23 +337,6 @@ impl SecaEngine {
                                 .extend(state1_sources.iter().copied());
                             node.source_ids_new_from_batches
                                 .extend(state1_sources.iter().copied());
-                        }
-                    }
-
-                    if let Some(assigned_expected_words) = update_stage
-                        .assigned_expected_words_by_node_id
-                        .get(&node.node_id)
-                    {
-                        for word_id in assigned_expected_words {
-                            node.word_ids_new_from_batches.insert(*word_id);
-                            if let Some(state1_sources) = state1_sources_by_word.get(word_id) {
-                                node.word_source_ids_new_from_batches
-                                    .entry(*word_id)
-                                    .or_default()
-                                    .extend(state1_sources.iter().copied());
-                                node.source_ids_new_from_batches
-                                    .extend(state1_sources.iter().copied());
-                            }
                         }
                     }
                 }
@@ -679,25 +671,33 @@ impl SecaEngine {
                     message: "baseline tree missing for expected-word admission".to_string(),
                 })?;
 
-        let (prominent_node_id, prominent_word_id) = hkt_build_output
-            .hkts_by_id
-            .get(&scope_snapshot.hkt_id)
-            .and_then(|hkt| hkt.nodes.first())
-            .and_then(|node| {
-                node.word_ids
-                    .iter()
-                    .next()
-                    .map(|word_id| (node.node_id, *word_id))
+        let _ = hkt_build_output;
+        let state0_prominent_count = state0_df_parent_scope
+            .iter()
+            .filter(|(word, _)| !ancestor.ancestor_words.contains_key(word))
+            .map(|(word, old)| {
+                let added = self
+                    .baseline_word_legend
+                    .get(word)
+                    .and_then(|t| mapped_scope.word_document_frequency_in_scope.get(t))
+                    .copied()
+                    .unwrap_or(0);
+                old + added
             })
-            .unwrap_or((0, -1));
-
-        let state0_prominent_count = node_state0_sources_by_word_id
-            .get(&prominent_node_id)
-            .and_then(|by_word| by_word.get(&prominent_word_id))
-            .map(|sources| sources.len())
+            .chain(
+                mapped_scope
+                    .word_document_frequency_in_scope
+                    .iter()
+                    .filter(|(token, _)| {
+                        token_to_word_id
+                            .get(*token)
+                            .is_none_or(|word| !ancestor.ancestor_words.contains_key(word))
+                    })
+                    .map(|(_, count)| *count),
+            )
+            .max()
             .unwrap_or(0)
             .max(1);
-
         for (token, state1_count) in &mapped_scope.word_document_frequency_in_scope {
             let word_id = token_to_word_id.get(token).copied().unwrap_or_else(|| {
                 let assigned = next_synthetic_word_id;
@@ -727,6 +727,10 @@ impl SecaEngine {
                 }
             }
         }
+
+        updated_expected_word_ids.retain(|word| {
+            !current_words_in_hkt.contains(word) && !ancestor.ancestor_words.contains_key(word)
+        });
 
         let mut normalized_tokens_by_source_index: BTreeMap<usize, BTreeSet<String>> =
             BTreeMap::new();
@@ -871,35 +875,10 @@ impl SecaEngine {
                 .cloned()
                 .unwrap_or_default();
 
-            let mut prominent_word_sources: BTreeSet<i64> = BTreeSet::new();
-            let mut max_prominent_count = 0usize;
-
-            for word_id in node_word_ids.iter().copied().filter(|id| *id != -1) {
-                let mut sources_for_word: BTreeSet<i64> = BTreeSet::new();
-                if let Some(state0_sources_by_word) = node_state0_sources_by_word_id.get(node_id) {
-                    if let Some(state0_sources) = state0_sources_by_word.get(&word_id) {
-                        sources_for_word.extend(state0_sources.iter().copied());
-                    }
-                }
-                if let Some(state1_sources_by_word) = node_state1_sources_by_word_id.get(node_id) {
-                    if let Some(state1_sources) = state1_sources_by_word.get(&word_id) {
-                        sources_for_word.extend(state1_sources.iter().copied());
-                    }
-                }
-
-                let count = sources_for_word.len();
-                if count > max_prominent_count {
-                    max_prominent_count = count;
-                    prominent_word_sources = sources_for_word;
-                }
+            let mut prominent_word_sources = _node_state0_sources;
+            if let Some(ids) = node_state1_source_ids_by_node_id.get(node_id) {
+                prominent_word_sources.extend(ids);
             }
-
-            if prominent_word_sources.is_empty() {
-                if let Some(node_state1_sources) = node_state1_source_ids_by_node_id.get(node_id) {
-                    prominent_word_sources = node_state1_sources.clone();
-                }
-            }
-
             let denominator = prominent_word_sources.len().max(1) as f64;
 
             for expected_word_id in &updated_expected_word_ids {
@@ -1005,37 +984,19 @@ impl SecaEngine {
             total.max(1)
         };
 
-        let number_of_sources_of_prominent_word_in_hkt_state0 = {
-            let mut prominent_node_id = None;
-            for node_id in &scope_snapshot.node_ids_in_hkt_order {
-                if let Some(word_ids) = scope_snapshot.node_word_ids_by_node_id.get(node_id) {
-                    if word_ids.contains(&-1) {
-                        continue;
-                    }
-                    prominent_node_id = Some(*node_id);
-                    break;
-                }
-            }
-
-            if let Some(node_id) = prominent_node_id {
-                let word_source_ids = scope_snapshot
-                    .node_word_source_ids_by_node_id
-                    .get(&node_id)
-                    .cloned()
-                    .unwrap_or_default();
-                let word_ids = scope_snapshot
-                    .node_word_ids_by_node_id
-                    .get(&node_id)
-                    .cloned()
-                    .unwrap_or_default();
-                let prominent_word_id = word_ids.iter().copied().find(|id| *id != -1);
-                prominent_word_id
-                    .and_then(|word_id| word_source_ids.get(&word_id).map(|s| s.len()))
-                    .unwrap_or(0)
-            } else {
-                0
-            }
-        };
+        let number_of_sources_of_prominent_word_in_hkt_state0 = scope_snapshot
+            .node_word_source_ids_by_node_id
+            .iter()
+            .flat_map(|(node, words)| {
+                words
+                    .iter()
+                    .filter(|(word, _)| {
+                        scope_snapshot.node_word_ids_by_node_id[node].contains(word) && **word != -1
+                    })
+                    .map(|(_, ids)| ids.len())
+            })
+            .max()
+            .unwrap_or(0);
 
         let number_of_sources_of_prominent_word_in_hkt_expected = {
             let mut max_count = 0usize;
@@ -1100,12 +1061,11 @@ impl SecaEngine {
                 .cloned()
                 .unwrap_or_default();
 
-            let sources_of_old_prominent_word_in_node = {
-                let prominent_word_id = word_ids.iter().copied().find(|id| *id != -1);
-                prominent_word_id
-                    .and_then(|word_id| node_word_source_ids.get(&word_id).cloned())
-                    .unwrap_or_default()
-            };
+            let sources_of_old_prominent_word_in_node = scope_snapshot
+                .node_source_ids_by_node_id
+                .get(node_id)
+                .cloned()
+                .unwrap_or_default();
 
             let current_sources_in_node = {
                 let mut sources = scope_snapshot
@@ -1548,7 +1508,7 @@ impl SecaEngine {
                     total_strength_deviation += thresholds.alpha - *value;
                 }
             }
-            let alpha_error_option1 = Some(Self::round4(total_strength_deviation / n));
+            let alpha_error_option1 = Some(total_strength_deviation / n);
 
             let mut total_strength_difference = 0.0_f64;
             for (strength0, strength1) in _strength0.iter().zip(strength1.iter()) {
@@ -1568,7 +1528,7 @@ impl SecaEngine {
                     total_eligibility_deviation += thresholds.beta - *value;
                 }
             }
-            let beta_error_option1 = Some(Self::round4(total_eligibility_deviation / n));
+            let beta_error_option1 = Some(total_eligibility_deviation / n);
 
             let mut total_eligibility_difference = 0.0_f64;
             for (eligibility0, eligibility1) in _eligibility0.iter().zip(eligibility1.iter()) {
@@ -1593,7 +1553,7 @@ impl SecaEngine {
         };
 
         let total_importance: f64 = importance1.iter().sum();
-        let word_importance_error_option1 = Some(Self::round4(1.0 - total_importance));
+        let word_importance_error_option1 = Some((1.0 - total_importance).clamp(0.0, 1.0));
         let word_importance_error_option2 = Some(Self::round4(Self::euclidean_distance(
             &_importance0,
             &importance1,
@@ -2451,13 +2411,6 @@ impl SecaEngine {
     }
 
     fn build_baseline_source_word_sets(&self) -> Result<BTreeMap<i64, BTreeSet<i32>>, SecaError> {
-        let baseline = self
-            .processed_batches
-            .first()
-            .ok_or_else(|| SecaError::StateError {
-                message: "baseline batch missing for state0 df".to_string(),
-            })?;
-
         let mut baseline_word_id_by_token: BTreeMap<&str, i32> = BTreeMap::new();
         for (word_id, token) in &self.baseline_word_legend {
             baseline_word_id_by_token.insert(token.as_str(), *word_id);
@@ -2465,7 +2418,11 @@ impl SecaEngine {
 
         let mut by_source: BTreeMap<i64, BTreeSet<i32>> = BTreeMap::new();
 
-        for source in &baseline.sources {
+        for source in self
+            .processed_batches
+            .iter()
+            .flat_map(|batch| &batch.sources)
+        {
             let internal_source_id = self
                 .source_id_by_url
                 .get(source.source_id.as_str())
@@ -2571,171 +2528,25 @@ impl SecaEngine {
 
     fn build_child_ancestor_context_from_parent_node(
         &self,
-        batch: &SourceBatch,
-        parent_scope_snapshot: &HktScopeSnapshot,
-        parent_mapped_scope: &MappedHktScopeState,
-        _parent_hkt_id: i32,
+        _batch: &SourceBatch,
+        scope: &HktScopeSnapshot,
+        _mapped: &MappedHktScopeState,
+        _hkt_id: i32,
         parent_node_id: i32,
-        incoming_ancestor: &AncestorContext,
+        ancestor: &AncestorContext,
     ) -> AncestorContext {
-        let mut next = incoming_ancestor.clone();
-
-        // Refuge nodes do not contribute ancestor words in the C# logic
-        let Some(node_word_ids) = parent_scope_snapshot
+        let mut child = ancestor.clone();
+        for word in scope
             .node_word_ids_by_node_id
             .get(&parent_node_id)
-        else {
-            return next;
-        };
-
-        if node_word_ids.contains(&-1) {
-            return next;
-        }
-
-        let baseline_source_word_sets = match self.build_baseline_source_word_sets() {
-            Ok(sets) => sets,
-            Err(_) => return next,
-        };
-
-        let node_state0_sources_by_word_id = self.build_node_state0_sources_by_word_id(
-            parent_scope_snapshot,
-            &baseline_source_word_sets,
-        );
-        let state0_df_parent_scope = match self
-            .build_state0_df_in_parent_scope(parent_scope_snapshot, &baseline_source_word_sets)
+            .into_iter()
+            .flatten()
+            .filter(|id| **id != -1)
         {
-            Ok(df) => df,
-            Err(_) => return next,
-        };
-
-        let mut token_to_word_id: BTreeMap<String, i32> = BTreeMap::new();
-        let mut next_synthetic_word_id: i32 = -2;
-        for (word_id, token) in &self.baseline_word_legend {
-            token_to_word_id.insert(token.clone(), *word_id);
+            child.ancestor_words.insert(*word, (0, 0));
+            child.ancestor_accepted_words.insert(*word, (0, 0));
         }
-
-        let mut normalized_tokens_by_source_index: BTreeMap<usize, BTreeSet<String>> =
-            BTreeMap::new();
-        for source_index in &parent_mapped_scope.scoped_batch_source_indexes {
-            let source = match batch.sources.get(*source_index) {
-                Some(s) => s,
-                None => continue,
-            };
-            let mut tokens = BTreeSet::new();
-            for token in &source.tokens {
-                let normalized = token.trim();
-                if !normalized.is_empty() {
-                    tokens.insert(normalized.to_string());
-                }
-            }
-            normalized_tokens_by_source_index.insert(*source_index, tokens);
-        }
-
-        let mut node_state1_sources_by_word_id: BTreeMap<i32, BTreeMap<i32, BTreeSet<i64>>> =
-            BTreeMap::new();
-        for (node_id, source_indexes) in &parent_mapped_scope.matched_node_source_indexes_by_node_id
-        {
-            for source_index in source_indexes {
-                let source = match batch.sources.get(*source_index) {
-                    Some(s) => s,
-                    None => continue,
-                };
-                let internal_source_id = self
-                    .source_id_by_url
-                    .get(source.source_id.as_str())
-                    .copied()
-                    .unwrap_or_else(|| SecaEngine::fnv1a_64(source.source_id.as_str()));
-
-                if let Some(tokens) = normalized_tokens_by_source_index.get(source_index) {
-                    for token in tokens {
-                        let word_id = token_to_word_id.get(token).copied().unwrap_or_else(|| {
-                            let assigned = next_synthetic_word_id;
-                            next_synthetic_word_id -= 1;
-                            token_to_word_id.insert(token.clone(), assigned);
-                            assigned
-                        });
-                        node_state1_sources_by_word_id
-                            .entry(*node_id)
-                            .or_default()
-                            .entry(word_id)
-                            .or_default()
-                            .insert(internal_source_id);
-                    }
-                }
-            }
-        }
-
-        let mut prominent_expected_count = 1usize;
-        for (node_id, word_ids) in &parent_scope_snapshot.node_word_ids_by_node_id {
-            if word_ids.contains(&-1) {
-                continue;
-            }
-            for word_id in word_ids.iter().copied().filter(|id| *id != -1) {
-                let state0_count = node_state0_sources_by_word_id
-                    .get(node_id)
-                    .and_then(|by_word| by_word.get(&word_id))
-                    .map(|sources| sources.len())
-                    .unwrap_or(0);
-                let state1_count = node_state1_sources_by_word_id
-                    .get(node_id)
-                    .and_then(|by_word| by_word.get(&word_id))
-                    .map(|sources| sources.len())
-                    .unwrap_or(0);
-                let total = state0_count + state1_count;
-                if total > prominent_expected_count {
-                    prominent_expected_count = total;
-                }
-            }
-        }
-
-        for word_id in &parent_scope_snapshot.expected_word_ids {
-            let state0_count = state0_df_parent_scope.get(word_id).copied().unwrap_or(0);
-            let state1_count = self
-                .baseline_word_legend
-                .get(word_id)
-                .and_then(|token| {
-                    parent_mapped_scope
-                        .word_document_frequency_in_scope
-                        .get(token)
-                        .copied()
-                })
-                .unwrap_or(0);
-            let total = state0_count + state1_count;
-            if total > prominent_expected_count {
-                prominent_expected_count = total;
-            }
-        }
-
-        let prominent_expected_count_f = prominent_expected_count.max(1) as f64;
-
-        for word_id in node_word_ids.iter().copied().filter(|w| *w != -1) {
-            let state0_count = node_state0_sources_by_word_id
-                .get(&parent_node_id)
-                .and_then(|by_word| by_word.get(&word_id))
-                .map(|sources| sources.len())
-                .unwrap_or(0);
-            let state1_count = node_state1_sources_by_word_id
-                .get(&parent_node_id)
-                .and_then(|by_word| by_word.get(&word_id))
-                .map(|sources| sources.len())
-                .unwrap_or(0);
-
-            next.ancestor_words
-                .insert(word_id, (state0_count, state1_count));
-
-            let ratio = (state0_count + state1_count) as f64 / prominent_expected_count_f;
-            if ratio >= self.config.seca_thresholds.alpha || node_word_ids.contains(&word_id) {
-                next.ancestor_accepted_words
-                    .insert(word_id, (state0_count, state1_count));
-                next.ancestor_rejected_words.remove(&word_id);
-            } else {
-                next.ancestor_rejected_words
-                    .insert(word_id, (state0_count, state1_count));
-                next.ancestor_accepted_words.remove(&word_id);
-            }
-        }
-
-        next
+        child
     }
 }
 
@@ -2746,31 +2557,6 @@ pub(super) struct HktUpdateStage {
     pub(super) node_state1_source_ids_by_node_id: BTreeMap<i32, BTreeSet<i64>>,
     pub(super) node_state1_sources_by_word_id: BTreeMap<i32, BTreeMap<i32, BTreeSet<i64>>>,
     pub(super) token_by_word_id: BTreeMap<i32, String>,
-}
-
-impl HktUpdateStage {
-    fn apply_to_snapshot(&self, snapshot: &HktScopeSnapshot) -> HktScopeSnapshot {
-        let mut updated = snapshot.clone();
-        updated.expected_word_ids = self.updated_expected_word_ids.clone();
-
-        for (node_id, assigned_words) in &self.assigned_expected_words_by_node_id {
-            updated
-                .node_word_ids_by_node_id
-                .entry(*node_id)
-                .or_default()
-                .extend(assigned_words.iter().copied());
-        }
-
-        for (node_id, state1_sources) in &self.node_state1_source_ids_by_node_id {
-            updated
-                .node_source_ids_by_node_id
-                .entry(*node_id)
-                .or_default()
-                .extend(state1_sources.iter().copied());
-        }
-
-        updated
-    }
 }
 
 #[derive(Debug, Clone, Default)]

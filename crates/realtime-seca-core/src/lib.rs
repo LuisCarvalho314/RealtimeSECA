@@ -17,4 +17,4 @@ pub use types::{
     VerboseSourceRef, VerboseWordRef, WordLegendEntry,
 };
 
-pub const ENGINE_VERSION: &str = "0.1.0";
+pub const ENGINE_VERSION: &str = "0.1.0-risklive-light-1";

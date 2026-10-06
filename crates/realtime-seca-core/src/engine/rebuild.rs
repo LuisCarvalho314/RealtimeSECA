@@ -2,7 +2,7 @@ use super::*;
 use crate::tree::{Hkt, Node};
 use std::collections::BTreeSet;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum RebuildMode {
     FullFromAllBatches,      // existing fallback (safe)
     SubtreeTargeted,         // next implementation

@@ -1228,26 +1228,14 @@ mod tests {
     }
 
     #[test]
-    fn sliding_window_with_zero_max_batches_errors_on_process_batch() {
+    fn sliding_window_with_zero_max_batches_is_rejected_at_construction() {
         let mut config = SecaConfig::default();
         config.memory_mode = MemoryMode::SlidingWindow;
         config.max_batches_in_memory = Some(0);
-
-        let mut engine = SecaEngine::new(config).unwrap();
-        engine
-            .build_baseline_tree(make_batch(0, &[("s1", &["a"]), ("s2", &["b"])]))
-            .unwrap();
-
-        let error = engine
-            .process_batch(make_batch(1, &[("n1", &["x"])]))
-            .unwrap_err();
-
-        match error {
-            SecaError::InvalidConfiguration { message } => {
-                assert!(message.contains("max_batches_in_memory must be > 0"));
-            }
-            other => panic!("unexpected error variant: {other:?}"),
-        }
+        assert!(SecaEngine::new(config)
+            .unwrap_err()
+            .to_string()
+            .contains("max_batches_in_memory > 0"));
     }
 
     #[test]
@@ -1306,24 +1294,24 @@ mod tests {
         let s0_internal_id = SecaEngine::fnv1a_64("s0");
         assert!(engine.baseline_source_legend.contains_key(&s0_internal_id));
 
-        engine.process_batch(make_batch(1, &[("s1", &["b"])])).unwrap();
-        engine.process_batch(make_batch(2, &[("s2", &["c"])])).unwrap();
+        engine
+            .process_batch(make_batch(1, &[("s1", &["b"])]))
+            .unwrap();
+        engine
+            .process_batch(make_batch(2, &[("s2", &["c"])]))
+            .unwrap();
 
         assert!(!engine.baseline_source_legend.contains_key(&s0_internal_id));
         assert!(!engine.source_id_by_url.contains_key("s0"));
         assert!(!engine.url_by_source_id.contains_key(&s0_internal_id));
-        assert!(
-            !engine
-                .source_batch_index_by_internal_source_id
-                .contains_key(&s0_internal_id)
-        );
-        assert!(
-            !engine
-                .source_ids_by_batch_index
-                .get(&0)
-                .map(|ids| ids.contains(&s0_internal_id))
-                .unwrap_or(false)
-        );
+        assert!(!engine
+            .source_batch_index_by_internal_source_id
+            .contains_key(&s0_internal_id));
+        assert!(!engine
+            .source_ids_by_batch_index
+            .get(&0)
+            .map(|ids| ids.contains(&s0_internal_id))
+            .unwrap_or(false));
 
         let explanation = engine.explain_last_update().expect("missing explanation");
         assert!(explanation
@@ -1332,7 +1320,7 @@ mod tests {
     }
 
     #[test]
-    fn seca_light_hard_deletes_dead_nodes_and_dead_hkts() {
+    fn seca_light_preserves_dead_nodes_and_hkts_until_reconstruction() {
         let mut config = SecaConfig::default();
         config.memory_mode = MemoryMode::SlidingWindow;
         config.max_batches_in_memory = Some(2);
@@ -1341,9 +1329,14 @@ mod tests {
 
         let mut engine = SecaEngine::new(config).unwrap();
         engine
-            .build_baseline_tree(make_batch(0, &[("base1", &["a", "b"]), ("base2", &["a", "c"])]))
+            .build_baseline_tree(make_batch(
+                0,
+                &[("base1", &["a", "b"]), ("base2", &["a", "c"])],
+            ))
             .unwrap();
-        engine.process_batch(make_batch(1, &[("fresh", &["a"])])).unwrap();
+        engine
+            .process_batch(make_batch(1, &[("fresh", &["a"])]))
+            .unwrap();
 
         let child_hkt_id = engine
             .hkt_build_output
@@ -1375,41 +1368,20 @@ mod tests {
             .apply_seca_light_pruning_if_enabled(1)
             .unwrap()
             .expect("expected SECA-Light pruning report");
-        assert!(report.pruned_hkt_count > 0 || report.pruned_node_count > 0);
+        assert_eq!((report.pruned_hkt_count, report.pruned_node_count), (0, 0));
 
         let after_output = engine.hkt_build_output.as_ref().unwrap();
-        assert!(after_output.hkts_by_id.len() < before_hkt_count);
-        assert!(after_output.nodes_by_id.len() < before_node_count);
-        assert!(!after_output.hkts_by_id.contains_key(&child_hkt_id));
+        assert_eq!(after_output.hkts_by_id.len(), before_hkt_count);
+        assert_eq!(after_output.nodes_by_id.len(), before_node_count);
+        assert!(after_output.hkts_by_id.contains_key(&child_hkt_id));
     }
 
     #[test]
-    fn seca_light_sliding_window_without_gamma_is_noop_for_tree_pruning() {
+    fn seca_light_sliding_window_requires_gamma() {
         let mut config = SecaConfig::default();
         config.memory_mode = MemoryMode::SlidingWindow;
         config.max_batches_in_memory = None;
-        config.seca_thresholds.word_importance_error_threshold = 1.0;
-        config.seca_thresholds.word_importance_option1_threshold = 1.0;
-
-        let mut engine = SecaEngine::new(config).unwrap();
-        engine
-            .build_baseline_tree(make_batch(0, &[("s0", &["a"]), ("s1", &["b"])]))
-            .unwrap();
-
-        let hkt_count_before = engine.hkt_build_output.as_ref().unwrap().hkts_by_id.len();
-        let node_count_before = engine.hkt_build_output.as_ref().unwrap().nodes_by_id.len();
-
-        engine.process_batch(make_batch(1, &[("n1", &["x"])])).unwrap();
-
-        let hkt_count_after = engine.hkt_build_output.as_ref().unwrap().hkts_by_id.len();
-        let node_count_after = engine.hkt_build_output.as_ref().unwrap().nodes_by_id.len();
-        assert_eq!(hkt_count_after, hkt_count_before);
-        assert_eq!(node_count_after, node_count_before);
-
-        let explanation = engine.explain_last_update().expect("missing explanation");
-        assert!(!explanation
-            .reason_codes
-            .contains(&"SECA_LIGHT_PRUNING_APPLIED".to_string()));
+        assert!(SecaEngine::new(config).is_err());
     }
 
     #[test]
@@ -1425,8 +1397,12 @@ mod tests {
             .unwrap();
         let s0_internal_id = SecaEngine::fnv1a_64("s0");
 
-        engine.process_batch(make_batch(1, &[("s1", &["b"])])).unwrap();
-        engine.process_batch(make_batch(2, &[("s2", &["c"])])).unwrap();
+        engine
+            .process_batch(make_batch(1, &[("s1", &["b"])]))
+            .unwrap();
+        engine
+            .process_batch(make_batch(2, &[("s2", &["c"])]))
+            .unwrap();
 
         assert!(engine.baseline_source_legend.contains_key(&s0_internal_id));
         let explanation = engine.explain_last_update().expect("missing explanation");
@@ -1510,7 +1486,7 @@ mod tests {
     // -------------------------
 
     #[test]
-    fn load_snapshot_restores_metadata_but_not_tree_state() {
+    fn load_snapshot_restores_metadata_and_tree_state() {
         let mut engine = build_small_baseline_engine();
 
         // Make progress so last_processed_batch_index becomes Some(1)
@@ -1541,13 +1517,10 @@ mod tests {
         );
         assert_eq!(loaded_snapshot.config, original_snapshot.config);
 
-        let export_error = loaded.export_baseline_tree().unwrap_err();
-        match export_error {
-            SecaError::StateError { message } => {
-                assert!(message.contains("baseline tree has not been built yet"));
-            }
-            other => panic!("unexpected error variant: {other:?}"),
-        }
+        assert_eq!(
+            serde_json::to_value(loaded.export_baseline_tree().unwrap()).unwrap(),
+            serde_json::to_value(engine.export_baseline_tree().unwrap()).unwrap()
+        );
 
         let logical = loaded_snapshot
             .logically_removed_hkts_by_id
@@ -1558,23 +1531,13 @@ mod tests {
         assert!(logical.hkt.nodes.is_empty());
         assert_eq!(logical.old_parent_node_id, 0);
 
-        let process_error = loaded
+        loaded
             .clone()
             .process_batch(make_batch(
-                loaded_snapshot
-                    .last_processed_batch_index
-                    .unwrap_or(0)
-                    .saturating_add(1),
+                loaded_snapshot.last_processed_batch_index.unwrap() + 1,
                 &[("n2", &["x"])],
             ))
-            .unwrap_err();
-
-        match process_error {
-            SecaError::StateError { message } => {
-                assert!(message.contains("baseline tree has not been built yet"));
-            }
-            other => panic!("unexpected error variant: {other:?}"),
-        }
+            .unwrap();
     }
 
     #[test]
@@ -2049,28 +2012,11 @@ mod tests {
             assert_eq!(engine.stored_batch_count(), 2);
         }
 
-        // 7) invalid sliding-window config errors on process_batch
-        {
-            let mut config = SecaConfig::default();
-            config.memory_mode = MemoryMode::SlidingWindow;
-            config.max_batches_in_memory = Some(0);
-            let mut engine = crate::SecaEngine::new(config).unwrap();
-
-            engine
-                .build_baseline_tree(make_batch(0, &[("s1", &["a"]), ("s2", &["b"])]))
-                .unwrap();
-
-            let error = engine
-                .process_batch(make_batch(1, &[("n1", &["x"])]))
-                .unwrap_err();
-
-            match error {
-                crate::SecaError::InvalidConfiguration { message } => {
-                    assert!(message.contains("max_batches_in_memory must be > 0"));
-                }
-                other => panic!("unexpected error variant: {other:?}"),
-            }
-        }
+        // Invalid source-memory settings are rejected before any state is created.
+        let mut config = SecaConfig::default();
+        config.memory_mode = MemoryMode::SlidingWindow;
+        config.max_batches_in_memory = Some(0);
+        assert!(crate::SecaEngine::new(config).is_err());
     }
 
     #[test]
@@ -2657,11 +2603,11 @@ mod tests {
             )
             .unwrap();
 
-        assert_eq!(decision.paper_alpha_error, Some(0.2));
+        assert!((decision.paper_alpha_error.unwrap() - 0.2).abs() < 1e-12);
     }
 
     #[test]
-    fn paper_alpha_error_option1_rounds_to_four_decimals() {
+    fn paper_alpha_error_option1_preserves_precision_for_thresholds() {
         let mut config = SecaConfig::default();
         config.seca_thresholds.alpha = 0.5;
 
@@ -2730,15 +2676,11 @@ mod tests {
             )
             .unwrap();
 
-        assert_eq!(
-            metrics.alpha_error_option1(),
-            Some(0.3333),
-            "expected alpha option1 error to round to 4 decimals"
-        );
+        assert!((metrics.alpha_error_option1().unwrap() - 1.0 / 3.0).abs() < 1e-12);
     }
 
     #[test]
-    fn paper_beta_error_option1_rounds_to_four_decimals() {
+    fn paper_beta_error_option1_preserves_precision_for_thresholds() {
         let mut config = SecaConfig::default();
         config.seca_thresholds.beta = 0.5;
 
@@ -2808,15 +2750,11 @@ mod tests {
             )
             .unwrap();
 
-        assert_eq!(
-            metrics.beta_error_option1(),
-            Some(0.3333),
-            "expected beta option1 error to round to 4 decimals"
-        );
+        assert!((metrics.beta_error_option1().unwrap() - 1.0 / 3.0).abs() < 1e-12);
     }
 
     #[test]
-    fn paper_word_importance_error_option1_rounds_to_four_decimals() {
+    fn paper_word_importance_error_option1_preserves_precision_for_thresholds() {
         let engine = SecaEngine::new(SecaConfig::default()).unwrap();
 
         let scope_snapshot = HktScopeSnapshot {
@@ -2886,11 +2824,7 @@ mod tests {
             )
             .unwrap();
 
-        assert_eq!(
-            metrics.word_importance_error_option1(),
-            Some(0.3333),
-            "expected word importance option1 error to round to 4 decimals"
-        );
+        assert!((metrics.word_importance_error_option1().unwrap() - 1.0 / 3.0).abs() < 1e-12);
     }
 
     #[test]
@@ -4463,92 +4397,35 @@ mod tests {
     }
 
     #[test]
-    fn accepted_hkt_persists_expected_word_assignment() {
+    fn accepted_hkt_retains_candidates_without_changing_old_node_vocabulary() {
         let mut config = SecaConfig::default();
         config.seca_thresholds.alpha = 0.0;
-        config.seca_thresholds.beta = 0.0;
         config.seca_thresholds.alpha_option1_threshold = 1.0;
-        config.seca_thresholds.alpha_option2_threshold = 1.0;
-        config.seca_thresholds.alpha_option3_threshold = 1.0;
         config.seca_thresholds.beta_option1_threshold = 1.0;
-        config.seca_thresholds.beta_option2_threshold = 1.0;
-        config.seca_thresholds.beta_option3_threshold = 1.0;
         config.seca_thresholds.word_importance_option1_threshold = 1.0;
-        config.seca_thresholds.word_importance_option2_threshold = 1.0;
-        config.seca_thresholds.selected_alpha_option = AlphaErrorOption::Option1;
-        config.seca_thresholds.selected_beta_option = BetaErrorOption::Option1;
-        config.seca_thresholds.selected_word_importance_option = WordImportanceErrorOption::Option1;
-
         let mut engine = SecaEngine::new(config).unwrap();
         engine
             .build_baseline_tree(make_batch(0, &[("s1", &["a"]), ("s2", &["a"])]))
             .unwrap();
-
-        let _ = engine
-            .process_batch(make_batch(1, &[("s_new", &["a", "new_x"])]))
-            .unwrap();
-
-        let new_source_id = engine.stable_source_id("s_new");
-        let root_hkt = engine
-            .hkt_build_output
-            .as_ref()
-            .unwrap()
-            .hkts_by_id
-            .values()
-            .find(|hkt| hkt.parent_node_id == 0)
-            .unwrap();
-
-        let baseline_word_ids: BTreeSet<i32> =
-            engine.baseline_word_legend.keys().copied().collect();
-        let synthetic_ids: Vec<i32> = root_hkt
-            .expected_words
-            .difference(&baseline_word_ids)
-            .copied()
-            .collect();
-        assert_eq!(
-            synthetic_ids.len(),
-            1,
-            "expected exactly one synthetic expected word to persist"
+        let before = engine.export_baseline_tree().unwrap().nodes[0]
+            .word_ids
+            .clone();
+        assert!(
+            !engine
+                .process_batch(make_batch(1, &[("s_new", &["a", "new_x"])]))
+                .unwrap()
+                .reconstruction_triggered
         );
-        let synthetic_word_id = synthetic_ids[0];
-
-        let node_id = root_hkt
-            .nodes
+        let output = engine.export_baseline_tree().unwrap();
+        assert_eq!(output.nodes[0].word_ids, before);
+        let candidate_id = engine
+            .baseline_word_legend
             .iter()
-            .find(|node| !node.is_refuge_node())
-            .map(|node| node.node_id)
-            .unwrap();
-        let node = engine
-            .hkt_build_output
-            .as_ref()
+            .find(|(_, t)| *t == "new_x")
             .unwrap()
-            .nodes_by_id
-            .get(&node_id)
-            .unwrap();
-
-        assert!(
-            node.word_source_ids
-                .get(&synthetic_word_id)
-                .map(|sources| sources.contains(&new_source_id))
-                .unwrap_or(false),
-            "expected expected-word assignment to persist into word_source_ids"
-        );
-
-        let _ = engine
-            .process_batch(make_batch(2, &[("s_next", &["a"])]))
-            .unwrap();
-        let root_hkt_after = engine
-            .hkt_build_output
-            .as_ref()
-            .unwrap()
-            .hkts_by_id
-            .values()
-            .find(|hkt| hkt.parent_node_id == 0)
-            .unwrap();
-        assert!(
-            root_hkt_after.expected_words.contains(&synthetic_word_id),
-            "expected synthetic expected word to persist across batches"
-        );
+            .0;
+        assert!(output.hkts[0].expected_words.contains(candidate_id));
+        assert!(!output.nodes[0].word_ids.contains(candidate_id));
     }
 
     #[test]
@@ -4714,7 +4591,7 @@ mod tests {
     }
 
     #[test]
-    fn word_change_metrics_prominent_word_uses_hkt_node_order() {
+    fn word_change_metrics_prominent_word_uses_largest_source_count() {
         let mut config = SecaConfig::default();
         config.seca_thresholds.alpha = 0.0;
         config.seca_thresholds.beta = 0.0;
@@ -4799,14 +4676,14 @@ mod tests {
         assert!(
             (metrics_a
                 .number_of_sources_before_new_batch_over_number_of_sources_of_old_promin_word_in_hkt
-                - 5.0)
+                - 1.0)
                 .abs()
                 < 1e-6
         );
         assert!(
             (metrics_b
                 .number_of_sources_before_new_batch_over_number_of_sources_of_old_promin_word_in_hkt
-                - 1.0)
+                - 0.2)
                 .abs()
                 < 1e-6
         );
@@ -5493,6 +5370,10 @@ mod tests {
             .reconstruct_scopes_by_hkt_id
             .insert(root_hkt_id, BTreeSet::from([0_usize]));
 
+        let expected_words_before = engine.hkt_build_output.as_ref().unwrap().hkts_by_id
+            [&root_hkt_id]
+            .expected_words
+            .clone();
         engine
             .rebuild_selected_hkts_from_trigger_plan(&batch, &forced_plan)
             .unwrap();

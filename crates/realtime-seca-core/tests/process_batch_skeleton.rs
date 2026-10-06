@@ -195,10 +195,7 @@ fn process_batch_sliding_window_zero_max_batches_errors() {
     config.memory_mode = MemoryMode::SlidingWindow;
     config.max_batches_in_memory = Some(0);
 
-    let mut engine = SecaEngine::new(config).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let error = engine.process_batch(batch_one()).unwrap_err();
+    let error = SecaEngine::new(config).unwrap_err();
     let message = error.to_string().to_lowercase();
 
     assert!(
