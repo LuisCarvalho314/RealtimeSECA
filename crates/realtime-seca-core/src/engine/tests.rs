@@ -27,7 +27,7 @@ mod tests {
         let baseline = engine
             .build_baseline_tree(make_batch(0, &[("s1", &["a", "b"]), ("s2", &["a", "c"])]))
             .unwrap();
-        assert!(baseline.hkt_diagnostics.is_empty()); // No update on initialization.
+        assert!(baseline.decision_diagnostics.is_empty()); // No update on initialization.
         let batch = make_batch(1, &[("n1", &["a", "x"]), ("n2", &["y"])]);
         let id = root_hkt_id(&engine);
         let scope = engine.snapshot_hkt_scope(id).unwrap();
@@ -50,7 +50,7 @@ mod tests {
             .unwrap();
         let result = engine.process_batch(batch).unwrap();
         let d = result
-            .hkt_diagnostics
+            .decision_diagnostics
             .iter()
             .find(|d| d.hkt_id == id)
             .unwrap();
@@ -71,15 +71,301 @@ mod tests {
         }
         let restored: crate::types::BatchProcessingResult =
             serde_json::from_str(&serde_json::to_string(&result).unwrap()).unwrap();
-        assert_eq!(restored.hkt_diagnostics, result.hkt_diagnostics);
+        assert_eq!(restored.decision_diagnostics, result.decision_diagnostics);
         let mut legacy = serde_json::to_value(&result).unwrap();
-        legacy.as_object_mut().unwrap().remove("hkt_diagnostics");
+        legacy
+            .as_object_mut()
+            .unwrap()
+            .remove("decision_diagnostics");
         assert!(
             serde_json::from_value::<crate::types::BatchProcessingResult>(legacy)
                 .unwrap()
-                .hkt_diagnostics
+                .decision_diagnostics
                 .is_empty()
         );
+    }
+
+    #[test]
+    fn display_sweep_is_observational_and_covers_final_ids_after_rebuild_and_pruning() {
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        config.memory_mode = MemoryMode::SlidingWindow;
+        config.max_batches_in_memory = Some(2);
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine.set_rebuild_mode(crate::engine::rebuild::RebuildMode::SubtreeTargeted);
+        let baseline = engine
+            .build_baseline_tree(make_batch(0, &[("s1", &["a", "b"]), ("s2", &["a", "c"])]))
+            .unwrap();
+        assert!(baseline
+            .display_diagnostics
+            .iter()
+            .all(|d| d.paper_alpha_error.is_none()
+                && d.unavailable_reason.as_deref() == Some("baseline_no_comparison")));
+        for index in 1..=3 {
+            let batch = make_batch(index, &[("new", &["a", "x"]), ("other", &["y"])]);
+            // Unique IDs each update.
+            let mut batch = batch;
+            for source in &mut batch.sources {
+                source.source_id.push_str(&index.to_string());
+            }
+            let report = engine.process_batch(batch.clone()).unwrap();
+            let before = serde_json::to_value(&engine).unwrap();
+            let display = engine.display_diagnostics(Some(&batch)).unwrap();
+            assert_eq!(before, serde_json::to_value(&engine).unwrap());
+            assert_eq!(display, report.display_diagnostics);
+            let ids: BTreeSet<_> = engine
+                .export_baseline_tree_verbose()
+                .unwrap()
+                .hkts
+                .iter()
+                .map(|h| h.hkt_id)
+                .collect();
+            assert_eq!(ids, display.iter().map(|d| d.hkt_id).collect());
+            assert_eq!(report.hkts_inspected, report.decision_diagnostics.len());
+            // Running the sweep cannot change the next actual decision/rebuild.
+            let mut untouched = engine.clone();
+            engine.display_diagnostics(Some(&batch)).unwrap();
+            let next = make_batch(index + 1, &[("probe", &["a", "z"])]);
+            let a = engine.clone().process_batch(next.clone()).unwrap();
+            let b = untouched.process_batch(next).unwrap();
+            assert_eq!(a.decision_diagnostics, b.decision_diagnostics);
+            assert_eq!(a.reconstructed_hkt_ids, b.reconstructed_hkt_ids);
+        }
+    }
+
+    #[test]
+    fn rebuilt_display_scopes_have_final_ids_and_decisions_keep_old_provenance() {
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        config.seca_thresholds.alpha_option1_threshold = 0.0;
+        config.seca_thresholds.beta_option1_threshold = 0.0;
+        config.seca_thresholds.word_importance_option1_threshold = 0.0;
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine.set_rebuild_mode(crate::engine::rebuild::RebuildMode::SubtreeTargeted);
+        engine
+            .build_baseline_tree(make_batch(0, &[("a", &["a", "b"]), ("b", &["a", "c"])]))
+            .unwrap();
+        let old_root = root_hkt_id(&engine);
+        let report = engine
+            .process_batch(make_batch(1, &[("x", &["x"]), ("y", &["x", "y"])]))
+            .unwrap();
+        assert!(report.reconstruction_triggered);
+        let decision = report
+            .decision_diagnostics
+            .iter()
+            .find(|d| d.hkt_id == old_root)
+            .unwrap();
+        assert!(decision.should_reconstruct);
+        assert_ne!(decision.output_hkt_id, Some(old_root));
+        assert!(report
+            .display_diagnostics
+            .iter()
+            .any(|d| Some(d.hkt_id) == decision.output_hkt_id));
+        assert!(!report
+            .display_diagnostics
+            .iter()
+            .any(|d| d.hkt_id == old_root));
+        let ids: BTreeSet<_> = engine
+            .export_baseline_tree_verbose()
+            .unwrap()
+            .hkts
+            .iter()
+            .map(|h| h.hkt_id)
+            .collect();
+        assert_eq!(
+            ids,
+            report
+                .display_diagnostics
+                .iter()
+                .map(|d| d.hkt_id)
+                .collect()
+        );
+    }
+
+    #[test]
+    fn display_empty_scope_is_unavailable_and_equivalent_option1_agrees() {
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine
+            .build_baseline_tree(make_batch(0, &[("s", &["a"])]))
+            .unwrap();
+        let batch = make_batch(1, &[("n", &["a"])]);
+        let result = engine.process_batch(batch.clone()).unwrap();
+        let decision = &result.decision_diagnostics[0];
+        let display = &result.display_diagnostics[0];
+        assert_eq!(display.paper_alpha_error, decision.paper_alpha_error);
+        assert_eq!(display.paper_beta_error, decision.paper_beta_error);
+        assert_eq!(
+            display.paper_word_importance_error,
+            decision.paper_word_importance_error
+        );
+        let tree = engine.hkt_build_output.as_mut().unwrap();
+        for node in tree.nodes_by_id.values_mut() {
+            node.source_ids.clear();
+            node.word_source_ids.clear();
+        }
+        for hkt in tree.hkts_by_id.values_mut() {
+            for node in &mut hkt.nodes {
+                node.source_ids.clear();
+                node.word_source_ids.clear();
+            }
+        }
+        let empty = make_batch(2, &[]);
+        let display = engine.display_diagnostics(Some(&empty)).unwrap();
+        assert!(display.iter().all(|d| d.paper_alpha_error.is_none()
+            && d.paper_beta_error.is_none()
+            && d.paper_word_importance_error.is_none()
+            && d.unavailable_reason.is_some()));
+    }
+
+    #[test]
+    fn three_decisions_and_260_display_scopes_preserve_the_trigger_plan() {
+        use crate::tree::Node;
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        config.seca_thresholds.alpha_option1_threshold = 1.0;
+        config.seca_thresholds.beta_option1_threshold = 1.0;
+        config.seca_thresholds.word_importance_option1_threshold = 1.0;
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine
+            .build_baseline_tree(make_batch(0, &[("old-a", &["a"]), ("old-b", &["b"])]))
+            .unwrap();
+        let a = *engine
+            .baseline_word_legend
+            .iter()
+            .find(|(_, w)| w.as_str() == "a")
+            .unwrap()
+            .0;
+        let b = *engine
+            .baseline_word_legend
+            .iter()
+            .find(|(_, w)| w.as_str() == "b")
+            .unwrap()
+            .0;
+        let sa = engine.source_id_by_url["old-a"];
+        let sb = engine.source_id_by_url["old-b"];
+        let tree = engine.hkt_build_output.as_mut().unwrap();
+        tree.hkts_by_id.clear();
+        tree.nodes_by_id.clear();
+        let mut root = Hkt::new(1, 0, BTreeSet::new(), false);
+        let mut node_id = 1;
+        for hkt_id in 2..=260 {
+            let word = if hkt_id <= 3 { a } else { b };
+            let source = if hkt_id <= 3 { sa } else { sb };
+            let parent_node_id = if hkt_id == 3 {
+                2
+            } else {
+                let mut node = Node::new(node_id, 1);
+                node.word_ids.insert(word);
+                node.source_ids.insert(source);
+                node.word_source_ids.insert(word, [source].into());
+                tree.nodes_by_id.insert(node_id, node.clone());
+                root.nodes.push(node);
+                node_id
+            };
+            node_id += 1;
+            let mut child = Hkt::new(hkt_id, parent_node_id, BTreeSet::new(), false);
+            let mut node = Node::new(node_id, hkt_id);
+            node.word_ids.insert(word);
+            node.source_ids.insert(source);
+            node.word_source_ids.insert(word, [source].into());
+            tree.nodes_by_id.insert(node_id, node.clone());
+            child.nodes.push(node);
+            tree.hkts_by_id.insert(hkt_id, child);
+            node_id += 1;
+        }
+        tree.hkts_by_id.insert(1, root);
+        engine.next_hkt_id = 261;
+        engine.next_node_id = node_id;
+        let batch = make_batch(1, &[("incoming-a", &["a"])]);
+        let plan = engine
+            .clone()
+            .evaluate_seca_trigger_plan_for_batch(&batch)
+            .unwrap();
+        assert_eq!(plan.diagnostics.len(), 3);
+        let before = serde_json::to_value(&engine).unwrap();
+        let pre_display = engine.display_diagnostics(Some(&batch)).unwrap();
+        assert_eq!(before, serde_json::to_value(&engine).unwrap());
+        let report = engine.process_batch(batch).unwrap();
+        assert_eq!(report.decision_diagnostics, plan.diagnostics);
+        assert_eq!(report.reconstructed_hkt_ids, plan.reconstruct_hkt_ids);
+        assert!(!report.reconstruction_triggered);
+        assert_eq!(report.display_diagnostics.len(), 260);
+        assert_eq!(pre_display.len(), 260);
+        assert_eq!(
+            report
+                .display_diagnostics
+                .iter()
+                .filter(|d| d.paper_alpha_error.is_some())
+                .count(),
+            260
+        );
+        println!("CONTROLLED COVERAGE: HKTs=260 decision=3 display=260 alpha=260 beta=260 WI=260");
+    }
+
+    #[test]
+    fn realistic_display_coverage_is_independent_of_sparse_trigger_traversal() {
+        let batch: SourceBatch =
+            serde_json::from_str(include_str!("../../tests/data/large_batch.json")).unwrap();
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        // Use production branch admission rather than the unit-test default (1).
+        config
+            .hkt_builder
+            .minimum_number_of_sources_to_create_branch_for_node = 10;
+        config.hkt_builder.minimum_threshold_against_max_word_count = 0.7;
+        config.seca_thresholds.alpha = 0.7;
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine.set_rebuild_mode(crate::engine::rebuild::RebuildMode::SubtreeTargeted);
+        let baseline = engine.build_baseline_tree(batch.clone()).unwrap();
+        let mut incoming = batch.clone();
+        incoming.batch_index = batch.batch_index + 1;
+        incoming.sources.truncate(3);
+        for source in &mut incoming.sources {
+            source.batch_index = incoming.batch_index;
+            source.source_id.push_str("-incoming");
+        }
+        let report = engine.process_batch(incoming).unwrap();
+        let ids: BTreeSet<_> = engine
+            .export_baseline_tree_verbose()
+            .unwrap()
+            .hkts
+            .iter()
+            .map(|h| h.hkt_id)
+            .collect();
+        assert_eq!(
+            ids,
+            report
+                .display_diagnostics
+                .iter()
+                .map(|d| d.hkt_id)
+                .collect()
+        );
+        let available = report
+            .display_diagnostics
+            .iter()
+            .filter(|d| d.paper_alpha_error.is_some())
+            .count();
+        println!(
+            "COVERAGE baseline={} final={} decision={} display={} alpha={} beta={} WI={}",
+            baseline.display_diagnostics.len(),
+            ids.len(),
+            report.decision_diagnostics.len(),
+            report.display_diagnostics.len(),
+            available,
+            report
+                .display_diagnostics
+                .iter()
+                .filter(|d| d.paper_beta_error.is_some())
+                .count(),
+            report
+                .display_diagnostics
+                .iter()
+                .filter(|d| d.paper_word_importance_error.is_some())
+                .count()
+        );
+        assert!(available > report.decision_diagnostics.len());
     }
 
     fn make_source(source_id: &str, batch_index: u32, tokens: &[&str]) -> SourceRecord {

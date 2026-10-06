@@ -83,7 +83,8 @@ impl SecaEngine {
         });
 
         Ok(BatchProcessingResult {
-            hkt_diagnostics: Vec::new(),
+            decision_diagnostics: Vec::new(),
+            display_diagnostics: self.display_diagnostics(None)?,
             batch_index: baseline_batch.batch_index,
             sources_processed: baseline_batch.sources.len(),
             active_source_count: self.baseline_source_legend.len(),

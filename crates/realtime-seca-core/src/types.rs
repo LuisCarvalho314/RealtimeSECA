@@ -25,7 +25,7 @@ pub struct SourceBatch {
 /// retain this scope through output_hkt_id; newly created child scopes have no
 /// independent trigger evaluation. None means unavailable, never zero.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct HktUpdateDiagnostics {
+pub struct HktDecisionDiagnostics {
     pub hkt_id: i32,
     pub output_hkt_id: Option<i32>,
     pub scoped_source_count: usize,
@@ -41,10 +41,23 @@ pub struct HktUpdateDiagnostics {
     pub paper_word_importance_error: Option<f64>,
 }
 
+/// Final-topology Option1 observations, never trigger decisions.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct HktDisplayDiagnostics {
+    pub hkt_id: i32,
+    pub mapped_source_count: usize,
+    pub paper_alpha_error: Option<f64>,
+    pub paper_beta_error: Option<f64>,
+    pub paper_word_importance_error: Option<f64>,
+    pub unavailable_reason: Option<String>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BatchProcessingResult {
     #[serde(default)]
-    pub hkt_diagnostics: Vec<HktUpdateDiagnostics>,
+    pub decision_diagnostics: Vec<HktDecisionDiagnostics>,
+    #[serde(default)]
+    pub display_diagnostics: Vec<HktDisplayDiagnostics>,
     pub batch_index: u32,
     pub sources_processed: usize,
     #[serde(default)]

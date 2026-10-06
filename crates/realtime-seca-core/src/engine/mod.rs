@@ -470,7 +470,8 @@ impl SecaEngine {
         }
         let hkts_inspected = trigger_plan.diagnostics.len();
         Ok(BatchProcessingResult {
-            hkt_diagnostics: trigger_plan.diagnostics,
+            display_diagnostics: self.display_diagnostics(Some(&batch))?,
+            decision_diagnostics: trigger_plan.diagnostics,
             batch_index: batch.batch_index,
             sources_processed,
             sources_forgotten,
