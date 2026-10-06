@@ -18,6 +18,70 @@ mod tests {
 
     use std::collections::{BTreeMap, BTreeSet};
 
+    #[test]
+    fn update_report_preserves_actual_scope_diagnostics_and_rebuilt_root_lineage() {
+        let mut config = SecaConfig::default();
+        config.trigger_policy_mode = TriggerPolicyMode::PaperDiagnosticScaffold;
+        let mut engine = SecaEngine::new(config).unwrap();
+        engine.set_rebuild_mode(crate::engine::rebuild::RebuildMode::SubtreeTargeted);
+        let baseline = engine
+            .build_baseline_tree(make_batch(0, &[("s1", &["a", "b"]), ("s2", &["a", "c"])]))
+            .unwrap();
+        assert!(baseline.hkt_diagnostics.is_empty()); // No update on initialization.
+        let batch = make_batch(1, &[("n1", &["a", "x"]), ("n2", &["y"])]);
+        let id = root_hkt_id(&engine);
+        let scope = engine.snapshot_hkt_scope(id).unwrap();
+        let mapped = engine
+            .map_batch_into_hkt_scope(&batch, &(0..2).collect(), &scope)
+            .unwrap();
+        let stage = engine
+            .compute_update_stage_for_scope(
+                &batch,
+                &scope,
+                &mapped,
+                &crate::engine::trigger::AncestorContext::default(),
+            )
+            .unwrap();
+        let changes = engine
+            .compute_word_change_metrics_for_scope(&scope, &mapped, &stage)
+            .unwrap();
+        let decision = engine
+            .evaluate_scope_trigger_decision(&scope, &mapped, &stage, Some(&changes))
+            .unwrap();
+        let result = engine.process_batch(batch).unwrap();
+        let d = result
+            .hkt_diagnostics
+            .iter()
+            .find(|d| d.hkt_id == id)
+            .unwrap();
+        assert_eq!(d.scoped_source_count, 2);
+        assert_eq!(d.mapped_source_count, 1);
+        assert_eq!(d.paper_alpha_error, decision.paper_alpha_error);
+        assert_eq!(d.paper_beta_error, decision.paper_beta_error);
+        assert_eq!(
+            d.paper_word_importance_error,
+            decision.paper_word_importance_error
+        );
+        assert_eq!(d.should_reconstruct, decision.should_reconstruct);
+        assert_eq!(d.trigger_reasons, decision.trigger_reasons);
+        let tree = engine.export_baseline_tree_verbose().unwrap();
+        assert!(tree.hkts.iter().any(|h| Some(h.hkt_id) == d.output_hkt_id));
+        if d.should_reconstruct {
+            assert_ne!(d.output_hkt_id, Some(id));
+        }
+        let restored: crate::types::BatchProcessingResult =
+            serde_json::from_str(&serde_json::to_string(&result).unwrap()).unwrap();
+        assert_eq!(restored.hkt_diagnostics, result.hkt_diagnostics);
+        let mut legacy = serde_json::to_value(&result).unwrap();
+        legacy.as_object_mut().unwrap().remove("hkt_diagnostics");
+        assert!(
+            serde_json::from_value::<crate::types::BatchProcessingResult>(legacy)
+                .unwrap()
+                .hkt_diagnostics
+                .is_empty()
+        );
+    }
+
     fn make_source(source_id: &str, batch_index: u32, tokens: &[&str]) -> SourceRecord {
         SourceRecord {
             source_id: source_id.to_string(),

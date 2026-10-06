@@ -289,7 +289,7 @@ impl SecaEngine {
             batch_stats.total_sources_in_batch
         ));
 
-        let trigger_plan = self.evaluate_seca_trigger_plan_for_batch(&batch)?;
+        let mut trigger_plan = self.evaluate_seca_trigger_plan_for_batch(&batch)?;
         debug_assert_eq!(trigger_plan.batch_index, batch.batch_index);
 
         notes.extend(trigger_plan.notes.clone());
@@ -384,7 +384,13 @@ impl SecaEngine {
             }
 
             if self.rebuild_mode == crate::engine::rebuild::RebuildMode::SubtreeTargeted {
-                self.rebuild_selected_hkts_from_trigger_plan(&batch, &trigger_plan)?;
+                let replacements =
+                    self.rebuild_selected_hkts_from_trigger_plan(&batch, &trigger_plan)?;
+                for diagnostic in &mut trigger_plan.diagnostics {
+                    if let Some(id) = replacements.get(&diagnostic.hkt_id) {
+                        diagnostic.output_hkt_id = Some(*id);
+                    }
+                }
                 notes.push(
                     "Reconstruction action: selected-HKT subtree rebuild completed".to_string(),
                 );
@@ -448,16 +454,28 @@ impl SecaEngine {
             reason_codes,
         });
 
+        // Never join stale IDs to scopes introduced by a full rebuild/pruning.
+        for diagnostic in &mut trigger_plan.diagnostics {
+            if self.rebuild_mode != rebuild::RebuildMode::SubtreeTargeted
+                && reconstruction_triggered
+            {
+                diagnostic.output_hkt_id = None;
+            } else if !diagnostic.output_hkt_id.is_some_and(|id| {
+                self.hkt_build_output
+                    .as_ref()
+                    .is_some_and(|tree| tree.hkts_by_id.contains_key(&id))
+            }) {
+                diagnostic.output_hkt_id = None;
+            }
+        }
+        let hkts_inspected = trigger_plan.diagnostics.len();
         Ok(BatchProcessingResult {
+            hkt_diagnostics: trigger_plan.diagnostics,
             batch_index: batch.batch_index,
             sources_processed,
             sources_forgotten,
             active_source_count: self.baseline_source_legend.len(),
-            hkts_inspected: trigger_plan
-                .notes
-                .iter()
-                .filter(|note| note.contains(": scoped_sources="))
-                .count(),
+            hkts_inspected,
             reconstructed_hkt_ids: trigger_plan.reconstruct_hkt_ids.clone(),
             reconstruction_triggered,
             notes,

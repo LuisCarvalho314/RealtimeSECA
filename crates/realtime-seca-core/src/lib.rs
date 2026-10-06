@@ -13,8 +13,8 @@ pub use error::SecaError;
 pub use types::{
     BaselineHktExport, BaselineHktVerboseExport, BaselineNodeExport, BaselineNodeVerboseExport,
     BaselineTreeExport, BaselineTreeVerboseExport, BatchProcessingResult, ClusteringResult,
-    EngineSnapshot, SourceBatch, SourceLegendEntry, SourceRecord, UpdateExplanation,
-    VerboseSourceRef, VerboseWordRef, WordLegendEntry,
+    EngineSnapshot, HktUpdateDiagnostics, SourceBatch, SourceLegendEntry, SourceRecord,
+    UpdateExplanation, VerboseSourceRef, VerboseWordRef, WordLegendEntry,
 };
 
 pub const ENGINE_VERSION: &str = "0.1.0-risklive-light-1";

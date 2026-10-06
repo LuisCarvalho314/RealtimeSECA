@@ -254,7 +254,8 @@ impl SecaEngine {
         &mut self,
         batch: &SourceBatch,
         trigger_plan: &crate::engine::trigger::RecursiveTriggerPlan,
-    ) -> Result<(), SecaError> {
+    ) -> Result<BTreeMap<i32, i32>, SecaError> {
+        let mut replacements = BTreeMap::new();
         for target_hkt_id in &trigger_plan.reconstruct_hkt_ids {
             let target_hkt_id = *target_hkt_id;
 
@@ -369,6 +370,13 @@ impl SecaEngine {
 
             remove_subtree(hkt_build_output, target_hkt_id);
 
+            let rebuilt_root = subtree
+                .hkts_by_id
+                .values()
+                .find(|h| h.parent_node_id == 0)
+                .expect("rebuilt subtree root")
+                .hkt_id;
+            replacements.insert(target_hkt_id, rebuilt_root + hkt_id_offset);
             let remapped =
                 remap_subtree_ids(subtree, hkt_id_offset, node_id_offset, parent_node_id);
             let remapped_hkt_len = remapped.hkts_by_id.len() as i32;
@@ -380,7 +388,7 @@ impl SecaEngine {
             self.next_node_id += remapped_node_len;
         }
 
-        Ok(())
+        Ok(replacements)
     }
     pub(crate) fn format_selected_hkt_rebuild_plan_note(
         &self,

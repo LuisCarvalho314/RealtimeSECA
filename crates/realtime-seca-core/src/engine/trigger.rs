@@ -28,6 +28,7 @@ impl SecaEngine {
         let all_source_indexes: BTreeSet<usize> = (0..batch.sources.len()).collect();
 
         let mut plan = RecursiveTriggerPlan {
+            diagnostics: Vec::new(),
             batch_index: batch.batch_index,
             any_reconstruction_triggered: false,
             reconstruct_hkt_ids: Vec::new(),
@@ -96,6 +97,30 @@ impl SecaEngine {
             &update_stage,
             change_metrics.as_ref(),
         )?;
+
+        // Count unique mapped incoming sources, excluding the refuge assignment.
+        let mapped_source_count = mapped_scope
+            .matched_node_source_indexes_by_node_id
+            .iter()
+            .filter(|(id, _)| scope_snapshot.non_refuge_node_ids.contains(id))
+            .flat_map(|(_, indexes)| indexes.iter().copied())
+            .collect::<BTreeSet<_>>()
+            .len();
+        plan.diagnostics.push(crate::types::HktUpdateDiagnostics {
+            hkt_id,
+            output_hkt_id: Some(hkt_id),
+            scoped_source_count: mapped_scope.scoped_batch_source_indexes.len(),
+            mapped_source_count,
+            should_reconstruct: decision.should_reconstruct,
+            trigger_reasons: decision.trigger_reasons.clone(),
+            active_trigger_policy: decision.active_trigger_policy_label.clone(),
+            alpha_error: decision.alpha_error,
+            beta_error: decision.beta_error,
+            word_importance_error: decision.word_importance_error,
+            paper_alpha_error: decision.paper_alpha_error,
+            paper_beta_error: decision.paper_beta_error,
+            paper_word_importance_error: decision.paper_word_importance_error,
+        });
 
         plan.notes.push(format!(
             "HKT {}: scoped_sources={}, matched_nodes={}, known_words_in_scope={}, new_tokens_in_scope={}",
@@ -1711,7 +1736,7 @@ impl SecaEngine {
         )
     }
 
-    fn evaluate_scope_trigger_decision(
+    pub(super) fn evaluate_scope_trigger_decision(
         &self,
         scope_snapshot: &HktScopeSnapshot,
         mapped_scope: &MappedHktScopeState,
@@ -2006,6 +2031,7 @@ impl SecaEngine {
 
 #[derive(Debug, Clone, Default)]
 pub(crate) struct RecursiveTriggerPlan {
+    pub(crate) diagnostics: Vec<crate::types::HktUpdateDiagnostics>,
     pub(crate) batch_index: u32,
     pub(crate) any_reconstruction_triggered: bool,
     pub(crate) reconstruct_hkt_ids: Vec<i32>,

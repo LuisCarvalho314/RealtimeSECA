@@ -21,8 +21,30 @@ pub struct SourceBatch {
     pub sources: Vec<SourceRecord>,
 }
 
+/// Diagnostics of the evaluated state0 HKT scope for one update. Rebuilt roots
+/// retain this scope through output_hkt_id; newly created child scopes have no
+/// independent trigger evaluation. None means unavailable, never zero.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct HktUpdateDiagnostics {
+    pub hkt_id: i32,
+    pub output_hkt_id: Option<i32>,
+    pub scoped_source_count: usize,
+    pub mapped_source_count: usize,
+    pub should_reconstruct: bool,
+    pub trigger_reasons: Vec<String>,
+    pub active_trigger_policy: Option<String>,
+    pub alpha_error: Option<f64>,
+    pub beta_error: Option<f64>,
+    pub word_importance_error: Option<f64>,
+    pub paper_alpha_error: Option<f64>,
+    pub paper_beta_error: Option<f64>,
+    pub paper_word_importance_error: Option<f64>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BatchProcessingResult {
+    #[serde(default)]
+    pub hkt_diagnostics: Vec<HktUpdateDiagnostics>,
     pub batch_index: u32,
     pub sources_processed: usize,
     #[serde(default)]
