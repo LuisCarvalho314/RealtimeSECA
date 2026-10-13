@@ -1,0 +1,226 @@
+[
+  {
+    "case": "branch_boundary",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "branch_boundary",
+    "language": "rust.observed",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "collision_true_tie",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "collision_true_tie",
+    "language": "rust.observed",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "collision_true_tie_rebuilt",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      true,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "collision_true_tie_rebuilt",
+    "language": "rust.observed",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "frequency_vs_vocabulary",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "frequency_vs_vocabulary",
+    "language": "rust.observed",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "frequency_vs_vocabulary_rebuilt",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "frequency_vs_vocabulary_rebuilt",
+    "language": "rust.observed",
+    "ordered_equal": [
+      true,
+      true,
+      true
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_child_rebuilt",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_child_rebuilt",
+    "language": "rust.observed",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_recursive",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_recursive",
+    "language": "rust.observed",
+    "ordered_equal": [
+      false,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_recursive_rebuilt",
+    "language": "csharp.normalized",
+    "ordered_equal": [
+      true,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "overlap_recursive_rebuilt",
+    "language": "rust.observed",
+    "ordered_equal": [
+      true,
+      false,
+      false
+    ],
+    "unordered_equal": [
+      true,
+      true,
+      true
+    ]
+  }
+]

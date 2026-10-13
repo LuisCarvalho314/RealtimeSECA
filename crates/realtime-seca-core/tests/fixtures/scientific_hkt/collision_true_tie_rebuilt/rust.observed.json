@@ -1,0 +1,122 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "q"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": true
+      }
+    ],
+    "topology": {
+      "expected": [
+        "b",
+        "c"
+      ],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "2",
+            "4",
+            "5"
+          ],
+          "words": [
+            "a",
+            "c"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "5"
+          ],
+          "words": [
+            "b"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": true,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "2",
+            "4",
+            "5",
+            "6"
+          ],
+          "words": [
+            "a",
+            "c"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "5",
+            "6"
+          ],
+          "words": [
+            "b"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": true,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

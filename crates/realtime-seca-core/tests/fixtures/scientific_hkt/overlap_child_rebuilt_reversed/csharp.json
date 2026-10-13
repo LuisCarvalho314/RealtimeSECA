@@ -1,0 +1,1988 @@
+{
+  "schemaVersion": 1,
+  "mode": "accumulated-seca-serial-instrumented",
+  "parameters": {
+    "alpha": 0.8,
+    "beta": 0.75,
+    "alphaError": 1.0,
+    "betaError": 1.0,
+    "wordImportanceError": 0.2,
+    "branchMinimum": 1,
+    "batches": [
+      [
+        {
+          "id": 14,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 13,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 12,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 11,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 10,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 9,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 8,
+          "words": [
+            "d"
+          ]
+        },
+        {
+          "id": 7,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 6,
+          "words": [
+            "c",
+            "a"
+          ]
+        },
+        {
+          "id": 5,
+          "words": [
+            "c",
+            "a"
+          ]
+        },
+        {
+          "id": 4,
+          "words": [
+            "c",
+            "b",
+            "a"
+          ]
+        },
+        {
+          "id": 3,
+          "words": [
+            "c",
+            "b",
+            "a"
+          ]
+        },
+        {
+          "id": 2,
+          "words": [
+            "b",
+            "a"
+          ]
+        },
+        {
+          "id": 1,
+          "words": [
+            "b",
+            "a"
+          ]
+        }
+      ],
+      [
+        {
+          "id": 25,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 24,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 23,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 22,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 21,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 20,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 19,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 18,
+          "words": [
+            "x",
+            "a"
+          ]
+        },
+        {
+          "id": 17,
+          "words": [
+            "x",
+            "a"
+          ]
+        },
+        {
+          "id": 16,
+          "words": [
+            "x",
+            "a"
+          ]
+        },
+        {
+          "id": 15,
+          "words": [
+            "x",
+            "a"
+          ]
+        }
+      ],
+      [
+        {
+          "id": 26,
+          "words": [
+            "c",
+            "b",
+            "a"
+          ]
+        }
+      ]
+    ]
+  },
+  "vocabulary": [
+    {
+      "id": 1,
+      "word": "d"
+    },
+    {
+      "id": 2,
+      "word": "a"
+    },
+    {
+      "id": 3,
+      "word": "c"
+    },
+    {
+      "id": 4,
+      "word": "b"
+    },
+    {
+      "id": 5,
+      "word": "x"
+    }
+  ],
+  "snapshots": [
+    {
+      "cycle": 1,
+      "tree": [
+        {
+          "id": 1,
+          "parentNodeId": 0,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 1,
+              "words": [
+                1
+              ],
+              "sources": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "wordSources": [
+                {
+                  "wordId": 1,
+                  "sources": [
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 2,
+              "words": [
+                2
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "wordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "parentNodeId": 2,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 3,
+              "words": [
+                3
+              ],
+              "sources": [
+                3,
+                4,
+                5,
+                6
+              ],
+              "wordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    3,
+                    4,
+                    5,
+                    6
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 4,
+              "words": [
+                4
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "wordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "decisions": [
+        {
+          "hktId": 1,
+          "accepted": true,
+          "triggered": false,
+          "topologyAtDecision": {
+            "id": 1,
+            "parentNodeId": 0,
+            "expectedWords": [],
+            "nodes": [
+              {
+                "id": 1,
+                "words": [
+                  1
+                ],
+                "sources": [
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 1,
+                    "sources": [
+                      8,
+                      9,
+                      10,
+                      11,
+                      12,
+                      13,
+                      14
+                    ]
+                  }
+                ],
+                "pendingSources": [],
+                "pendingWordSources": [],
+                "expectedWords": []
+              },
+              {
+                "id": 2,
+                "words": [
+                  2
+                ],
+                "sources": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 2,
+                    "sources": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 2,
+                    "sources": [
+                      15,
+                      16,
+                      17,
+                      18,
+                      19,
+                      20,
+                      21,
+                      22,
+                      23,
+                      24,
+                      25
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 11.0,
+            "sumMappedSourcesNodesState0": 14.0,
+            "sumMappedSourcesNodesState1": 25.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.2056,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.3056,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.6111,
+              "option3_Min": 0.0,
+              "option3_Max": 1.414,
+              "option3_Thresh": 0.424,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.375,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.5,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.031,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.3111,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 1,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 7.0,
+                "numberOfSourcesInNewBatch": 0.0,
+                "numberOfSourcesAfterNewBatch": 7.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 0.3888888888888889,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": 0.41111111111111115,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.41111111111111115,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.5,
+                "precentageOfSourcesInHKTInNewBatch": 0.28
+              }
+            },
+            {
+              "wordId": 2,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 7.0,
+                "numberOfSourcesInNewBatch": 11.0,
+                "numberOfSourcesAfterNewBatch": 18.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.5,
+                "precentageOfSourcesInHKTInNewBatch": 0.72
+              }
+            }
+          ]
+        },
+        {
+          "hktId": 2,
+          "accepted": false,
+          "triggered": true,
+          "topologyAtDecision": {
+            "id": 2,
+            "parentNodeId": 2,
+            "expectedWords": [
+              {
+                "numberOfSourcesInState0": 0.0,
+                "numberOfSourcesInState1": 4.0,
+                "wordId": 5,
+                "word": null
+              }
+            ],
+            "nodes": [
+              {
+                "id": 3,
+                "words": [
+                  3
+                ],
+                "sources": [
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 3,
+                    "sources": [
+                      3,
+                      4,
+                      5,
+                      6
+                    ]
+                  }
+                ],
+                "pendingSources": [],
+                "pendingWordSources": [],
+                "expectedWords": []
+              },
+              {
+                "id": 4,
+                "words": [
+                  4
+                ],
+                "sources": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 4,
+                    "sources": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                "pendingSources": [],
+                "pendingWordSources": [],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 11.0,
+            "sumMappedSourcesNodesState0": 8.0,
+            "sumMappedSourcesNodesState1": 8.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.414,
+              "option3_Thresh": 0.424,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.375,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.5,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.031,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.3333,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.2357,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 3,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 4.0,
+                "numberOfSourcesInNewBatch": 0.0,
+                "numberOfSourcesAfterNewBatch": 4.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.5,
+                "precentageOfSourcesInHKTInNewBatch": 0.33333333333333331
+              }
+            },
+            {
+              "wordId": 4,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 4.0,
+                "numberOfSourcesInNewBatch": 0.0,
+                "numberOfSourcesAfterNewBatch": 4.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.5,
+                "precentageOfSourcesInHKTInNewBatch": 0.33333333333333331
+              }
+            },
+            {
+              "wordId": 5,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 0.0,
+                "numberOfSourcesInNewBatch": 4.0,
+                "numberOfSourcesAfterNewBatch": 4.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 0.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 0.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 0.0,
+                "OldDeviationFomAlphaParameter": 0.8,
+                "OldDeviationFomBetaParameter": 0.0,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": 0.0,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.0,
+                "precentageOfSourcesInHKTInNewBatch": 0.33333333333333331
+              }
+            }
+          ]
+        }
+      ],
+      "removedHktIds": [
+        2
+      ],
+      "tree": [
+        {
+          "id": 1,
+          "parentNodeId": 0,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 1,
+              "words": [
+                1
+              ],
+              "sources": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "wordSources": [
+                {
+                  "wordId": 1,
+                  "sources": [
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 2,
+              "words": [
+                2
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ],
+              "wordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25
+                  ]
+                }
+              ],
+              "pendingSources": [
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25
+                  ]
+                }
+              ],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "parentNodeId": 2,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 5,
+              "words": [
+                3
+              ],
+              "sources": [
+                3,
+                4,
+                5,
+                6
+              ],
+              "wordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    3,
+                    4,
+                    5,
+                    6
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 6,
+              "words": [
+                4
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "wordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 7,
+              "words": [
+                5
+              ],
+              "sources": [
+                15,
+                16,
+                17,
+                18
+              ],
+              "wordSources": [
+                {
+                  "wordId": 5,
+                  "sources": [
+                    15,
+                    16,
+                    17,
+                    18
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "parentNodeId": 5,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 8,
+              "words": [
+                4
+              ],
+              "sources": [
+                3,
+                4
+              ],
+              "wordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "parentNodeId": 6,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 9,
+              "words": [
+                3
+              ],
+              "sources": [
+                3,
+                4
+              ],
+              "wordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "decisions": [
+        {
+          "hktId": 1,
+          "accepted": true,
+          "triggered": false,
+          "topologyAtDecision": {
+            "id": 1,
+            "parentNodeId": 0,
+            "expectedWords": [],
+            "nodes": [
+              {
+                "id": 1,
+                "words": [
+                  1
+                ],
+                "sources": [
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 1,
+                    "sources": [
+                      8,
+                      9,
+                      10,
+                      11,
+                      12,
+                      13,
+                      14
+                    ]
+                  }
+                ],
+                "pendingSources": [],
+                "pendingWordSources": [],
+                "expectedWords": []
+              },
+              {
+                "id": 2,
+                "words": [
+                  2
+                ],
+                "sources": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 2,
+                    "sources": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      15,
+                      16,
+                      17,
+                      18,
+                      19,
+                      20,
+                      21,
+                      22,
+                      23,
+                      24,
+                      25
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  26
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 2,
+                    "sources": [
+                      26
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 1.0,
+            "sumMappedSourcesNodesState0": 25.0,
+            "sumMappedSourcesNodesState1": 26.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.2158,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.3158,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 1.6936,
+              "option3_Min": 0.0,
+              "option3_Max": 1.414,
+              "option3_Thresh": 0.424,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.375,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.5,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.031,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.0152,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 1,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 7.0,
+                "numberOfSourcesInNewBatch": 0.0,
+                "numberOfSourcesAfterNewBatch": 7.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 0.36842105263157893,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": 0.43157894736842112,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.43157894736842112,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.28,
+                "precentageOfSourcesInHKTInNewBatch": 0.26923076923076922
+              }
+            },
+            {
+              "wordId": 2,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 18.0,
+                "numberOfSourcesInNewBatch": 1.0,
+                "numberOfSourcesAfterNewBatch": 19.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 2.5714285714285716,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -1.7714285714285716,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.72,
+                "precentageOfSourcesInHKTInNewBatch": 0.73076923076923073
+              }
+            }
+          ]
+        },
+        {
+          "hktId": 3,
+          "accepted": true,
+          "triggered": false,
+          "topologyAtDecision": {
+            "id": 3,
+            "parentNodeId": 2,
+            "expectedWords": [],
+            "nodes": [
+              {
+                "id": 5,
+                "words": [
+                  3
+                ],
+                "sources": [
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 3,
+                    "sources": [
+                      3,
+                      4,
+                      5,
+                      6
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  26
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 3,
+                    "sources": [
+                      26
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              },
+              {
+                "id": 6,
+                "words": [
+                  4
+                ],
+                "sources": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 4,
+                    "sources": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  26
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 4,
+                    "sources": [
+                      26
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              },
+              {
+                "id": 7,
+                "words": [
+                  5
+                ],
+                "sources": [
+                  15,
+                  16,
+                  17,
+                  18
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 5,
+                    "sources": [
+                      15,
+                      16,
+                      17,
+                      18
+                    ]
+                  }
+                ],
+                "pendingSources": [],
+                "pendingWordSources": [],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 1.0,
+            "sumMappedSourcesNodesState0": 12.0,
+            "sumMappedSourcesNodesState1": 14.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.2,
+              "option3_Min": 0.0,
+              "option3_Max": 1.732,
+              "option3_Thresh": 0.52,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.5,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.667,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.436,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.0583,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 3,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 4.0,
+                "numberOfSourcesInNewBatch": 1.0,
+                "numberOfSourcesAfterNewBatch": 5.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.33333333333333331,
+                "precentageOfSourcesInHKTInNewBatch": 0.35714285714285715
+              }
+            },
+            {
+              "wordId": 4,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 4.0,
+                "numberOfSourcesInNewBatch": 1.0,
+                "numberOfSourcesAfterNewBatch": 5.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.33333333333333331,
+                "precentageOfSourcesInHKTInNewBatch": 0.35714285714285715
+              }
+            },
+            {
+              "wordId": 5,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 4.0,
+                "numberOfSourcesInNewBatch": 0.0,
+                "numberOfSourcesAfterNewBatch": 4.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 0.8,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": 0.0,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 0.33333333333333331,
+                "precentageOfSourcesInHKTInNewBatch": 0.2857142857142857
+              }
+            }
+          ]
+        },
+        {
+          "hktId": 4,
+          "accepted": true,
+          "triggered": false,
+          "topologyAtDecision": {
+            "id": 4,
+            "parentNodeId": 5,
+            "expectedWords": [],
+            "nodes": [
+              {
+                "id": 8,
+                "words": [
+                  4
+                ],
+                "sources": [
+                  3,
+                  4
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 4,
+                    "sources": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  26
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 4,
+                    "sources": [
+                      26
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 1.0,
+            "sumMappedSourcesNodesState0": 2.0,
+            "sumMappedSourcesNodesState1": 3.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.0,
+              "option3_Thresh": 0.3,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.0,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 0.25,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 4,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 2.0,
+                "numberOfSourcesInNewBatch": 1.0,
+                "numberOfSourcesAfterNewBatch": 3.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 1.0,
+                "precentageOfSourcesInHKTInNewBatch": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "hktId": 5,
+          "accepted": true,
+          "triggered": false,
+          "topologyAtDecision": {
+            "id": 5,
+            "parentNodeId": 6,
+            "expectedWords": [],
+            "nodes": [
+              {
+                "id": 9,
+                "words": [
+                  3
+                ],
+                "sources": [
+                  3,
+                  4
+                ],
+                "wordSources": [
+                  {
+                    "wordId": 3,
+                    "sources": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                "pendingSources": [
+                  26
+                ],
+                "pendingWordSources": [
+                  {
+                    "wordId": 3,
+                    "sources": [
+                      26
+                    ]
+                  }
+                ],
+                "expectedWords": []
+              }
+            ]
+          },
+          "errors": {
+            "hktId": 0,
+            "numInputSourcesToHKTLevel": 1.0,
+            "sumMappedSourcesNodesState0": 2.0,
+            "sumMappedSourcesNodesState1": 3.0,
+            "percentageOfNewMappedSources": 0.0,
+            "sumNodesImportanceBEORE": 0.0,
+            "sumNodesImportanceAFTER": 0.0,
+            "alphaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.8,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 1.0,
+              "option3_Thresh": 0.3,
+              "selectedOption": 1
+            },
+            "betaError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 0.0,
+              "option1_Thresh": 1.0,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 0.0,
+              "option2_Thresh": 0.2,
+              "option3_error": 0.0,
+              "option3_Min": 0.0,
+              "option3_Max": 0.25,
+              "option3_Thresh": 0.2,
+              "selectedOption": 1
+            },
+            "wordImportanceError": {
+              "option1_error": 0.0,
+              "option1_Min": 0.0,
+              "option1_Max": 1.0,
+              "option1_Thresh": 0.2,
+              "option2_error": 0.0,
+              "option2_Min": 0.0,
+              "option2_Max": 1.0,
+              "option2_Thresh": 0.2,
+              "selectedOption": 1
+            }
+          },
+          "wordMetrics": [
+            {
+              "wordId": 3,
+              "values": {
+                "hktId": 0,
+                "wordId": 0,
+                "nodeId": 0,
+                "numberOfSourcesBeforeNewBatch": 2.0,
+                "numberOfSourcesInNewBatch": 1.0,
+                "numberOfSourcesAfterNewBatch": 3.0,
+                "numberOfSourcesBeforeNewBatchOverNumberOfSourcesOfOldProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithOldProminWordInNodeOverNumSourcesOfOldProminWordInNode": 1.0,
+                "numberOfSourcesAfterNewBatchOverNumberOfSourcesOfNewProminWordInHKT": 1.0,
+                "numberOfIntersectedSourcesWithNewProminWordInNodeOverNumSourcesOfNewProminWordInNode": 1.0,
+                "OldDeviationFomAlphaParameter": -0.19999999999999996,
+                "OldDeviationFomBetaParameter": -0.25,
+                "NewDeviationFomAlphaParameter": -0.19999999999999996,
+                "NewDeviationFomBetaParameter": -0.25,
+                "ErrosInDeviationFomAlphaParameter": 0.0,
+                "ErrosInDeviationFomBetaParameter": 0.0,
+                "precentageOfSourcesInHKTInOldBatch": 1.0,
+                "precentageOfSourcesInHKTInNewBatch": 1.0
+              }
+            }
+          ]
+        }
+      ],
+      "removedHktIds": [],
+      "tree": [
+        {
+          "id": 1,
+          "parentNodeId": 0,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 1,
+              "words": [
+                1
+              ],
+              "sources": [
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "wordSources": [
+                {
+                  "wordId": 1,
+                  "sources": [
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            },
+            {
+              "id": 2,
+              "words": [
+                2
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26
+              ],
+              "wordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26
+                  ]
+                }
+              ],
+              "pendingSources": [
+                26
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    26
+                  ]
+                }
+              ],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "parentNodeId": 2,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 5,
+              "words": [
+                3
+              ],
+              "sources": [
+                3,
+                4,
+                5,
+                6,
+                26
+              ],
+              "wordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    3,
+                    4,
+                    5,
+                    6,
+                    26
+                  ]
+                }
+              ],
+              "pendingSources": [
+                26
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    26
+                  ]
+                }
+              ],
+              "expectedWords": []
+            },
+            {
+              "id": 6,
+              "words": [
+                4
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                26
+              ],
+              "wordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    26
+                  ]
+                }
+              ],
+              "pendingSources": [
+                26
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    26
+                  ]
+                }
+              ],
+              "expectedWords": []
+            },
+            {
+              "id": 7,
+              "words": [
+                5
+              ],
+              "sources": [
+                15,
+                16,
+                17,
+                18
+              ],
+              "wordSources": [
+                {
+                  "wordId": 5,
+                  "sources": [
+                    15,
+                    16,
+                    17,
+                    18
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "parentNodeId": 5,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 8,
+              "words": [
+                4
+              ],
+              "sources": [
+                3,
+                4,
+                26
+              ],
+              "wordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    3,
+                    4,
+                    26
+                  ]
+                }
+              ],
+              "pendingSources": [
+                26
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 4,
+                  "sources": [
+                    26
+                  ]
+                }
+              ],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "parentNodeId": 6,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 9,
+              "words": [
+                3
+              ],
+              "sources": [
+                3,
+                4,
+                26
+              ],
+              "wordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    3,
+                    4,
+                    26
+                  ]
+                }
+              ],
+              "pendingSources": [
+                26
+              ],
+              "pendingWordSources": [
+                {
+                  "wordId": 3,
+                  "sources": [
+                    26
+                  ]
+                }
+              ],
+              "expectedWords": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
