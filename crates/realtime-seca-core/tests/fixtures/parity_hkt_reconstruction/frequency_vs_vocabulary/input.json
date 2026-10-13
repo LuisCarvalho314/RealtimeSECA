@@ -1,0 +1,73 @@
+{
+  "alpha": 0.5,
+  "beta": 1,
+  "branchMinimum": 99,
+  "alphaError": 1,
+  "betaError": 1,
+  "wordImportanceError": 1,
+  "batches": [
+    [
+      {
+        "id": 1,
+        "words": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "id": 2,
+        "words": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "id": 3,
+        "words": [
+          "b"
+        ]
+      },
+      {
+        "id": 4,
+        "words": [
+          "z"
+        ]
+      },
+      {
+        "id": 5,
+        "words": [
+          "z"
+        ]
+      },
+      {
+        "id": 6,
+        "words": [
+          "z"
+        ]
+      },
+      {
+        "id": 7,
+        "words": [
+          "z"
+        ]
+      }
+    ],
+    [
+      {
+        "id": 8,
+        "words": [
+          "z"
+        ]
+      }
+    ],
+    [
+      {
+        "id": 9,
+        "words": [
+          "a",
+          "b"
+        ]
+      }
+    ]
+  ]
+}

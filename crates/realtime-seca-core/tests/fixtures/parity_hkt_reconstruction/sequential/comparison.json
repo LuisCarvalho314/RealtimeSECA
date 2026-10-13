@@ -1,0 +1,27 @@
+[
+  {
+    "decisions_equal": true,
+    "expected_and_topology_equal": false,
+    "topology_equal": true
+  },
+  {
+    "decisions_equal": true,
+    "expected_and_topology_equal": false,
+    "topology_equal": true
+  },
+  {
+    "decisions_equal": false,
+    "expected_and_topology_equal": false,
+    "topology_equal": true
+  },
+  {
+    "decisions_equal": true,
+    "expected_and_topology_equal": false,
+    "topology_equal": true
+  },
+  {
+    "decisions_equal": false,
+    "expected_and_topology_equal": false,
+    "topology_equal": true
+  }
+]

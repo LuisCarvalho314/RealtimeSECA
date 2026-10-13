@@ -1,0 +1,12 @@
+{
+  "crates/realtime-seca-core/src/engine/context.rs": "0199a53651de9da143798a37ed89cb2b309b948e0fcb918213dbc38ed3f58bb7",
+  "crates/realtime-seca-core/src/engine/metrics.rs": "934d209b4917913a7a4dbcb36b24292510112c5abb171a69f304c431909623da",
+  "crates/realtime-seca-core/src/engine/scope_mapping.rs": "e4b70ef7f10e0bd68aca534de1ed4e018f719bde0a8ff75b43b7316e5b906d41",
+  "crates/realtime-seca-core/src/engine/trigger.rs": "26ae1aef6abf5fa8082eecff776faaa3a702c1e772a30cef92526cca18c34272",
+  "crates/realtime-seca-core/src/engine/evidence.rs": "cf90becd2a81ec1c448c0a32c0d678230ac277155acca57672e18ffb13bfb75d",
+  "crates/realtime-seca-core/src/engine/input.rs": "e2cd297a137969c8c89c8652fd664be36740e6fdbd5ddc068c2acdc9fedffec6",
+  "tools/seca-reference-harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+  "tools/seca-reference-harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+  "tools/seca-reference-harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+  "tools/seca-reference-harness/build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75"
+}
