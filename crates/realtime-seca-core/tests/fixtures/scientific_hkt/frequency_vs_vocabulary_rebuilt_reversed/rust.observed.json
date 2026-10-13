@@ -1,0 +1,125 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "q"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": true
+      }
+    ],
+    "topology": {
+      "expected": [
+        "a",
+        "b"
+      ],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "words": [
+            "z"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "2",
+            "3",
+            "4"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": true,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "words": [
+            "z"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "2",
+            "3",
+            "4"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": true,
+          "sources": [
+            "1"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

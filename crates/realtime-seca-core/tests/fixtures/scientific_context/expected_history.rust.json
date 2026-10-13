@@ -1,0 +1,462 @@
+[
+  {
+    "cycle": 2,
+    "diagnostics": [
+      {
+        "hkt_id": 1,
+        "mapped_source_count": 1,
+        "output_hkt_id": 1,
+        "paper_alpha_error": 0.0,
+        "paper_beta_error": 0.0,
+        "paper_word_importance_error": 0.4,
+        "scoped_source_count": 2,
+        "should_reconstruct": false,
+        "trigger_reasons": []
+      }
+    ],
+    "tree": {
+      "hkts": [
+        {
+          "all_node_words_union": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ],
+          "expected_words": [
+            {
+              "token": "x",
+              "word_id": 2
+            }
+          ],
+          "hkt_id": 1,
+          "is_state1": false,
+          "node_ids": [
+            1
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "nodes": [
+        {
+          "hkt_id": 1,
+          "is_refuge_node": false,
+          "node_id": 1,
+          "sources": [
+            {
+              "external_source_id": "1",
+              "internal_source_id": -5808609649712063748
+            },
+            {
+              "external_source_id": "3",
+              "internal_source_id": -5808607450688807326
+            },
+            {
+              "external_source_id": "2",
+              "internal_source_id": -5808606351177179115
+            }
+          ],
+          "top_words": [],
+          "words": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ]
+        }
+      ],
+      "source_legend": [
+        {
+          "external_source_id": "4",
+          "internal_source_id": -5808612948246948381
+        },
+        {
+          "external_source_id": "1",
+          "internal_source_id": -5808609649712063748
+        },
+        {
+          "external_source_id": "3",
+          "internal_source_id": -5808607450688807326
+        },
+        {
+          "external_source_id": "2",
+          "internal_source_id": -5808606351177179115
+        }
+      ],
+      "word_legend": [
+        {
+          "token": "a",
+          "word_id": 1
+        },
+        {
+          "token": "x",
+          "word_id": 2
+        }
+      ]
+    },
+    "triggered": false
+  },
+  {
+    "cycle": 3,
+    "diagnostics": [
+      {
+        "hkt_id": 1,
+        "mapped_source_count": 1,
+        "output_hkt_id": 1,
+        "paper_alpha_error": 0.0,
+        "paper_beta_error": 0.0,
+        "paper_word_importance_error": 0.5,
+        "scoped_source_count": 2,
+        "should_reconstruct": false,
+        "trigger_reasons": []
+      }
+    ],
+    "tree": {
+      "hkts": [
+        {
+          "all_node_words_union": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ],
+          "expected_words": [
+            {
+              "token": "x",
+              "word_id": 2
+            }
+          ],
+          "hkt_id": 1,
+          "is_state1": false,
+          "node_ids": [
+            1
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "nodes": [
+        {
+          "hkt_id": 1,
+          "is_refuge_node": false,
+          "node_id": 1,
+          "sources": [
+            {
+              "external_source_id": "5",
+              "internal_source_id": -5808614047758576592
+            },
+            {
+              "external_source_id": "1",
+              "internal_source_id": -5808609649712063748
+            },
+            {
+              "external_source_id": "3",
+              "internal_source_id": -5808607450688807326
+            },
+            {
+              "external_source_id": "2",
+              "internal_source_id": -5808606351177179115
+            }
+          ],
+          "top_words": [],
+          "words": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ]
+        }
+      ],
+      "source_legend": [
+        {
+          "external_source_id": "5",
+          "internal_source_id": -5808614047758576592
+        },
+        {
+          "external_source_id": "4",
+          "internal_source_id": -5808612948246948381
+        },
+        {
+          "external_source_id": "6",
+          "internal_source_id": -5808610749223691959
+        },
+        {
+          "external_source_id": "1",
+          "internal_source_id": -5808609649712063748
+        },
+        {
+          "external_source_id": "3",
+          "internal_source_id": -5808607450688807326
+        },
+        {
+          "external_source_id": "2",
+          "internal_source_id": -5808606351177179115
+        }
+      ],
+      "word_legend": [
+        {
+          "token": "a",
+          "word_id": 1
+        },
+        {
+          "token": "x",
+          "word_id": 2
+        }
+      ]
+    },
+    "triggered": false
+  },
+  {
+    "cycle": 4,
+    "diagnostics": [
+      {
+        "hkt_id": 1,
+        "mapped_source_count": 1,
+        "output_hkt_id": 1,
+        "paper_alpha_error": 0.0,
+        "paper_beta_error": 0.0,
+        "paper_word_importance_error": 0.5454545454545454,
+        "scoped_source_count": 2,
+        "should_reconstruct": false,
+        "trigger_reasons": []
+      }
+    ],
+    "tree": {
+      "hkts": [
+        {
+          "all_node_words_union": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ],
+          "expected_words": [
+            {
+              "token": "x",
+              "word_id": 2
+            }
+          ],
+          "hkt_id": 1,
+          "is_state1": false,
+          "node_ids": [
+            1
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "nodes": [
+        {
+          "hkt_id": 1,
+          "is_refuge_node": false,
+          "node_id": 1,
+          "sources": [
+            {
+              "external_source_id": "5",
+              "internal_source_id": -5808614047758576592
+            },
+            {
+              "external_source_id": "7",
+              "internal_source_id": -5808611848735320170
+            },
+            {
+              "external_source_id": "1",
+              "internal_source_id": -5808609649712063748
+            },
+            {
+              "external_source_id": "3",
+              "internal_source_id": -5808607450688807326
+            },
+            {
+              "external_source_id": "2",
+              "internal_source_id": -5808606351177179115
+            }
+          ],
+          "top_words": [],
+          "words": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ]
+        }
+      ],
+      "source_legend": [
+        {
+          "external_source_id": "5",
+          "internal_source_id": -5808614047758576592
+        },
+        {
+          "external_source_id": "4",
+          "internal_source_id": -5808612948246948381
+        },
+        {
+          "external_source_id": "7",
+          "internal_source_id": -5808611848735320170
+        },
+        {
+          "external_source_id": "6",
+          "internal_source_id": -5808610749223691959
+        },
+        {
+          "external_source_id": "1",
+          "internal_source_id": -5808609649712063748
+        },
+        {
+          "external_source_id": "3",
+          "internal_source_id": -5808607450688807326
+        },
+        {
+          "external_source_id": "2",
+          "internal_source_id": -5808606351177179115
+        },
+        {
+          "external_source_id": "8",
+          "internal_source_id": -5808599754107409849
+        }
+      ],
+      "word_legend": [
+        {
+          "token": "a",
+          "word_id": 1
+        },
+        {
+          "token": "x",
+          "word_id": 2
+        }
+      ]
+    },
+    "triggered": false
+  },
+  {
+    "cycle": 5,
+    "diagnostics": [
+      {
+        "hkt_id": 1,
+        "mapped_source_count": 1,
+        "output_hkt_id": 1,
+        "paper_alpha_error": 0.0,
+        "paper_beta_error": 0.0,
+        "paper_word_importance_error": 0.5714285714285714,
+        "scoped_source_count": 2,
+        "should_reconstruct": false,
+        "trigger_reasons": []
+      }
+    ],
+    "tree": {
+      "hkts": [
+        {
+          "all_node_words_union": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ],
+          "expected_words": [
+            {
+              "token": "x",
+              "word_id": 2
+            }
+          ],
+          "hkt_id": 1,
+          "is_state1": false,
+          "node_ids": [
+            1
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "nodes": [
+        {
+          "hkt_id": 1,
+          "is_refuge_node": false,
+          "node_id": 1,
+          "sources": [
+            {
+              "external_source_id": "5",
+              "internal_source_id": -5808614047758576592
+            },
+            {
+              "external_source_id": "7",
+              "internal_source_id": -5808611848735320170
+            },
+            {
+              "external_source_id": "1",
+              "internal_source_id": -5808609649712063748
+            },
+            {
+              "external_source_id": "3",
+              "internal_source_id": -5808607450688807326
+            },
+            {
+              "external_source_id": "2",
+              "internal_source_id": -5808606351177179115
+            },
+            {
+              "external_source_id": "9",
+              "internal_source_id": -5808600853619038060
+            }
+          ],
+          "top_words": [],
+          "words": [
+            {
+              "token": "a",
+              "word_id": 1
+            }
+          ]
+        }
+      ],
+      "source_legend": [
+        {
+          "external_source_id": "5",
+          "internal_source_id": -5808614047758576592
+        },
+        {
+          "external_source_id": "4",
+          "internal_source_id": -5808612948246948381
+        },
+        {
+          "external_source_id": "7",
+          "internal_source_id": -5808611848735320170
+        },
+        {
+          "external_source_id": "6",
+          "internal_source_id": -5808610749223691959
+        },
+        {
+          "external_source_id": "1",
+          "internal_source_id": -5808609649712063748
+        },
+        {
+          "external_source_id": "3",
+          "internal_source_id": -5808607450688807326
+        },
+        {
+          "external_source_id": "2",
+          "internal_source_id": -5808606351177179115
+        },
+        {
+          "external_source_id": "9",
+          "internal_source_id": -5808600853619038060
+        },
+        {
+          "external_source_id": "8",
+          "internal_source_id": -5808599754107409849
+        },
+        {
+          "external_source_id": "10",
+          "internal_source_id": 574369514284255396
+        }
+      ],
+      "word_legend": [
+        {
+          "token": "a",
+          "word_id": 1
+        },
+        {
+          "token": "x",
+          "word_id": 2
+        }
+      ]
+    },
+    "triggered": false
+  }
+]

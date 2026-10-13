@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "mode": "accumulated-seca-serial-instrumented",
+  "parameters": {
+    "alpha": 0.7,
+    "beta": 0.5,
+    "alphaError": 1.0,
+    "betaError": 1.0,
+    "wordImportanceError": 1.0,
+    "branchMinimum": 3,
+    "batches": [
+      [
+        {
+          "id": 1,
+          "words": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "id": 2,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 3,
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "id": 4,
+          "words": [
+            "a"
+          ]
+        }
+      ]
+    ]
+  },
+  "vocabulary": [
+    {
+      "id": 1,
+      "word": "a"
+    },
+    {
+      "id": 2,
+      "word": "b"
+    }
+  ],
+  "snapshots": [
+    {
+      "cycle": 1,
+      "tree": [
+        {
+          "id": 1,
+          "parentNodeId": 0,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 1,
+              "words": [
+                1
+              ],
+              "sources": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "wordSources": [
+                {
+                  "wordId": 1,
+                  "sources": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "parentNodeId": 1,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 2,
+              "words": [
+                2
+              ],
+              "sources": [
+                1
+              ],
+              "wordSources": [
+                {
+                  "wordId": 2,
+                  "sources": [
+                    1
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

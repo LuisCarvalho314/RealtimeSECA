@@ -1,0 +1,39 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": {
+            "expected": [],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1"
+                ],
+                "words": [
+                  "b"
+                ]
+              }
+            ],
+            "path": "root/0"
+          },
+          "refuge": false,
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "words": [
+            "a"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

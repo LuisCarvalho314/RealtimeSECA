@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "mode": "accumulated-seca-serial-instrumented",
+  "parameters": {
+    "alpha": 0.7,
+    "beta": 0.5,
+    "alphaError": 1.0,
+    "betaError": 1.0,
+    "wordImportanceError": 1.0,
+    "branchMinimum": 3,
+    "batches": [
+      [
+        {
+          "id": 1,
+          "words": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "id": 2,
+          "words": [
+            "a"
+          ]
+        }
+      ]
+    ]
+  },
+  "vocabulary": [
+    {
+      "id": 1,
+      "word": "a"
+    },
+    {
+      "id": 2,
+      "word": "b"
+    }
+  ],
+  "snapshots": [
+    {
+      "cycle": 1,
+      "tree": [
+        {
+          "id": 1,
+          "parentNodeId": 0,
+          "expectedWords": [],
+          "nodes": [
+            {
+              "id": 1,
+              "words": [
+                1
+              ],
+              "sources": [
+                1,
+                2
+              ],
+              "wordSources": [
+                {
+                  "wordId": 1,
+                  "sources": [
+                    1,
+                    2
+                  ]
+                }
+              ],
+              "pendingSources": [],
+              "pendingWordSources": [],
+              "expectedWords": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

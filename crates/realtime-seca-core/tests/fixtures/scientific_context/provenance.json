@@ -1,0 +1,12 @@
+{
+  "starting_head": "0176dfea0cc2195c53e60cd1e333162319481ebf",
+  "environment": "Pre-existing integration working-tree changes; Full memory, branchMinimum=1000; original harness serial instrumentation; no production edits by this investigation",
+  "sha256": {
+    "crates/realtime-seca-core/src/engine/metrics.rs": "934d209b4917913a7a4dbcb36b24292510112c5abb171a69f304c431909623da",
+    "crates/realtime-seca-core/src/engine/context.rs": "0199a53651de9da143798a37ed89cb2b309b948e0fcb918213dbc38ed3f58bb7",
+    "crates/realtime-seca-core/src/engine/trigger.rs": "26ae1aef6abf5fa8082eecff776faaa3a702c1e772a30cef92526cca18c34272",
+    "tools/seca-reference-harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+    "tools/seca-reference-harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+    "tools/seca-reference-harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436"
+  }
+}

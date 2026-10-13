@@ -1,0 +1,60 @@
+{
+  "node_sources": {
+    "z1": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "z2": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "descriptor_sets": {
+    "z1": [
+      "a",
+      "x"
+    ],
+    "z2": [
+      "b",
+      "x"
+    ]
+  },
+  "word_sources": {
+    "a": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "b": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "x": [
+      1,
+      4,
+      7
+    ]
+  },
+  "alpha": 0.45,
+  "beta": 0.6,
+  "exact": {
+    "scope_denominator": 13,
+    "multiset_denominator": 14,
+    "scope_WI": "0",
+    "last_node_WI": "1/7",
+    "worst_node_beta": "4/45",
+    "mean_node_beta": "11/180",
+    "last_node_beta": "1/30"
+  }
+}

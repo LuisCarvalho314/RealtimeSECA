@@ -14,6 +14,8 @@ realtime-seca-core = { path = "../realtime-seca-core" }
 serde.workspace = true
 serde_json.workspace = true
 csv = "1"
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+uuid = { version = "1", features = ["v4"] }
 regex = "1"
 stop-words = "0.10"
 axum = "0.8"

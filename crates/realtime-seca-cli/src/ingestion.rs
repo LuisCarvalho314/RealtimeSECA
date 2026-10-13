@@ -1,7 +1,7 @@
 use realtime_seca_core::{SecaConfig, SourceBatch, SourceRecord};
 use regex::Regex;
 use std::{fs, path::Path};
-use stop_words::{get as get_stop_words, LANGUAGE};
+use stop_words::get as get_stop_words;
 pub(crate) fn run_from_csv_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if arguments.len() < 4 {
         eprintln!("Usage:");
@@ -63,9 +63,13 @@ pub(crate) fn convert_csv_to_source_batch(
     let tokenizer = Regex::new(r"[A-Za-z0-9_]+")?;
 
     let stop_words: std::collections::BTreeSet<&'static str> =
-        get_stop_words(LANGUAGE::English).iter().copied().collect();
+        get_stop_words("en").iter().copied().collect();
 
     let headers = reader.headers()?.clone();
+    // A conversion scope avoids collisions even when separate files use the
+    // default batch index. Persist the converted JSON to replay URL-less rows
+    // with the same identity; reconversion deliberately creates new identities.
+    let conversion_scope = uuid::Uuid::new_v4();
 
     let mut sources: Vec<SourceRecord> = Vec::new();
 
@@ -123,7 +127,15 @@ pub(crate) fn convert_csv_to_source_batch(
         }
 
         let source = SourceRecord {
-            source_id: format!("row_{row_number:06}"),
+            source_id: {
+                let url = get("URL");
+                let url = url.trim();
+                if url.is_empty() {
+                    format!("csv-row:{conversion_scope}:{batch_index}:{row_number}")
+                } else {
+                    format!("url:{url}")
+                }
+            },
             batch_index,
             tokens: std::mem::take(&mut tokens),
             text: Some(text),
@@ -151,15 +163,18 @@ pub(crate) fn normalize_whitespace(input: &str) -> String {
 
 pub(crate) fn parse_timestamp_to_unix_ms(value: &str) -> Option<i64> {
     let trimmed = value.trim();
-    if trimmed.is_empty() {
+    // RFC3339 -00:00 denotes an unknown local offset, not an assertion of UTC.
+    if trimmed.is_empty() || trimmed.ends_with("-00:00") {
         return None;
     }
 
-    // Keep this simple for now; add chrono later if needed.
-    // If parsing fails, return None.
-    // You can extend to real parsing with chrono once you inspect your CSV formats.
-    let _ = trimmed;
-    None
+    // CSV Timestamp uses a space separator and an explicit numeric offset.
+    // Also accept RFC3339. API_Timestamp without an offset is ambiguous and
+    // must remain unset, as must malformed or missing timestamps.
+    chrono::DateTime::parse_from_rfc3339(trimmed)
+        .or_else(|_| chrono::DateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f%:z"))
+        .ok()
+        .map(|timestamp| timestamp.timestamp_millis())
 }
 
 pub(crate) fn read_source_batch_json(
@@ -176,4 +191,37 @@ pub(crate) fn read_config_json(
     let file_contents = fs::read_to_string(path)?;
     let config: SecaConfig = serde_json::from_str(&file_contents)?;
     Ok(config)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::parse_timestamp_to_unix_ms;
+
+    #[test]
+    fn parses_only_timestamps_with_explicit_offsets() {
+        for value in [
+            "1970-01-01 00:00:00.123456+00:00",
+            "1970-01-01T00:00:00.123456Z",
+            "1970-01-01 01:00:00.123456+01:00",
+            " 1970-01-01T00:00:00.123Z ",
+            "1969-12-31T23:00:00.123-01:00",
+        ] {
+            assert_eq!(parse_timestamp_to_unix_ms(value), Some(123), "{value}");
+        }
+        assert_eq!(
+            parse_timestamp_to_unix_ms("1969-12-31T23:59:59Z"),
+            Some(-1000)
+        );
+        for value in [
+            "",
+            " ",
+            "bad",
+            "2026-02-16 15:24:56",
+            "2026-02-30T00:00:00Z",
+            "2026-01-01T25:00:00Z",
+            "1970-01-01T00:00:00-00:00",
+        ] {
+            assert_eq!(parse_timestamp_to_unix_ms(value), None, "{value}");
+        }
+    }
 }

@@ -6,6 +6,7 @@ impl SecaEngine {
         let invalid = || SecaError::StateError {
             message: "inconsistent model state".into(),
         };
+        let known_word = |w: &i32| self.baseline_word_legend.contains_key(w);
         let tree = self.hkt_build_output.as_ref().ok_or_else(invalid)?;
         let roots: Vec<_> = tree
             .hkts_by_id
@@ -23,7 +24,7 @@ impl SecaEngine {
                 return Err(invalid());
             }
             let hkt = tree.hkts_by_id.get(&id).ok_or_else(invalid)?;
-            if hkt.hkt_id != id {
+            if hkt.hkt_id != id || !hkt.expected_words.iter().all(known_word) {
                 return Err(invalid());
             }
             for node in &hkt.nodes {
@@ -38,6 +39,8 @@ impl SecaEngine {
                         .word_ids
                         .iter()
                         .any(|w| *w != -1 && !self.baseline_word_legend.contains_key(w))
+                    || !node.top_words.iter().all(known_word)
+                    || !node.word_source_ids.keys().all(known_word)
                     || node
                         .word_source_ids
                         .values()
@@ -62,9 +65,25 @@ impl SecaEngine {
         {
             return Err(invalid());
         }
+        let current = self.last_processed_batch_index.ok_or_else(invalid)?;
+        let window_start = match self.config.memory_mode {
+            crate::config::MemoryMode::SlidingWindow => {
+                let gamma = self.config.max_batches_in_memory.ok_or_else(invalid)?;
+                current.saturating_sub(gamma.saturating_sub(1))
+            }
+            crate::config::MemoryMode::Full => 0,
+        };
+        let mut previous = None;
         let mut batches = BTreeMap::<u32, BTreeSet<i64>>::new();
         let mut source_ids = BTreeSet::new();
         for batch in &self.processed_batches {
+            if batch.batch_index < window_start
+                || batch.batch_index > current
+                || previous.is_some_and(|index| batch.batch_index <= index)
+            {
+                return Err(invalid());
+            }
+            previous = Some(batch.batch_index);
             for source in &batch.sources {
                 let id = self
                     .source_id_by_url
