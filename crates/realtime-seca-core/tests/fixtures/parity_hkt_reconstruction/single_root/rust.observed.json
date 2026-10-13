@@ -1,0 +1,80 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [
+        "b"
+      ],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

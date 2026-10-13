@@ -1,6 +1,476 @@
+# Executable C#–Rust HKT and reconstruction audit
+
+## Current evidence (2026-10-13)
+
+This section supersedes the historical source-only audit retained below. The existing
+reference harness was available, compiled, and executed. **Full behavioural parity
+is not established.** Twenty-one deterministic fixtures (65 snapshots) compare
+actual C# execution with the public Rust engine in `MemoryMode::Full`. Golden C#
+outputs are never manufactured from Rust. No production code was changed.
+
+The audit started at HEAD `9e70e2136dea237f1e922352df0ae24d4441c2fc` on
+`integration/seca-validation`, with unrelated uncommitted integration changes.
+Local `main` is `42c07c098c1fadb931a4e7b5b6920ee9561dabc5`; consequently this is
+an audit of the supplied integration checkout, **not a clean-main measurement**.
+Those changes were preserved. Work is committed on `agent2/executable-hkt-parity`.
+
+Scientific reference: [2023 SECA accepted author manuscript](https://www.researchgate.net/publication/375503068_Real-Time_Event_Detection_Using_Self-Evolving_Contextual_Analysis_SECA_Approach),
+sections V and VII-A, Figures 1–3, equations 2–3. The university final-publication
+endpoint returned HTTP 401. The manuscript describes word/source nodes, child
+attachments, refuge for sources with no sibling-word match, strength/eligibility
+admission, and top-down reconstruction. Seed-HKT receives all incoming sources;
+children receive parent-adopted sources. Triggering reconstructs the selected HKT
+and descendants, rather than continuing inspection below it. It does not establish
+a portable collection tie order, a branch-size cutoff, or whether sibling words
+may recur below overlapping nodes. Those scientific questions remain unresolved.
+
+## C#–Rust implementation map
+
+C# algorithm paths are under `references/seca-csharp/SECA/SECA/SECA/SECA_DataClass/`;
+the harness compiles the corresponding files under `references/seca-parity-build/SECA/`.
+Rust paths below are relative to `crates/realtime-seca-core/src/`.
+
+| Original C# methods | Rust counterpart | Role |
+| --- | --- | --- |
+| `Tokenizer.createSourceWordListInMemory`, `SourceWord.updateWordNoOfSources`; harness `Program.Rows` | `engine/baseline.rs` conversion, `tree/hkt_builder.rs:update_document_frequencies` | Ordered source-word relations and scoped DF |
+| `SECAAlgorithm.buildTree/build` | `SecaEngine::build_baseline_tree`, `HktBuilder::build_full_tree` | Seed construction |
+| `HKT.findMyExpectedWords`, `addNode`, `addOtherNodes`, `getSources`, `removeUsedWord` | `create_hkt`, expected-word selection, collision selection | Prominence, strength, eligibility, source unions and node creation |
+| `HKT.addRefugeNodes`, `createBranches/createBranch`, scoped dataset helpers | `create_branches` | Refuge, descendants, attachment and stopping |
+| `HKT.matchNewSourcesToHKT`, `Node.matchNewSourcesToNode`, `SECAAlgorithm.getSourceWordDatasetForNodeChildHKT` | `engine/scope_mapping.rs`, `engine/context.rs` | Multi-node mapping, unmatched sources, child evidence |
+| `SECAAlgorithm.updateTree`, `HKT.isAccepted` | `engine/trigger.rs` | Top-down inspection, disjoint reconstruction targets |
+| `SECAAlgorithm.reConstructHKT`, `AddSourcesWordsToMyParentNode`, `setDeadHKTs/removeDeadHKTs` | `engine/rebuild.rs` | Scoped historical/incoming evidence, ancestor exclusion, replacement and parent propagation |
+
+## Comparison methodology and reproducibility
+
+Run from the repository root:
+
+```sh
+tools/seca-reference-harness/build.sh
+python3 tools/seca-reference-harness/verify.py
+python3 crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/reference.py
+cargo test -p realtime-seca-core --test parity_hkt_reconstruction
+# Intentionally failing strict comparison, kept visible:
+cargo test -p realtime-seca-core --test parity_hkt_reconstruction strict_executed_csharp_parity -- --ignored
+```
+
+Each fixture directory contains ordered `input.json`, actual `csharp.json`,
+`csharp.normalized.json`, separately labelled `rust.observed.json`, and
+`comparison.json`. The Python script runs the existing harness twice and requires
+byte-identical stdout before saving C# evidence. `provenance.json` records reference
+source hashes and harness source/script hashes. Mono is 6.8.0.105. The three principal
+algorithm files (`HKT.cs`, `Node.cs`, `SECAAlgorithm.cs`) were byte-identical between
+the original and compilable reference trees. `prepare.py` was inspected: it
+serializes parallel traversal, substitutes deterministic allocators, disables unused
+persistence construction, observes before acceptance, and surfaces swallowed failures.
+Formulas and successful algorithm paths remain original. This establishes parity
+against the serial instrumented reference, not race-dependent Windows execution.
+
+The observer captures the evaluated HKT before reconstruction; decisions refer to
+old IDs, which are mapped to paths in the preceding snapshot. Tree output comes
+from live `hktList`, not an independent recreation. `verify.py` also checks manual
+metrics/topology, stable follow-ups, deterministic repeats, and invalid-input failure.
+Harness cycle reset and accumulated cleanup/history append were verified in Program.
+
+Rust uses the same alpha/beta for builder and updates, all three supplied error
+thresholds, the identical branch minimum, ordered tokens/documents, globally unique
+source IDs and identical batch boundaries. Full memory excludes forgetting.
+Public exports and decision diagnostics are used, and each resulting Rust snapshot
+is restored to validate its state. No test-only production API was introduced.
+
+Normalization represents an HKT recursively at `root/node-index/...`, with ordered
+nodes, sorted token sets, sorted external source membership sets, explicit refuge
+identity, child attachments and HKT expected-word sets. IDs and display metadata
+are incidental; node order is retained because greedy merging can depend on it.
+Every live HKT must be reachable exactly once, with one root and at most one child
+per node. Token identity remains case sensitive. Source membership sorting is
+lexical in both languages and does not alter algorithm execution order.
+
+C# exposed HKT expected words are **dynamic** candidates; baseline construction's
+local expected set is discarded. Rust persists construction candidates, including
+already assigned words, until update recomputation. Full comparison preserves this
+difference. `topology_equal` separately compares structure/memberships without
+expected fields; `expected_and_topology_equal` compares those fields too, and
+`decisions_equal` compares all observed inspection paths and triggers. Raw C# node
+expected words, per-word/pending memberships and metrics remain in `csharp.json`;
+Rust's public topology export has no equivalent node candidate field. No equality
+of those unavailable internal fields is claimed. Detailed metric arithmetic belongs
+to the other audit.
+
+Tests assert current Rust observations and the exact per-cycle parity matrix;
+passing means discrepancies remain accurately recorded, not universal parity.
+`SECA_RECORD_RUST_AUDIT=1` intentionally regenerates only Rust observations and the
+matrix after a reviewed engine change. It never writes C# expectations. The strict
+comparison remains an ignored, explicitly executable failing test.
+
+## Findings and minimal recommendations
+
+- **Verified behavioural parity:** single prominent word; ordinary multi-node source
+  mapping; merged-word node unions; no new refuge when an unmatched source arrives
+  at an accepted HKT lacking refuge; child mapping; root replacement, dominant-word
+  selection, ancestor exclusion and subsequent stable updates; two successive root
+  reconstructions. The tested child reconstruction selects only `root/0`, replaces
+  its evidence with b/c/x, retains its a attachment and preserves the d sibling's
+  topology, memberships and IDs in each language. The next a/b update triggers the
+  root in both engines, yielding the same structure/memberships.
+- **Confirmed Rust discrepancy / unresolved scientific ambiguity — branch boundary:**
+  C# `HKT.createBranch` uses `count >= minimum`; Rust skips `count <= minimum`.
+  `branch_boundary` has two a sources, one also b, minimum 2: only C# creates the b
+  child. The minimal parity correction is an inclusive cutoff, affecting baseline,
+  reconstruction descendants and future inspection. Resolve the scientific minimum
+  contract before changing it.
+- **Confirmed Rust discrepancy / unresolved scientific ambiguity — greedy ordering:**
+  C# iterates frequency-derived expected words and resolves equal node collision
+  scores to the last enumerated maximum. Rust processes ascending vocabulary IDs
+  and keeps the first maximum. `collision_true_tie` selects b/c in C#, a/c in Rust;
+  `frequency_vs_vocabulary` creates z,b,a in C#, z,{a,b} in Rust. Minimal reference
+  parity corrections are frequency/record-order expected-word processing and last
+  maximum collision selection. They affect source assignment, baseline and rebuilt
+  structures and subsequent updates. Do not copy unspecified hash iteration as a
+  scientific rule. The older `collision` fixture is not a true simultaneous tie:
+  c is visited before b exists, so both engines agree there.
+- **Confirmed ordering difference:** `siblings` has C# child order f,e below d,
+  while Rust has e,f, caused by C# scoped ConcurrentDictionary enumeration versus
+  Rust original row ordering. Memberships match by labels, but ordered topology
+  deliberately fails. No ID-induced attachment defect was observed. A portable
+  scientific ordering rule is preferable to emulating runtime hash buckets.
+- **Confirmed Rust discrepancy / unresolved scientific ambiguity — recursive scope:**
+  C# recursively passes child construction's post-adoption rows; Rust reuses the
+  pre-construction child scope. `overlap_recursive` makes Rust grandchildren c below
+  b and b below c for shared sources 3,4; C# stops after b/c. This uses minimum 1
+  and two shared sources, isolating it from the cutoff discrepancy. A minimal parity
+  correction would remove all words adopted at that HKT from recursive evidence.
+  It affects depth, memberships, descendants rebuilt and subsequent inspection.
+- **Original C# deviation from paper refuge semantics / deliberate Rust difference:**
+  `refuge` maps source 6 (b) to the refuge child but leaves the parent refuge's
+  persistent sources at {4,5}; Rust persists {4,5,6}. C# `matchNewSourcesToHKT`
+  skips refuge nodes; child dataset selection uses unmatched rows, and accepted
+  membership merging only adds memberships for node words. Refuge has no real word
+  to merge. Its child nevertheless gains source 6. Rust's explicit refuge union
+  better represents the definition's unmatched documents. Preserve the Rust union;
+  do not introduce stale C# parent membership. This difference can affect later
+  parent-scoped evidence and therefore later reconstruction.
+- **Deliberate implementation difference — empty child inspection:** C# recursively
+  evaluates empty scopes; Rust skips them. In the tested stable follow-ups these
+  extra C# decisions are accepted and topology is unchanged. This is observable
+  decision inequality, not a reconstruction-target difference. No correction is
+  justified by these successful cases; empty-scope triggering remains untested.
+- **Deliberate representation difference — expected words:** stored construction
+  sets differ initially and in newly reconstructed/uninspected descendants; many
+  accepted updates converge to empty candidate sets. Do not erase the difference
+  from golden equality. Specify construction versus dynamic candidates before any
+  state-model change. No reconstruction defect attributable solely to persistence
+  was demonstrated.
+
+Historical source-only warnings about C# first-row creation paired with another
+word's removal, shared-row concurrency, empty reconstruction failure and duplicate
+relations are not established by these successful executions. Inputs exclude
+duplicate pairs; harness rejects branch minimum 0 and empty batches. The old Rust
+minimum-0 test is a Rust-only regression, not executable reference evidence.
+Potential empty-evidence failure and more complex candidate admission require
+separate fixtures; no claims are inferred from overall node counts.
+
+## Fixture results
+
+Notation: `words:{source IDs}/[child nodes]`; ordered nodes are separated by `;`.
+Sources are sequential IDs assigned across ordered batches. Input and exact JSON
+for each case are linked. `T/E/D` gives topology-membership, full expected-topology,
+and inspection-decision equality for each cycle (`Y`/`N`). Parameters are
+`alpha/beta/branchMinimum; alphaError/betaError/wordImportanceError`.
+
+### branch_boundary
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary/rust.observed.json). Parameters: `0.7/0.5/2; 1/1/1`.
+
+Batches: [1:a b, 2:a] → [3:a b] → [4:a].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2}/[b:{1}]]` | `[a:{1,2}]` | N/N/Y |
+| 2 | `[a:{1,2,3}/[b:{1,3}]]` | `[a:{1,2,3}]` | N/N/N |
+| 3 | `[a:{1,2,3,4}/[b:{1,3}]]` | `[a:{1,2,3,4}]` | N/N/N |
+
+### child
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child/rust.observed.json). Parameters: `0.7/0.5/1; 1/1/1`.
+
+Batches: [1:a b, 2:a b, 3:a, 4:a] → [5:a b] → [6:a b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2,3,4}/[b:{1,2}]]` | `[a:{1,2,3,4}/[b:{1,2}]]` | Y/Y/Y |
+| 2 | `[a:{1,2,3,4,5}/[b:{1,2,5}]]` | `[a:{1,2,3,4,5}/[b:{1,2,5}]]` | Y/Y/Y |
+| 3 | `[a:{1,2,3,4,5,6}/[b:{1,2,5,6}]]` | `[a:{1,2,3,4,5,6}/[b:{1,2,5,6}]]` | Y/Y/Y |
+
+### child_reconstruct
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child_reconstruct/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child_reconstruct/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child_reconstruct/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child_reconstruct/rust.observed.json). Parameters: `0.7/0.5/1; 0.11/0.2/0.2`.
+
+Batches: [1:a b, 2:a b, 3:a b, 4:a b, 5:a c, 6:a c, 7:a c, 8:a c, 9:a, 10:a, 11:d e, 12:d e, 13:d e, 14:d e, 15:d f, 16:d f, 17:d f, 18:d f, 19:d, 20:d] → [21:a x, 22:a x, 23:a x, 24:a, 25:a, 26:a, 27:a, 28:a, 29:a, 30:a] → [31:a b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,10,2,3,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[f:{15,16,17,18}; e:{11,12,13,14}]]` | `[a:{1,10,2,3,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]` | N/N/Y |
+| 2 | `[a:{1,10,2,21,22,23,24,25,26,27,28,29,3,30,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}; x:{21,22,23}]; d:{11,12,13,14,15,16,17,18,19,20}/[f:{15,16,17,18}; e:{11,12,13,14}]]` | `[a:{1,10,2,21,22,23,24,25,26,27,28,29,3,30,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}; x:{21,22,23}]; d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]` | N/N/N |
+| 3 | `[a:{1,10,2,21,22,23,24,25,26,27,28,29,3,30,31,4,5,6,7,8,9}/[b:{1,2,3,31,4}; c:{5,6,7,8}; <>:{21,22,23}/[x:{21,22,23}]]; <>:{11,12,13,14,15,16,17,18,19,20}/[d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]]` | `[a:{1,10,2,21,22,23,24,25,26,27,28,29,3,30,31,4,5,6,7,8,9}/[b:{1,2,3,31,4}; c:{5,6,7,8}; <>:{21,22,23}/[x:{21,22,23}]]; <>:{11,12,13,14,15,16,17,18,19,20}/[d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]]` | Y/N/Y |
+
+### collision
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision/rust.observed.json). Parameters: `1/0.5/99; 1/1/1`.
+
+Batches: [1:a c, 2:a, 3:b c, 4:b] → [5:a b c] → [6:a b c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,c:{1,2,3}; b:{3,4}]` | `[a,c:{1,2,3}; b:{3,4}]` | Y/N/Y |
+| 2 | `[a,c:{1,2,3,5}; b:{3,4,5}]` | `[a,c:{1,2,3,5}; b:{3,4,5}]` | Y/Y/Y |
+| 3 | `[a,c:{1,2,3,5,6}; b:{3,4,5,6}]` | `[a,c:{1,2,3,5,6}; b:{3,4,5,6}]` | Y/Y/Y |
+
+### collision_reordered
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_reordered/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_reordered/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_reordered/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_reordered/rust.observed.json). Parameters: `1/0.5/99; 1/1/1`.
+
+Batches: [1:b c, 2:b, 3:a c, 4:a] → [5:a b c] → [6:a b c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[b,c:{1,2,3}; a:{3,4}]` | `[b,c:{1,2,3}; a:{3,4}]` | Y/N/Y |
+| 2 | `[b,c:{1,2,3,5}; a:{3,4,5}]` | `[b,c:{1,2,3,5}; a:{3,4,5}]` | Y/Y/Y |
+| 3 | `[b,c:{1,2,3,5,6}; a:{3,4,5,6}]` | `[b,c:{1,2,3,5,6}; a:{3,4,5,6}]` | Y/Y/Y |
+
+### collision_true_tie
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_true_tie/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_true_tie/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_true_tie/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_true_tie/rust.observed.json). Parameters: `1/0.5/99; 1/1/1`.
+
+Batches: [1:a, 2:b, 3:a c, 4:b c] → [5:a b c] → [6:a b c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,3}; b,c:{2,3,4}]` | `[a,c:{1,3,4}; b:{2,4}]` | N/N/Y |
+| 2 | `[a:{1,3,5}; b,c:{2,3,4,5}]` | `[a,c:{1,3,4,5}; b:{2,4,5}]` | N/N/Y |
+| 3 | `[a:{1,3,5,6}; b,c:{2,3,4,5,6}]` | `[a,c:{1,3,4,5,6}; b:{2,4,5,6}]` | N/N/Y |
+
+### competing
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/competing/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/competing/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/competing/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/competing/rust.observed.json). Parameters: `0.7/0.75/99; 0.1/0.13/0.3`.
+
+Batches: [1:a, 2:b, 3:a b] → [4:a b] → [5:a].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,3}; b:{2,3}]` | `[a:{1,3}; b:{2,3}]` | Y/N/Y |
+| 2 | `[a:{1,3,4}; b:{2,3,4}]` | `[a:{1,3,4}; b:{2,3,4}]` | Y/Y/Y |
+| 3 | `[a:{1,3,4,5}; b:{2,3,4}]` | `[a:{1,3,4,5}; b:{2,3,4}]` | Y/Y/Y |
+
+### frequency_vs_vocabulary
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/frequency_vs_vocabulary/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/frequency_vs_vocabulary/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/frequency_vs_vocabulary/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/frequency_vs_vocabulary/rust.observed.json). Parameters: `0.5/1/99; 1/1/1`.
+
+Batches: [1:a b, 2:a b, 3:b, 4:z, 5:z, 6:z, 7:z] → [8:z] → [9:a b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[z:{4,5,6,7}; b:{1,2,3}; a:{1,2}]` | `[z:{4,5,6,7}; a,b:{1,2,3}]` | N/N/Y |
+| 2 | `[z:{4,5,6,7,8}; b:{1,2,3}; a:{1,2}]` | `[z:{4,5,6,7,8}; a,b:{1,2,3}]` | N/N/Y |
+| 3 | `[z:{4,5,6,7,8}; b:{1,2,3,9}; a:{1,2,9}]` | `[z:{4,5,6,7,8}; a,b:{1,2,3,9}]` | N/N/Y |
+
+### merge_many
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/merge_many/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/merge_many/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/merge_many/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/merge_many/rust.observed.json). Parameters: `0.7/0.5/1; 0.1/0.13/0.3`.
+
+Batches: [1:a b c, 2:a b c] → [3:a b c] → [4:a b c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b,c:{1,2}]` | `[a,b,c:{1,2}]` | Y/N/Y |
+| 2 | `[a,b,c:{1,2,3}]` | `[a,b,c:{1,2,3}]` | Y/Y/Y |
+| 3 | `[a,b,c:{1,2,3,4}]` | `[a,b,c:{1,2,3,4}]` | Y/Y/Y |
+
+### new_dominant
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/new_dominant/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/new_dominant/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/new_dominant/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/new_dominant/rust.observed.json). Parameters: `0.7/0.5/1; 0.1/0.13/0.3`.
+
+Batches: [1:a b, 2:a b] → [3:c, 4:c, 5:c] → [6:c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b:{1,2}]` | `[a,b:{1,2}]` | Y/N/Y |
+| 2 | `[c:{3,4,5}; <>:{1,2}/[a,b:{1,2}]]` | `[c:{3,4,5}; <>:{1,2}/[a,b:{1,2}]]` | Y/N/Y |
+| 3 | `[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]` | `[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]` | Y/N/N |
+
+### one_prominent
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/one_prominent/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/one_prominent/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/one_prominent/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/one_prominent/rust.observed.json). Parameters: `0.7/0.5/1; 0.1/0.13/0.3`.
+
+Batches: [1:a, 2:a] → [3:a] → [4:a].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2}]` | `[a:{1,2}]` | Y/Y/Y |
+| 2 | `[a:{1,2,3}]` | `[a:{1,2,3}]` | Y/Y/Y |
+| 3 | `[a:{1,2,3,4}]` | `[a:{1,2,3,4}]` | Y/Y/Y |
+
+### overlap_recursive
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/overlap_recursive/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/overlap_recursive/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/overlap_recursive/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/overlap_recursive/rust.observed.json). Parameters: `0.8/0.75/1; 1/1/1`.
+
+Batches: [1:a b, 2:a b, 3:a b c, 4:a b c, 5:a c, 6:a c, 7:a] → [8:a b c] → [9:a b c].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2,3,4,5,6,7}/[b:{1,2,3,4}; c:{3,4,5,6}]]` | `[a:{1,2,3,4,5,6,7}/[b:{1,2,3,4}/[c:{3,4}]; c:{3,4,5,6}/[b:{3,4}]]]` | N/N/Y |
+| 2 | `[a:{1,2,3,4,5,6,7,8}/[b:{1,2,3,4,8}; c:{3,4,5,6,8}]]` | `[a:{1,2,3,4,5,6,7,8}/[b:{1,2,3,4,8}/[c:{3,4,8}]; c:{3,4,5,6,8}/[b:{3,4,8}]]]` | N/N/N |
+| 3 | `[a:{1,2,3,4,5,6,7,8,9}/[b:{1,2,3,4,8,9}; c:{3,4,5,6,8,9}]]` | `[a:{1,2,3,4,5,6,7,8,9}/[b:{1,2,3,4,8,9}/[c:{3,4,8,9}]; c:{3,4,5,6,8,9}/[b:{3,4,8,9}]]]` | N/N/N |
+
+### refuge
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/refuge/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/refuge/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/refuge/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/refuge/rust.observed.json). Parameters: `0.8/0.5/1; 1/1/1`.
+
+Batches: [1:a, 2:a, 3:a, 4:b, 5:b] → [6:b] → [7:b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2,3}; <>:{4,5}/[b:{4,5}]]` | `[a:{1,2,3}; <>:{4,5}/[b:{4,5}]]` | Y/Y/Y |
+| 2 | `[a:{1,2,3}; <>:{4,5}/[b:{4,5,6}]]` | `[a:{1,2,3}; <>:{4,5,6}/[b:{4,5,6}]]` | N/N/Y |
+| 3 | `[a:{1,2,3}; <>:{4,5}/[b:{4,5,6,7}]]` | `[a:{1,2,3}; <>:{4,5,6,7}/[b:{4,5,6,7}]]` | N/N/Y |
+
+### root_reconstruct
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/root_reconstruct/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/root_reconstruct/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/root_reconstruct/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/root_reconstruct/rust.observed.json). Parameters: `0.7/0.5/1; 0.11/0.2/0.2`.
+
+Batches: [1:a b, 2:a] → [3:x, 4:x, 5:x, 6:x] → [7:x].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2}/[b:{1}]]` | `[a:{1,2}/[b:{1}]]` | Y/Y/Y |
+| 2 | `[x:{3,4,5,6}; <>:{1,2}/[a:{1,2}/[b:{1}]]]` | `[x:{3,4,5,6}; <>:{1,2}/[a:{1,2}/[b:{1}]]]` | Y/Y/Y |
+| 3 | `[x:{3,4,5,6,7}; <>:{1,2}/[a:{1,2}/[b:{1}]]]` | `[x:{3,4,5,6,7}; <>:{1,2}/[a:{1,2}/[b:{1}]]]` | Y/Y/N |
+
+### separate
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/separate/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/separate/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/separate/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/separate/rust.observed.json). Parameters: `0.7/0.75/99; 0.1/0.13/0.3`.
+
+Batches: [1:a, 2:a, 3:b, 4:b] → [5:a b] → [6:b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2}; b:{3,4}]` | `[a:{1,2}; b:{3,4}]` | Y/N/Y |
+| 2 | `[a:{1,2,5}; b:{3,4,5}]` | `[a:{1,2,5}; b:{3,4,5}]` | Y/Y/Y |
+| 3 | `[a:{1,2,5}; b:{3,4,5,6}]` | `[a:{1,2,5}; b:{3,4,5,6}]` | Y/Y/Y |
+
+### sequential
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/sequential/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/sequential/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/sequential/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/sequential/rust.observed.json). Parameters: `0.7/0.5/1; 0.1/0.13/0.3`.
+
+Batches: [1:a b, 2:a b] → [3:c, 4:c, 5:c] → [6:c] → [7:d, 8:d, 9:d, 10:d, 11:d, 12:d, 13:d, 14:d] → [15:d].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b:{1,2}]` | `[a,b:{1,2}]` | Y/N/Y |
+| 2 | `[c:{3,4,5}; <>:{1,2}/[a,b:{1,2}]]` | `[c:{3,4,5}; <>:{1,2}/[a,b:{1,2}]]` | Y/N/Y |
+| 3 | `[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]` | `[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]` | Y/N/N |
+| 4 | `[d:{10,11,12,13,14,7,8,9}; <>:{1,2,3,4,5,6}/[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]]` | `[d:{10,11,12,13,14,7,8,9}; <>:{1,2,3,4,5,6}/[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]]` | Y/N/Y |
+| 5 | `[d:{10,11,12,13,14,15,7,8,9}; <>:{1,2,3,4,5,6}/[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]]` | `[d:{10,11,12,13,14,15,7,8,9}; <>:{1,2,3,4,5,6}/[c:{3,4,5,6}; <>:{1,2}/[a,b:{1,2}]]]` | Y/N/N |
+
+### siblings
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/siblings/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/siblings/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/siblings/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/siblings/rust.observed.json). Parameters: `0.7/0.5/1; 1/1/1`.
+
+Batches: [1:a b, 2:a b, 3:a b, 4:a b, 5:a c, 6:a c, 7:a c, 8:a c, 9:a, 10:a, 11:d e, 12:d e, 13:d e, 14:d e, 15:d f, 16:d f, 17:d f, 18:d f, 19:d, 20:d] → [21:a b] → [22:d e].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,10,2,3,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[f:{15,16,17,18}; e:{11,12,13,14}]]` | `[a:{1,10,2,3,4,5,6,7,8,9}/[b:{1,2,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]` | N/N/Y |
+| 2 | `[a:{1,10,2,21,3,4,5,6,7,8,9}/[b:{1,2,21,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[f:{15,16,17,18}; e:{11,12,13,14}]]` | `[a:{1,10,2,21,3,4,5,6,7,8,9}/[b:{1,2,21,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20}/[e:{11,12,13,14}; f:{15,16,17,18}]]` | N/N/N |
+| 3 | `[a:{1,10,2,21,3,4,5,6,7,8,9}/[b:{1,2,21,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20,22}/[f:{15,16,17,18}; e:{11,12,13,14,22}]]` | `[a:{1,10,2,21,3,4,5,6,7,8,9}/[b:{1,2,21,3,4}; c:{5,6,7,8}]; d:{11,12,13,14,15,16,17,18,19,20,22}/[e:{11,12,13,14,22}; f:{15,16,17,18}]]` | N/N/N |
+
+### single_root
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/single_root/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/single_root/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/single_root/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/single_root/rust.observed.json). Parameters: `0.7/0.5/1; 0.1/0.13/0.3`.
+
+Batches: [1:a b, 2:a b] → [3:a b] → [4:a b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b:{1,2}]` | `[a,b:{1,2}]` | Y/N/Y |
+| 2 | `[a,b:{1,2,3}]` | `[a,b:{1,2,3}]` | Y/Y/Y |
+| 3 | `[a,b:{1,2,3,4}]` | `[a,b:{1,2,3,4}]` | Y/Y/Y |
+
+### ties_ab
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ab/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ab/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ab/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ab/rust.observed.json). Parameters: `0.7/0.5/99; 0.1/0.13/0.3`.
+
+Batches: [1:a b] → [2:a b] → [3:a b].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b:{1}]` | `[a,b:{1}]` | Y/N/Y |
+| 2 | `[a,b:{1,2}]` | `[a,b:{1,2}]` | Y/Y/Y |
+| 3 | `[a,b:{1,2,3}]` | `[a,b:{1,2,3}]` | Y/Y/Y |
+
+### ties_ba
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ba/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ba/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ba/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ba/rust.observed.json). Parameters: `0.7/0.5/99; 0.1/0.13/0.3`.
+
+Batches: [1:b a] → [2:b a] → [3:b a].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a,b:{1}]` | `[a,b:{1}]` | Y/N/Y |
+| 2 | `[a,b:{1,2}]` | `[a,b:{1,2}]` | Y/Y/Y |
+| 3 | `[a,b:{1,2,3}]` | `[a,b:{1,2,3}]` | Y/Y/Y |
+
+### unmatched
+
+[Input](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/unmatched/input.json), [C# raw](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/unmatched/csharp.json), [normalized C#](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/unmatched/csharp.normalized.json), [Rust](../crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/unmatched/rust.observed.json). Parameters: `0.7/0.5/99; 1/1/1`.
+
+Batches: [1:a, 2:a] → [3:x] → [4:a].
+
+| Cycle | C# | Rust | T/E/D |
+| --- | --- | --- | --- |
+| 1 | `[a:{1,2}]` | `[a:{1,2}]` | Y/Y/Y |
+| 2 | `[a:{1,2}]` | `[a:{1,2}]` | Y/Y/Y |
+| 3 | `[a:{1,2,4}]` | `[a:{1,2,4}]` | Y/Y/Y |
+
+## Build and test results
+
+Harness build passed (22 inherited compiler warnings). `verify.py` passed.
+All 21 reference fixtures were byte-identical across two executions per fixture.
+`cargo fmt --all -- --check` passed. Focused integration: 12 passed, one explicitly
+ignored strict parity test. Running that test with `--ignored` fails as expected
+(exit 101), first on branch-boundary structure; this is retained evidence.
+Focused clippy with `-D warnings` passed. Core library tests: 74 passed.
+No architecture changed; full workspace tests were not run.
+
+The existing file exceeds 400 lines after adding the audit. Its earlier 11 tests
+were preserved; new execution helpers are cohesive and confined to an internal
+test module. No module boundaries or production state ownership changed.
+
+---
+
+## Historical source-only audit (superseded evidence)
+
+The following is retained verbatim from the supplied working document. Its claims
+that runtime tools are absent refer to the earlier audit and do not apply above.
+
 # HKT construction and selective reconstruction parity audit
 
-## Scope and evidence
+## Integration status (2026-10-13)
+
+Commit `432c47c` is integrated onto fetched main `2bcd8ed`. All 11 fixtures retain
+their original assertions. No builder or reconstruction production change is
+justified by this audit: branch cutoff, greedy tie order, and recursive sibling-word
+reuse remain unresolved scientific questions. Distinct-source counts, inspected-word
+node creation, copied scope records, and transactional replacement remain deliberate
+Rust contracts. C# collection order and concurrent shared-row mutation require actual
+runtime comparisons before stronger claims can be made.
+
+Runtime tools remain absent; there is no executed C# comparison or golden output.
+The source-inferred structures below are not empirically verified equivalence.
+The original paper's accepted manuscript was re-read during integration; the final
+university-hosted PDF remains inaccessible (401). Final Rust validation is recorded
+in [integration-validation.md](integration-validation.md).
+
+## Historical audit: scope and evidence
 
 Audited checkout: `15814d1d636a853acbf0ca950d44cce4c534b3e4` (initial branch
 `fix/seca-light-stream`). Local `main` is `42c07c098c1fadb931a4e7b5b6920ee9561dabc5`;

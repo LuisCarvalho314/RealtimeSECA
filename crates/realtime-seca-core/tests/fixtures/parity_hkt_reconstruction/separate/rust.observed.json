@@ -1,0 +1,112 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [
+        "b"
+      ],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "4"
+          ],
+          "words": [
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2",
+            "5"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "4",
+            "5"
+          ],
+          "words": [
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2",
+            "5"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "words": [
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

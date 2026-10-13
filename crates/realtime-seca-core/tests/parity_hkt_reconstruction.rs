@@ -1,4 +1,4 @@
-//! Structural reference cases; C# expectations are source-inferred, not executed.
+//! Historical Rust structural regressions plus executed C# topology goldens.
 #![allow(clippy::field_reassign_with_default)]
 use realtime_seca_core::tree::{HktBuildOutput, HktBuilder, SourceWordRecord};
 use realtime_seca_core::{
@@ -394,5 +394,237 @@ fn recursive_scope_retains_sibling_words_on_overlapping_sources() {
         let other_word = if node.word_ids.contains(&1) { 2 } else { 1 };
         assert_eq!(descendant.nodes[0].word_ids, sets(&[other_word]));
         assert_eq!(descendant.nodes[0].source_ids, [3].into_iter().collect());
+    }
+}
+
+// Executed-reference audit. C# goldens are generated only by reference.py.
+mod executed {
+    use realtime_seca_core::{MemoryMode, SecaConfig, SecaEngine, SourceBatch, SourceRecord};
+    use serde_json::{json, Value};
+    use std::{collections::BTreeMap, fs, path::PathBuf};
+
+    fn directory() -> PathBuf {
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/parity_hkt_reconstruction")
+    }
+
+    fn cases() -> Vec<PathBuf> {
+        let mut paths: Vec<_> = fs::read_dir(directory())
+            .unwrap()
+            .map(|p| p.unwrap().path())
+            .filter(|p| p.is_dir())
+            .collect();
+        paths.sort();
+        paths
+    }
+
+    fn topology(engine: &SecaEngine) -> (Value, BTreeMap<i32, String>) {
+        let tree = engine.export_baseline_tree_verbose().unwrap();
+        fn scope(
+            tree: &realtime_seca_core::BaselineTreeVerboseExport,
+            id: i32,
+            path: String,
+            paths: &mut BTreeMap<i32, String>,
+        ) -> Value {
+            assert!(paths.insert(id, path.clone()).is_none());
+            let h = tree.hkts.iter().find(|h| h.hkt_id == id).unwrap();
+            let mut expected: Vec<_> = h
+                .expected_words
+                .iter()
+                .map(|w| w.token.clone().unwrap())
+                .collect();
+            expected.sort();
+            let nodes: Vec<_> = h
+                .node_ids
+                .iter()
+                .enumerate()
+                .map(|(i, nid)| {
+                    let n = tree.nodes.iter().find(|n| n.node_id == *nid).unwrap();
+                    let mut words: Vec<_> = n
+                        .words
+                        .iter()
+                        .map(|w| {
+                            if w.word_id == -1 {
+                                "<>".to_owned()
+                            } else {
+                                w.token.clone().unwrap()
+                            }
+                        })
+                        .collect();
+                    words.sort();
+                    let mut sources: Vec<_> = n
+                        .sources
+                        .iter()
+                        .map(|s| s.external_source_id.clone())
+                        .collect();
+                    sources.sort();
+                    let children: Vec<_> = tree
+                        .hkts
+                        .iter()
+                        .filter(|h| h.parent_node_id == *nid)
+                        .collect();
+                    assert!(children.len() <= 1);
+                    let child = children
+                        .first()
+                        .map(|c| scope(tree, c.hkt_id, format!("{path}/{i}"), paths));
+                    json!({"words":words,"sources":sources,"refuge":n.is_refuge_node,"child":child})
+                })
+                .collect();
+            json!({"path":path,"expected":expected,"nodes":nodes})
+        }
+        let roots: Vec<_> = tree.hkts.iter().filter(|h| h.parent_node_id == 0).collect();
+        assert_eq!(roots.len(), 1);
+        let mut paths = BTreeMap::new();
+        let result = scope(&tree, roots[0].hkt_id, "root".into(), &mut paths);
+        assert_eq!(paths.len(), tree.hkts.len());
+        (result, paths)
+    }
+
+    fn run(input: &Value) -> Value {
+        let mut config = SecaConfig::default();
+        config.memory_mode = MemoryMode::Full;
+        config.hkt_builder.minimum_threshold_against_max_word_count =
+            input["alpha"].as_f64().unwrap();
+        config.hkt_builder.similarity_threshold = input["beta"].as_f64().unwrap();
+        config
+            .hkt_builder
+            .minimum_number_of_sources_to_create_branch_for_node =
+            input["branchMinimum"].as_u64().unwrap() as usize;
+        config.seca_thresholds.alpha = input["alpha"].as_f64().unwrap();
+        config.seca_thresholds.beta = input["beta"].as_f64().unwrap();
+        config.seca_thresholds.alpha_error_threshold = input["alphaError"].as_f64().unwrap();
+        config.seca_thresholds.beta_error_threshold = input["betaError"].as_f64().unwrap();
+        config.seca_thresholds.word_importance_error_threshold =
+            input["wordImportanceError"].as_f64().unwrap();
+        let mut engine = SecaEngine::new(config).unwrap();
+        let mut snapshots = Vec::new();
+        let mut previous_paths = BTreeMap::new();
+        for (i, rows) in input["batches"].as_array().unwrap().iter().enumerate() {
+            let index = i as u32 + 1;
+            let batch = SourceBatch {
+                batch_index: index,
+                sources: rows
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|r| SourceRecord {
+                        source_id: r["id"].to_string(),
+                        batch_index: index,
+                        tokens: r["words"]
+                            .as_array()
+                            .unwrap()
+                            .iter()
+                            .map(|w| w.as_str().unwrap().into())
+                            .collect(),
+                        text: None,
+                        timestamp_unix_ms: None,
+                        metadata: None,
+                    })
+                    .collect(),
+            };
+            let mut decisions = Vec::new();
+            if i == 0 {
+                engine.build_baseline_tree(batch).unwrap();
+            } else {
+                let result = engine.process_batch(batch).unwrap();
+                for d in result.decision_diagnostics {
+                    decisions.push(
+                        json!({"path":previous_paths[&d.hkt_id],"triggered":d.should_reconstruct}),
+                    );
+                }
+                decisions.sort_by_key(|d| d["path"].as_str().unwrap().to_owned());
+            }
+            let (topology, paths) = topology(&engine);
+            previous_paths = paths;
+            // Validate the public resumable state after each cycle as well as topology.
+            SecaEngine::load_snapshot(engine.snapshot().unwrap()).unwrap();
+            snapshots.push(json!({"topology":topology,"decisions":decisions}));
+        }
+        json!(snapshots)
+    }
+
+    fn without_expected(mut value: Value) -> Value {
+        fn strip(v: &mut Value) {
+            match v {
+                Value::Object(map) => {
+                    map.remove("expected");
+                    for v in map.values_mut() {
+                        strip(v);
+                    }
+                }
+                Value::Array(a) => {
+                    for v in a {
+                        strip(v);
+                    }
+                }
+                _ => {}
+            }
+        }
+        strip(&mut value);
+        value
+    }
+
+    #[test]
+    fn executed_reference_regressions_and_explicit_differences() {
+        let record = std::env::var_os("SECA_RECORD_RUST_AUDIT").is_some();
+        for path in cases() {
+            let input: Value =
+                serde_json::from_slice(&fs::read(path.join("input.json")).unwrap()).unwrap();
+            let actual = run(&input);
+            if record {
+                fs::write(
+                    path.join("rust.observed.json"),
+                    serde_json::to_string_pretty(&actual).unwrap() + "\n",
+                )
+                .unwrap();
+            }
+            let observed: Value =
+                serde_json::from_slice(&fs::read(path.join("rust.observed.json")).unwrap())
+                    .unwrap();
+            assert_eq!(
+                actual,
+                observed,
+                "Rust behavior changed: {}",
+                path.display()
+            );
+            let reference: Value =
+                serde_json::from_slice(&fs::read(path.join("csharp.normalized.json")).unwrap())
+                    .unwrap();
+            let comparison: Value = serde_json::from_slice(
+                &fs::read(path.join("comparison.json")).unwrap_or_else(|_| b"[]".to_vec()),
+            )
+            .unwrap();
+            let differences: Vec<_> = actual.as_array().unwrap().iter().zip(reference.as_array().unwrap()).map(|(r,c)| json!({
+                "topology_equal":without_expected(r["topology"].clone()) == without_expected(c["topology"].clone()),
+                "expected_and_topology_equal":r["topology"] == c["topology"],
+                "decisions_equal":r["decisions"] == c["decisions"]
+            })).collect();
+            if record {
+                fs::write(
+                    path.join("comparison.json"),
+                    serde_json::to_string_pretty(&differences).unwrap() + "\n",
+                )
+                .unwrap();
+            } else {
+                assert_eq!(
+                    json!(differences),
+                    comparison,
+                    "Parity classification changed: {}",
+                    path.display()
+                );
+            }
+        }
+    }
+
+    #[test]
+    #[ignore = "Known executed C#–Rust differences; run explicitly to expose strict parity failure"]
+    fn strict_executed_csharp_parity() {
+        for path in cases() {
+            let input: Value =
+                serde_json::from_slice(&fs::read(path.join("input.json")).unwrap()).unwrap();
+            let reference: Value =
+                serde_json::from_slice(&fs::read(path.join("csharp.normalized.json")).unwrap())
+                    .unwrap();
+            assert_eq!(run(&input), reference, "{}", path.display());
+        }
     }
 }

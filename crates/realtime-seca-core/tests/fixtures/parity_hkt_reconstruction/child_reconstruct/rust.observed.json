@@ -1,0 +1,445 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [
+        "d"
+      ],
+      "nodes": [
+        {
+          "child": {
+            "expected": [
+              "c"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "words": [
+                  "b"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "words": [
+                  "c"
+                ]
+              }
+            ],
+            "path": "root/0"
+          },
+          "refuge": false,
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": {
+            "expected": [
+              "f"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "words": [
+                  "e"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "words": [
+                  "f"
+                ]
+              }
+            ],
+            "path": "root/1"
+          },
+          "refuge": false,
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "words": [
+            "d"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      },
+      {
+        "path": "root/0",
+        "triggered": true
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": {
+            "expected": [
+              "c",
+              "x"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "words": [
+                  "b"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "words": [
+                  "c"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "21",
+                  "22",
+                  "23"
+                ],
+                "words": [
+                  "x"
+                ]
+              }
+            ],
+            "path": "root/0"
+          },
+          "refuge": false,
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "3",
+            "30",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": {
+            "expected": [
+              "f"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "words": [
+                  "e"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "words": [
+                  "f"
+                ]
+              }
+            ],
+            "path": "root/1"
+          },
+          "refuge": false,
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "words": [
+            "d"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": true
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": {
+            "expected": [
+              "c"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "31",
+                  "4"
+                ],
+                "words": [
+                  "b"
+                ]
+              },
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "words": [
+                  "c"
+                ]
+              },
+              {
+                "child": {
+                  "expected": [],
+                  "nodes": [
+                    {
+                      "child": null,
+                      "refuge": false,
+                      "sources": [
+                        "21",
+                        "22",
+                        "23"
+                      ],
+                      "words": [
+                        "x"
+                      ]
+                    }
+                  ],
+                  "path": "root/0/2"
+                },
+                "refuge": true,
+                "sources": [
+                  "21",
+                  "22",
+                  "23"
+                ],
+                "words": [
+                  "<>"
+                ]
+              }
+            ],
+            "path": "root/0"
+          },
+          "refuge": false,
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "3",
+            "30",
+            "31",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "words": [
+            "a"
+          ]
+        },
+        {
+          "child": {
+            "expected": [],
+            "nodes": [
+              {
+                "child": {
+                  "expected": [
+                    "f"
+                  ],
+                  "nodes": [
+                    {
+                      "child": null,
+                      "refuge": false,
+                      "sources": [
+                        "11",
+                        "12",
+                        "13",
+                        "14"
+                      ],
+                      "words": [
+                        "e"
+                      ]
+                    },
+                    {
+                      "child": null,
+                      "refuge": false,
+                      "sources": [
+                        "15",
+                        "16",
+                        "17",
+                        "18"
+                      ],
+                      "words": [
+                        "f"
+                      ]
+                    }
+                  ],
+                  "path": "root/1/0"
+                },
+                "refuge": false,
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20"
+                ],
+                "words": [
+                  "d"
+                ]
+              }
+            ],
+            "path": "root/1"
+          },
+          "refuge": true,
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

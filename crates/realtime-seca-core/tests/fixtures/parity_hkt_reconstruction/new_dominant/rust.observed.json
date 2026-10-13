@@ -1,0 +1,138 @@
+[
+  {
+    "decisions": [],
+    "topology": {
+      "expected": [
+        "b"
+      ],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "1",
+            "2"
+          ],
+          "words": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": true
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "4",
+            "5"
+          ],
+          "words": [
+            "c"
+          ]
+        },
+        {
+          "child": {
+            "expected": [
+              "b"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1",
+                  "2"
+                ],
+                "words": [
+                  "a",
+                  "b"
+                ]
+              }
+            ],
+            "path": "root/1"
+          },
+          "refuge": true,
+          "sources": [
+            "1",
+            "2"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  },
+  {
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      }
+    ],
+    "topology": {
+      "expected": [],
+      "nodes": [
+        {
+          "child": null,
+          "refuge": false,
+          "sources": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "words": [
+            "c"
+          ]
+        },
+        {
+          "child": {
+            "expected": [
+              "b"
+            ],
+            "nodes": [
+              {
+                "child": null,
+                "refuge": false,
+                "sources": [
+                  "1",
+                  "2"
+                ],
+                "words": [
+                  "a",
+                  "b"
+                ]
+              }
+            ],
+            "path": "root/1"
+          },
+          "refuge": true,
+          "sources": [
+            "1",
+            "2"
+          ],
+          "words": [
+            "<>"
+          ]
+        }
+      ],
+      "path": "root"
+    }
+  }
+]

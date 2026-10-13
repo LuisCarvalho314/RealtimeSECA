@@ -1,0 +1,54 @@
+{
+  "alpha": 0.7,
+  "beta": 0.5,
+  "branchMinimum": 1,
+  "alphaError": 0.1,
+  "betaError": 0.13,
+  "wordImportanceError": 0.3,
+  "batches": [
+    [
+      {
+        "id": 1,
+        "words": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "id": 2,
+        "words": [
+          "a",
+          "b"
+        ]
+      }
+    ],
+    [
+      {
+        "id": 3,
+        "words": [
+          "c"
+        ]
+      },
+      {
+        "id": 4,
+        "words": [
+          "c"
+        ]
+      },
+      {
+        "id": 5,
+        "words": [
+          "c"
+        ]
+      }
+    ],
+    [
+      {
+        "id": 6,
+        "words": [
+          "c"
+        ]
+      }
+    ]
+  ]
+}

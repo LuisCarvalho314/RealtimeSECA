@@ -1,0 +1,130 @@
+[
+  {
+    "topology": {
+      "path": "root",
+      "expected": [],
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "expected": [],
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "decisions": []
+  },
+  {
+    "topology": {
+      "path": "root",
+      "expected": [],
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "expected": [],
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "3"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      },
+      {
+        "path": "root/0",
+        "triggered": false
+      }
+    ]
+  },
+  {
+    "topology": {
+      "path": "root",
+      "expected": [],
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "expected": [],
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "3"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "decisions": [
+      {
+        "path": "root",
+        "triggered": false
+      },
+      {
+        "path": "root/0",
+        "triggered": false
+      }
+    ]
+  }
+]

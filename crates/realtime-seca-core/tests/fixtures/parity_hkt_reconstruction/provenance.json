@@ -1,0 +1,20 @@
+{
+  "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+  "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+  "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+  "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+  "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+  "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+  "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+  "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+  "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+  "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+  "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+  "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+  "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6",
+  "harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+  "harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+  "harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+  "harness/build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75",
+  "harness/run.sh": "d16bada169b7d400c32f1085ec0fc1e1eb965c032b1c94fe42df37a2f2cdbfab"
+}
