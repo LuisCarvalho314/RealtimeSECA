@@ -2,9 +2,37 @@ use super::*;
 use std::collections::HashMap;
 
 impl SecaEngine {
+    pub fn build_baseline_tree(
+        &mut self,
+        mut batch: SourceBatch,
+    ) -> Result<BatchProcessingResult, SecaError> {
+        if self.hkt_build_output.is_some() {
+            return Err(SecaError::StateError {
+                message: "baseline already exists".into(),
+            });
+        }
+        if batch
+            .sources
+            .iter()
+            .any(|s| s.source_id.is_empty() || s.batch_index != batch.batch_index)
+        {
+            return Err(SecaError::StateError {
+                message: "invalid source ID or batch index".into(),
+            });
+        }
+        let mut seen = BTreeSet::new();
+        batch
+            .sources
+            .retain(|source| seen.insert(source.source_id.clone()));
+        let mut candidate = self.clone();
+        let result = candidate.build_baseline_inner(batch)?;
+        *self = candidate;
+        Ok(result)
+    }
+
     /// Phase-1 baseline build using HKT construction semantics.
     /// This converts tokenized sources into source-word records and runs the HKT builder.
-    pub fn build_baseline_tree(
+    fn build_baseline_inner(
         &mut self,
         baseline_batch: SourceBatch,
     ) -> Result<BatchProcessingResult, SecaError> {
@@ -17,8 +45,6 @@ impl SecaEngine {
         self.baseline_word_legend.clear();
         self.baseline_source_legend.clear();
         self.source_id_by_url.clear();
-        self.url_by_source_id.clear();
-        self.source_batch_index_by_internal_source_id.clear();
         self.source_ids_by_batch_index.clear();
 
         let baseline_conversion = convert_batch_to_source_word_records(self, &baseline_batch)?;
@@ -42,7 +68,6 @@ impl SecaEngine {
         let hkt_build_output = hkt_builder.build_full_tree(source_word_records, false)?;
 
         self.baseline_word_legend = baseline_conversion.word_legend;
-        self.baseline_source_legend = baseline_conversion.source_legend;
 
         let hkt_count = hkt_build_output.hkts_by_id.len();
         let node_count = hkt_build_output.nodes_by_id.len();
@@ -61,16 +86,8 @@ impl SecaEngine {
             .unwrap_or(1);
 
         self.hkt_build_output = Some(hkt_build_output);
-        self.has_baseline = true;
         self.processed_batches.clear();
-        let mut retained_batch = baseline_batch.clone();
-        for source in &mut retained_batch.sources {
-            source.text = None;
-            source.metadata = None;
-            source.timestamp_unix_ms = None;
-        }
-        self.processed_batches.push(retained_batch);
-        self.last_processed_batch_index = Some(baseline_batch.batch_index);
+        self.retain_batch(&baseline_batch);
         self.last_update_explanation = Some(UpdateExplanation {
             summary: format!(
                 "Baseline HKT tree initialized ({} HKTs, {} nodes)",
@@ -105,7 +122,6 @@ impl SecaEngine {
 struct BaselineConversionOutput {
     source_word_records: Vec<SourceWordRecord>,
     word_legend: std::collections::BTreeMap<i32, String>,
-    source_legend: std::collections::BTreeMap<i64, String>,
 }
 
 /// Converts tokenized sources to `SourceWordRecord` rows and computes `word_number_of_sources`,
@@ -121,20 +137,10 @@ fn convert_batch_to_source_word_records(
 
     let mut word_legend: std::collections::BTreeMap<i32, String> =
         std::collections::BTreeMap::new();
-    let mut source_legend: std::collections::BTreeMap<i64, String> =
-        std::collections::BTreeMap::new();
-
-    // Count number of distinct sources containing each token (not raw frequency).
-    let mut source_ids_by_word_id: HashMap<i32, std::collections::BTreeSet<i64>> = HashMap::new();
 
     for source in &batch.sources {
         let internal_source_id =
             engine.register_source_for_batch(source.source_id.as_str(), batch.batch_index);
-
-        source_legend.insert(internal_source_id, source.source_id.clone());
-
-        let mut source_local_word_ids: std::collections::BTreeSet<i32> =
-            std::collections::BTreeSet::new();
 
         for token in &source.tokens {
             let normalized_token = token.trim();
@@ -161,36 +167,13 @@ fn convert_batch_to_source_word_records(
                 word_number_of_sources: 0, // populated below
             });
             source_word_id_counter += 1;
-
-            source_local_word_ids.insert(assigned_word_id);
-        }
-
-        for word_id in source_local_word_ids {
-            source_ids_by_word_id
-                .entry(word_id)
-                .or_default()
-                .insert(internal_source_id);
         }
     }
 
-    for record in &mut source_word_records {
-        let count = source_ids_by_word_id
-            .get(&record.word_id)
-            .map(|source_ids| source_ids.len())
-            .unwrap_or(0);
-        record.word_number_of_sources = count;
-    }
-
-    source_word_records.sort_by(|left_record, right_record| {
-        right_record
-            .word_number_of_sources
-            .cmp(&left_record.word_number_of_sources)
-            .then_with(|| left_record.source_word_id.cmp(&right_record.source_word_id))
-    });
+    crate::tree::hkt_builder::update_document_frequencies(&mut source_word_records);
 
     Ok(BaselineConversionOutput {
         source_word_records,
         word_legend,
-        source_legend,
     })
 }

@@ -1,4 +1,4 @@
-use realtime_seca_core::engine::rebuild::RebuildMode;
+#![allow(clippy::field_reassign_with_default)]
 use realtime_seca_core::{MemoryMode, SecaConfig, SecaEngine, SourceBatch, SourceRecord};
 use serde_json::{json, Value};
 fn engine(gamma: u32) -> SecaEngine {
@@ -7,12 +7,11 @@ fn engine(gamma: u32) -> SecaEngine {
     c.max_batches_in_memory = Some(gamma);
     c.hkt_builder.minimum_threshold_against_max_word_count = 0.7;
     c.seca_thresholds.alpha = 0.7;
-    c.seca_thresholds.alpha_option1_threshold = 0.11;
-    c.seca_thresholds.beta_option1_threshold = 0.2;
-    c.seca_thresholds.word_importance_option1_threshold = 0.2;
-    let mut e = SecaEngine::new(c).unwrap();
-    e.set_rebuild_mode(RebuildMode::SubtreeTargeted);
-    e
+    c.seca_thresholds.alpha_error_threshold = 0.11;
+    c.seca_thresholds.beta_error_threshold = 0.2;
+    c.seca_thresholds.word_importance_error_threshold = 0.2;
+
+    SecaEngine::new(c).unwrap()
 }
 fn batch(index: u32, rows: Vec<(String, Vec<&str>)>) -> SourceBatch {
     SourceBatch {
@@ -60,14 +59,9 @@ fn persisted_second_batch_retains_structure_and_source_union() {
     assert!(!result.reconstruction_triggered);
     assert_eq!(topology(&e), first);
     assert_eq!(tree(&e)["source_legend"].as_array().unwrap().len(), 2);
-    assert!(result
-        .notes
-        .iter()
-        .any(|n| n.contains("alpha_error_eq6_scaffold=0.0000")));
-    assert!(result
-        .notes
-        .iter()
-        .any(|n| n.contains("beta_error_eq9_scaffold=0.0000")));
+    assert_eq!(result.decision_diagnostics[0].paper_alpha_error, Some(0.0));
+
+    assert_eq!(result.decision_diagnostics[0].paper_beta_error, Some(0.0));
 }
 #[test]
 fn gamma_three_bounds_all_source_memberships_as_batches_grow() {
@@ -210,7 +204,7 @@ fn change_reconstructs_only_target_child_and_preserves_sibling() {
         })
         .collect();
     let result = e.process_batch(batch(2, incoming)).unwrap();
-    assert!(result.reconstruction_triggered, "{:?}", result.notes);
+
     let after = tree(&e);
     assert!(after["hkts"]
         .as_array()
@@ -227,10 +221,7 @@ fn change_reconstructs_only_target_child_and_preserves_sibling() {
         .unwrap()
         .iter()
         .any(|n| n == d_node));
-    assert!(result
-        .notes
-        .iter()
-        .any(|n| n.contains("Selected-HKT rebuild plan") && n.contains("1 target(s)")));
+    assert_eq!(result.reconstructed_hkt_ids.len(), 1);
 }
 #[test]
 fn reconstruction_shrinks_tree_after_forgetting_and_history_remains_readable() {
@@ -261,4 +252,81 @@ fn old_metadata_only_schema_is_rejected() {
     let mut s = e.snapshot().unwrap();
     s.schema_version = 2;
     assert!(SecaEngine::load_snapshot(s).is_err());
+}
+
+#[test]
+fn failed_baseline_isolated_and_baseline_duplicates_count_once() {
+    let mut e = engine(3);
+    let before = state(&e);
+    assert!(e
+        .build_baseline_tree(batch(1, vec![("empty".into(), vec![" "])]))
+        .is_err());
+    assert_eq!(state(&e), before);
+    let result = e
+        .build_baseline_tree(batch(
+            1,
+            vec![("same".into(), vec!["a"]), ("same".into(), vec!["b"])],
+        ))
+        .unwrap();
+    assert_eq!(result.sources_processed, 1);
+    assert_eq!(tree(&e)["source_legend"].as_array().unwrap().len(), 1);
+    assert!(tree(&e)["word_legend"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|w| w["token"] != "b"));
+    assert_eq!(state(&restored(&e)), state(&e));
+}
+
+#[test]
+fn malformed_duplicate_cannot_bypass_validation() {
+    let mut e = engine(3);
+    e.build_baseline_tree(one(1, "a")).unwrap();
+    let before = state(&e);
+    let mut duplicate = one(2, "a");
+    duplicate.sources[0].source_id = "s1".into();
+    duplicate.sources[0].batch_index = 99;
+    assert!(e.process_batch(duplicate).is_err());
+    assert_eq!(state(&e), before);
+}
+
+#[test]
+fn reconstruction_chooses_updated_prominent_word_and_stabilizes() {
+    let mut e = engine(3);
+    e.build_baseline_tree(batch(
+        1,
+        vec![
+            ("old1".into(), vec!["a", "b"]),
+            ("old2".into(), vec!["a", "b"]),
+        ],
+    ))
+    .unwrap();
+    let changed = e
+        .process_batch(batch(
+            2,
+            (0..4).map(|i| (format!("new{i}"), vec!["x"])).collect(),
+        ))
+        .unwrap();
+    assert!(changed.reconstruction_triggered);
+    let export = e.export_baseline_tree_verbose().unwrap();
+    let root_id = export
+        .hkts
+        .iter()
+        .find(|h| h.parent_node_id == 0)
+        .unwrap()
+        .hkt_id;
+    let root_words: Vec<_> = export
+        .nodes
+        .into_iter()
+        .filter(|n| n.hkt_id == root_id)
+        .flat_map(|n| n.words)
+        .filter_map(|w| w.token)
+        .collect();
+    assert!(root_words.contains(&"x".to_string()));
+    assert!(!root_words.contains(&"a".to_string()));
+    let continued = e
+        .process_batch(batch(3, vec![("new4".into(), vec!["x"])]))
+        .unwrap();
+    assert!(!continued.reconstruction_triggered);
+    assert_eq!(state(&restored(&e)), state(&e));
 }

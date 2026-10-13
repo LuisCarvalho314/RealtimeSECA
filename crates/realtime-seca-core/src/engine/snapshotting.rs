@@ -3,29 +3,16 @@ use super::*;
 impl SecaEngine {
     pub fn snapshot(&self) -> Result<EngineSnapshot, SecaError> {
         Ok(EngineSnapshot {
-            schema_version: 3,
+            schema_version: 4,
             state: Some(Box::new(self.clone())),
             engine_version: ENGINE_VERSION.to_string(),
             config: self.config.clone(),
             last_processed_batch_index: self.last_processed_batch_index,
-            logically_removed_hkts_by_id: self
-                .logically_removed_hkts_by_id
-                .iter()
-                .map(|(hkt_id, entry)| {
-                    (
-                        *hkt_id,
-                        crate::types::LogicalRemovedHktSnapshot {
-                            hkt: entry.hkt.clone(),
-                            old_parent_node_id: entry.old_parent_node_id,
-                        },
-                    )
-                })
-                .collect(),
         })
     }
 
     pub fn load_snapshot(snapshot: EngineSnapshot) -> Result<Self, SecaError> {
-        if snapshot.schema_version != 3 || snapshot.engine_version != ENGINE_VERSION {
+        if snapshot.schema_version != 4 || snapshot.engine_version != ENGINE_VERSION {
             return Err(SecaError::StateError {
                 message: "unsupported model schema/version; replay archived batches explicitly"
                     .into(),
@@ -43,6 +30,7 @@ impl SecaEngine {
                 message: "inconsistent model snapshot".into(),
             });
         }
+        engine.validate_restored_state()?;
         Ok(*engine)
     }
 
@@ -85,25 +73,7 @@ impl SecaEngine {
         hkts.sort_by_key(|hkt| hkt.hkt_id);
         nodes.sort_by_key(|node| node.node_id);
 
-        let mut logically_removed_hkts: Vec<BaselineHktExport> = self
-            .logically_removed_hkts_by_id
-            .values()
-            .map(|entry| BaselineHktExport {
-                hkt_id: entry.hkt.hkt_id,
-                parent_node_id: entry.hkt.parent_node_id,
-                expected_words: entry.hkt.expected_words.iter().copied().collect(),
-                node_ids: entry.hkt.nodes.iter().map(|node| node.node_id).collect(),
-                is_state1: entry.hkt.is_state1,
-            })
-            .collect();
-
-        logically_removed_hkts.sort_by_key(|hkt| hkt.hkt_id);
-
-        Ok(BaselineTreeExport {
-            hkts,
-            nodes,
-            logically_removed_hkts,
-        })
+        Ok(BaselineTreeExport { hkts, nodes })
     }
 
     pub fn export_baseline_tree_verbose(&self) -> Result<BaselineTreeVerboseExport, SecaError> {
@@ -212,43 +182,11 @@ impl SecaEngine {
             )
             .collect();
 
-        let mut logically_removed_hkts: Vec<BaselineHktVerboseExport> = self
-            .logically_removed_hkts_by_id
-            .values()
-            .map(|entry| {
-                let mut union_word_ids = std::collections::BTreeSet::new();
-                for node in &entry.hkt.nodes {
-                    union_word_ids.extend(node.word_ids.iter().copied());
-                }
-
-                BaselineHktVerboseExport {
-                    hkt_id: entry.hkt.hkt_id,
-                    parent_node_id: entry.hkt.parent_node_id,
-                    expected_words: entry
-                        .hkt
-                        .expected_words
-                        .iter()
-                        .copied()
-                        .map(|word_id| map_word_ref(word_id, &self.baseline_word_legend))
-                        .collect(),
-                    all_node_words_union: union_word_ids
-                        .into_iter()
-                        .map(|word_id| map_word_ref(word_id, &self.baseline_word_legend))
-                        .collect(),
-                    node_ids: entry.hkt.nodes.iter().map(|node| node.node_id).collect(),
-                    is_state1: entry.hkt.is_state1,
-                }
-            })
-            .collect();
-
-        logically_removed_hkts.sort_by_key(|hkt| hkt.hkt_id);
-
         Ok(BaselineTreeVerboseExport {
             hkts,
             nodes,
             word_legend,
             source_legend,
-            logically_removed_hkts,
         })
     }
 }

@@ -8,21 +8,9 @@
     "alpha": 0.7,
     "beta": 0.5,
     "alpha_error_threshold": 0.1,
-    "beta_error_threshold": 0.2,
-    "word_importance_error_threshold": 0.3,
-    "alpha_option1_threshold": 0.1,
-    "alpha_option2_threshold": 0.2,
-    "alpha_option3_threshold": 0.3,
-    "beta_option1_threshold": 0.13,
-    "beta_option2_threshold": 0.2,
-    "beta_option3_threshold": 0.2,
-    "word_importance_option1_threshold": 0.3,
-    "word_importance_option2_threshold": 0.2,
-    "selected_alpha_option": "Option1",
-    "selected_beta_option": "Option1",
-    "selected_word_importance_option": "Option1"
+    "beta_error_threshold": 0.13,
+    "word_importance_error_threshold": 0.3
   },
-  "trigger_policy_mode": "PaperDiagnosticScaffold",
   "memory_mode": "Full",
   "max_batches_in_memory": null
 }

@@ -1,9 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::BTreeMap;
 
 use crate::config::SecaConfig;
-use crate::tree::Hkt;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceRecord {
@@ -32,16 +30,12 @@ pub struct HktDecisionDiagnostics {
     pub mapped_source_count: usize,
     pub should_reconstruct: bool,
     pub trigger_reasons: Vec<String>,
-    pub active_trigger_policy: Option<String>,
-    pub alpha_error: Option<f64>,
-    pub beta_error: Option<f64>,
-    pub word_importance_error: Option<f64>,
     pub paper_alpha_error: Option<f64>,
     pub paper_beta_error: Option<f64>,
     pub paper_word_importance_error: Option<f64>,
 }
 
-/// Final-topology Option1 observations, never trigger decisions.
+/// Final-topology paper metric observations, never trigger decisions.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct HktDisplayDiagnostics {
     pub hkt_id: i32,
@@ -73,12 +67,6 @@ pub struct BatchProcessingResult {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct ClusteringResult {
-    pub cluster_count: usize,
-    pub notes: Vec<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct UpdateExplanation {
     pub summary: String,
     pub reason_codes: Vec<String>,
@@ -92,22 +80,12 @@ pub struct EngineSnapshot {
     pub last_processed_batch_index: Option<u32>,
     #[serde(default)]
     pub state: Option<Box<crate::engine::SecaEngine>>,
-    #[serde(default)]
-    pub logically_removed_hkts_by_id: BTreeMap<i32, LogicalRemovedHktSnapshot>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LogicalRemovedHktSnapshot {
-    pub hkt: Hkt,
-    pub old_parent_node_id: i32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BaselineTreeExport {
     pub hkts: Vec<BaselineHktExport>,
     pub nodes: Vec<BaselineNodeExport>,
-    #[serde(default)]
-    pub logically_removed_hkts: Vec<BaselineHktExport>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -135,8 +113,6 @@ pub struct BaselineTreeVerboseExport {
     pub nodes: Vec<BaselineNodeVerboseExport>,
     pub word_legend: Vec<WordLegendEntry>,
     pub source_legend: Vec<SourceLegendEntry>,
-    #[serde(default)]
-    pub logically_removed_hkts: Vec<BaselineHktVerboseExport>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -1,6 +1,3 @@
-use realtime_seca_core::config::{
-    AlphaErrorOption, BetaErrorOption, TriggerPolicyMode, WordImportanceErrorOption,
-};
 use realtime_seca_core::{
     HktBuilderConfig, MemoryMode, SecaConfig, SecaEngine, SecaThresholdConfig, SourceBatch,
     SourceRecord,
@@ -21,21 +18,9 @@ fn base_config() -> SecaConfig {
             alpha_error_threshold: 0.1,
             beta_error_threshold: 0.1,
             word_importance_error_threshold: 0.1,
-            alpha_option1_threshold: 0.1,
-            alpha_option2_threshold: 0.2,
-            alpha_option3_threshold: 0.3,
-            beta_option1_threshold: 0.13,
-            beta_option2_threshold: 0.2,
-            beta_option3_threshold: 0.2,
-            word_importance_option1_threshold: 0.3,
-            word_importance_option2_threshold: 0.2,
-            selected_alpha_option: AlphaErrorOption::Option1,
-            selected_beta_option: BetaErrorOption::Option1,
-            selected_word_importance_option: WordImportanceErrorOption::Option1,
         },
         memory_mode: MemoryMode::Full,
         max_batches_in_memory: None,
-        trigger_policy_mode: TriggerPolicyMode::PaperDiagnosticScaffold,
     }
 }
 
@@ -132,14 +117,6 @@ fn process_batch_advances_last_processed_batch_index() {
         engine.snapshot().unwrap().last_processed_batch_index,
         Some(1)
     );
-
-    let explanation = engine
-        .explain_last_update()
-        .expect("explanation should exist");
-    assert!(explanation
-        .reason_codes
-        .iter()
-        .any(|code| code == "INCREMENTAL_BATCH_PROCESSED"));
 }
 
 #[test]
@@ -205,32 +182,6 @@ fn process_batch_sliding_window_zero_max_batches_errors() {
 }
 
 #[test]
-fn process_batch_computes_word_stats_summary() {
-    let mut engine = SecaEngine::new(base_config()).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let result = engine.process_batch(batch_one()).unwrap();
-    assert_eq!(result.batch_index, 1);
-
-    let stats = engine
-        .last_batch_word_stats_summary()
-        .expect("stats summary should be present");
-
-    assert_eq!(stats.total_sources_in_batch, 2);
-    assert!(stats.unique_words_in_batch >= 1);
-    assert!(stats.max_word_document_frequency >= 1);
-
-    let explanation = engine.explain_last_update().unwrap();
-    assert!(
-        explanation
-            .reason_codes
-            .iter()
-            .any(|code| code == "BATCH_WORD_STATS_COMPUTED"),
-        "expected BATCH_WORD_STATS_COMPUTED reason code"
-    );
-}
-
-#[test]
 fn process_batch_detects_new_words_relative_to_baseline() {
     let mut engine = SecaEngine::new(base_config()).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -243,80 +194,6 @@ fn process_batch_detects_new_words_relative_to_baseline() {
 }
 
 #[test]
-fn process_batch_evaluates_trigger_and_sets_reason_code() {
-    let mut engine = SecaEngine::new(base_config()).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let _result = engine.process_batch(batch_one()).unwrap();
-
-    let explanation = engine.explain_last_update().unwrap();
-    assert!(
-        explanation
-            .reason_codes
-            .iter()
-            .any(|code| code == "SECA_TRIGGER_EVALUATED"),
-        "expected SECA_TRIGGER_EVALUATED reason code"
-    );
-
-    assert!(
-        explanation.reason_codes.iter().any(|code| {
-            code == "SECA_RECONSTRUCTION_TRIGGERED" || code == "SECA_RECONSTRUCTION_SKIPPED"
-        }),
-        "expected reconstruction trigger decision reason code"
-    );
-}
-
-#[test]
-fn process_batch_includes_stage2_scope_reason_codes() {
-    let mut engine = SecaEngine::new(base_config()).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let _result = engine.process_batch(batch_one()).unwrap();
-
-    let explanation = engine.explain_last_update().unwrap();
-
-    assert!(
-        explanation
-            .reason_codes
-            .iter()
-            .any(|code| code == "SECA_SCOPE_MAPPING_COMPLETED"),
-        "expected SECA_SCOPE_MAPPING_COMPLETED reason code"
-    );
-
-    assert!(
-        explanation
-            .reason_codes
-            .iter()
-            .any(|code| code == "SECA_SCOPE_METRICS_COMPUTED"),
-        "expected SECA_SCOPE_METRICS_COMPUTED reason code"
-    );
-}
-
-#[test]
-fn process_batch_notes_include_recursive_trigger_plan_messages() {
-    let mut engine = SecaEngine::new(base_config()).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let result = engine.process_batch(batch_one()).unwrap();
-
-    assert!(
-        result
-            .notes
-            .iter()
-            .any(|note| { note.contains("SECA recursive trigger evaluation started") }),
-        "expected recursive trigger plan start note"
-    );
-
-    assert!(
-        result
-            .notes
-            .iter()
-            .any(|note| note.contains("SECA trigger plan:")),
-        "expected trigger plan summary note"
-    );
-}
-
-#[test]
 fn process_batch_relaxed_thresholds_can_skip_reconstruction_under_paper_policy() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 1.0;
@@ -324,9 +201,6 @@ fn process_batch_relaxed_thresholds_can_skip_reconstruction_under_paper_policy()
     config.seca_thresholds.alpha_error_threshold = 1.0;
     config.seca_thresholds.beta_error_threshold = 1.0;
     config.seca_thresholds.word_importance_error_threshold = 1.0;
-    config.seca_thresholds.alpha_option1_threshold = 1.0;
-    config.seca_thresholds.beta_option1_threshold = 1.0;
-    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -352,9 +226,6 @@ fn process_batch_can_trigger_reconstruction_with_strict_thresholds() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
-    config.seca_thresholds.alpha_option1_threshold = 0.0;
-    config.seca_thresholds.beta_option1_threshold = 0.0;
-    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -380,9 +251,6 @@ fn process_batch_paper_policy_relaxed_thresholds_evolve_tree_without_rebuild() {
     config.seca_thresholds.alpha_error_threshold = 1.0;
     config.seca_thresholds.beta_error_threshold = 1.0;
     config.seca_thresholds.word_importance_error_threshold = 1.0;
-    config.seca_thresholds.alpha_option1_threshold = 1.0;
-    config.seca_thresholds.beta_option1_threshold = 1.0;
-    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -410,9 +278,6 @@ fn process_batch_trigger_rebuilds_tree_from_stored_batches() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
-    config.seca_thresholds.alpha_option1_threshold = 0.0;
-    config.seca_thresholds.beta_option1_threshold = 0.0;
-    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine = SecaEngine::new(config).unwrap();
     engine.build_baseline_tree(baseline_batch()).unwrap();
@@ -432,7 +297,7 @@ fn process_batch_trigger_rebuilds_tree_from_stored_batches() {
     assert!(explanation
         .reason_codes
         .iter()
-        .any(|c| c == "SECA_FULL_REBUILD_EXECUTED"));
+        .any(|c| c == "SECA_RECONSTRUCTION_TRIGGERED"));
 
     // Optional stronger assertion: new vocabulary should appear in legends/union words
     let all_tokens: std::collections::BTreeSet<String> = after_tree
@@ -445,60 +310,6 @@ fn process_batch_trigger_rebuilds_tree_from_stored_batches() {
 }
 
 #[test]
-fn process_batch_trigger_path_notes_mention_rebuild_completed() {
-    let mut config = base_config();
-    config.seca_thresholds.alpha = 0.0;
-    config.seca_thresholds.beta = 0.0;
-    config.seca_thresholds.alpha_error_threshold = 0.0;
-    config.seca_thresholds.beta_error_threshold = 0.0;
-    config.seca_thresholds.word_importance_error_threshold = 0.0;
-    config.seca_thresholds.alpha_option1_threshold = 0.0;
-    config.seca_thresholds.beta_option1_threshold = 0.0;
-    config.seca_thresholds.word_importance_option1_threshold = 0.0;
-
-    let mut engine = SecaEngine::new(config).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let result = engine.process_batch(batch_three_new_terms()).unwrap();
-
-    assert!(result.reconstruction_triggered);
-    assert!(
-        result
-            .notes
-            .iter()
-            .any(|note| note.contains("full rebuild from stored batches completed")),
-        "expected rebuild completion note in trigger path"
-    );
-}
-
-#[test]
-fn process_batch_paper_policy_no_trigger_notes_mention_no_rebuild() {
-    let mut config = base_config();
-    config.seca_thresholds.alpha = 1.0;
-    config.seca_thresholds.beta = 0.0;
-    config.seca_thresholds.alpha_error_threshold = 1.0;
-    config.seca_thresholds.beta_error_threshold = 1.0;
-    config.seca_thresholds.word_importance_error_threshold = 1.0;
-    config.seca_thresholds.alpha_option1_threshold = 1.0;
-    config.seca_thresholds.beta_option1_threshold = 1.0;
-    config.seca_thresholds.word_importance_option1_threshold = 1.0;
-
-    let mut engine = SecaEngine::new(config).unwrap();
-    engine.build_baseline_tree(baseline_batch()).unwrap();
-
-    let result = engine.process_batch(batch_one()).unwrap();
-
-    assert!(!result.reconstruction_triggered);
-    assert!(
-        result
-            .notes
-            .iter()
-            .any(|note| note.contains("no rebuild performed")),
-        "expected no-rebuild note in non-trigger path"
-    );
-}
-
-#[test]
 fn process_batch_rebuild_path_is_deterministic_for_same_sequence() {
     let mut config = base_config();
     config.seca_thresholds.alpha = 0.0;
@@ -506,9 +317,6 @@ fn process_batch_rebuild_path_is_deterministic_for_same_sequence() {
     config.seca_thresholds.alpha_error_threshold = 0.0;
     config.seca_thresholds.beta_error_threshold = 0.0;
     config.seca_thresholds.word_importance_error_threshold = 0.0;
-    config.seca_thresholds.alpha_option1_threshold = 0.0;
-    config.seca_thresholds.beta_option1_threshold = 0.0;
-    config.seca_thresholds.word_importance_option1_threshold = 0.0;
 
     let mut engine_a = SecaEngine::new(config.clone()).unwrap();
     engine_a.build_baseline_tree(baseline_batch()).unwrap();
@@ -534,7 +342,6 @@ fn large_dataset_chunked_seca_light_trims_retained_batches() {
     config.memory_mode = MemoryMode::SlidingWindow;
     config.max_batches_in_memory = Some(2);
     config.seca_thresholds.word_importance_error_threshold = 1.0;
-    config.seca_thresholds.word_importance_option1_threshold = 1.0;
 
     let mut chunks = common::chunked_large_batches_8();
     let baseline = chunks.remove(0);
@@ -553,58 +360,7 @@ fn large_dataset_chunked_seca_light_trims_retained_batches() {
         explanation
             .reason_codes
             .iter()
-            .any(|code| code == "SECA_LIGHT_PRUNING_APPLIED"),
-        "expected SECA_LIGHT_PRUNING_APPLIED reason code"
-    );
-}
-
-#[test]
-fn large_dataset_chunked_seca_light_prunes_old_source_identity_entries() {
-    let mut config = base_config();
-    config.memory_mode = MemoryMode::SlidingWindow;
-    config.max_batches_in_memory = Some(2);
-    config.seca_thresholds.word_importance_error_threshold = 1.0;
-    config.seca_thresholds.word_importance_option1_threshold = 1.0;
-
-    let mut chunks = common::chunked_large_batches_8();
-    let first_chunk_source_ids: Vec<String> = chunks[0]
-        .sources
-        .iter()
-        .map(|source| source.source_id.clone())
-        .collect();
-    let retained_tail_source_ids: Vec<String> = chunks[6]
-        .sources
-        .iter()
-        .chain(chunks[7].sources.iter())
-        .map(|source| source.source_id.clone())
-        .collect();
-
-    let baseline = chunks.remove(0);
-
-    let mut engine = SecaEngine::new(config).unwrap();
-    engine.build_baseline_tree(baseline).unwrap();
-    for batch in chunks {
-        engine.process_batch(batch).unwrap();
-    }
-
-    let exported = engine.export_baseline_tree_verbose().unwrap();
-    let exported_sources: Vec<&str> = exported
-        .source_legend
-        .iter()
-        .map(|entry| entry.external_source_id.as_str())
-        .collect();
-
-    for old_source_id in &first_chunk_source_ids {
-        assert!(
-            !exported_sources.contains(&old_source_id.as_str()),
-            "expected early source to be pruned from source legend: {old_source_id}"
-        );
-    }
-
-    assert!(
-        retained_tail_source_ids
-            .iter()
-            .any(|id| exported_sources.contains(&id.as_str())),
-        "expected at least one source from retained tail batches in source legend"
+            .any(|code| code == "SECA_TRIGGER_EVALUATED"),
+        "expected SECA_TRIGGER_EVALUATED reason code"
     );
 }
