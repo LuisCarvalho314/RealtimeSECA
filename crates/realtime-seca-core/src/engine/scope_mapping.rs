@@ -24,10 +24,8 @@ impl SecaEngine {
         let mut node_source_ids_by_node_id: BTreeMap<i32, BTreeSet<i64>> = BTreeMap::new();
         let mut node_word_source_ids_by_node_id: BTreeMap<i32, BTreeMap<i32, BTreeSet<i64>>> =
             BTreeMap::new();
-        let mut node_ids_in_hkt_order: Vec<i32> = Vec::new();
 
         for node in &hkt.nodes {
-            node_ids_in_hkt_order.push(node.node_id);
             if node.is_refuge_node() {
                 refuge_node_id = Some(node.node_id);
             } else {
@@ -61,7 +59,6 @@ impl SecaEngine {
             node_source_ids_by_node_id,
             node_word_source_ids_by_node_id,
             child_hkt_ids_by_parent_node_id,
-            node_ids_in_hkt_order,
         })
     }
 
@@ -79,17 +76,7 @@ impl SecaEngine {
         let mut matched_node_source_indexes_by_node_id: BTreeMap<i32, BTreeSet<usize>> =
             BTreeMap::new();
 
-        // Aggregate scope-level diagnostics (existing behavior)
-        let mut word_document_frequency_in_scope: BTreeMap<String, usize> = BTreeMap::new();
-        let mut known_word_ids_in_scope: BTreeSet<i32> = BTreeSet::new();
-        let mut new_tokens_in_scope: BTreeSet<String> = BTreeSet::new();
-
-        // NEW: node-level diagnostics for paper-oriented beta / node analysis
-        let mut word_document_frequency_by_node_id: BTreeMap<i32, BTreeMap<String, usize>> =
-            BTreeMap::new();
-        let mut known_word_ids_by_node_id: BTreeMap<i32, BTreeSet<i32>> = BTreeMap::new();
-        let mut new_tokens_by_node_id: BTreeMap<i32, BTreeSet<String>> = BTreeMap::new();
-
+        let mut word_document_frequency_in_scope = BTreeMap::new();
         for source_index in scoped_batch_source_indexes {
             let source = batch
                 .sources
@@ -115,12 +102,6 @@ impl SecaEngine {
                 *word_document_frequency_in_scope
                     .entry((*token).to_string())
                     .or_insert(0) += 1;
-
-                if let Some(word_id) = baseline_word_id_by_token.get(*token) {
-                    known_word_ids_in_scope.insert(*word_id);
-                } else {
-                    new_tokens_in_scope.insert((*token).to_string());
-                }
             }
 
             // Determine node matches (non-refuge nodes only). Multi-node assignment allowed.
@@ -157,23 +138,6 @@ impl SecaEngine {
                         .entry(node_id)
                         .or_default()
                         .insert(*source_index);
-
-                    // NEW: node-local DF/known/new (DF per mapped node, per source)
-                    let node_df_map = word_document_frequency_by_node_id
-                        .entry(node_id)
-                        .or_default();
-                    let node_known_set = known_word_ids_by_node_id.entry(node_id).or_default();
-                    let node_new_set = new_tokens_by_node_id.entry(node_id).or_default();
-
-                    for token in &unique_tokens_in_source {
-                        *node_df_map.entry((*token).to_string()).or_insert(0) += 1;
-
-                        if let Some(word_id) = baseline_word_id_by_token.get(*token) {
-                            node_known_set.insert(*word_id);
-                        } else {
-                            node_new_set.insert((*token).to_string());
-                        }
-                    }
                 }
             } else if let Some(refuge_node_id) = scope_snapshot.refuge_node_id {
                 // No non-refuge node matched => map to refuge
@@ -181,23 +145,6 @@ impl SecaEngine {
                     .entry(refuge_node_id)
                     .or_default()
                     .insert(*source_index);
-
-                // NEW: node-local DF/known/new for refuge
-                let node_df_map = word_document_frequency_by_node_id
-                    .entry(refuge_node_id)
-                    .or_default();
-                let node_known_set = known_word_ids_by_node_id.entry(refuge_node_id).or_default();
-                let node_new_set = new_tokens_by_node_id.entry(refuge_node_id).or_default();
-
-                for token in &unique_tokens_in_source {
-                    *node_df_map.entry((*token).to_string()).or_insert(0) += 1;
-
-                    if let Some(word_id) = baseline_word_id_by_token.get(*token) {
-                        node_known_set.insert(*word_id);
-                    } else {
-                        node_new_set.insert((*token).to_string());
-                    }
-                }
             }
         }
 
@@ -206,13 +153,6 @@ impl SecaEngine {
             scoped_batch_source_indexes: scoped_batch_source_indexes.clone(),
             matched_node_source_indexes_by_node_id,
             word_document_frequency_in_scope,
-            known_word_ids_in_scope,
-            new_tokens_in_scope,
-
-            // NEW fields
-            word_document_frequency_by_node_id,
-            known_word_ids_by_node_id,
-            new_tokens_by_node_id,
         })
     }
 }
@@ -228,7 +168,6 @@ pub(crate) struct HktScopeSnapshot {
     pub(crate) node_source_ids_by_node_id: BTreeMap<i32, BTreeSet<i64>>,
     pub(crate) node_word_source_ids_by_node_id: BTreeMap<i32, BTreeMap<i32, BTreeSet<i64>>>,
     pub(crate) child_hkt_ids_by_parent_node_id: BTreeMap<i32, i32>,
-    pub(crate) node_ids_in_hkt_order: Vec<i32>,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -239,11 +178,5 @@ pub(crate) struct MappedHktScopeState {
     pub(crate) matched_node_source_indexes_by_node_id: BTreeMap<i32, BTreeSet<usize>>,
 
     pub(crate) word_document_frequency_in_scope: BTreeMap<String, usize>,
-    pub(crate) known_word_ids_in_scope: BTreeSet<i32>,
-    pub(crate) new_tokens_in_scope: BTreeSet<String>,
-
     // NEW: node-level mapped state1 diagnostics (beta-ready data path)
-    pub(crate) word_document_frequency_by_node_id: BTreeMap<i32, BTreeMap<String, usize>>,
-    pub(crate) known_word_ids_by_node_id: BTreeMap<i32, BTreeSet<i32>>,
-    pub(crate) new_tokens_by_node_id: BTreeMap<i32, BTreeSet<String>>,
 }

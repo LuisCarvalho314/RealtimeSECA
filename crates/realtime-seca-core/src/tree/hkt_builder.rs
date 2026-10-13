@@ -2,14 +2,13 @@ use crate::error::SecaError;
 use crate::tree::models::{Hkt, Node, SourceWordRecord};
 use std::collections::{BTreeMap, BTreeSet};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct HktBuildOutput {
     pub hkts_by_id: BTreeMap<i32, Hkt>,
     pub nodes_by_id: BTreeMap<i32, Node>,
 }
 
-/// Builder for the *HKT construction* phase reflected in the provided C# code.
-/// This is intentionally separate from the later SECA real-time update/rebuild pipeline.
+/// Recursive contextual hierarchy construction, shared by initialization and reconstruction.
 #[derive(Debug, Clone)]
 pub struct HktBuilder {
     pub minimum_threshold_against_max_word_count: f64,
@@ -41,17 +40,16 @@ impl HktBuilder {
         })
     }
 
-    /// Entry point matching the C# "step 3 + step 5" pattern:
-    /// - create first HKT
-    /// - recursively create branches
+    /// Order the supplied document frequencies, construct Seed-HKT, and expand branches.
     pub fn build_full_tree(
         &self,
-        source_word_records_sorted: Vec<SourceWordRecord>,
+        mut source_word_records: Vec<SourceWordRecord>,
         is_state1: bool,
     ) -> Result<HktBuildOutput, SecaError> {
         let mut state = BuilderState::default();
 
-        let root_input = records_to_map_by_source_word_id(source_word_records_sorted);
+        sort_source_word_records_desc(&mut source_word_records);
+        let root_input = records_to_map_by_source_word_id(source_word_records);
         let root_hkt = self.create_hkt(&mut state, root_input, 0, is_state1)?;
 
         if let Some(root_hkt) = root_hkt {
@@ -59,7 +57,7 @@ impl HktBuilder {
             let root_hkt_clone_for_recursion = root_hkt.clone();
             state.hkts_by_id.insert(root_hkt.hkt_id, root_hkt);
 
-            // For recursion, use the original root scope sorted by word count (same conceptual input as C# mainWordDS).
+            // Branches refine the original root source-word scope.
             let root_scope_records = state
                 .hkt_input_scopes
                 .get(&root_hkt_id)
@@ -75,6 +73,12 @@ impl HktBuilder {
             )?;
         }
 
+        // Keep the two existing node indexes identical, including branch top words.
+        for hkt in state.hkts_by_id.values_mut() {
+            for node in &mut hkt.nodes {
+                *node = state.nodes_by_id[&node.node_id].clone();
+            }
+        }
         Ok(HktBuildOutput {
             hkts_by_id: state.hkts_by_id,
             nodes_by_id: state.nodes_by_id,
@@ -97,7 +101,7 @@ impl HktBuilder {
         let hkt_id = state.next_hkt_id();
         let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words.clone(), is_state1);
 
-        // Preserve the input scope for branch generation (analogous to C# mainWordDS / sourceWordDS usage).
+        // Retain this scope only during construction for recursive branch expansion.
         state
             .hkt_input_scopes
             .insert(hkt_id, source_word_map.values().cloned().collect());
@@ -118,7 +122,7 @@ impl HktBuilder {
         self.remove_word_and_its_corresponding_sources(first_word_id, &mut source_word_map);
         hkt.expected_words.remove(&first_word_id);
 
-        // Iterate expected words in deterministic ascending order (C# HashSet iteration was nondeterministic).
+        // Iterate eligible words in deterministic ascending ID order.
         let expected_word_ids: Vec<i32> = hkt.expected_words.iter().copied().collect();
 
         for expected_word_id in expected_word_ids {
@@ -228,10 +232,10 @@ impl HktBuilder {
                 }
             }
 
-            self.update_word_number_of_sources(&mut temp_source_word_records);
+            update_document_frequencies(&mut temp_source_word_records);
 
             // Equivalent to C#:
-            // mainWordDS = tempSourceWordDS.OrderByDescending(wordNoOfSources)
+            // Recompute frequencies within the child scope and order them.
             let mut sorted_scope = temp_source_word_records;
             sort_source_word_records_desc(sorted_scope.as_mut_slice());
 
@@ -288,7 +292,7 @@ impl HktBuilder {
             return expected_words;
         }
 
-        // Mirrors C# loop over sorted rows; stops at first ratio below threshold.
+        // Descending frequencies allow stopping at the first ineligible word.
         for record in source_word_map.values() {
             let ratio = record.word_number_of_sources as f64 / maximum_word_count as f64;
             if ratio >= self.minimum_threshold_against_max_word_count {
@@ -431,26 +435,6 @@ impl HktBuilder {
             node.top_words.insert(record.word_id);
         }
     }
-
-    fn update_word_number_of_sources(&self, records: &mut [SourceWordRecord]) {
-        use std::collections::{BTreeSet, HashMap};
-
-        let mut source_ids_by_word_id: HashMap<i32, BTreeSet<i64>> = HashMap::new();
-
-        for record in records.iter() {
-            source_ids_by_word_id
-                .entry(record.word_id)
-                .or_default()
-                .insert(record.source_id);
-        }
-
-        for record in records.iter_mut() {
-            record.word_number_of_sources = source_ids_by_word_id
-                .get(&record.word_id)
-                .map(|source_ids| source_ids.len())
-                .unwrap_or(0);
-        }
-    }
 }
 
 #[derive(Debug, Default, Clone)]
@@ -482,7 +466,7 @@ fn records_to_map_by_source_word_id(
 }
 
 fn sort_source_word_records_desc(records: &mut [SourceWordRecord]) {
-    // C# sorts descending by wordNoOfSources. We add stable tie-breakers for determinism.
+    // Equal document frequencies retain source-word record order.
     records.sort_by(|left_record, right_record| {
         right_record
             .word_number_of_sources
@@ -523,4 +507,24 @@ fn find_refugee_sources(
         .difference(&node_sources)
         .copied()
         .collect()
+}
+
+pub(crate) fn update_document_frequencies(records: &mut [SourceWordRecord]) {
+    use std::collections::{BTreeSet, HashMap};
+
+    let mut source_ids_by_word_id: HashMap<i32, BTreeSet<i64>> = HashMap::new();
+
+    for record in records.iter() {
+        source_ids_by_word_id
+            .entry(record.word_id)
+            .or_default()
+            .insert(record.source_id);
+    }
+
+    for record in records.iter_mut() {
+        record.word_number_of_sources = source_ids_by_word_id
+            .get(&record.word_id)
+            .map(|source_ids| source_ids.len())
+            .unwrap_or(0);
+    }
 }

@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
-/// Rust equivalent of C# `SourceWord` used by the HKT construction logic.
+/// Source-word evidence used by HKT construction.
 /// One row = (source, word) relation plus cached frequency count in the current scope.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SourceWordRecord {
     pub source_word_id: i32,
     pub source_id: i64,
@@ -12,8 +12,8 @@ pub struct SourceWordRecord {
     pub word_number_of_sources: usize,
 }
 
-/// Rust equivalent of C# `Node`.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// Topic words and their contextual source memberships.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Node {
     pub node_id: i32,
     pub hkt_id: i32,
@@ -22,10 +22,7 @@ pub struct Node {
     pub word_source_ids: std::collections::BTreeMap<i32, BTreeSet<i64>>,
     pub source_ids_new_from_batches: BTreeSet<i64>,
     pub word_source_ids_new_from_batches: std::collections::BTreeMap<i32, BTreeSet<i64>>,
-    pub word_ids_new_from_batches: BTreeSet<i32>,
     pub top_words: BTreeSet<i32>,
-    pub words_for_display: Option<String>,
-    pub number_of_sources_for_display: Option<usize>,
 }
 
 impl Node {
@@ -38,10 +35,7 @@ impl Node {
             word_source_ids: std::collections::BTreeMap::new(),
             source_ids_new_from_batches: BTreeSet::new(),
             word_source_ids_new_from_batches: std::collections::BTreeMap::new(),
-            word_ids_new_from_batches: BTreeSet::new(),
             top_words: BTreeSet::new(),
-            words_for_display: None,
-            number_of_sources_for_display: None,
         }
     }
 
@@ -50,8 +44,8 @@ impl Node {
     }
 }
 
-/// Rust equivalent of C# `HKT`.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// An HKT container attached to one parent node (zero denotes Seed-HKT).
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Hkt {
     pub hkt_id: i32,
     pub parent_node_id: i32,

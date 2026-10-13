@@ -328,18 +328,6 @@ def build_config_payload(
     wi_err: float,
     memory_mode: str,
     max_batches: Optional[int],
-    alpha_opt1: float,
-    alpha_opt2: float,
-    alpha_opt3: float,
-    beta_opt1: float,
-    beta_opt2: float,
-    beta_opt3: float,
-    wi_opt1: float,
-    wi_opt2: float,
-    selected_alpha: str,
-    selected_beta: str,
-    selected_wi: str,
-    trigger_policy: str,
 ) -> dict:
     return {
         "hkt_builder": {
@@ -353,19 +341,7 @@ def build_config_payload(
             "alpha_error_threshold": alpha_err,
             "beta_error_threshold": beta_err,
             "word_importance_error_threshold": wi_err,
-            "alpha_option1_threshold": alpha_opt1,
-            "alpha_option2_threshold": alpha_opt2,
-            "alpha_option3_threshold": alpha_opt3,
-            "beta_option1_threshold": beta_opt1,
-            "beta_option2_threshold": beta_opt2,
-            "beta_option3_threshold": beta_opt3,
-            "word_importance_option1_threshold": wi_opt1,
-            "word_importance_option2_threshold": wi_opt2,
-            "selected_alpha_option": selected_alpha,
-            "selected_beta_option": selected_beta,
-            "selected_word_importance_option": selected_wi,
         },
-        "trigger_policy_mode": trigger_policy,
         "memory_mode": memory_mode,
         "max_batches_in_memory": max_batches,
     }
@@ -986,86 +962,6 @@ with st.sidebar:
             max_batches = st.text_input(
                 "Max batches in memory (blank for null)", value="", help="Only used for SlidingWindow."
             )
-            trigger_policy = st.selectbox(
-                "Trigger policy mode",
-                ["Placeholder", "PaperDiagnosticScaffold"],
-                index=1,
-                help="PaperDiagnosticScaffold matches newsmap diagnostics.",
-            )
-
-            with st.expander("Advanced options", expanded=False):
-                st.caption("Only change these if you need option-level trigger tuning.")
-                adv_a, adv_b = st.columns(2)
-                with adv_a:
-                    alpha_opt1 = st.number_input(
-                        "Alpha option1 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.1,
-                        format="%.2f",
-                    )
-                    alpha_opt2 = st.number_input(
-                        "Alpha option2 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.2,
-                        format="%.2f",
-                    )
-                    alpha_opt3 = st.number_input(
-                        "Alpha option3 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.3,
-                        format="%.2f",
-                    )
-                    selected_alpha = st.selectbox(
-                        "Selected alpha option", ["Option1", "Option2", "Option3"]
-                    )
-
-                with adv_b:
-                    beta_opt1 = st.number_input(
-                        "Beta option1 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.13,
-                        format="%.2f",
-                    )
-                    beta_opt2 = st.number_input(
-                        "Beta option2 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.2,
-                        format="%.2f",
-                    )
-                    beta_opt3 = st.number_input(
-                        "Beta option3 threshold",
-                        min_value=0.0,
-                        max_value=1.0,
-                        value=0.2,
-                        format="%.2f",
-                    )
-                    selected_beta = st.selectbox(
-                        "Selected beta option", ["Option1", "Option2", "Option3"]
-                    )
-
-                wi_opt1 = st.number_input(
-                    "Word importance option1 threshold",
-                    min_value=0.0,
-                    max_value=1.0,
-                    value=0.3,
-                    format="%.2f",
-                )
-                wi_opt2 = st.number_input(
-                    "Word importance option2 threshold",
-                    min_value=0.0,
-                    max_value=1.0,
-                    value=0.2,
-                    format="%.2f",
-                )
-                selected_wi = st.selectbox(
-                    "Selected word importance option", ["Option1", "Option2"]
-                )
-
             config_output_path = st.text_input(
                 "Config file path",
                 value="seca_config.json",
@@ -1089,18 +985,6 @@ with st.sidebar:
                 wi_err,
                 memory_mode,
                 max_batches_val,
-                alpha_opt1,
-                alpha_opt2,
-                alpha_opt3,
-                beta_opt1,
-                beta_opt2,
-                beta_opt3,
-                wi_opt1,
-                wi_opt2,
-                selected_alpha,
-                selected_beta,
-                selected_wi,
-                trigger_policy,
             )
             Path(config_output_path).write_text(json.dumps(payload, indent=2))
             st.success(f"Config written to {config_output_path}")

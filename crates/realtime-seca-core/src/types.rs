@@ -1,9 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::BTreeMap;
 
 use crate::config::SecaConfig;
-use crate::tree::Hkt;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SourceRecord {
@@ -21,17 +19,50 @@ pub struct SourceBatch {
     pub sources: Vec<SourceRecord>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct BatchProcessingResult {
-    pub batch_index: u32,
-    pub sources_processed: usize,
-    pub reconstruction_triggered: bool,
-    pub notes: Vec<String>,
+/// Diagnostics of the evaluated state0 HKT scope for one update. Rebuilt roots
+/// retain this scope through output_hkt_id; newly created child scopes have no
+/// independent trigger evaluation. None means unavailable, never zero.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct HktDecisionDiagnostics {
+    pub hkt_id: i32,
+    pub output_hkt_id: Option<i32>,
+    pub scoped_source_count: usize,
+    pub mapped_source_count: usize,
+    pub should_reconstruct: bool,
+    pub trigger_reasons: Vec<String>,
+    pub paper_alpha_error: Option<f64>,
+    pub paper_beta_error: Option<f64>,
+    pub paper_word_importance_error: Option<f64>,
+}
+
+/// Final-topology paper metric observations, never trigger decisions.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct HktDisplayDiagnostics {
+    pub hkt_id: i32,
+    pub mapped_source_count: usize,
+    pub paper_alpha_error: Option<f64>,
+    pub paper_beta_error: Option<f64>,
+    pub paper_word_importance_error: Option<f64>,
+    pub unavailable_reason: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct ClusteringResult {
-    pub cluster_count: usize,
+pub struct BatchProcessingResult {
+    #[serde(default)]
+    pub decision_diagnostics: Vec<HktDecisionDiagnostics>,
+    #[serde(default)]
+    pub display_diagnostics: Vec<HktDisplayDiagnostics>,
+    pub batch_index: u32,
+    pub sources_processed: usize,
+    #[serde(default)]
+    pub sources_forgotten: usize,
+    #[serde(default)]
+    pub active_source_count: usize,
+    #[serde(default)]
+    pub hkts_inspected: usize,
+    #[serde(default)]
+    pub reconstructed_hkt_ids: Vec<i32>,
+    pub reconstruction_triggered: bool,
     pub notes: Vec<String>,
 }
 
@@ -48,21 +79,13 @@ pub struct EngineSnapshot {
     pub config: SecaConfig,
     pub last_processed_batch_index: Option<u32>,
     #[serde(default)]
-    pub logically_removed_hkts_by_id: BTreeMap<i32, LogicalRemovedHktSnapshot>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LogicalRemovedHktSnapshot {
-    pub hkt: Hkt,
-    pub old_parent_node_id: i32,
+    pub state: Option<Box<crate::engine::SecaEngine>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BaselineTreeExport {
     pub hkts: Vec<BaselineHktExport>,
     pub nodes: Vec<BaselineNodeExport>,
-    #[serde(default)]
-    pub logically_removed_hkts: Vec<BaselineHktExport>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -90,8 +113,6 @@ pub struct BaselineTreeVerboseExport {
     pub nodes: Vec<BaselineNodeVerboseExport>,
     pub word_legend: Vec<WordLegendEntry>,
     pub source_legend: Vec<SourceLegendEntry>,
-    #[serde(default)]
-    pub logically_removed_hkts: Vec<BaselineHktVerboseExport>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
