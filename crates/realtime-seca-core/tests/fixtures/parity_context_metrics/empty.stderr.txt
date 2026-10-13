@@ -1,3 +1,3 @@
 System.ArgumentException: Batches must be nonempty
-  at Program.Rows (System.Collections.Generic.List`1[T] documents, System.Int32 cycle) [0x00011] in <fbefb873b1604c308cbc0e4e14d41431>:0 
-  at Program.Main (System.String[] args) [0x001ab] in <fbefb873b1604c308cbc0e4e14d41431>:0 
+  at Program.Rows (System.Collections.Generic.List`1[T] documents, System.Int32 cycle) [0x00011] in <fbefb873b1604c308cbc0e4e14d41431>:0
+  at Program.Main (System.String[] args) [0x001ab] in <fbefb873b1604c308cbc0e4e14d41431>:0

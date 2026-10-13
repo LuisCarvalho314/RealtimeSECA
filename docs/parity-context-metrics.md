@@ -62,7 +62,7 @@ cargo test --offline -p realtime-seca-core --test parity_context_metrics expecte
 by JSON parsing/serialization. It preserves every raw tree, metric and error
 field. Subsequent default replay verifies goldens and two byte-identical executions
 per successful fixture. Failures retain stderr and **have no invented JSON golden**.
-Logs include nondeterministic stack addresses, so failure verification checks exit
+Captured stderr strips trailing line whitespace only. Logs include nondeterministic stack addresses, so failure verification checks exit
 status, empty stdout and the error class rather than exact stderr bytes.
 
 The harness's documented instrumentation serializes iteration, assigns deterministic

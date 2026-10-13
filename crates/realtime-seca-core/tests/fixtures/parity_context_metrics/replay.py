@@ -19,7 +19,7 @@ for path in sorted(HERE.glob("*.input.json")):
         assert marker.lower() in runs[0].stderr.lower(), (name, runs[0].stderr)
         assert not runs[0].stdout.strip(), name
         if capture:
-            (HERE / f"{name}.stderr.txt").write_text(runs[0].stderr)
+            (HERE / f"{name}.stderr.txt").write_text("".join(line.rstrip() + "\n" for line in runs[0].stderr.splitlines()))
         print(name, "reference failure:", marker)
         continue
     assert runs[0].stdout == runs[1].stdout, name
@@ -27,7 +27,7 @@ for path in sorted(HERE.glob("*.input.json")):
     golden = HERE / f"{name}.csharp.json"
     if capture:
         golden.write_text(output)
-        (HERE / f"{name}.stderr.txt").write_text(runs[0].stderr)
+        (HERE / f"{name}.stderr.txt").write_text("".join(line.rstrip() + "\n" for line in runs[0].stderr.splitlines()))
     else:
         assert golden.read_text() == output, name
     print(name, hashlib.sha256(output.encode()).hexdigest())
