@@ -1,0 +1,1 @@
+{"alpha":0.5001,"beta":0.5,"branchMinimum":1000,"alphaError":1,"betaError":1,"wordImportanceError":1,"batches":[[{"id":1,"words":["a"]},{"id":2,"words":["a"]}],[{"id":3,"words":["a","x"]},{"id":4,"words":["a","x"]}]]}

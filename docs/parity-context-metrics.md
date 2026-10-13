@@ -1,6 +1,293 @@
+# Executable context and metrics audit (2026-10-13)
+
+This section supersedes the execution-availability and current-engine conclusions
+in the historical reports below. Those reports are retained for provenance.
+The harness is accessible, builds with Mono, and passes `verify.py`. This audit
+executes the current working engine with `MemoryMode::Full`, not SlidingWindow.
+No production Rust, scientific contract, original C#, or harness files were edited.
+
+The starting checkout was `integration/seca-validation`, HEAD
+`9e70e2136dea237f1e922352df0ae24d4441c2fc`, with pre-existing uncommitted integration
+changes. It was **not clean main**. Results describe that working tree, on the
+new branch `agent1/context-metrics-executable`; they must not be attributed to
+clean main. `audit-hashes.json` identifies the relevant Rust and harness files;
+`source-hashes.json` records the harness's compiled source inputs. HKT, Node,
+SECAAlgorithm and the three error classes in the original and compilable reference
+were checked byte-identical. Earlier uncommitted changes in the assigned report
+and tests were preserved. Other owners' files remain outside this commit.
+
+## C#–Rust mapping
+
+C# paths here are relative to `references/seca-parity-build/SECA/SECA_DataClass/`.
+Their original equivalents are under
+`references/seca-csharp/SECA/SECA/SECA/SECA_DataClass/`.
+Rust paths are relative to `crates/realtime-seca-core/src/engine/`.
+
+| C# location | Rust location | Correspondence |
+|---|---|---|
+| HKT.cs:119 `computeBatchErrorsForCurrentHKTLevel` | trigger.rs:55 traversal; context.rs:111 update stage | Context before decision |
+| HKT.cs:615 mapping; Node.cs:158 pending word mapping | scope_mapping.rs:65; context.rs:231 | Scope DF, source-to-node mapping |
+| HKT.cs:514 `setExpectedWordsInHKT`, :360 reset | context.rs:126 admission, :277 recheck | Candidate alpha admission |
+| Node.cs:85 `assignExpectedWordsToNodes`, :127 prominent selection | context.rs:327 assignment | Candidate beta; denominators differ |
+| HKT.cs:393 denominator, :419 prominent count | metrics.rs:35 | Descriptor counts plus admitted candidates |
+| Node.cs:180 `setChangeStatisitcsForWordsInNode` | metrics.rs:65 | Updated strength, eligibility, importance |
+| HKT.cs:197 error computation, :242 current words | metrics.rs:131, :149 | Descriptor-only W0 |
+| AlphaError.cs:45/:55; BetaError.cs:44/:54; WordImportanceError.cs:38/:47 | metrics.rs:149 | Equations and rounding |
+| HKT.cs:94 `isAccepted` | trigger.rs:175/:206 | Strict threshold decisions |
+| SECAAlgorithm.cs:390/:433 accepted recursion/merge | trigger.rs:119; context.rs:6/:72 | Child processing and accepted membership commit |
+| HKT.cs:593 parent history lookup | evidence.rs parent DF | Historical candidate counts |
+
+## Test methodology
+
+Fixtures live in `crates/realtime-seca-core/tests/fixtures/parity_context_metrics/`.
+Each `*.input.json` contains ordered batches of positive unique integer source IDs
+and unique, preprocessed words per document. Rust uses the same IDs as strings,
+same word arrays, batch sequence, alpha, beta, branch minimum and three thresholds.
+The first batch constructs the baseline. Most fixtures use branch minimum 1000
+and thresholds 1 to retain the measured scope. The child case uses minimum 1;
+both builders produce the required two HKTs for this dataset, avoiding their
+known exclusive/inclusive cutoff discrepancy. No random data are used.
+
+```sh
+tools/seca-reference-harness/build.sh
+python3 tools/seca-reference-harness/verify.py
+python3 crates/realtime-seca-core/tests/fixtures/parity_context_metrics/replay.py
+cargo test --offline -p realtime-seca-core --test parity_context_metrics -- --nocapture
+cargo test --offline -p realtime-seca-core
+# Explicitly reproduce the labelled strict-parity failure:
+cargo test --offline -p realtime-seca-core --test parity_context_metrics expected_failure_csharp_alpha_threshold_parity -- --ignored
+```
+
+`replay.py --capture` was used to capture actual reference stdout, compacted only
+by JSON parsing/serialization. It preserves every raw tree, metric and error
+field. Subsequent default replay verifies goldens and two byte-identical executions
+per successful fixture. Failures retain stderr and **have no invented JSON golden**.
+Logs include nondeterministic stack addresses, so failure verification checks exit
+status, empty stdout and the error class rather than exact stderr bytes.
+
+The harness's documented instrumentation serializes iteration, assigns deterministic
+IDs, disables unused persistence, surfaces swallowed exceptions and observes
+existing metrics immediately before `isAccepted`. It does not recalculate metrics.
+These are adapted original algorithm executions, not the nondeterministic desktop
+application. The original compiled preprocessing dependency remains in use.
+
+Rust assertions consume actual `decision_diagnostics`, not final-topology display
+observations. The tests independently aggregate the captured word strengths, eligibilities and
+importances over captured W0 using the input alpha/beta, and verify C# threshold
+comparisons against captured errors. Numerical comparisons permit only C#'s four-decimal rounding envelope
+(0.00005); explicit discrepancy branches assert the observed divergent values and
+decisions. Selected unchanged, child, refuge, exact-alpha and node-union fixtures
+also compare retained sources against C# by external identity and descriptor counts.
+C# word-level State 0/1 values and pending assignments are captured; Rust's public
+report does not expose its temporary per-word metrics or assignment map. Consequently
+word-level correspondence uses C# execution, independent arithmetic and Rust source
+inspection, and is **not** claimed as executed intermediate Rust parity. Additional
+non-mutating instrumentation would be needed to close that observational gap;
+no production API was added.
+
+Scientific reference: [2023 SECA paper DOI](https://doi.org/10.1109/ACCESS.2023.3331219)
+and the accessible [author manuscript](https://www.researchgate.net/publication/375503068_Real-Time_Event_Detection_Using_Self-Evolving_Contextual_Analysis_SECA_Approach),
+sections V and VII, equations 2–12. The final DOI page was inaccessible in this run.
+Independent calculations below use those equations as transcribed in
+[algorithm.md](algorithm.md). The manuscript distinguishes accumulated SECA from
+SECA-Light and defines strict error exceedance. It does not specify four-decimal
+rounding before decisions. Expected-word scope and shared-word collapse remain
+scientific ambiguities rather than being settled by implementation agreement.
+
+## Results
+
+Notation: baseline `{a,b}×2` means two distinct documents; every input is available
+as the named fixture. Errors are `(Alpha, Beta, WI)`. Unrounded Rust fractions are
+shown exactly; C# values are actual rounded results. Unless noted all decisions
+accept. “Metric parity” below allows documented rounding, not bitwise equality.
+
+| Fixture | C# result | Rust result | Independent paper calculation | Parity status / trigger consequence |
+|---|---|---|---|---|
+| unchanged | (0,0,0), twice; sources 2→3→4 | same | DF equal; strength/eligibility=1; importance=.5 each | Verified metrics and retained membership; no trigger |
+| new_word | (0,0,.3333) | (0,0,1/3) | a4,x2; denominator6; W0={a} | Metric parity; no trigger |
+| below_alpha | (0,0,0); no x | same | x1/a5=.2<.7 | Verified rejection and decision |
+| just_below_alpha | (0,0,0); no x | same | x2/a4=.5<.5001 | Verified near-boundary rejection |
+| exact_alpha | (0,0,.3333); x pending at node | (0,0,1/3); old descriptor retained | strength=beta=.5; W0={a} | Admission correspondence; no trigger |
+| below_beta | (0,0,.4); x unassigned | same | strength2/3; incoming beta1/3; denominator5 | Metric parity; no trigger |
+| weakening | (.0833,.0833,0) | (1/12,1/12,0) | a6,b2; mean deficit (.5−1/3)/2 | Rounding difference; decision agrees at thresholds1 |
+| expected_consecutive | first WI=.4, next .3333 | first .4, next .5 | next a4,x4; denominator8; descriptor-only W0 | Confirmed metric divergence; thresholds1 hide decision impact |
+| expected_trigger | first .4 accepted, next .3333 accepted | first .4 accepted, next .5 reconstructs | same next-cycle calculation; .5>.4 | Confirmed decision divergence caused by stale C# expectation |
+| shared_candidate | duplicate-key failure; no decision JSON | (0,0,1/3), accepts | a4,b4,x4; denominator12 | C# algorithm failure; final decision parity unavailable |
+| child | root and child (0,0,0); memberships5/3 | same; incoming scopes2/1 | child sees only parent-matched `{a,b}` | Verified scope/membership outcome; no trigger |
+| alpha_threshold | .0833 equals threshold; accepts | 1/12>.0833; alpha trigger | full-precision deficit exceeds threshold | Deliberate precision difference changes decision |
+| beta_threshold | .0833 equals threshold; accepts | 1/12>.0833; beta trigger | same for eligibility | Deliberate precision difference changes decision |
+| wi_threshold | .4 equals threshold; accepts | same | x2/(a3+x2)=.4 | Verified strict equality acceptance |
+| low_evidence | (0,0,0) | same | one old plus one incoming a; all ratios1 | Verified low-evidence result |
+| empty | harness rejects empty batch | skips inspection; accepts | no new evidence; unchanged old context | Input-contract difference; C# algorithm empty-scope behavior unavailable |
+| historical_candidate | (0,0,.4); no node assignment | same | a6,x4; full-history beta4/6 passes, incoming2/6 fails | Metric parity; historical-beta scientific ambiguity persists |
+| node_union | (0,0,.2); x assigned by 2/5=.4 | (0,0,.2); assignment rejected by 2/6 | a3,b5,x2; denominator10; full-node beta1/3 | Candidate assignment differs; immediate decisions agree |
+| refuge | (0,0,0); refuge remains source4 only | same errors; refuge gains source5 | unmatched evidence belongs in refuge context | Membership difference; immediate decisions agree |
+
+## Calculations, timing and discrepancies
+
+**Verified behavioural parity within observable limits.** Both measure old
+node descriptors for W0, excluding newly assigned candidates and unassigned
+expectations. Updated descriptor strength divides contextual node DF by the
+largest descriptor/candidate count at that HKT level. State 1 eligibility divides
+word/node intersection by the updated full node union. Importance divides the
+word count by the sum of descriptor counts plus alpha-admitted candidate totals,
+even when beta rejects a candidate. The weakening golden records b strength and
+eligibility 1/3, importance2/8, a importance6/8; independent equations give
+A=B=1/12 and WI=0. The below-beta golden records a3/5 and unassigned x2/5.
+
+Source IDs are unique in the harness. With one relation per source-word, relation
+counts implement DF; Rust explicitly deduplicates repeated tokens. Repeated
+words within a document are rejected by the harness, so the pre-existing Rust
+repetition test establishes a Rust input contract, **not cross-language parity**.
+Raw C# State 0 eligibility uses old prominent-word sources (Node.cs:223), while
+State 1 uses full node union (:233–237). In node_union, b's State 0 eligibility is
+2/3, while State 1 is5/6; State 0 equations in the manuscript use node sources.
+This is a **C# deviation from the paper**; Option1 uses only State 1, so it does
+not explain the immediate trigger result. Rust has no observable State 0 metric
+report with which to claim State 0 numerical equivalence.
+
+**Deliberate implementation difference: precision.** C# rounds all three Option1
+errors with `Math.Round(...,4)` before HKT.cs:94 evaluates strict `>`; Rust
+metrics.rs:149 and trigger.rs:175 preserve full precision. The alpha_threshold and
+beta_threshold inputs each isolate one changed trigger reason. The explicit ignored
+regression asserts C# acceptance and fails against Rust, demonstrating the mismatch.
+Rust's reason string rounds display values, producing `0.0833 > threshold 0.0833`;
+actual numbers differ. Diagnostic formatting is misleading but not its decision.
+
+**C# deviation from accumulated evidence: stale expectations.** HKT.cs:545 only
+inserts an absent expected key. The second expected_consecutive update retains
+x's old object `(state0=0,state1=2)` despite four accumulated occurrences.
+C# denominator becomes a4+x2=6, WI=1−4/6=.3333. Rust recomputes x4 from retained
+parent history plus incoming scope, denominator8, WI=.5. `expected_trigger` proves
+this changes reconstruction at identical WI threshold .4. Under the documented
+descriptor-only W0 interpretation Rust follows accumulated evidence; changing
+Rust to stale counts would contradict that contract.
+
+**Deliberate implementation difference: candidate beta.** Node.cs:85/:109 uses
+incoming candidate overlap with updated prominent-word sources. Rust
+context.rs:327 uses incoming overlap with the full node source union. node_union
+records C# x in node expectedWords and pendingWordSources; old metrics still
+sum only a,b. Neither implementation permanently adds x to descriptor words in
+this accepted path. Assignment differs even though old-word errors agree. The
+historical_candidate fixture also proves C# rejects beta despite four accumulated
+x occurrences; Rust's pre-existing regression confirms its incoming-only rule.
+Whether earlier candidate occurrences must contribute remains **unresolved
+scientific ambiguity**; it must not be inferred from agreeing aggregate errors.
+
+**C# deviation / deliberate Rust membership difference: refuge.** C# HKT mapping
+tracks nonmatching sources separately; SECAAlgorithm.cs:433 merges only old
+word-index keys, leaving refuge source membership unchanged in the captured
+fixture. Rust context.rs:6/:72 commits its mapped source union including refuge.
+This improves retained-context completeness. It changes no immediate error because
+refuge words are omitted from the three old-word sums. Future child/history effects
+are not claimed from this one fixture.
+
+**C# failure for multi-node candidates; unresolved scientific ambiguity.**
+shared_candidate assigns x to both a and b nodes, then HKT.cs:287 performs
+`Dictionary.Add` for duplicate x metrics. The surfaced exception originates in
+that original merge, not in a fabricated diagnostic. The uninstrumented application
+swallows this exception; its partially stale continuation is not reconstructed here.
+Rust metrics.rs:101 inserts by word ID and deterministically overwrites by node
+order. This fixture has candidate x once in the importance denominator; it does
+not establish correctness for an existing descriptor repeated in multiple nodes.
+The descriptor denominator loop (C# HKT.cs:393; Rust metrics.rs:35) counts each
+node occurrence, while W0 is a union. The paper's set notation and scope of D(w)
+remain unresolved for this case. No stable shared-descriptor golden is invented.
+
+**Timing and propagation.** Rust input.rs registers source IDs and append-only
+vocabulary before mapping and trigger evaluation, within the candidate transaction.
+Temporary stage memberships enter metrics; original W0 remains immutable. Accepted
+parents expose pending memberships before child traversal and merge afterward.
+C# maps temporary membership, admits/rechecks candidates, assigns them and computes
+metrics before acceptance (HKT.cs:119–170). Accepted children run before the merge
+in SECAAlgorithm.cs:433; C# pending maps remain visible after success and are reset
+on the next inspection. Global historical rows are appended by the harness after
+updateTree, clearMemory and decisions. Vocabulary is allocated from ordered inputs
+before each cycle. Neither language's new-token ID allocation by itself expands W0.
+The child fixture verifies source5 reaches both parent and child, source6 reaches
+neither child nor matched root node, and only one incoming source reaches the
+child. It does not settle every ancestor candidate propagation edge case.
+
+**Empty and zero denominators.** Low evidence is executed successfully. Empty
+batches are rejected at the harness boundary; Rust skips empty scopes. C# floor-one
+word denominators and empty-sequence alpha/beta divisions are source observations,
+not executable zero-evidence parity. No public baseline can construct an empty
+vocabulary here. This remains a coverage limitation, along with half-way rounding,
+all-zero retained scopes and stable multi-node descriptors.
+
+## Recommendations (not implemented)
+
+No confirmed current Rust scientific defect requiring a production fix was found
+in these executed fixtures. Keep full precision, accumulated expected counts and
+complete refuge membership under the current scientific contract. Exact legacy
+C# compatibility would require rounding before triggers, stale expected evidence,
+and incomplete refuge retention; these are not justified scientific corrections.
+
+The smallest justified follow-up is diagnostic formatting that distinguishes
+full-precision values at threshold boundaries. Resolve historical candidate beta,
+shared-word collapse, W0 expectations and ancestor candidate propagation against
+the scientific specification before changing calculations. If compatibility rather
+than scientific correctness is desired, make that objective explicit; do not add
+a second execution path to emulate reference defects. Additional read-only Rust
+word-level instrumentation and a harness input extension for empty scopes would
+require separately authorized work outside this file ownership.
+
+## Validation
+
+- C# build succeeded, with 22 inherited warnings; `verify.py` passed.
+- 19 fixture inputs replayed twice: 17 deterministic successful JSON outputs and
+  two reproducible failures (shared candidate and empty input).
+- Focused Rust suite: **20 passed, 1 ignored**, including the executable golden
+  comparison covering all inputs. The ignored C# acceptance test was explicitly
+  run and **failed as expected** (Rust true versus C# false).
+- Core crate suite: **156 passed, 2 ignored, 0 failed** (74 unit tests and
+  82 integration tests; both ignored tests document known cross-language
+  differences). The final focused suite was rerun after test-helper cleanup.
+- Assigned test file passed rustfmt check; `git diff --check` passed. The file
+  exceeds 400 lines because existing integration regressions are preserved; the
+  executable comparison uses focused configuration, membership and metric helpers.
+- No architectural change; workspace architectural validation is not required.
+
+---
+
 # SECA contextual updating and metrics audit
 
-## Revision and evidence
+## Integration status (2026-10-13)
+
+The original audit below concerns **42c07c0**, not the current engine. Integration
+starts from fetched `origin/main` **2bcd8ed**, which already includes the canonical
+SECA-Light refactor **15814d1**. The four confirmed old-main defects are addressed
+there: decisions retain W0, current descriptors are excluded from candidates,
+incoming vocabulary receives persistent positive IDs, and refuge memberships
+are committed. Integration changes no metric production logic.
+
+`tests/parity_context_metrics.rs` now adapts all 19 datasets to structured decision
+diagnostics and the current scientific contract. Old defect characterizations
+were converted into assertions of corrected behavior, rather than preserved as
+expected failures. The unchanged two-word case has WI=0; assigned x leaves W0={a}
+and WI=1/3; repeated unassigned x has WI=.5 and is no longer a new token; refuge
+membership grows; empty scopes have no decisions. Threshold tests use the actual
+floating-point expression `(0.5 - 2.0/6.0)/2.0` for equality, and .0833 just below
+it. Using the algebraically equivalent 1/12 differs by one binary floating-point
+step and incorrectly predicts equality. Decisions remain strict and unrounded.
+
+Candidate beta now uses the updated node union, unlike C#'s prominent-word
+membership denominator: the a/b/x fixture rejects 2/6 at beta=.4 and has WI=.2.
+This is the existing documented Rust interpretation, not a new integration fix.
+For a shared candidate, W0={a,b}, denominator=12 and WI=1/3. This does **not**
+resolve later measurements when that word becomes a descriptor in several nodes.
+The shared-word aggregation and historical candidate beta questions remain open.
+
+C# execution is still unavailable (`dotnet`, `mono`, `mcs`, `csc`, `msbuild` absent).
+No executed C# golden fixtures exist here. Correspondence means inspected source
+plus executed Rust fixtures, never empirical cross-language equivalence. The
+accepted author manuscript's sections V/VII and equations 2–12 were re-read; the
+final published PDF could not be retrieved from the university portal (401).
+No reconstruction fallback, historical policy, or C# exception behavior was adopted.
+See [algorithm.md](algorithm.md) for scientific choices and
+[integration-validation.md](integration-validation.md) for final validation.
+
+## Historical audit: revision and evidence
 
 Audited Rust: `main`, **42c07c098c1fadb931a4e7b5b6920ee9561dabc5**.
 The user explicitly selected this revision after the initial checkout was found
