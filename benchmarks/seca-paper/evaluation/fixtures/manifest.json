@@ -1,0 +1,19 @@
+{
+  "batches": [
+    {
+      "batch_index": 0,
+      "path": "batch-0000.json",
+      "sha256": "faca4bed3f0fc6e91014f2826fc5d7f823a0350f988d1d05730660b8b96ebf7a"
+    },
+    {
+      "batch_index": 1,
+      "path": "batch-0001.json",
+      "sha256": "094533d22725bb06b9ab164634340b76d8a906a7937648b5ff90c5a09682cb35"
+    }
+  ],
+  "ground_truth_path": "truth.json",
+  "ground_truth_sha256": "f4d3be9316460c3a043350b3fab41e150ad8943b175733534c9a471f34ed7c1a",
+  "path_base": "manifest_directory",
+  "schema_version": 1,
+  "theme": "G"
+}

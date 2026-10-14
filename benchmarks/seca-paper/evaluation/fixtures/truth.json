@@ -1,0 +1,18 @@
+[
+  {
+    "label": "alpha",
+    "source_id": "fixture-0-0"
+  },
+  {
+    "label": "beta",
+    "source_id": "fixture-0-1"
+  },
+  {
+    "label": "alpha",
+    "source_id": "fixture-1-0"
+  },
+  {
+    "label": "beta",
+    "source_id": "fixture-1-1"
+  }
+]
