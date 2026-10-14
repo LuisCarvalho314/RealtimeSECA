@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/jackyin12/MStream",
+  "revision": "77770aea5580b668c69f17b0b6c3d2795016987d",
+  "files": {
+    "News": {
+      "path": "MStream/data/News",
+      "sha256": "ef343028951fb144c64a435aa7e583b432cda12b8d99ceff1ecdf40ba522f818",
+      "documents": 11109,
+      "current_variant": "News",
+      "same_ordered_cleaned_text": true,
+      "same_ordered_labels": true,
+      "same_ordered_ids": true,
+      "legacy_id_field": "tweetId",
+      "duplicate_legacy_ids": 0
+    },
+    "News-T": {
+      "path": "MStream/data/News-T",
+      "sha256": "a327411a6410fcde0905443fff3d28de02549f968f3dc965e6745b69b9ed06f0",
+      "documents": 11109,
+      "current_variant": "News-T",
+      "same_ordered_cleaned_text": true,
+      "same_ordered_labels": true,
+      "same_ordered_ids": true,
+      "legacy_id_field": "tweetId",
+      "duplicate_legacy_ids": 0
+    },
+    "TREC": {
+      "path": "MStream/data/TREC",
+      "sha256": "0e16218aa93f123a7f54d29fbf36f864cb507da3d79928fd37337dcd496afaea",
+      "documents": 30322,
+      "current_variant": "Tweets",
+      "same_ordered_cleaned_text": true,
+      "same_ordered_labels": true,
+      "same_ordered_ids": false,
+      "legacy_id_field": "tweetId",
+      "duplicate_legacy_ids": 0,
+      "timestamp_field": "timeStr",
+      "timestamp_descents": 0,
+      "chronologically_nondecreasing": true
+    },
+    "TREC-T": {
+      "path": "MStream/data/TREC-T",
+      "sha256": "694d5449a43dfea1f265d0156c4f2b1b52131d9999c76e10965b283a795f35c1",
+      "documents": 30322,
+      "current_variant": "Tweets-T",
+      "same_ordered_cleaned_text": true,
+      "same_ordered_labels": true,
+      "same_ordered_ids": false,
+      "legacy_id_field": "tweetId",
+      "duplicate_legacy_ids": 0,
+      "timestamp_field": "timeStr",
+      "timestamp_descents": 15123,
+      "chronologically_nondecreasing": false
+    }
+  }
+}

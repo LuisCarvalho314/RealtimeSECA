@@ -1,0 +1,29 @@
+{
+  "clustering_settings": {
+    "contextual_threshold": "1/2"
+  },
+  "engine": {
+    "hkt_builder": {
+      "minimum_number_of_sources_to_create_branch_for_node": 10,
+      "minimum_threshold_against_max_word_count": 0.7,
+      "similarity_threshold": 0.5
+    },
+    "max_batches_in_memory": null,
+    "memory_mode": "Full",
+    "seca_thresholds": {
+      "alpha": 0.7,
+      "alpha_error_threshold": 0.1,
+      "beta": 0.5,
+      "beta_error_threshold": 0.2,
+      "word_importance_error_threshold": 0.3
+    }
+  },
+  "evaluation_population": "current_batch",
+  "parameter_sources": {
+    "branch_minimum": "10: existing repository seca_config.json; not established by paper",
+    "gamma": "Full: no forgetting; SlidingWindow: existing seca_light_config.json gamma=3, not verified original experiment gamma",
+    "clustering_settings": "1/2: explicit research assumption, not recovered paper merge threshold; max reduction and transitive merging per clustering interpretation",
+    "evaluation_population": "current_batch: explicit reconstruction choice; paper population unresolved, not selected against labels"
+  },
+  "purpose": "research"
+}

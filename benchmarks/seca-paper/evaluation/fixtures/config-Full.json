@@ -1,0 +1,27 @@
+{
+  "clustering_settings": {},
+  "engine": {
+    "hkt_builder": {
+      "minimum_number_of_sources_to_create_branch_for_node": 10,
+      "minimum_threshold_against_max_word_count": 0.7,
+      "similarity_threshold": 0.5
+    },
+    "max_batches_in_memory": null,
+    "memory_mode": "Full",
+    "seca_thresholds": {
+      "alpha": 0.7,
+      "alpha_error_threshold": 0.1,
+      "beta": 0.5,
+      "beta_error_threshold": 0.2,
+      "word_importance_error_threshold": 0.3
+    }
+  },
+  "evaluation_population": "current_batch",
+  "parameter_sources": {
+    "branch_minimum": "Synthetic smoke choice; publication value unresolved",
+    "clustering_settings": "Synthetic smoke choice; publication value unresolved",
+    "evaluation_population": "Synthetic smoke choice; publication value unresolved",
+    "gamma": "Synthetic smoke choice; publication value unresolved"
+  },
+  "purpose": "mock-smoke"
+}

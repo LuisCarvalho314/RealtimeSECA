@@ -1,0 +1,22 @@
+{
+  "batch_index": 1,
+  "clusters": [
+    {
+      "cluster_id": "mock-0",
+      "source_ids": [
+        "fixture-1-0"
+      ]
+    },
+    {
+      "cluster_id": "mock-1",
+      "source_ids": [
+        "fixture-1-1"
+      ]
+    }
+  ],
+  "evaluation_source_ids": [
+    "fixture-1-0",
+    "fixture-1-1"
+  ],
+  "unassigned_source_ids": []
+}

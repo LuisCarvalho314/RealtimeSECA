@@ -1,0 +1,21 @@
+{
+  "batch_index": 1,
+  "sources": [
+    {
+      "batch_index": 1,
+      "source_id": "fixture-1-0",
+      "tokens": [
+        "alpha",
+        "shared"
+      ]
+    },
+    {
+      "batch_index": 1,
+      "source_id": "fixture-1-1",
+      "tokens": [
+        "beta",
+        "shared"
+      ]
+    }
+  ]
+}
