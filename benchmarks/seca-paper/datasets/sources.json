@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/jackyin12/MStream",
+  "revision": "ac894075f2bbb93405679e237d2d5d11a325078c",
+  "revision_date": "2019-12-25",
+  "paper_access_date": "2022-10-21",
+  "files": {
+    "News": {
+      "path": "MStream/data/News",
+      "sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+      "bytes": 1064634,
+      "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+      "git_blob": "fc3dddb96d92c67390ed83387ee729ebe1d3822b",
+      "statistics": {
+        "documents": 11109,
+        "labels": 152,
+        "duplicate_ids": 0,
+        "duplicate_text_excess": 350,
+        "duplicate_label_text_excess": 248,
+        "minimum_label_documents": 3,
+        "maximum_label_documents": 430,
+        "ordered_ids_sha256": "97bcb9b71614843fe00928f759dc1341815b36898848a1ceb3f3e10c7542b59e",
+        "ordered_records_sha256": "589b304689365eb4d113d2a323fe7a2a6d8be12ab9be9c9268edc59322e161d1",
+        "token_count": 69235
+      }
+    },
+    "News-T": {
+      "path": "MStream/data/News-T",
+      "sha256": "562d6a1771a4675caedb405d68371348bd7e54db130b633ef5ebd5896157ffbb",
+      "bytes": 1064634,
+      "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+      "git_blob": "6ccb49713abe390e1ad59fd8061b64c705dfd851",
+      "statistics": {
+        "documents": 11109,
+        "labels": 152,
+        "duplicate_ids": 0,
+        "duplicate_text_excess": 350,
+        "duplicate_label_text_excess": 248,
+        "minimum_label_documents": 3,
+        "maximum_label_documents": 430,
+        "ordered_ids_sha256": "92ca5cee2968d29f18de7cf113e0fc574ffec85546f5c8f26e5dfac8063110b0",
+        "ordered_records_sha256": "5ef48e3de901820797cf4162bc6bf18b95240b15f010411c9597ed98b566d6cb",
+        "token_count": 69235
+      }
+    },
+    "Tweets": {
+      "path": "MStream/data/Tweets",
+      "sha256": "126d6f0a4fd76abfdb76f555081ed44af4f185d8a202197906886fcf09927b98",
+      "bytes": 3269729,
+      "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+      "git_blob": "26844874b6db4801f3efd6f0f6d913d6322fa64f",
+      "statistics": {
+        "documents": 30322,
+        "labels": 269,
+        "duplicate_ids": 0,
+        "duplicate_text_excess": 4336,
+        "duplicate_label_text_excess": 4329,
+        "minimum_label_documents": 1,
+        "maximum_label_documents": 1628,
+        "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+        "ordered_records_sha256": "07d6ba435ed9f47fe7c5b1bdb9e04d812f2fc0cb8ee733071520e25f05a7a252",
+        "token_count": 241617
+      }
+    },
+    "Tweets-T": {
+      "path": "MStream/data/Tweets-T",
+      "sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+      "bytes": 3269729,
+      "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+      "git_blob": "12a3db42d86d6e8db2705695d395c4e2a700c232",
+      "statistics": {
+        "documents": 30322,
+        "labels": 269,
+        "duplicate_ids": 0,
+        "duplicate_text_excess": 4336,
+        "duplicate_label_text_excess": 4329,
+        "minimum_label_documents": 1,
+        "maximum_label_documents": 1628,
+        "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+        "ordered_records_sha256": "fb3cc73e4c387dd965d5ec3bd952f0f2396dbdeb14fd2eb81478b35c7e079271",
+        "token_count": 241617
+      }
+    }
+  }
+}

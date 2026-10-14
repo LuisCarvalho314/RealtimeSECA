@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "theme": "G",
+  "original_dataset_name": "News",
+  "source_variant": "News",
+  "path_base": "selected_benchmark_data_directory",
+  "source": {
+    "repository": "https://github.com/jackyin12/MStream",
+    "revision": "ac894075f2bbb93405679e237d2d5d11a325078c",
+    "files": {
+      "News": {
+        "path": "MStream/data/News",
+        "sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+        "bytes": 1064634,
+        "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+        "git_blob": "fc3dddb96d92c67390ed83387ee729ebe1d3822b",
+        "statistics": {
+          "documents": 11109,
+          "labels": 152,
+          "duplicate_ids": 0,
+          "duplicate_text_excess": 350,
+          "duplicate_label_text_excess": 248,
+          "minimum_label_documents": 3,
+          "maximum_label_documents": 430,
+          "ordered_ids_sha256": "97bcb9b71614843fe00928f759dc1341815b36898848a1ceb3f3e10c7542b59e",
+          "ordered_records_sha256": "589b304689365eb4d113d2a323fe7a2a6d8be12ab9be9c9268edc59322e161d1",
+          "token_count": 69235
+        }
+      },
+      "News-T": {
+        "path": "MStream/data/News-T",
+        "sha256": "562d6a1771a4675caedb405d68371348bd7e54db130b633ef5ebd5896157ffbb",
+        "bytes": 1064634,
+        "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+        "git_blob": "6ccb49713abe390e1ad59fd8061b64c705dfd851",
+        "statistics": {
+          "documents": 11109,
+          "labels": 152,
+          "duplicate_ids": 0,
+          "duplicate_text_excess": 350,
+          "duplicate_label_text_excess": 248,
+          "minimum_label_documents": 3,
+          "maximum_label_documents": 430,
+          "ordered_ids_sha256": "92ca5cee2968d29f18de7cf113e0fc574ffec85546f5c8f26e5dfac8063110b0",
+          "ordered_records_sha256": "5ef48e3de901820797cf4162bc6bf18b95240b15f010411c9597ed98b566d6cb",
+          "token_count": 69235
+        }
+      },
+      "Tweets": {
+        "path": "MStream/data/Tweets",
+        "sha256": "126d6f0a4fd76abfdb76f555081ed44af4f185d8a202197906886fcf09927b98",
+        "bytes": 3269729,
+        "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+        "git_blob": "26844874b6db4801f3efd6f0f6d913d6322fa64f",
+        "statistics": {
+          "documents": 30322,
+          "labels": 269,
+          "duplicate_ids": 0,
+          "duplicate_text_excess": 4336,
+          "duplicate_label_text_excess": 4329,
+          "minimum_label_documents": 1,
+          "maximum_label_documents": 1628,
+          "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+          "ordered_records_sha256": "07d6ba435ed9f47fe7c5b1bdb9e04d812f2fc0cb8ee733071520e25f05a7a252",
+          "token_count": 241617
+        }
+      },
+      "Tweets-T": {
+        "path": "MStream/data/Tweets-T",
+        "sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+        "bytes": 3269729,
+        "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+        "git_blob": "12a3db42d86d6e8db2705695d395c4e2a700c232",
+        "statistics": {
+          "documents": 30322,
+          "labels": 269,
+          "duplicate_ids": 0,
+          "duplicate_text_excess": 4336,
+          "duplicate_label_text_excess": 4329,
+          "minimum_label_documents": 1,
+          "maximum_label_documents": 1628,
+          "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+          "ordered_records_sha256": "fb3cc73e4c387dd965d5ec3bd952f0f2396dbdeb14fd2eb81478b35c7e079271",
+          "token_count": 241617
+        }
+      }
+    }
+  },
+  "documents": 8880,
+  "batch_size": 740,
+  "batch_count": 12,
+  "batches": [
+    {
+      "batch_index": 0,
+      "path": "G/batch-00.json",
+      "documents": 740,
+      "source_line_start": 1,
+      "source_line_end": 740,
+      "sha256": "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005"
+    },
+    {
+      "batch_index": 1,
+      "path": "G/batch-01.json",
+      "documents": 740,
+      "source_line_start": 741,
+      "source_line_end": 1480,
+      "sha256": "7ea61f5ed367382f6888b185bbb2bdbc9267d48ceb39cb04b3bfd024a9885930"
+    },
+    {
+      "batch_index": 2,
+      "path": "G/batch-02.json",
+      "documents": 740,
+      "source_line_start": 1481,
+      "source_line_end": 2220,
+      "sha256": "2f032849b7128415f89032bc1579648afd336d4bd599fb9af00de2882c42e3af"
+    },
+    {
+      "batch_index": 3,
+      "path": "G/batch-03.json",
+      "documents": 740,
+      "source_line_start": 2221,
+      "source_line_end": 2960,
+      "sha256": "52eec9e594300e77da9ef94b719be4890aa8fb8454563a232fcee1f2d4c2b892"
+    },
+    {
+      "batch_index": 4,
+      "path": "G/batch-04.json",
+      "documents": 740,
+      "source_line_start": 2961,
+      "source_line_end": 3700,
+      "sha256": "f1bf9814d750d2e9fc659b4eab4d0170e6127ffdcc39386a319790f315e712e4"
+    },
+    {
+      "batch_index": 5,
+      "path": "G/batch-05.json",
+      "documents": 740,
+      "source_line_start": 3701,
+      "source_line_end": 4440,
+      "sha256": "c725d58236a872a1d599ccfe5dfd45b0d2bcc227fbd813d3e8f46b1cda145466"
+    },
+    {
+      "batch_index": 6,
+      "path": "G/batch-06.json",
+      "documents": 740,
+      "source_line_start": 4441,
+      "source_line_end": 5180,
+      "sha256": "ec9fd14caf2a1304307effcb0729bbf173ec9157db87ceeeeae2475a79f7926e"
+    },
+    {
+      "batch_index": 7,
+      "path": "G/batch-07.json",
+      "documents": 740,
+      "source_line_start": 5181,
+      "source_line_end": 5920,
+      "sha256": "0b166637eddaa729b5e5d47ed73364873da6e9b5d0c4da1d68585be436092de8"
+    },
+    {
+      "batch_index": 8,
+      "path": "G/batch-08.json",
+      "documents": 740,
+      "source_line_start": 5921,
+      "source_line_end": 6660,
+      "sha256": "b5593145898c06cf28082cb7028daaf76749ae705ed89454ae8f92a4a179a446"
+    },
+    {
+      "batch_index": 9,
+      "path": "G/batch-09.json",
+      "documents": 740,
+      "source_line_start": 6661,
+      "source_line_end": 7400,
+      "sha256": "f396d0d9b4e5afbf9dca9a3febc475989fb3624bd851d563d3cd68c2202cf0f8"
+    },
+    {
+      "batch_index": 10,
+      "path": "G/batch-10.json",
+      "documents": 740,
+      "source_line_start": 7401,
+      "source_line_end": 8140,
+      "sha256": "193b69313b5c9c31d06c49cdc3de57570bea90c091c8e96e65bc7954d9165044"
+    },
+    {
+      "batch_index": 11,
+      "path": "G/batch-11.json",
+      "documents": 740,
+      "source_line_start": 8141,
+      "source_line_end": 8880,
+      "sha256": "4706d65eaf44e9667db1cc1026d4c350134edbdc8e21aedec8fb1d968b1e1461"
+    }
+  ],
+  "ground_truth_path": "G/ground-truth.json",
+  "ground_truth_sha256": "3b245e3c408d999aa1c0a3acaa1937cb55c191e2fac6869defd3a3346376b2c4",
+  "preprocessing": "Use upstream textCleaned verbatim; split on whitespace with str.split(); preserve token order and repetitions; no stemming, stop-word removal, case folding, deduplication or additional cleaning.",
+  "source_id_convention": "mstream:News:<original Id verbatim>",
+  "label_convention": "clusterNo as decimal string, without relabeling",
+  "reconstruction": {
+    "selection": "reconstructed",
+    "ordering": "reconstructed",
+    "exact_paper_reconstruction": false,
+    "method": "First 8880 physical JSONL records of News, in published file order, contiguous batches.",
+    "discarded_tail_documents": 2229,
+    "variant_evidence": "Prefix label count and min/max event sizes match SECA Table 2; variant is inferred, not confirmed.",
+    "uncertainty": "Paper gives no ordered ID list, exact variant filename or truncation procedure; aggregate agreement does not establish exact identity or order."
+  },
+  "selected_statistics": {
+    "documents": 8880,
+    "labels": 152,
+    "duplicate_ids": 0,
+    "duplicate_text_excess": 217,
+    "duplicate_label_text_excess": 157,
+    "minimum_label_documents": 2,
+    "maximum_label_documents": 354,
+    "ordered_ids_sha256": "dc63bde2db30ecc5e9e0f8ac12a8cbd0e8350aecd218ebb24015d5fe59ba9765",
+    "ordered_records_sha256": "8d252290c0d470bc9511ded8e2f31cffbc4e8b8fa73fdb27a48e5d0e4da0f53b",
+    "token_count": 55313
+  }
+}
