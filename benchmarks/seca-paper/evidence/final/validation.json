@@ -1,0 +1,18 @@
+{
+  "cargo_fmt": "passed",
+  "cargo_test_workspace": {
+    "passed": 163,
+    "known_strict_tests_ignored": 2
+  },
+  "cargo_clippy_workspace_all_targets_Dwarnings": "passed",
+  "python": {
+    "datasets": 13,
+    "clustering": 21,
+    "evaluation_and_integration": 25
+  },
+  "strict_parity": {
+    "context_alpha_threshold": "explicitly executed and failed as expected; full precision vs C# rounding",
+    "hkt_reconstruction": "explicitly executed and failed as expected; branch_boundary topology differs"
+  },
+  "production_parity_goldens_changed": false
+}

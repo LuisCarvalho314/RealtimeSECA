@@ -1,0 +1,34 @@
+{
+  "aggregation": "unweighted mean of all 12 current-batch cycle scores; null if any blocked",
+  "algorithm": "SECA",
+  "assignment_cycles": 12,
+  "learning_cycles": 12,
+  "method": "indirect",
+  "parity_claim": false,
+  "published_comparison": [
+    {
+      "absolute_difference": 0.022708978635781474,
+      "metric": "nmi",
+      "published": 0.8752,
+      "reproduced": 0.8524910213642185,
+      "scoreable_cycles": 12
+    },
+    {
+      "absolute_difference": 0.0008813209702219771,
+      "metric": "bcubed_f1",
+      "published": 0.7114,
+      "reproduced": 0.710518679029778,
+      "scoreable_cycles": 12
+    },
+    {
+      "absolute_difference": 0.038699999999999846,
+      "metric": "purity",
+      "published": 0.8918,
+      "reproduced": 0.9304999999999999,
+      "scoreable_cycles": 12
+    }
+  ],
+  "source": "2023 published Table 3, p. 127025; final PDF independently verified",
+  "status": "complete",
+  "theme": "H"
+}

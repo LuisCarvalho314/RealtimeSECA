@@ -1,0 +1,46 @@
+{
+  "comparison": "event member sets, independent of node/cluster IDs; measures changed co-memberships, not a document error rate",
+  "cycles": [
+    {
+      "cycle": 1,
+      "documents_with_changed_membership_sets": 6,
+      "method": "direct",
+      "original_clusters": 128,
+      "original_unassigned": 0,
+      "population": 2000,
+      "reversed_clusters": 129,
+      "reversed_unassigned": 0
+    },
+    {
+      "cycle": 1,
+      "documents_with_changed_membership_sets": 11,
+      "method": "indirect",
+      "original_clusters": 112,
+      "original_unassigned": 0,
+      "population": 2000,
+      "reversed_clusters": 113,
+      "reversed_unassigned": 0
+    },
+    {
+      "cycle": 2,
+      "documents_with_changed_membership_sets": 9,
+      "method": "direct",
+      "original_clusters": 136,
+      "original_unassigned": 0,
+      "population": 2000,
+      "reversed_clusters": 137,
+      "reversed_unassigned": 0
+    },
+    {
+      "cycle": 2,
+      "documents_with_changed_membership_sets": 97,
+      "method": "indirect",
+      "original_clusters": 117,
+      "original_unassigned": 0,
+      "population": 2000,
+      "reversed_clusters": 120,
+      "reversed_unassigned": 0
+    }
+  ],
+  "operation": "reverse source order within first two batches"
+}

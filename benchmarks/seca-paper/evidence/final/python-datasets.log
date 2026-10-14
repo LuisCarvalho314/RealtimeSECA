@@ -1,0 +1,18 @@
+test_cli_missing_sources_error (test_datasets.DatasetTests.test_cli_missing_sources_error) ... ok
+test_corrupt_missing_and_reordered_sources_fail_before_output (test_datasets.DatasetTests.test_corrupt_missing_and_reordered_sources_fail_before_output) ... ok
+test_determinism_and_tracked_manifests (test_datasets.DatasetTests.test_determinism_and_tracked_manifests) ... ok
+test_downloader_pinned_urls_cache_and_corruption (test_datasets.DatasetTests.test_downloader_pinned_urls_cache_and_corruption) ... ok
+test_duplicates_and_repeated_tokens_are_preserved (test_datasets.DatasetTests.test_duplicates_and_repeated_tokens_are_preserved) ... ok
+test_exact_sizes_ids_labels_and_no_label_leakage (test_datasets.DatasetTests.test_exact_sizes_ids_labels_and_no_label_leakage) ... ok
+test_historical_native_ids_chronology_and_corruption (test_datasets.DatasetTests.test_historical_native_ids_chronology_and_corruption) ... ok
+test_manifest_paths_and_generated_checksums (test_datasets.DatasetTests.test_manifest_paths_and_generated_checksums) ... ok
+test_output_failures_do_not_publish_partial_data (test_datasets.DatasetTests.test_output_failures_do_not_publish_partial_data) ... ok
+test_prepared_corruption_missing_extra_and_labels_fail (test_datasets.DatasetTests.test_prepared_corruption_missing_extra_and_labels_fail) ... ok
+test_source_sha256_and_order (test_datasets.DatasetTests.test_source_sha256_and_order) ... ok
+test_strict_parser_and_whitespace (test_datasets.DatasetTests.test_strict_parser_and_whitespace) ... ok
+test_variants_are_not_interchangeable (test_datasets.DatasetTests.test_variants_are_not_interchangeable) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 19.798s
+
+OK

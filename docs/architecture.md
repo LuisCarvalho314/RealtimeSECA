@@ -99,3 +99,12 @@ strategy. Its additional clone and traversal are a remaining performance cost.
 Tests under `engine/tests/` cover behavior by stage with common fixtures.
 `tests/seca_light_stream.rs` exercises persistence, sibling preservation,
 forgetting, restart equivalence, duplicates, empty updates, and failure isolation.
+
+## Experimental clustering benchmark
+
+`benchmarks/seca-paper/` prepares unlabelled SourceBatch inputs, consumes public
+verbose exports and caller-owned tokens for event assignment, and evaluates
+against separately held truth. The `paper_stream` Rust example invokes the same
+public baseline/update/snapshot APIs and saves evidence at this application
+boundary. Benchmark code owns its files; production state ownership and the
+canonical update path are unchanged. See [the scientific report](seca-paper-benchmark.md).

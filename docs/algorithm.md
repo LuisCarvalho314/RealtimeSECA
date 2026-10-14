@@ -5,8 +5,10 @@ Contextual Analysis (SECA) Approach*, IEEE Access 11 (2023), 127011–127034,
 [DOI](https://doi.org/10.1109/ACCESS.2023.3331219).
 Section V defines the HKT representation; VII-A/Figure 3 defines evolution;
 VII-B defines change metrics; VII-C adds forgetting. Construction builds on the
-Contextual Analysis work cited by the paper. This project implements hierarchy
-evolution, not the paper's direct/indirect event clustering evaluation.
+Contextual Analysis work cited by the paper. The production engine implements
+hierarchy evolution. The paper's direct/indirect event clustering is evaluated
+separately by the [experimental benchmark](seca-paper-benchmark.md);
+its reconstruction assumptions do not change the contracts below.
 
 ## Paper contract
 

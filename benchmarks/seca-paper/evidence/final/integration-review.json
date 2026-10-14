@@ -1,0 +1,33 @@
+{
+  "base": "5ece43a71a40f08854aee0c2942791ec50443201",
+  "branches": {
+    "experiments/seca-datasets": "8c9294595e9d7e37360d62d64406908d5a19283f",
+    "experiments/seca-clustering": "a67ca52da2f69aa0aaaf4efec023e4b79d1e7dbe",
+    "experiments/seca-evaluation": "adbd9f6866cec84dd418b9fee78439a8a5a53e9d"
+  },
+  "reviewed_reports": [
+    "docs/seca-benchmark-datasets.md",
+    "docs/seca-clustering-evaluation.md",
+    "docs/seca-benchmark-evaluation.md"
+  ],
+  "ownership": {
+    "datasets": "benchmarks/seca-paper/datasets",
+    "clustering": "benchmarks/seca-paper/clustering",
+    "evaluation": "benchmarks/seca-paper/evaluation plus run.py and compare.py"
+  },
+  "production_algorithm_changes": false,
+  "conflicting_files": [],
+  "datasets_in_git": false,
+  "redistribution": "No dataset-specific grant or repository LICENSE found; original text and truth annotations are excluded from Git. Generated evidence contains source identities and event assignments only.",
+  "published_pdf_sha256": "dacd87d997e81820079d85d2f4fd3466705a87b7d5839ba6b98ccc5208f44947",
+  "published_table_verified": "Table 3, PDF page 15, printed p.127025; visual comparison of all 24 G/H score cells",
+  "scientific_choices": [
+    "H Tweets-T prefix is aggregate-matching reconstruction, not recovered original sequence",
+    "gamma=3 is existing repository setting, not verified original gamma",
+    "indirect cutoff=1/2 is research assumption",
+    "current-batch scoring is explicit, original evaluation population unresolved",
+    "direct overlap scoring remains undefined; no hard-label conversion",
+    "indirect max reduction and transitive merging are documented interpretations",
+    "positive ties use semantic token/weight signatures, never node IDs"
+  ]
+}

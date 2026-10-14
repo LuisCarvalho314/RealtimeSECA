@@ -1,0 +1,243 @@
+   Compiling realtime-seca-core v0.1.0 (/tmp/seca-paper-benchmark/crates/realtime-seca-core)
+   Compiling realtime-seca-cli v0.1.0 (/tmp/seca-paper-benchmark/crates/realtime-seca-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.72s
+     Running unittests src/main.rs (target/debug/deps/realtime_seca_cli-fe1e59118763ffe2)
+
+running 3 tests
+test ingestion::tests::parses_only_timestamps_with_explicit_offsets ... ok
+test timeline::tests::rejects_out_of_order_input_before_creating_output ... ok
+test timeline::tests::preserves_unequal_daily_batches_and_scopes_csv_row_ids ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/csv_workflow.rs (target/debug/deps/csv_workflow-da862947816b8ee3)
+
+running 4 tests
+test malformed_and_local_csv_timestamps_remain_unset ... ok
+test timeline_many_preserves_new_namespaces ... ok
+test independent_default_index_conversions_have_distinct_fallbacks ... ok
+test sequential_conversions_survive_restart_and_preserve_retained_deduplication ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+     Running unittests src/lib.rs (target/debug/deps/realtime_seca_core-c7ff49b0f080b4b2)
+
+running 74 tests
+test engine::tests::baseline::baseline_build_rejects_empty_batch ... ok
+test engine::tests::baseline::baseline_build_runs_hkt_builder ... ok
+test engine::tests::baseline::baseline_nodes_populate_word_source_ids ... ok
+test engine::tests::baseline::baseline_prominent_word_selection_respects_insertion_order_on_ties ... ok
+test engine::tests::baseline::baseline_hkts_are_state0 ... ok
+test engine::tests::context::unassigned_candidate_has_scope_strength_and_no_node_eligibility ... ok
+test engine::tests::baseline::baseline_refuge_branch_prominent_word_respects_insertion_order_on_ties ... ok
+test engine::tests::context::update_stage_assigns_expected_word_when_beta_satisfied ... ok
+test engine::tests::context::update_stage_ancestor_rejected_words_without_state1_token_are_pruned_by_reset ... ok
+test engine::tests::context::accepted_hkt_retains_candidates_without_changing_old_node_vocabulary ... ok
+test engine::tests::context::update_stage_includes_new_tokens_in_expected_words_count ... ok
+test engine::tests::context::update_stage_beta_eligibility_uses_prominent_word_sources ... ok
+test engine::tests::context::update_stage_resets_expected_words_below_alpha_threshold ... ok
+test engine::tests::context::update_stage_excludes_ancestor_accepted_words_from_expected_set ... ok
+test engine::tests::context::update_stage_state0_parent_scope_uses_parent_node_sources_only ... ok
+test engine::tests::context::update_stage_includes_state0_dominant_expected_word ... ok
+test engine::tests::context::word_change_metrics_expected_only_word_includes_state0_parent_scope_counts ... ok
+test engine::tests::forgetting::seca_light_sliding_window_requires_gamma ... ok
+test engine::tests::context::word_change_metrics_match_csharp_for_simple_node ... ok
+test engine::tests::context::update_stage_uses_state0_prominent_word_for_alpha_ratio ... ok
+test engine::tests::mapping::map_batch_into_hkt_scope_uses_document_frequency_per_source_not_raw_repetition ... ok
+test engine::tests::forgetting::full_mode_does_not_apply_seca_light_pruning ... ok
+test engine::tests::forgetting::sliding_window_with_zero_max_batches_is_rejected_at_construction ... ok
+test engine::tests::forgetting::seca_light_preserves_dead_nodes_and_hkts_until_reconstruction ... ok
+test engine::tests::mapping::snapshot_hkt_scope_returns_sorted_non_refuge_node_ids ... ok
+test engine::tests::metrics::equations_average_only_violations_and_measure_lost_importance ... ok
+test engine::tests::forgetting::process_batch_in_full_mode_keeps_all_batches ... ok
+test engine::tests::mapping::snapshot_hkt_scope_root_contains_expected_structure ... ok
+test engine::tests::metrics::paper_policy_trigger_plan_can_fire_on_unassigned_expected_words ... ok
+test engine::tests::forgetting::process_batch_in_sliding_window_trims_old_batches ... ok
+test engine::tests::metrics::paper_policy_triggers_reconstruction_on_wi_error ... ok
+test engine::tests::metrics::thresholds_are_strict_and_use_unrounded_errors ... ok
+test engine::tests::metrics::paper_policy_process_batch_triggers_on_unassigned_expected_words ... ok
+test engine::tests::reconstruction::ancestor_propagation_updates_owned_nodes_and_lookup_cache_together ... ok
+test engine::tests::reconstruction::subtree_rebuild_ancestor_words_are_present_in_child_state0_sources ... ok
+test engine::tests::metrics::paper_scaffold_can_trigger_from_paper_beta_error_path ... ok
+test engine::tests::reconstruction::subtree_rebuild_propagates_state1_sources_to_all_ancestors ... ok
+test engine::tests::reconstruction::subtree_rebuild_preserves_parent_linkage ... ok
+test engine::tests::forgetting::sliding_window_rebuild_uses_only_retained_batches ... ok
+test engine::tests::reconstruction::subtree_rebuild_propagates_state1_sources_to_parent_chain ... ok
+test engine::tests::reconstruction::rebuilt_subtree_hkts_are_state1 ... ok
+test engine::tests::reconstruction::subtree_rebuild_scoped_dataset_filters_ancestor_words ... ok
+test engine::tests::reconstruction::subtree_rebuild_scoped_dataset_filters_full_ancestor_word_set ... ok
+test engine::tests::reconstruction::subtree_rebuild_scoped_dataset_matches_csharp_state0_state1_merge ... ok
+test engine::tests::reconstruction::subtree_rebuild_scoped_dataset_matches_csharp_word_source_counts ... ok
+test engine::tests::stream::compute_batch_word_stats_uses_document_frequency_not_raw_frequency ... ok
+test engine::tests::reconstruction::subtree_rebuild_scoped_dataset_uses_only_current_hkt_sources_for_state0 ... ok
+test engine::tests::metrics::process_batch_paper_policy_trigger_changes_tree ... ok
+test engine::tests::snapshots::process_batch_advances_last_processed_batch_index_via_snapshot ... ok
+test engine::tests::stream::display_empty_scope_is_unavailable_and_equivalent_option1_agrees ... ok
+test engine::tests::snapshots::restoration_rejects_inconsistent_source_provenance ... ok
+test engine::tests::snapshots::restoration_rejects_stale_node_cache ... ok
+test engine::tests::stream::export_baseline_tree_is_sorted_by_ids ... ok
+test engine::tests::stream::export_baseline_tree_verbose_contains_legends_after_baseline ... ok
+test engine::tests::stream::new_rejects_alpha_out_of_range ... ok
+test engine::tests::stream::export_baseline_tree_errors_before_baseline ... ok
+test engine::tests::stream::new_rejects_beta_out_of_range ... ok
+test engine::tests::stream::new_rejects_hkt_similarity_out_of_range ... ok
+test engine::tests::stream::export_baseline_tree_verbose_errors_before_baseline ... ok
+test engine::tests::stream::new_rejects_hkt_threshold_out_of_range ... ok
+test engine::tests::stream::process_batch_requires_baseline_first ... ok
+test engine::tests::stream::evaluate_trigger_plan_runs_after_baseline_and_is_deterministic ... ok
+test engine::tests::stream::process_batch_rejects_out_of_sequence_batch_index ... ok
+test engine::tests::stream::strict_thresholds_trigger_recursive_plan_and_emit_reasons ... ok
+test engine::tests::stream::recursive_trigger_plan_is_deterministic_for_same_input ... ok
+test engine::tests::stream::process_batch_stores_last_batch_word_stats_summary ... ok
+test engine::tests::stream::strict_word_importance_threshold_triggers_reconstruction ... ok
+test engine::tests::stream::update_report_preserves_actual_scope_diagnostics_and_rebuilt_root_lineage ... ok
+test engine::tests::stream::process_batch_trigger_rebuilds_tree_from_stored_batches ... ok
+test engine::tests::stream::process_batch_rebuild_path_is_deterministic_for_same_sequence ... ok
+test engine::tests::stream::rebuilt_display_scopes_have_final_ids_and_decisions_keep_old_provenance ... ok
+test engine::tests::stream::display_sweep_is_observational_and_covers_final_ids_after_rebuild_and_pruning ... ok
+test engine::tests::stream::three_decisions_and_260_display_scopes_preserve_the_trigger_plan ... ok
+test engine::tests::stream::realistic_display_coverage_is_independent_of_sparse_trigger_traversal ... ok
+
+test result: ok. 74 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.26s
+
+     Running tests/large_dataset_regression.rs (target/debug/deps/large_dataset_regression-43a2bbee09eabe7e)
+
+running 5 tests
+test large_dataset_has_at_least_one_root_hkt_and_one_node ... ok
+test large_dataset_baseline_build_and_verbose_export_succeeds ... ok
+test large_dataset_baseline_build_is_deterministic ... ok
+test large_dataset_chunked_seca_processes_all_batches_in_sequence has been running for over 60 seconds
+test large_dataset_chunked_seca_produces_non_empty_verbose_export has been running for over 60 seconds
+test large_dataset_chunked_seca_processes_all_batches_in_sequence ... ok
+test large_dataset_chunked_seca_produces_non_empty_verbose_export ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 229.47s
+
+     Running tests/parity_context_metrics.rs (target/debug/deps/parity_context_metrics-54bf17261bf7c113)
+
+running 21 tests
+test empty_incoming_scope_skips_inspection ... ok
+test alpha_pass_beta_fail_keeps_candidate_in_importance_denominator ... ok
+test construction_expected_descriptor_is_excluded_from_candidates ... ok
+test candidate_beta_uses_full_node_union ... ok
+test duplicate_expected_descriptor_does_not_cause_reconstruction ... ok
+test expected_failure_csharp_alpha_threshold_parity ... ignored, Known decision discrepancy: C# rounds 1/12 to .0833 before comparing; Rust retains full precision
+test candidate_shared_across_two_nodes_overwrites_measurement_by_node_order ... ok
+test beta_error_threshold_equality_and_just_below ... ok
+test error_threshold_is_strict_at_full_precision ... ok
+test exact_alpha_and_beta_admission_preserves_state0_error_vocabulary ... ok
+test historical_candidate_occurrences_count_for_alpha_but_not_beta_admission ... ok
+test invalid_sequence_fails_before_changing_context ... ok
+test importance_threshold_equality_and_just_below ... ok
+test newly_assigned_word_triggers_old_vocab_importance_reconstruction ... ok
+test unchanged_single_word_counts_each_document_once_and_merges_sources ... ok
+test old_word_losing_strength_and_eligibility_has_independent_errors ... ok
+test refuge_commits_unmatched_sources ... ok
+test unseen_word_below_alpha_does_not_enter_denominator ... ok
+test parent_child_scopes_only_receive_parent_matched_sources ... ok
+test unassigned_expected_word_is_excluded_from_old_vocab_on_next_batch ... ok
+test executable_csharp_goldens_against_full_memory_rust ... ok
+
+test result: ok. 20 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/parity_hkt_reconstruction.rs (target/debug/deps/parity_hkt_reconstruction-38520e8069684138)
+
+running 13 tests
+test executed::strict_executed_csharp_parity ... ignored, Known executed C#–Rust differences; run explicitly to expose strict parity failure
+test competing_words_and_multi_node_source_membership ... ok
+test branch_boundary_is_strict_and_empty_input_has_no_hkt ... ok
+test equal_frequency_input_order_changes_prominent_word_and_expected_set ... ok
+test equal_collision_scores_choose_first_created_node ... ok
+test expected_word_order_uses_word_ids_even_when_frequency_order_differs ... ok
+test refuge_recurses_and_attaches_to_refuge_parent ... ok
+test recursive_scope_retains_sibling_words_on_overlapping_sources ... ok
+test single_root_merges_words_and_retains_expected_words ... ok
+test incoming_source_maps_to_both_nodes_and_empty_scope_preserves_tree ... ok
+test root_replacement_suppresses_children_selects_new_dominant_and_stabilizes ... ok
+test child_replacement_preserves_sibling_scope_and_excludes_ancestor_words ... ok
+test executed::executed_reference_regressions_and_explicit_differences ... ok
+
+test result: ok. 12 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/process_batch_skeleton.rs (target/debug/deps/process_batch_skeleton-e3c402ca10c139c0)
+
+running 13 tests
+test process_batch_detects_new_words_relative_to_baseline ... ok
+test process_batch_advances_last_processed_batch_index ... ok
+test process_batch_paper_policy_relaxed_thresholds_evolve_tree_without_rebuild ... ok
+test process_batch_can_trigger_reconstruction_with_strict_thresholds ... ok
+test process_batch_requires_baseline_first ... ok
+test process_batch_rejects_out_of_sequence_batch_index ... ok
+test process_batch_relaxed_thresholds_can_skip_reconstruction_under_paper_policy ... ok
+test process_batch_in_full_mode_keeps_all_batches ... ok
+test process_batch_in_sliding_window_trims_old_batches ... ok
+test process_batch_trigger_rebuilds_tree_from_stored_batches ... ok
+test process_batch_sliding_window_zero_max_batches_errors ... ok
+test process_batch_rebuild_path_is_deterministic_for_same_sequence ... ok
+test large_dataset_chunked_seca_light_trims_retained_batches has been running for over 60 seconds
+test large_dataset_chunked_seca_light_trims_retained_batches ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 71.67s
+
+     Running tests/scientific_context_contract.rs (target/debug/deps/scientific_context_contract-6b72ba9976f051cc)
+
+running 4 tests
+test asymmetric_source_sets_separate_word_and_incidence_contracts ... ok
+test retained_beta_passes_every_later_cycle_where_incoming_beta_fails ... ok
+test vocabulary_and_persistent_assignment_alternatives_change_future_decisions ... ok
+test characterize_sequences_without_changing_production_contract ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/scientific_hkt_contract.rs (target/debug/deps/scientific_hkt_contract-4ea97d558c509fd4)
+
+running 4 tests
+test minimum_boundary_is_observed_in_baseline_and_reconstruction ... ok
+test recursive_scope_difference_and_rebuild_entry_exception_are_explicit ... ok
+test permutation_measurements_preserve_source_identity ... ok
+test scientific_construction_observations ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/seca_light_stream.rs (target/debug/deps/seca_light_stream-3398f61d5f13bde5)
+
+running 12 tests
+test old_metadata_only_schema_is_rejected ... ok
+test duplicate_sources_are_counted_once ... ok
+test failed_update_leaves_valid_state_identical ... ok
+test failed_baseline_isolated_and_baseline_duplicates_count_once ... ok
+test malformed_duplicate_cannot_bypass_validation ... ok
+test persisted_second_batch_retains_structure_and_source_union ... ok
+test empty_batches_forget_sources_but_preserve_structure ... ok
+test reconstruction_shrinks_tree_after_forgetting_and_history_remains_readable ... ok
+test restart_matches_uninterrupted_updates_and_reconstruction ... ok
+test change_reconstructs_only_target_child_and_preserves_sibling ... ok
+test reconstruction_chooses_updated_prominent_word_and_stabilizes ... ok
+test gamma_three_bounds_all_source_memberships_as_batches_grow ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/snapshot_validation.rs (target/debug/deps/snapshot_validation-5a15074cbc477bd5)
+
+running 12 tests
+test expired_empty_batch_and_detached_provenance_are_rejected ... ok
+test full_memory_snapshot_retains_old_evidence_without_gamma_validation ... ok
+test retained_batches_must_be_ordered_and_not_in_the_future ... ok
+test snapshot_rejects_expired_retained_evidence ... ok
+test empty_updates_advance_boundary_and_clear_all_expired_indexes ... ok
+test snapshot_rejects_invalid_expected_word ... ok
+test snapshot_rejects_invalid_top_word ... ok
+test snapshot_rejects_invalid_descriptor_word ... ok
+test refuge_sentinel_is_only_valid_in_node_descriptors ... ok
+test round_trip_followed_by_update_matches_live_engine ... ok
+test snapshot_rejects_invalid_membership_word ... ok
+test valid_sliding_window_snapshots_include_boundary_and_saturate_at_zero ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests realtime_seca_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

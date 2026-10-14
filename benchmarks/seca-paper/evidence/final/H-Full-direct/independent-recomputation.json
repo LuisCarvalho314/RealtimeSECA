@@ -1,0 +1,126 @@
+{
+  "cycles": [
+    {
+      "cycle": 1,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 2,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 3,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 4,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 5,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 6,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 7,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 8,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 9,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 10,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 11,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    },
+    {
+      "cycle": 12,
+      "scores": {
+        "bcubed_f1": null,
+        "bcubed_precision": null,
+        "bcubed_recall": null,
+        "nmi": null,
+        "purity": null
+      }
+    }
+  ],
+  "cycles_verified": 12,
+  "independent_set_calculation": true
+}

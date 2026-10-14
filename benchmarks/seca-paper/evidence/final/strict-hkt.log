@@ -1,0 +1,24 @@
+   Compiling realtime-seca-core v0.1.0 (/tmp/seca-paper-benchmark/crates/realtime-seca-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.68s
+     Running tests/parity_hkt_reconstruction.rs (target/debug/deps/parity_hkt_reconstruction-7af40355e4b5c7c3)
+
+running 1 test
+test executed::strict_executed_csharp_parity ... FAILED
+
+failures:
+
+---- executed::strict_executed_csharp_parity stdout ----
+
+thread 'executed::strict_executed_csharp_parity' (287) panicked at crates/realtime-seca-core/tests/parity_hkt_reconstruction.rs:634:13:
+assertion `left == right` failed: /tmp/seca-paper-benchmark/crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary
+  left: Array [Object {"decisions": Array [], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1"), String("2")], "words": Array [String("a")]}], "path": String("root")}}, Object {"decisions": Array [Object {"path": String("root"), "triggered": Bool(false)}], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1"), String("2"), String("3")], "words": Array [String("a")]}], "path": String("root")}}, Object {"decisions": Array [Object {"path": String("root"), "triggered": Bool(false)}], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1"), String("2"), String("3"), String("4")], "words": Array [String("a")]}], "path": String("root")}}]
+ right: Array [Object {"decisions": Array [], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1")], "words": Array [String("b")]}], "path": String("root/0")}, "refuge": Bool(false), "sources": Array [String("1"), String("2")], "words": Array [String("a")]}], "path": String("root")}}, Object {"decisions": Array [Object {"path": String("root"), "triggered": Bool(false)}, Object {"path": String("root/0"), "triggered": Bool(false)}], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1"), String("3")], "words": Array [String("b")]}], "path": String("root/0")}, "refuge": Bool(false), "sources": Array [String("1"), String("2"), String("3")], "words": Array [String("a")]}], "path": String("root")}}, Object {"decisions": Array [Object {"path": String("root"), "triggered": Bool(false)}, Object {"path": String("root/0"), "triggered": Bool(false)}], "topology": Object {"expected": Array [], "nodes": Array [Object {"child": Object {"expected": Array [], "nodes": Array [Object {"child": Null, "refuge": Bool(false), "sources": Array [String("1"), String("3")], "words": Array [String("b")]}], "path": String("root/0")}, "refuge": Bool(false), "sources": Array [String("1"), String("2"), String("3"), String("4")], "words": Array [String("a")]}], "path": String("root")}}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    executed::strict_executed_csharp_parity
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p realtime-seca-core --test parity_hkt_reconstruction`

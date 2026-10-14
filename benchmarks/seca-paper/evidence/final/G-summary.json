@@ -1,0 +1,138 @@
+[
+  {
+    "aggregation": "unweighted mean of all 12 current-batch cycle scores; null if any blocked",
+    "algorithm": "SECA",
+    "assignment_cycles": 12,
+    "learning_cycles": 12,
+    "method": "direct",
+    "parity_claim": false,
+    "published_comparison": [
+      {
+        "absolute_difference": null,
+        "metric": "nmi",
+        "published": 0.8621,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      },
+      {
+        "absolute_difference": null,
+        "metric": "bcubed_f1",
+        "published": 0.5463,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      },
+      {
+        "absolute_difference": null,
+        "metric": "purity",
+        "published": 0.7167,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      }
+    ],
+    "source": "2023 published Table 3, p. 127025; final PDF independently verified",
+    "status": "scientifically_blocked",
+    "theme": "G"
+  },
+  {
+    "aggregation": "unweighted mean of all 12 current-batch cycle scores; null if any blocked",
+    "algorithm": "SECA",
+    "assignment_cycles": 12,
+    "learning_cycles": 12,
+    "method": "indirect",
+    "parity_claim": false,
+    "published_comparison": [
+      {
+        "absolute_difference": 0.011325624054540295,
+        "metric": "nmi",
+        "published": 0.883,
+        "reproduced": 0.8716743759454597,
+        "scoreable_cycles": 12
+      },
+      {
+        "absolute_difference": 0.02142357375834769,
+        "metric": "bcubed_f1",
+        "published": 0.6303,
+        "reproduced": 0.6088764262416523,
+        "scoreable_cycles": 12
+      },
+      {
+        "absolute_difference": 0.005852252252252166,
+        "metric": "purity",
+        "published": 0.8036,
+        "reproduced": 0.7977477477477478,
+        "scoreable_cycles": 12
+      }
+    ],
+    "source": "2023 published Table 3, p. 127025; final PDF independently verified",
+    "status": "complete",
+    "theme": "G"
+  },
+  {
+    "aggregation": "unweighted mean of all 12 current-batch cycle scores; null if any blocked",
+    "algorithm": "SECA-Light",
+    "assignment_cycles": 12,
+    "learning_cycles": 12,
+    "method": "direct",
+    "parity_claim": false,
+    "published_comparison": [
+      {
+        "absolute_difference": null,
+        "metric": "nmi",
+        "published": 0.8594,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      },
+      {
+        "absolute_difference": null,
+        "metric": "bcubed_f1",
+        "published": 0.5537,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      },
+      {
+        "absolute_difference": null,
+        "metric": "purity",
+        "published": 0.7073,
+        "reproduced": null,
+        "scoreable_cycles": 0
+      }
+    ],
+    "source": "2023 published Table 3, p. 127025; final PDF independently verified",
+    "status": "scientifically_blocked",
+    "theme": "G"
+  },
+  {
+    "aggregation": "unweighted mean of all 12 current-batch cycle scores; null if any blocked",
+    "algorithm": "SECA-Light",
+    "assignment_cycles": 12,
+    "learning_cycles": 12,
+    "method": "indirect",
+    "parity_claim": false,
+    "published_comparison": [
+      {
+        "absolute_difference": 0.013421226561751043,
+        "metric": "nmi",
+        "published": 0.8793,
+        "reproduced": 0.8658787734382489,
+        "scoreable_cycles": 12
+      },
+      {
+        "absolute_difference": 0.02884185105889303,
+        "metric": "bcubed_f1",
+        "published": 0.6274,
+        "reproduced": 0.5985581489411069,
+        "scoreable_cycles": 12
+      },
+      {
+        "absolute_difference": 0.011932432432432583,
+        "metric": "purity",
+        "published": 0.792,
+        "reproduced": 0.7800675675675675,
+        "scoreable_cycles": 12
+      }
+    ],
+    "source": "2023 published Table 3, p. 127025; final PDF independently verified",
+    "status": "complete",
+    "theme": "G"
+  }
+]

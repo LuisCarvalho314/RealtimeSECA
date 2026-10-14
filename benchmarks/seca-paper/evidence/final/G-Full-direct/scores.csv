@@ -1,0 +1,13 @@
+theme,algorithm,clustering_procedure,cycle,evaluated_document_count,predicted_cluster_count,ground_truth_event_count,nmi,bcubed_precision,bcubed_recall,bcubed_f1,purity
+G,SECA,direct,1,740,166,133,,,,,
+G,SECA,direct,2,740,191,134,,,,,
+G,SECA,direct,3,740,195,128,,,,,
+G,SECA,direct,4,740,209,132,,,,,
+G,SECA,direct,5,740,191,129,,,,,
+G,SECA,direct,6,740,183,131,,,,,
+G,SECA,direct,7,740,203,125,,,,,
+G,SECA,direct,8,740,202,125,,,,,
+G,SECA,direct,9,740,215,124,,,,,
+G,SECA,direct,10,740,210,126,,,,,
+G,SECA,direct,11,740,224,133,,,,,
+G,SECA,direct,12,740,220,133,,,,,

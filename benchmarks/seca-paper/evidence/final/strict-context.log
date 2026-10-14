@@ -1,0 +1,24 @@
+   Compiling realtime-seca-core v0.1.0 (/tmp/seca-paper-benchmark/crates/realtime-seca-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s
+     Running tests/parity_context_metrics.rs (target/debug/deps/parity_context_metrics-8324bb63493c1209)
+
+running 1 test
+test expected_failure_csharp_alpha_threshold_parity ... FAILED
+
+failures:
+
+---- expected_failure_csharp_alpha_threshold_parity stdout ----
+
+thread 'expected_failure_csharp_alpha_threshold_parity' (150) panicked at crates/realtime-seca-core/tests/parity_context_metrics.rs:479:5:
+assertion `left == right` failed
+  left: true
+ right: false
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    expected_failure_csharp_alpha_threshold_parity
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 20 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p realtime-seca-core --test parity_context_metrics`

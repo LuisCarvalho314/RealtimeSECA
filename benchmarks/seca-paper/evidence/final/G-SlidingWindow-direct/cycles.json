@@ -1,0 +1,134 @@
+[
+  {
+    "assigned": 740,
+    "assignment_sha256": "6d6e6899ce35813b58904ed894259a5f217ec02dff00504b5e157f033ba36d29",
+    "cycle": 1,
+    "maximum_memberships": 3,
+    "memberships": 807,
+    "overlapping": 60,
+    "population": 740,
+    "predicted_clusters": 166,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "fe80cc3ce97d85f64c42f02ee1c23e3dbbf23ce125ed80178218070f5cb9608a",
+    "cycle": 2,
+    "maximum_memberships": 3,
+    "memberships": 802,
+    "overlapping": 60,
+    "population": 740,
+    "predicted_clusters": 191,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "7e86763e9274692f4e0a014fd349e19e17d5018a3f7d7eb7d2f6ee78a87244fd",
+    "cycle": 3,
+    "maximum_memberships": 3,
+    "memberships": 802,
+    "overlapping": 59,
+    "population": 740,
+    "predicted_clusters": 195,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "eef14d0dbd1f82cf9a70851507b21d8dd175251258d9e6e6fca42116eab0315c",
+    "cycle": 4,
+    "maximum_memberships": 3,
+    "memberships": 825,
+    "overlapping": 75,
+    "population": 740,
+    "predicted_clusters": 209,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "336a45a2d63d659e8c4542239f2ee9920e7eccfa02515f81c7ac030aa69f9f9d",
+    "cycle": 5,
+    "maximum_memberships": 4,
+    "memberships": 819,
+    "overlapping": 71,
+    "population": 740,
+    "predicted_clusters": 197,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "ff75a72ca46367af290bd7a19f4dedb9e01ce3f0b5c39b8954c9386a7b860eb2",
+    "cycle": 6,
+    "maximum_memberships": 3,
+    "memberships": 805,
+    "overlapping": 62,
+    "population": 740,
+    "predicted_clusters": 177,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "8e4150bf6bbaf7949dc16b0dc4b9705dbdf21913bd5370cf577a5f72cb701624",
+    "cycle": 7,
+    "maximum_memberships": 3,
+    "memberships": 808,
+    "overlapping": 61,
+    "population": 740,
+    "predicted_clusters": 198,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "6d11ff30fcb32b11c529bbdc689c07df5912846c826de5e3e2a42f6f801dd5a5",
+    "cycle": 8,
+    "maximum_memberships": 2,
+    "memberships": 808,
+    "overlapping": 68,
+    "population": 740,
+    "predicted_clusters": 197,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "2f3b69f7201aa90b781ad8d79987bc043aa59792e7ad74c49a9a2a827dea97a5",
+    "cycle": 9,
+    "maximum_memberships": 3,
+    "memberships": 817,
+    "overlapping": 72,
+    "population": 740,
+    "predicted_clusters": 209,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "fb7e8c0de501c43c028f051eae59e5903765cb15b07abb7186b2ae4e772f332b",
+    "cycle": 10,
+    "maximum_memberships": 3,
+    "memberships": 823,
+    "overlapping": 75,
+    "population": 740,
+    "predicted_clusters": 201,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "1ab03c5b21d082f7b0e20a36d8b5240a4fef529e04d5f2ce1bdccb702b75f3fe",
+    "cycle": 11,
+    "maximum_memberships": 3,
+    "memberships": 827,
+    "overlapping": 80,
+    "population": 740,
+    "predicted_clusters": 206,
+    "unassigned": 0
+  },
+  {
+    "assigned": 740,
+    "assignment_sha256": "d185816a98d12c36ddbe786c57359a4fa92e2dd3fa385e3ca32e906a08fa3853",
+    "cycle": 12,
+    "maximum_memberships": 3,
+    "memberships": 829,
+    "overlapping": 80,
+    "population": 740,
+    "predicted_clusters": 195,
+    "unassigned": 0
+  }
+]

@@ -53,3 +53,7 @@ arguments for usage. The library also supports accumulated SECA evidence through
 Read [the scientific specification](docs/algorithm.md),
 [the implementation map](docs/architecture.md), and
 [the state invariants](docs/state.md). [AGENTS.md](AGENTS.md) governs development.
+
+The [SECA paper benchmark](docs/seca-paper-benchmark.md) provides reproducible
+Theme G/H event-clustering experiments and an empirical regression reference.
+It explicitly distinguishes protocol reconstruction from exact paper replication.

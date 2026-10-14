@@ -1,0 +1,42 @@
+[
+  {
+    "maximum_clusters": 224,
+    "maximum_memberships_per_document": 4,
+    "maximum_overlapping_documents": 88,
+    "minimum_clusters": 166,
+    "minimum_overlapping_documents": 58,
+    "mode": "Full",
+    "theme": "G",
+    "total_unassigned": 0
+  },
+  {
+    "maximum_clusters": 209,
+    "maximum_memberships_per_document": 4,
+    "maximum_overlapping_documents": 80,
+    "minimum_clusters": 166,
+    "minimum_overlapping_documents": 59,
+    "mode": "SlidingWindow",
+    "theme": "G",
+    "total_unassigned": 0
+  },
+  {
+    "maximum_clusters": 174,
+    "maximum_memberships_per_document": 4,
+    "maximum_overlapping_documents": 287,
+    "minimum_clusters": 116,
+    "minimum_overlapping_documents": 143,
+    "mode": "Full",
+    "theme": "H",
+    "total_unassigned": 0
+  },
+  {
+    "maximum_clusters": 174,
+    "maximum_memberships_per_document": 3,
+    "maximum_overlapping_documents": 233,
+    "minimum_clusters": 61,
+    "minimum_overlapping_documents": 50,
+    "mode": "SlidingWindow",
+    "theme": "H",
+    "total_unassigned": 0
+  }
+]

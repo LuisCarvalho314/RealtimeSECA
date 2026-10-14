@@ -1,0 +1,146 @@
+[
+  {
+    "independent_recomputation": true,
+    "method": "direct",
+    "mode": "Full",
+    "resume_tree_and_snapshot_equal": true,
+    "scores": [
+      {
+        "algorithm": "SECA",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "direct",
+        "cycle": 1,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      },
+      {
+        "algorithm": "SECA",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "direct",
+        "cycle": 2,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      }
+    ]
+  },
+  {
+    "independent_recomputation": true,
+    "method": "indirect",
+    "mode": "Full",
+    "resume_tree_and_snapshot_equal": true,
+    "scores": [
+      {
+        "algorithm": "SECA",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "indirect",
+        "cycle": 1,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      },
+      {
+        "algorithm": "SECA",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "indirect",
+        "cycle": 2,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      }
+    ]
+  },
+  {
+    "independent_recomputation": true,
+    "method": "direct",
+    "mode": "SlidingWindow",
+    "resume_tree_and_snapshot_equal": true,
+    "scores": [
+      {
+        "algorithm": "SECA-Light",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "direct",
+        "cycle": 1,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      },
+      {
+        "algorithm": "SECA-Light",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "direct",
+        "cycle": 2,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      }
+    ]
+  },
+  {
+    "independent_recomputation": true,
+    "method": "indirect",
+    "mode": "SlidingWindow",
+    "resume_tree_and_snapshot_equal": true,
+    "scores": [
+      {
+        "algorithm": "SECA-Light",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "indirect",
+        "cycle": 1,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      },
+      {
+        "algorithm": "SECA-Light",
+        "bcubed_f1": 1.0,
+        "bcubed_precision": 1.0,
+        "bcubed_recall": 1.0,
+        "clustering_procedure": "indirect",
+        "cycle": 2,
+        "evaluated_document_count": 4,
+        "ground_truth_event_count": 2,
+        "nmi": 1.0,
+        "predicted_cluster_count": 2,
+        "purity": 1.0,
+        "theme": "G"
+      }
+    ]
+  }
+]

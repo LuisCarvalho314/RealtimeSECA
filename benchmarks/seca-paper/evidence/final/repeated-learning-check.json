@@ -1,0 +1,26 @@
+[
+  {
+    "cycles": 12,
+    "independent_learning_export_bytes_equal": true,
+    "memory": "Full",
+    "theme": "G"
+  },
+  {
+    "cycles": 12,
+    "independent_learning_export_bytes_equal": true,
+    "memory": "SlidingWindow",
+    "theme": "G"
+  },
+  {
+    "cycles": 12,
+    "independent_learning_export_bytes_equal": true,
+    "memory": "Full",
+    "theme": "H"
+  },
+  {
+    "cycles": 12,
+    "independent_learning_export_bytes_equal": true,
+    "memory": "SlidingWindow",
+    "theme": "H"
+  }
+]

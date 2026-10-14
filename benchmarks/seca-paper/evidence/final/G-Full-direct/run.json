@@ -1,0 +1,395 @@
+{
+  "adapter_command": [
+    "python3",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/clustering/cluster.py",
+    "{request}"
+  ],
+  "adapter_file_hashes": {
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/clustering/cluster.py": "4d9629ce8486e1a5b5a09804f453fcc0ef58e4e004841d54d880a4c3b22fcd6f"
+  },
+  "assignment_cycles_completed": 12,
+  "clustering_procedure": "direct",
+  "configuration": {
+    "clustering_settings": {
+      "contextual_threshold": "1/2"
+    },
+    "engine": {
+      "hkt_builder": {
+        "minimum_number_of_sources_to_create_branch_for_node": 10,
+        "minimum_threshold_against_max_word_count": 0.7,
+        "similarity_threshold": 0.5
+      },
+      "max_batches_in_memory": null,
+      "memory_mode": "Full",
+      "seca_thresholds": {
+        "alpha": 0.7,
+        "alpha_error_threshold": 0.1,
+        "beta": 0.5,
+        "beta_error_threshold": 0.2,
+        "word_importance_error_threshold": 0.3
+      }
+    },
+    "evaluation_population": "current_batch",
+    "parameter_sources": {
+      "branch_minimum": "10: existing repository seca_config.json; not established by paper",
+      "clustering_settings": "1/2: explicit research assumption, not recovered paper merge threshold; max reduction and transitive merging per clustering interpretation",
+      "evaluation_population": "current_batch: explicit reconstruction choice; paper population unresolved, not selected against labels",
+      "gamma": "Full: no forgetting; SlidingWindow: existing seca_light_config.json gamma=3, not verified original experiment gamma"
+    },
+    "purpose": "research"
+  },
+  "dataset_hashes": {
+    "G/batch-00.json": "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005",
+    "G/batch-01.json": "7ea61f5ed367382f6888b185bbb2bdbc9267d48ceb39cb04b3bfd024a9885930",
+    "G/batch-02.json": "2f032849b7128415f89032bc1579648afd336d4bd599fb9af00de2882c42e3af",
+    "G/batch-03.json": "52eec9e594300e77da9ef94b719be4890aa8fb8454563a232fcee1f2d4c2b892",
+    "G/batch-04.json": "f1bf9814d750d2e9fc659b4eab4d0170e6127ffdcc39386a319790f315e712e4",
+    "G/batch-05.json": "c725d58236a872a1d599ccfe5dfd45b0d2bcc227fbd813d3e8f46b1cda145466",
+    "G/batch-06.json": "ec9fd14caf2a1304307effcb0729bbf173ec9157db87ceeeeae2475a79f7926e",
+    "G/batch-07.json": "0b166637eddaa729b5e5d47ed73364873da6e9b5d0c4da1d68585be436092de8",
+    "G/batch-08.json": "b5593145898c06cf28082cb7028daaf76749ae705ed89454ae8f92a4a179a446",
+    "G/batch-09.json": "f396d0d9b4e5afbf9dca9a3febc475989fb3624bd851d563d3cd68c2202cf0f8",
+    "G/batch-10.json": "193b69313b5c9c31d06c49cdc3de57570bea90c091c8e96e65bc7954d9165044",
+    "G/batch-11.json": "4706d65eaf44e9667db1cc1026d4c350134edbdc8e21aedec8fb1d968b1e1461",
+    "G/ground-truth.json": "3b245e3c408d999aa1c0a3acaa1937cb55c191e2fac6869defd3a3346376b2c4"
+  },
+  "engine_command": [
+    "/tmp/seca-paper-benchmark/target/debug/examples/paper_stream",
+    "timeline-many",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0000.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0001.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0002.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0003.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0004.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0005.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0006.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0007.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0008.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0009.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0010.json",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/inputs/batch-0011.json",
+    "--config",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/engine-config.json",
+    "--out-dir",
+    "/tmp/seca-paper-benchmark/benchmarks/seca-paper/results/final/G-Full-direct/trees"
+  ],
+  "engine_git_revision": "31e1b9d5218572d63a9077fa838b426172929d9d",
+  "engine_input_hashes": {
+    "batch-0000.json": "4ba9b90d7e5123b7c42c137c61049a24d5b8f7866b20097707d7dbd8416404b2",
+    "batch-0001.json": "d7ff7e9d2086cb7dde260fd24579b57dafc0d0e3eabdc7f962e9acd8fdc4a577",
+    "batch-0002.json": "52dbe5aeb4c2db0a40139c246eee1994cffff68fa5b66a252167579928813234",
+    "batch-0003.json": "65d3f3acb0a16775e3af22436e1b0c4f412ea4fbf68cf0ba434ae7586d873eb1",
+    "batch-0004.json": "3de179c75e96fe9a6c50ced36e506cd2902aed762295a71989659d0a1e28f4d3",
+    "batch-0005.json": "c076dc15ce0303558d4ca1969323ca9cb1dbb54535595ea80adeab7249b89cdd",
+    "batch-0006.json": "d27d829d14b37adbd78dc114666fd606b217799a4797e9449f61511567b10b42",
+    "batch-0007.json": "359fd135f5ebcebe576afae13264abbec8b8ef13366ff636390f596d3a04f6df",
+    "batch-0008.json": "25092e613c1d695c0b78f83f5fdb107d4afa1be800b83fe5483c611aacf3825f",
+    "batch-0009.json": "3c19918f7aee3f9460d6faaeb5ef6458ef52fc48bd564009f3d9b9f297c0bc38",
+    "batch-0010.json": "96c0a2aa0a5e826eef29f34f16e0dae0fa70fca5ca6f79f4be0729972c091884",
+    "batch-0011.json": "e2bbac35c7071997d8dddd8846ef3b3867d85a8d5b83c9293d860d7cfdb39a91"
+  },
+  "engine_sha256": "04a54b2d856edeea636bf177592aca9c4c513f7e32fc38206d16581a24ca606c",
+  "git_revision": "d1a825339959e4b1c508b9fd6d9272dc7a1cf3ef",
+  "git_status": "?? benchmarks/seca-paper/evidence/\n",
+  "learning_cycles_completed": 12,
+  "learning_evidence": {
+    "run_sha256": "f19a08d076537e1cfec87b0f2cba1c9de7a50c829cd98e6c209e8f55ceb194ea",
+    "tree_hashes": {
+      "tree_batch_0000.json": "e3afed04a34408ae0aaef6e33f101ca41327e9a88c97823756656f2fd802a229",
+      "tree_batch_0001.json": "f32916e95e0cfb12b0c08451cf17fbd5ad72b9370d2a36e768c73b4cb53b6c3a",
+      "tree_batch_0002.json": "015511eefe8450736840c077e853906dad36017816160d5b23bdb8808eca6808",
+      "tree_batch_0003.json": "fd1e547eaafb9fb48e3640cb7d4eb7918c2a55e63c084650707f51ff29f70665",
+      "tree_batch_0004.json": "92e9b83267430b80aa5d9c9343437a4bce7e6b596f98153a2c1a8dcdb275f5ed",
+      "tree_batch_0005.json": "6556ceda51d0e2da761071aaee8c8c8798e2038fc29afaeac8110c963c9ff815",
+      "tree_batch_0006.json": "a73cb5a5515986a9f54bbba582f2f442e21d9347c0f773c59ea0244477da0bb5",
+      "tree_batch_0007.json": "9e63302b119aa3c5cbe602a5cce0e6af034afa03cae460d339980d759835cc73",
+      "tree_batch_0008.json": "69e32c16ec96f6f867bc58e364a6176352ec2fd4ad382ffcaf03149385afb2c4",
+      "tree_batch_0009.json": "4b79a62b9b0b28ee85db23785c54eb9a7c4f9d0dbfa4bac1d73c2d6c38aabafd",
+      "tree_batch_0010.json": "2dc604e1fa505950d177b14fe65ff5e72623cfa9c0ee961c6a8987c8cdefa199",
+      "tree_batch_0011.json": "43b04043b89598b0ccf87b30411423bea7bad5ec9ff8e76fef973a8e2225676e"
+    }
+  },
+  "manifest": {
+    "batch_count": 12,
+    "batch_size": 740,
+    "batches": [
+      {
+        "batch_index": 0,
+        "documents": 740,
+        "path": "G/batch-00.json",
+        "sha256": "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005",
+        "source_line_end": 740,
+        "source_line_start": 1
+      },
+      {
+        "batch_index": 1,
+        "documents": 740,
+        "path": "G/batch-01.json",
+        "sha256": "7ea61f5ed367382f6888b185bbb2bdbc9267d48ceb39cb04b3bfd024a9885930",
+        "source_line_end": 1480,
+        "source_line_start": 741
+      },
+      {
+        "batch_index": 2,
+        "documents": 740,
+        "path": "G/batch-02.json",
+        "sha256": "2f032849b7128415f89032bc1579648afd336d4bd599fb9af00de2882c42e3af",
+        "source_line_end": 2220,
+        "source_line_start": 1481
+      },
+      {
+        "batch_index": 3,
+        "documents": 740,
+        "path": "G/batch-03.json",
+        "sha256": "52eec9e594300e77da9ef94b719be4890aa8fb8454563a232fcee1f2d4c2b892",
+        "source_line_end": 2960,
+        "source_line_start": 2221
+      },
+      {
+        "batch_index": 4,
+        "documents": 740,
+        "path": "G/batch-04.json",
+        "sha256": "f1bf9814d750d2e9fc659b4eab4d0170e6127ffdcc39386a319790f315e712e4",
+        "source_line_end": 3700,
+        "source_line_start": 2961
+      },
+      {
+        "batch_index": 5,
+        "documents": 740,
+        "path": "G/batch-05.json",
+        "sha256": "c725d58236a872a1d599ccfe5dfd45b0d2bcc227fbd813d3e8f46b1cda145466",
+        "source_line_end": 4440,
+        "source_line_start": 3701
+      },
+      {
+        "batch_index": 6,
+        "documents": 740,
+        "path": "G/batch-06.json",
+        "sha256": "ec9fd14caf2a1304307effcb0729bbf173ec9157db87ceeeeae2475a79f7926e",
+        "source_line_end": 5180,
+        "source_line_start": 4441
+      },
+      {
+        "batch_index": 7,
+        "documents": 740,
+        "path": "G/batch-07.json",
+        "sha256": "0b166637eddaa729b5e5d47ed73364873da6e9b5d0c4da1d68585be436092de8",
+        "source_line_end": 5920,
+        "source_line_start": 5181
+      },
+      {
+        "batch_index": 8,
+        "documents": 740,
+        "path": "G/batch-08.json",
+        "sha256": "b5593145898c06cf28082cb7028daaf76749ae705ed89454ae8f92a4a179a446",
+        "source_line_end": 6660,
+        "source_line_start": 5921
+      },
+      {
+        "batch_index": 9,
+        "documents": 740,
+        "path": "G/batch-09.json",
+        "sha256": "f396d0d9b4e5afbf9dca9a3febc475989fb3624bd851d563d3cd68c2202cf0f8",
+        "source_line_end": 7400,
+        "source_line_start": 6661
+      },
+      {
+        "batch_index": 10,
+        "documents": 740,
+        "path": "G/batch-10.json",
+        "sha256": "193b69313b5c9c31d06c49cdc3de57570bea90c091c8e96e65bc7954d9165044",
+        "source_line_end": 8140,
+        "source_line_start": 7401
+      },
+      {
+        "batch_index": 11,
+        "documents": 740,
+        "path": "G/batch-11.json",
+        "sha256": "4706d65eaf44e9667db1cc1026d4c350134edbdc8e21aedec8fb1d968b1e1461",
+        "source_line_end": 8880,
+        "source_line_start": 8141
+      }
+    ],
+    "documents": 8880,
+    "ground_truth_path": "G/ground-truth.json",
+    "ground_truth_sha256": "3b245e3c408d999aa1c0a3acaa1937cb55c191e2fac6869defd3a3346376b2c4",
+    "label_convention": "clusterNo as decimal string, without relabeling",
+    "original_dataset_name": "News",
+    "path_base": "selected_benchmark_data_directory",
+    "preprocessing": "Use upstream textCleaned verbatim; split on whitespace with str.split(); preserve token order and repetitions; no stemming, stop-word removal, case folding, deduplication or additional cleaning.",
+    "reconstruction": {
+      "discarded_tail_documents": 2229,
+      "exact_paper_reconstruction": false,
+      "method": "First 8880 physical JSONL records of News, in published file order, contiguous batches.",
+      "ordering": "reconstructed",
+      "selection": "reconstructed",
+      "uncertainty": "Paper gives no ordered ID list, exact variant filename or truncation procedure; aggregate agreement does not establish exact identity or order.",
+      "variant_evidence": "Prefix label count and min/max event sizes match SECA Table 2; variant is inferred, not confirmed."
+    },
+    "schema_version": 1,
+    "selected_statistics": {
+      "documents": 8880,
+      "duplicate_ids": 0,
+      "duplicate_label_text_excess": 157,
+      "duplicate_text_excess": 217,
+      "labels": 152,
+      "maximum_label_documents": 354,
+      "minimum_label_documents": 2,
+      "ordered_ids_sha256": "dc63bde2db30ecc5e9e0f8ac12a8cbd0e8350aecd218ebb24015d5fe59ba9765",
+      "ordered_records_sha256": "8d252290c0d470bc9511ded8e2f31cffbc4e8b8fa73fdb27a48e5d0e4da0f53b",
+      "token_count": 55313
+    },
+    "source": {
+      "files": {
+        "News": {
+          "bytes": 1064634,
+          "git_blob": "fc3dddb96d92c67390ed83387ee729ebe1d3822b",
+          "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+          "path": "MStream/data/News",
+          "sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+          "statistics": {
+            "documents": 11109,
+            "duplicate_ids": 0,
+            "duplicate_label_text_excess": 248,
+            "duplicate_text_excess": 350,
+            "labels": 152,
+            "maximum_label_documents": 430,
+            "minimum_label_documents": 3,
+            "ordered_ids_sha256": "97bcb9b71614843fe00928f759dc1341815b36898848a1ceb3f3e10c7542b59e",
+            "ordered_records_sha256": "589b304689365eb4d113d2a323fe7a2a6d8be12ab9be9c9268edc59322e161d1",
+            "token_count": 69235
+          }
+        },
+        "News-T": {
+          "bytes": 1064634,
+          "git_blob": "6ccb49713abe390e1ad59fd8061b64c705dfd851",
+          "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+          "path": "MStream/data/News-T",
+          "sha256": "562d6a1771a4675caedb405d68371348bd7e54db130b633ef5ebd5896157ffbb",
+          "statistics": {
+            "documents": 11109,
+            "duplicate_ids": 0,
+            "duplicate_label_text_excess": 248,
+            "duplicate_text_excess": 350,
+            "labels": 152,
+            "maximum_label_documents": 430,
+            "minimum_label_documents": 3,
+            "ordered_ids_sha256": "92ca5cee2968d29f18de7cf113e0fc574ffec85546f5c8f26e5dfac8063110b0",
+            "ordered_records_sha256": "5ef48e3de901820797cf4162bc6bf18b95240b15f010411c9597ed98b566d6cb",
+            "token_count": 69235
+          }
+        },
+        "Tweets": {
+          "bytes": 3269729,
+          "git_blob": "26844874b6db4801f3efd6f0f6d913d6322fa64f",
+          "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+          "path": "MStream/data/Tweets",
+          "sha256": "126d6f0a4fd76abfdb76f555081ed44af4f185d8a202197906886fcf09927b98",
+          "statistics": {
+            "documents": 30322,
+            "duplicate_ids": 0,
+            "duplicate_label_text_excess": 4329,
+            "duplicate_text_excess": 4336,
+            "labels": 269,
+            "maximum_label_documents": 1628,
+            "minimum_label_documents": 1,
+            "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+            "ordered_records_sha256": "07d6ba435ed9f47fe7c5b1bdb9e04d812f2fc0cb8ee733071520e25f05a7a252",
+            "token_count": 241617
+          }
+        },
+        "Tweets-T": {
+          "bytes": 3269729,
+          "git_blob": "12a3db42d86d6e8db2705695d395c4e2a700c232",
+          "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+          "path": "MStream/data/Tweets-T",
+          "sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+          "statistics": {
+            "documents": 30322,
+            "duplicate_ids": 0,
+            "duplicate_label_text_excess": 4329,
+            "duplicate_text_excess": 4336,
+            "labels": 269,
+            "maximum_label_documents": 1628,
+            "minimum_label_documents": 1,
+            "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+            "ordered_records_sha256": "fb3cc73e4c387dd965d5ec3bd952f0f2396dbdeb14fd2eb81478b35c7e079271",
+            "token_count": 241617
+          }
+        }
+      },
+      "repository": "https://github.com/jackyin12/MStream",
+      "revision": "ac894075f2bbb93405679e237d2d5d11a325078c"
+    },
+    "source_id_convention": "mstream:News:<original Id verbatim>",
+    "source_variant": "News",
+    "theme": "G"
+  },
+  "manifest_sha256": "28e7934213dd5c78aeceb5d3274f4f3060c1717d1826b76ae91419cf25a50781",
+  "metric_definitions": {
+    "bcubed_f1": "document mean of per-document harmonic mean (not harmonic mean of means)",
+    "bcubed_precision": "document mean of intersection/predicted cluster size",
+    "bcubed_recall": "document mean of intersection/truth class size",
+    "degenerate_nmi": "undefined (null) when both entropies are zero",
+    "empty_clusters": "ignored",
+    "empty_population": "undefined (null)",
+    "nmi": "2*MI/(H(predicted)+H(truth)); natural log; zero cells omitted",
+    "overlapping_or_unassigned": "scientific blocker; raw memberships preserved",
+    "purity": "sum of predicted-cluster majority counts / evaluated population",
+    "units": "fractions",
+    "version": "seca-hard-v1"
+  },
+  "mock": false,
+  "scientific_blockers": [
+    {
+      "cycle": 1,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 2,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 3,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 4,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 5,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 6,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 7,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 8,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 9,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 10,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 11,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    },
+    {
+      "cycle": 12,
+      "reason": "overlapping/unassigned predictions: paper gives no conversion rule"
+    }
+  ],
+  "smoke": false,
+  "status": "scientifically_blocked"
+}

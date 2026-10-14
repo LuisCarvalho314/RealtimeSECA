@@ -1,0 +1,47 @@
+test_cli_json_and_atomic_failure (test_cluster.ContractTests.test_cli_json_and_atomic_failure)
+Valid request emits one complete object; missing tokens emit no assignment. ... ok
+test_invalid_tree_fails_without_mutation (test_cluster.ContractTests.test_invalid_tree_fails_without_mutation)
+Reject missing parents, cycles, invalid identities and scope expansion. ... ok
+test_missing_tokens_are_not_an_empty_document (test_cluster.ContractTests.test_missing_tokens_are_not_an_empty_document)
+Missing evidence must fail; an explicitly empty token set is valid. ... ok
+test_permutations_repeats_labels_and_input_immutability (test_cluster.ContractTests.test_permutations_repeats_labels_and_input_immutability)
+Array order and labels cannot alter sets or exact scores; no input mutates. ... ok
+test_reject_invalid_population_and_threshold (test_cluster.ContractTests.test_reject_invalid_population_and_threshold)
+Ambiguous duplicate IDs and missing/nonnumeric thresholds cannot score. ... ok
+test_current_population_does_not_expand_to_retained (test_cluster.DirectTests.test_current_population_does_not_expand_to_retained)
+The caller selects d2, even though the model retains d1 through d6. ... ok
+test_duplicate_membership_is_set_membership (test_cluster.DirectTests.test_duplicate_membership_is_set_membership)
+Repeated d1 inside one node contributes one event member. ... ok
+test_independent_and_shared_sources (test_cluster.DirectTests.test_independent_and_shared_sources)
+d2 belongs to both Seed events; direct has no hard-assignment rule. ... ok
+test_one_event (test_cluster.DirectTests.test_one_event)
+A Seed node's sources are its event members, irrespective of labels. ... ok
+test_orphan_ancestry_and_nested_refuge (test_cluster.DirectTests.test_orphan_ancestry_and_nested_refuge)
+Only 1 and 5 are event roots; 3 and 6 retain Seed 1 as ancestor. ... ok
+test_refuge_only_and_empty_population (test_cluster.DirectTests.test_refuge_only_and_empty_population)
+A refuge is no event; an empty requested population yields empty sets. ... ok
+test_complete_merge_and_assignment (test_cluster.IndirectTests.test_complete_merge_and_assignment)
+Both roots describe q, so one merged event receives sources matching a or b. ... ok
+test_context_is_node_support_not_word_frequency_or_evaluation_support (test_cluster.IndirectTests.test_context_is_node_support_not_word_frequency_or_evaluation_support)
+Seed a=4/4, child x=2/4, internal-refuge child y=1/4; Orphan b=1/1. ... ok
+test_empty_support_and_no_proxies (test_cluster.IndirectTests.test_empty_support_and_no_proxies)
+Forgotten empty roots are omitted; no proxy leaves a source unassigned. ... ok
+test_exported_top_words_do_not_create_false_merges (test_cluster.IndirectTests.test_exported_top_words_do_not_create_false_merges)
+Shared presentation top-word q is not a descriptor in either proxy. ... ok
+test_hard_assignment_sum_tie_and_zero (test_cluster.IndirectTests.test_hard_assignment_sum_tie_and_zero)
+a+b ties 1:1, choosing descriptor a (node 2); b alone chooses 10; z remains unassigned. ... ok
+test_merged_weight_is_maximum (test_cluster.IndirectTests.test_merged_weight_is_maximum)
+Shared root word q merges; x keeps max(1/2,3/4), without renormalizing. ... ok
+test_positive_ties_ignore_node_ids (test_cluster.IndirectTests.test_positive_ties_ignore_node_ids)
+Renumber roots while preserving descriptors; a must win the tie. ... ok
+test_proximity_is_distinct_intersection_sum (test_cluster.IndirectTests.test_proximity_is_distinct_intersection_sum)
+Repeated x and unknown words do not increase 1/2 + 1/4 = 3/4. ... ok
+test_repeated_descriptor_uses_strongest_context (test_cluster.IndirectTests.test_repeated_descriptor_uses_strongest_context)
+Two x occurrences, 2/4 and 1/4, reduce to 1/2 rather than 3/4. ... ok
+test_threshold_boundary_and_transitive_merge (test_cluster.IndirectTests.test_threshold_boundary_and_transitive_merge)
+A--x--B--y--C is one component at 1/2, three components above 1/2. ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.077s
+
+OK

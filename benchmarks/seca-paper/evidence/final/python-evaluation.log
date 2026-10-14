@@ -1,0 +1,30 @@
+test_blocked_cycle_does_not_discard_later_evidence (evaluation.test_integration.IntegrationTests.test_blocked_cycle_does_not_discard_later_evidence) ... ok
+test_independent_metrics_and_missing_membership (evaluation.test_integration.IntegrationTests.test_independent_metrics_and_missing_membership) ... ok
+test_saved_learning_is_checked_before_rescoring (evaluation.test_integration.IntegrationTests.test_saved_learning_is_checked_before_rescoring) ... ok
+test_empty_clusters_ignored (evaluation.test_metrics.MetricsTests.test_empty_clusters_ignored) ... ok
+test_empty_population_and_degenerate (evaluation.test_metrics.MetricsTests.test_empty_population_and_degenerate) ... ok
+test_fragmented (evaluation.test_metrics.MetricsTests.test_fragmented) ... ok
+test_invalid_boundaries (evaluation.test_metrics.MetricsTests.test_invalid_boundaries) ... ok
+test_merged (evaluation.test_metrics.MetricsTests.test_merged) ... ok
+test_mixed_document_f1_not_harmonic_mean_of_means (evaluation.test_metrics.MetricsTests.test_mixed_document_f1_not_harmonic_mean_of_means) ... ok
+test_overlap_valid_at_boundary_but_scoring_blocked (evaluation.test_metrics.MetricsTests.test_overlap_valid_at_boundary_but_scoring_blocked) ... ok
+test_perfect (evaluation.test_metrics.MetricsTests.test_perfect) ... ok
+test_relabeling_and_order_are_irrelevant (evaluation.test_metrics.MetricsTests.test_relabeling_and_order_are_irrelevant) ... ok
+test_unassigned_scoring_blocked (evaluation.test_metrics.MetricsTests.test_unassigned_scoring_blocked) ... ok
+test_agent1_manifest_path_base (evaluation.test_runner.RunnerTests.test_agent1_manifest_path_base) ... ok
+test_comparison (evaluation.test_runner.RunnerTests.test_comparison) ... ok
+test_configuration (evaluation.test_runner.RunnerTests.test_configuration) ... ok
+test_evaluation_population_separate_from_learning_window (evaluation.test_runner.RunnerTests.test_evaluation_population_separate_from_learning_window) ... ok
+test_file_command_adapter (evaluation.test_runner.RunnerTests.test_file_command_adapter) ... ok
+test_manifest_and_hashes (evaluation.test_runner.RunnerTests.test_manifest_and_hashes) ... ok
+test_manifest_sequence_identity_and_leakage (evaluation.test_runner.RunnerTests.test_manifest_sequence_identity_and_leakage) ... ok
+test_mock_assignment_evaluation (evaluation.test_runner.RunnerTests.test_mock_assignment_evaluation) ... ok
+test_published_comparison (evaluation.test_runner.RunnerTests.test_published_comparison) ... ok
+test_real_engine_mock_smoke (evaluation.test_runner.RunnerTests.test_real_engine_mock_smoke) ... ok
+test_scientific_failure_preserves_raw_memberships (evaluation.test_runner.RunnerTests.test_scientific_failure_preserves_raw_memberships) ... ok
+test_strict_serialization (evaluation.test_runner.RunnerTests.test_strict_serialization) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.127s
+
+OK

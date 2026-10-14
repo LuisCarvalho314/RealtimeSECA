@@ -1,0 +1,12 @@
+{
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)\nbinary: rustc\ncommit-hash: ded5c06cf21d2b93bffd5d884aa6e96934ee4234\ncommit-date: 2025-12-08\nhost: x86_64-unknown-linux-gnu\nrelease: 1.92.0\nLLVM version: 21.1.3\n",
+  "cargo": "cargo 1.92.0 (344c4567c 2025-10-21)",
+  "python": "3.11.4",
+  "system": "Linux",
+  "machine": "x86_64",
+  "build_profile": "debug",
+  "dependencies": "engine-Cargo.lock",
+  "engine_source_revision": "31e1b9d",
+  "scoring_source_revision": "d1a8253",
+  "note": "Binary hashes identify built bytes; debug binaries may differ with compiler or source path while producing the same scientific results."
+}

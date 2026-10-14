@@ -1,0 +1,14 @@
+[
+  {
+    "cycle": 2,
+    "resumed_after_cycle": 1,
+    "snapshot_equal": true,
+    "tree_equal": true
+  },
+  {
+    "cycle": 7,
+    "resumed_after_cycle": 6,
+    "snapshot_equal": true,
+    "tree_equal": true
+  }
+]
