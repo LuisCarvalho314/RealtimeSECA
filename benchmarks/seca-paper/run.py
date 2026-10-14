@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run one theme/memory mode/procedure; never tune or launch a hidden matrix."""
 import argparse
+import os
 import subprocess
 import shutil
 from pathlib import Path
@@ -10,6 +11,68 @@ from evaluation.io import digest, read_json, write_json, write_scores
 from evaluation.metrics import DEFINITIONS, evaluate, ScientificBlocker, validate_assignments
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def prepare_learning(engine, config, documents, truth, output, metadata, hashes, learning_from):
+    inputs = output / 'inputs'
+    inputs.mkdir()
+    paths = []
+    for index, sources in enumerate(documents):
+        path = inputs / f'batch-{index:04}.json'
+        # Only tokenized evidence enters engine, never evaluator labels/history.
+        clean = [{k: s[k] for k in ('source_id', 'batch_index', 'tokens')} for s in sources]
+        write_json(path, {'batch_index': index, 'sources': clean})
+        paths.append(str(path))
+    metadata['engine_input_hashes'] = {Path(p).name: digest(p) for p in paths}
+    write_json(output / 'ground-truth.json', truth)
+    write_json(output / 'engine-config.json', config['engine'])
+    command = [str(engine), 'timeline-many', *paths, '--config', str(output / 'engine-config.json'),
+               '--out-dir', str(output / 'trees')]
+    metadata['engine_command'] = command
+    if learning_from:
+        previous = Path(learning_from).resolve()
+        prior = read_json(previous / 'run.json')
+        if (prior.get('learning_cycles_completed') != len(documents) or
+                prior['configuration']['engine'] != config['engine'] or
+                prior['dataset_hashes'] != hashes or prior['engine_sha256'] != digest(engine) or
+                prior['engine_input_hashes'] != metadata['engine_input_hashes']):
+            raise ValueError('saved learning evidence differs from requested engine/data/configuration')
+        metadata['engine_git_revision'] = prior['engine_git_revision']
+        metadata['learning_evidence'] = {'run_sha256': digest(previous / 'run.json'),
+            'tree_hashes': {p.name: digest(p) for p in sorted((previous / 'trees').glob('tree_batch_*.json'))}}
+        if len(metadata['learning_evidence']['tree_hashes']) != len(documents):
+            raise ValueError('saved learning evidence lacks cycles')
+        shutil.copytree(previous / 'trees', output / 'trees', copy_function=os.link)
+        for name in ('engine.stdout', 'engine.stderr'):
+            shutil.copyfile(previous / name, output / name)
+    else:
+        with (output / 'engine.stdout').open('w') as stdout, (output / 'engine.stderr').open('w') as stderr:
+            completed = subprocess.run(command, text=True, stdout=stdout, stderr=stderr)
+        completed.check_returncode()
+
+
+def score_cycle(assignments, truth, index, output, continue_blocked):
+    blocker = None
+    memberships, labels = validate_assignments(assignments, truth)
+    diagnostics = {'population': len(memberships),
+                   'assigned': sum(bool(c) for c in memberships.values()),
+                   'unassigned': sum(not c for c in memberships.values()),
+                   'overlapping': sum(len(c) > 1 for c in memberships.values()),
+                   'memberships': sum(len(c) for c in memberships.values()),
+                   'maximum_memberships': max(map(len, memberships.values()), default=0),
+                   'predicted_clusters': sum(bool(c['source_ids']) for c in assignments['clusters'])}
+    write_json(output / f'diagnostics-{index:04}.json', diagnostics)
+    try:
+        scores = evaluate(assignments, truth)
+    except ScientificBlocker as error:
+        if not continue_blocked:
+            raise
+        blocker = {'cycle': index + 1, 'reason': str(error)}
+        scores = {'evaluated_document_count': len(memberships),
+                  'predicted_cluster_count': diagnostics['predicted_clusters'],
+                  'ground_truth_event_count': len({labels[s] for s in memberships}),
+                  **dict.fromkeys(('nmi', 'bcubed_precision', 'bcubed_recall', 'bcubed_f1', 'purity'))}
+    return scores, blocker
 
 
 def run(manifest_path, config_path, output, procedure, engine, mock=None, adapter=None, smoke=False, engine_revision=None, continue_blocked=False, learning_from=None):
@@ -38,41 +101,7 @@ def run(manifest_path, config_path, output, procedure, engine, mock=None, adapte
     rows = []
     blockers = []
     try:
-        inputs = output / 'inputs'
-        inputs.mkdir()
-        paths = []
-        for index, sources in enumerate(documents):
-            path = inputs / f'batch-{index:04}.json'
-            # Only tokenized evidence enters engine, never evaluator labels/history.
-            clean = [{k: s[k] for k in ('source_id', 'batch_index', 'tokens')} for s in sources]
-            write_json(path, {'batch_index': index, 'sources': clean})
-            paths.append(str(path))
-        metadata['engine_input_hashes'] = {Path(p).name: digest(p) for p in paths}
-        write_json(output / 'ground-truth.json', truth)
-        write_json(output / 'engine-config.json', config['engine'])
-        command = [str(engine), 'timeline-many', *paths, '--config', str(output / 'engine-config.json'),
-                   '--out-dir', str(output / 'trees')]
-        metadata['engine_command'] = command
-        if learning_from:
-            previous = Path(learning_from).resolve()
-            prior = read_json(previous / 'run.json')
-            if (prior.get('learning_cycles_completed') != len(documents) or
-                    prior['configuration']['engine'] != config['engine'] or
-                    prior['dataset_hashes'] != hashes or prior['engine_sha256'] != digest(engine) or
-                    prior['engine_input_hashes'] != metadata['engine_input_hashes']):
-                raise ValueError('saved learning evidence differs from requested engine/data/configuration')
-            metadata['engine_git_revision'] = prior['engine_git_revision']
-            metadata['learning_evidence'] = {'run_sha256': digest(previous / 'run.json'),
-                'tree_hashes': {p.name: digest(p) for p in sorted((previous / 'trees').glob('tree_batch_*.json'))}}
-            if len(metadata['learning_evidence']['tree_hashes']) != len(documents):
-                raise ValueError('saved learning evidence lacks cycles')
-            shutil.copytree(previous / 'trees', output / 'trees')
-            for name in ('engine.stdout', 'engine.stderr'):
-                shutil.copyfile(previous / name, output / name)
-        else:
-            with (output / 'engine.stdout').open('w') as stdout, (output / 'engine.stderr').open('w') as stderr:
-                completed = subprocess.run(command, text=True, stdout=stdout, stderr=stderr)
-            completed.check_returncode()
+        prepare_learning(engine, config, documents, truth, output, metadata, hashes, learning_from)
         for index in range(len(documents)):
             sources = population(documents, index, config)
             tree = read_json(output / 'trees' / f'tree_batch_{index:04}.json')
@@ -95,25 +124,9 @@ def run(manifest_path, config_path, output, procedure, engine, mock=None, adapte
             write_json(output / f'assignments-{index:04}.json', assignments)
             if assignments['batch_index'] != index or set(assignments['evaluation_source_ids']) != set(request['evaluation_source_ids']):
                 raise ValueError('adapter changed requested cycle or evaluation population')
-            memberships, labels = validate_assignments(assignments, truth)
-            diagnostics = {'population': len(memberships),
-                           'assigned': sum(bool(c) for c in memberships.values()),
-                           'unassigned': sum(not c for c in memberships.values()),
-                           'overlapping': sum(len(c) > 1 for c in memberships.values()),
-                           'memberships': sum(len(c) for c in memberships.values()),
-                           'maximum_memberships': max(map(len, memberships.values()), default=0),
-                           'predicted_clusters': sum(bool(c['source_ids']) for c in assignments['clusters'])}
-            write_json(output / f'diagnostics-{index:04}.json', diagnostics)
-            try:
-                scores = evaluate(assignments, truth)
-            except ScientificBlocker as error:
-                if not continue_blocked:
-                    raise
-                blockers.append({'cycle': index + 1, 'reason': str(error)})
-                scores = {'evaluated_document_count': len(memberships),
-                          'predicted_cluster_count': diagnostics['predicted_clusters'],
-                          'ground_truth_event_count': len({labels[s] for s in memberships}),
-                          **dict.fromkeys(('nmi', 'bcubed_precision', 'bcubed_recall', 'bcubed_f1', 'purity'))}
+            scores, blocker = score_cycle(assignments, truth, index, output, continue_blocked)
+            if blocker:
+                blockers.append(blocker)
             rows.append({'theme': manifest['theme'], 'algorithm': 'SECA' if config['engine']['memory_mode'] == 'Full' else 'SECA-Light',
                          'clustering_procedure': procedure, 'cycle': index + 1, **scores})
             write_scores(output / 'scores.csv', rows)

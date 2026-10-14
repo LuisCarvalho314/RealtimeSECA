@@ -2,9 +2,10 @@
 """Independent set-based recomputation from saved assignments, without metrics.py."""
 import argparse
 import csv
+import gzip
 import math
 from pathlib import Path
-from evaluation.io import read_json, write_json
+from evaluation.io import digest, parse_json, read_json, write_json
 
 
 def score(assignment, truth):
@@ -29,15 +30,19 @@ def score(assignment, truth):
                 bcubed_recall=recall, bcubed_f1=f1, purity=purity)
 
 
-def recompute(directory):
+def recompute(directory, truth_path=None):
     directory = Path(directory)
-    truth = read_json(directory / 'ground-truth.json')
+    if truth_path and digest(truth_path) != read_json(directory / 'run.json')['manifest']['ground_truth_sha256']:
+        raise ValueError('ground truth differs from recorded dataset hash')
+    truth = read_json(truth_path or directory / 'ground-truth.json')
     with (directory / 'scores.csv').open() as stream:
         rows = list(csv.DictReader(stream))
     checks = []
     for row in rows:
         cycle = int(row['cycle'])
-        result = score(read_json(directory / f'assignments-{cycle-1:04}.json'), truth)
+        path = directory / f'assignments-{cycle-1:04}.json'
+        assignment = read_json(path) if path.exists() else parse_json(gzip.decompress(path.with_suffix('.json.gz').read_bytes()).decode())
+        result = score(assignment, truth)
         for metric, value in result.items():
             saved = float(row[metric]) if row[metric] else None
             if (value is None) != (saved is None) or (value is not None and abs(value-saved) > 1e-12):
@@ -49,7 +54,8 @@ def recompute(directory):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('directory', type=Path)
+    parser.add_argument('--truth', type=Path, help='prepared ground truth for ID-only committed evidence')
     args = parser.parse_args()
-    result = recompute(args.directory)
+    result = recompute(args.directory, args.truth)
     write_json(args.directory / 'independent-recomputation.json', result)
     print(f"Verified {result['cycles_verified']} saved cycles independently")
