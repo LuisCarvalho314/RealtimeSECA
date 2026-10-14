@@ -2,6 +2,7 @@
 """Run one theme/memory mode/procedure; never tune or launch a hidden matrix."""
 import argparse
 import subprocess
+import shutil
 from pathlib import Path
 from evaluation.adapters import command_assignments, mock_assignments
 from evaluation.contracts import load_manifest, population, validate_config
@@ -11,7 +12,7 @@ from evaluation.metrics import DEFINITIONS, evaluate, ScientificBlocker, validat
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def run(manifest_path, config_path, output, procedure, engine, mock=None, adapter=None, smoke=False, engine_revision=None, continue_blocked=False):
+def run(manifest_path, config_path, output, procedure, engine, mock=None, adapter=None, smoke=False, engine_revision=None, continue_blocked=False, learning_from=None):
     if continue_blocked and (mock or smoke):
         raise ValueError('continue-blocked is for full research runs only')
     config = validate_config(read_json(config_path))
@@ -52,14 +53,37 @@ def run(manifest_path, config_path, output, procedure, engine, mock=None, adapte
         command = [str(engine), 'timeline-many', *paths, '--config', str(output / 'engine-config.json'),
                    '--out-dir', str(output / 'trees')]
         metadata['engine_command'] = command
-        with (output / 'engine.stdout').open('w') as stdout, (output / 'engine.stderr').open('w') as stderr:
-            completed = subprocess.run(command, text=True, stdout=stdout, stderr=stderr)
-        completed.check_returncode()
+        if learning_from:
+            previous = Path(learning_from).resolve()
+            prior = read_json(previous / 'run.json')
+            if (prior.get('learning_cycles_completed') != len(documents) or
+                    prior['configuration']['engine'] != config['engine'] or
+                    prior['dataset_hashes'] != hashes or prior['engine_sha256'] != digest(engine) or
+                    prior['engine_input_hashes'] != metadata['engine_input_hashes']):
+                raise ValueError('saved learning evidence differs from requested engine/data/configuration')
+            metadata['engine_git_revision'] = prior['engine_git_revision']
+            metadata['learning_evidence'] = {'run_sha256': digest(previous / 'run.json'),
+                'tree_hashes': {p.name: digest(p) for p in sorted((previous / 'trees').glob('tree_batch_*.json'))}}
+            if len(metadata['learning_evidence']['tree_hashes']) != len(documents):
+                raise ValueError('saved learning evidence lacks cycles')
+            shutil.copytree(previous / 'trees', output / 'trees')
+            for name in ('engine.stdout', 'engine.stderr'):
+                shutil.copyfile(previous / name, output / name)
+        else:
+            with (output / 'engine.stdout').open('w') as stdout, (output / 'engine.stderr').open('w') as stderr:
+                completed = subprocess.run(command, text=True, stdout=stdout, stderr=stderr)
+            completed.check_returncode()
         for index in range(len(documents)):
             sources = population(documents, index, config)
+            tree = read_json(output / 'trees' / f'tree_batch_{index:04}.json')
+            retained_config = dict(config, evaluation_population='retained_window')
+            expected_retained = {s['source_id'] for s in population(documents, index, retained_config)}
+            actual_retained = {s['external_source_id'] for s in tree['source_legend']}
+            if actual_retained != expected_retained:
+                raise ValueError(f'cycle {index+1}: exported retained identity population differs from memory contract')
             request = {'schema_version': 1, 'batch_index': index, 'method': procedure,
                        'settings': config['clustering_settings'],
-                       'tree': read_json(output / 'trees' / f'tree_batch_{index:04}.json'),
+                       'tree': tree,
                        'evaluation_source_ids': [s['source_id'] for s in sources],
                        'source_tokens': {s['source_id']: [t.strip() for t in s['tokens'] if t.strip()] for s in sources}}
             if procedure == 'indirect':
@@ -115,13 +139,14 @@ def main():
     parser.add_argument('--engine', required=True, type=Path)
     parser.add_argument('--engine-revision', required=True, help='Git revision used to build engine binary')
     parser.add_argument('--smoke', action='store_true')
+    parser.add_argument('--learning-from', type=Path, help='rescore saved learning with matching engine/data/configuration')
     parser.add_argument('--continue-blocked', action='store_true', help='preserve every research cycle; undefined scores remain null')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--mock-assignments', type=Path)
     group.add_argument('--adapter-command', nargs='+')
     args = parser.parse_args()
     run(args.manifest, args.config, args.output, args.procedure, args.engine,
-        args.mock_assignments, args.adapter_command, args.smoke, args.engine_revision, args.continue_blocked)
+        args.mock_assignments, args.adapter_command, args.smoke, args.engine_revision, args.continue_blocked, args.learning_from)
 
 
 if __name__ == '__main__':

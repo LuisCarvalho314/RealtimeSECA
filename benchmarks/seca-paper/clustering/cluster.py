@@ -247,7 +247,8 @@ def indirect(tree, batch_index, evaluation_source_ids, source_tokens, contextual
     clusters = {root: set() for root in proxies}
     for sid in sorted(population):
         best_root, best_value = None, Fraction(0)
-        for root, weights in proxies.items():
+        # Positive ties use semantic descriptors, never allocator/node IDs.
+        for root, weights in sorted(proxies.items(), key=lambda item: tuple(sorted(item[1].items()))):
             value = proximity(weights, tokens[sid])
             if value > best_value:
                 best_root, best_value = root, value

@@ -55,7 +55,7 @@ def preserve(run_dir, evidence):
     return result
 
 
-def execute(theme, output, evidence, engine):
+def execute(theme, output, evidence, engine, learning_root=None):
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     summaries = []
     for mode in ('Full', 'SlidingWindow'):
@@ -65,7 +65,8 @@ def execute(theme, output, evidence, engine):
             print(f'Starting {name}', flush=True)
             run(HERE / f'datasets/data/prepared/{theme}/manifest.json', HERE / f'config/{mode}.json',
                 directory, method, engine, adapter=['python3', str(HERE / 'clustering/cluster.py'), '{request}'],
-                engine_revision=revision, continue_blocked=True)
+                engine_revision=revision, continue_blocked=True,
+                learning_from=learning_root / name if learning_root else None)
             summaries.append(preserve(directory, evidence / name))
             print(f"Saved {name}: {summaries[-1]['status']}", flush=True)
     write_json(evidence / f'{theme}-summary.json', summaries)
@@ -77,5 +78,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, default=HERE / 'results')
     parser.add_argument('--evidence', type=Path, default=HERE / 'evidence')
     parser.add_argument('--engine', type=Path, default=ROOT / 'target/debug/examples/paper_stream')
+    parser.add_argument('--learning-root', type=Path, help='rescore matching saved runs without replaying learning')
     args = parser.parse_args()
-    execute(args.theme, args.output, args.evidence, args.engine)
+    execute(args.theme, args.output, args.evidence, args.engine, args.learning_root)

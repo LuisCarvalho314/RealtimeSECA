@@ -1,6 +1,3 @@
-import copy
-import csv
-import importlib.util
 import os
 import sys
 import tempfile
@@ -17,7 +14,7 @@ from run import run
 
 
 class IntegrationTests(unittest.TestCase):
-    def test_independent_metrics_and_saved_corruption(self):
+    def test_independent_metrics_and_missing_membership(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             make_fixture(root)
@@ -28,6 +25,27 @@ class IntegrationTests(unittest.TestCase):
                 self.assertAlmostEqual(value, expected[metric])
             assignment['clusters'][0]['source_ids'].pop()
             self.assertTrue(all(v is None for v in score(assignment, truth).values()))
+
+    @unittest.skipUnless(os.environ.get('SECA_TEST_ENGINE'), 'requires built Rust CLI')
+    def test_saved_learning_is_checked_before_rescoring(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            fixture = root / 'fixture'
+            make_fixture(fixture)
+            args = (fixture / 'manifest.json', fixture / 'config-Full.json')
+            first, second = root / 'first', root / 'second'
+            a = run(*args, first, 'direct', os.environ['SECA_TEST_ENGINE'], mock=fixture, smoke=True)
+            b = run(*args, second, 'direct', os.environ['SECA_TEST_ENGINE'], mock=fixture,
+                    smoke=True, learning_from=first)
+            self.assertEqual(a, b)
+            self.assertEqual(read_json(second / 'run.json')['learning_evidence']['run_sha256'], digest(first / 'run.json'))
+            prior = read_json(first / 'run.json')
+            prior['engine_input_hashes']['batch-0000.json'] = 'changed'
+            write_json(first / 'run.json', prior)
+            with self.assertRaisesRegex(ValueError, 'saved learning evidence differs'):
+                run(*args, root / 'bad', 'direct', os.environ['SECA_TEST_ENGINE'],
+                    mock=fixture, smoke=True, learning_from=first)
+            self.assertEqual(read_json(root / 'bad/run.json')['status'], 'failed')
 
     @unittest.skipUnless(os.environ.get('SECA_TEST_ENGINE'), 'requires built Rust CLI')
     def test_blocked_cycle_does_not_discard_later_evidence(self):

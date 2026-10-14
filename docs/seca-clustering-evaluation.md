@@ -68,7 +68,7 @@ are **repository interpretations requiring scientific review**, not paper claims
 | Top/important words and threshold | A shared word weighted 1/2 merges at cutoff 1/2 but not 3/4. A top-k rule would behave differently. | Require an explicit contextual-value cutoff in (0,1], with inclusive comparison. No default or claimed published value. Exact rational comparisons preserve ties. This interprets the unspecified threshold as contextual importance. |
 | Transitive merge | A shares x with B; B shares y with C; A and C share none. | Connected components of the original top-word overlap graph merge all three. This satisfies every original pairwise merge independently of iteration order. Do not recompute top words during merging. |
 | Merged contextual values | A:x=1/2 and B:x=3/4 could become 5/4, 3/4 or a recomputed ratio. | Maximum, 3/4, preserves the contextual-value scale and counts x once. Recomputing equation 13 would require a new definition of a merged root. |
-| Positive assignment ties | Source x has equal score for independent events. | Choose the numerically smallest root-ID tuple. A deterministic engineering rule, not a published tie rule. Indirect remains hard clustering. |
+| Positive assignment ties | Source x has equal score for independent events. | Choose the lexicographically smallest sorted `(token, exact contextual value)` proxy signature. Integration replaced the original agent's root-ID tie rule to make assignments independent of allocator IDs. A deterministic engineering rule, not a published tie rule. Indirect remains hard clustering. |
 | Zero proximity / no proxies | An empty source has equal zero proximity to all events. | Leave unassigned rather than assert an event with no matching evidence. The paper does not specify this exception to its maximum rule. |
 | Zero root support after forgetting | Equation 13 would divide by zero. | Omit empty roots; reject nonempty descendants under an empty root as invalid scope. |
 
@@ -116,7 +116,7 @@ contains only population and memberships.
 Hand-derived tests explain their expected sets and fractions in docstrings. They
 cover one/multiple events, true orphan chains versus internal refuge branches,
 overlap, empty/unassigned populations, contextual denominators, repeated words,
-threshold equality, transitive merging, merged values, hard ties, zero matches,
+threshold equality, transitive merging, merged values, hard ties and node-renumbering invariance, zero matches,
 permutation/repeat stability and rejected malformed evidence without input mutation.
 Synthetic tests validate these rules; they do not establish published-score parity.
 
@@ -126,3 +126,14 @@ sample_config.json --dump-tree-verbose /tmp/seca-clustering-tree.json` succeeded
 Both adapters consumed that actual export with the sample batch token sets and
 accounted for all three external source IDs. Production Rust files were unchanged;
 the full Rust workspace test/clippy suite was not run for this Python-only addition.
+
+## Integration evidence
+
+The integration agent verified the recovered final published PDF, SHA-256
+`dacd87d997e81820079d85d2f4fd3466705a87b7d5839ba6b98ccc5208f44947`,
+including VII-D / equations 13–14. The earlier final-version limitation above
+records the component agent's original access failure and is superseded.
+The missing merge threshold and reduction/merge interpretation remain unresolved.
+The positive-tie rule was deliberately changed during integration to use semantic
+proxy signatures, satisfying the requirement that future node-ID allocation
+changes must not change event assignments. A focused renumbering test covers it.

@@ -137,7 +137,7 @@ class IndirectTests(unittest.TestCase):
                          {(1, 2): {"q": F(1), "x": F(3, 4)}})
 
     def test_hard_assignment_sum_tie_and_zero(self):
-        """a+b ties 1:1, choosing node 2; b alone chooses 10; z remains unassigned."""
+        """a+b ties 1:1, choosing descriptor a (node 2); b alone chooses 10; z remains unassigned."""
         fixture = tree([(1, 0)], [(10, 1, ["b"], ["d1"]), (2, 1, ["a"], ["d2"])])
         result = indirect(fixture, 0, ["tie", "b", "zero", "empty"],
                           {"tie": ["a", "b"], "b": ["b"], "zero": ["z"], "empty": []}, 1)
@@ -145,6 +145,17 @@ class IndirectTests(unittest.TestCase):
             {"cluster_id": "event-10", "source_ids": ["b"]},
             {"cluster_id": "event-2", "source_ids": ["tie"]}])
         self.assertEqual(result["unassigned_source_ids"], ["empty", "zero"])
+
+    def test_positive_ties_ignore_node_ids(self):
+        """Renumber roots while preserving descriptors; a must win the tie."""
+        first = tree([(1, 0)], [(10, 1, ["b"], ["d1"]), (2, 1, ["a"], ["d2"])])
+        second = tree([(1, 0)], [(1, 1, ["b"], ["d1"]), (99, 1, ["a"], ["d2"])])
+        tokens = {"tie": ["a", "b"], "a": ["a"], "b": ["b"]}
+        def partition(fixture):
+            result = indirect(fixture, 0, list(tokens), tokens, 1)
+            return {frozenset(c['source_ids']) for c in result['clusters']}
+        self.assertEqual(partition(first), partition(second))
+        self.assertEqual(partition(second), {frozenset(['tie', 'a']), frozenset(['b'])})
 
     def test_complete_merge_and_assignment(self):
         """Both roots describe q, so one merged event receives sources matching a or b."""

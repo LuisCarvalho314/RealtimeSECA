@@ -184,3 +184,32 @@ The four nondegenerate NMI examples also matched installed scikit-learn 1.2.2
 with explicit `average_method="arithmetic"` within 1e-14, using its
 [documented normalization interface](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.normalized_mutual_info_score.html).
 Scikit-learn is a one-time cross-check, not a runtime or test-suite dependency.
+
+## Integration verification
+
+The integration agent verified the recovered final published PDF (SHA-256
+`dacd87d997e81820079d85d2f4fd3466705a87b7d5839ba6b98ccc5208f44947`),
+including a visual check of Table 3 on PDF page 15 / printed p. 127025.
+The source comments and comparison output now identify the final version.
+The earlier outstanding-final-PDF statements above record the component agent's
+original evidence, and are superseded by this verification.
+
+The integrated experimental `paper_stream` Rust example uses only public engine
+methods and additionally saves reports and resumable snapshots after every cycle.
+The original CLI remains supported. `--continue-blocked` preserves all research
+cycles with null metrics where complete hard-partition scoring is undefined;
+it does not choose a conversion policy. Exact retained identities are checked
+against Full or the explicit gamma window on every export. `--learning-from`
+can rescore saved learning after checking engine binary, configuration, input
+hashes and dataset hashes. It records the original engine revision and tree hashes.
+No tree export is treated as resumable engine state.
+
+`recompute.py` independently calculates scores using set intersections rather
+than the evaluator's contingency table. `check_run.py` compares the next update
+after snapshots at cycles 1 and 6 and diagnoses within-batch source reversal.
+The integrated indirect tie rule uses sorted token/weight signatures rather than
+node IDs; see the clustering document. These are explicit research choices,
+not newly established original experimental settings.
+
+See [the integrated scientific report](seca-paper-benchmark.md) for the fixed
+reconstruction, run status, score comparison, scientific limitations and commands.
