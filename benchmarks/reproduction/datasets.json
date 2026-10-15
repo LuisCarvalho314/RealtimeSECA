@@ -1,0 +1,6 @@
+{
+  "revision": "ac894075f2bbb93405679e237d2d5d11a325078c",
+  "repository": "https://github.com/jackyin12/MStream",
+  "G": {"file": "News", "sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad", "documents": 8880, "batch_size": 740},
+  "H": {"file": "Tweets-T", "sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf", "documents": 24000, "batch_size": 2000}
+}

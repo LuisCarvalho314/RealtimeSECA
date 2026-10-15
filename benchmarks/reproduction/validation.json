@@ -1,0 +1,40 @@
+{
+  "core_clippy": {
+    "command": "cargo clippy --offline -p realtime-seca-core --all-targets -- -D warnings",
+    "status": "passed"
+  },
+  "date": "2026-10-15",
+  "engine_revision": "01a644f3a7411bd4de4ad172555153fbcf525cc2",
+  "example_compile": "passed",
+  "final_export_inventory_checks": {
+    "status": "Every raw final HKT/node record is accounted for by normalized topology counts.",
+    "successful_exports": 82
+  },
+  "format_check": "passed",
+  "golden_fixture_changes": false,
+  "mono_version": "6.8.0.105",
+  "production_changes": false,
+  "python_contract_tests": {
+    "command": "python3 -m unittest discover -s benchmarks/reproduction -v",
+    "failed": 0,
+    "passed": 5
+  },
+  "reference_source_hash_verification": {
+    "files": 13,
+    "status": "all actual compilable sources and generated manifest match committed parity_context_metrics/source-hashes.json"
+  },
+  "release_build": "passed",
+  "rustc_version": "1.92.0 (ded5c06cf 2025-12-08)",
+  "workspace_clippy": {
+    "command": "cargo clippy --offline --workspace --all-targets -- -D warnings",
+    "reason": "Unchanged CLI ingestion.rs:4,66 uses deprecated stop_words::LANGUAGE and LANGUAGE::English with stop-words 0.10.1.",
+    "status": "failed"
+  },
+  "workspace_tests": {
+    "command": "cargo test --offline --workspace",
+    "failed": 0,
+    "ignored": 2,
+    "log_sha256": "29ec69d4e34dceb9b80e80182796f4675b66cad3afdb8d4c0b70cc8b8b51f3a4",
+    "passed": 138
+  }
+}

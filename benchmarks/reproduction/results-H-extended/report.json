@@ -1,0 +1,89 @@
+{
+  "cargo_lock_sha256": "e431e529a1f197c1f2ccd1121d11df04e3dcb32bdacb8845d1faa91fec0de6de",
+  "engine_revision": "01a644f3a7411bd4de4ad172555153fbcf525cc2",
+  "platform": "Linux-5.15.0-1089-azure-x86_64-with-glibc2.31",
+  "python": "3.11.4 (main, Jul  5 2023, 13:45:01) [GCC 11.2.0]",
+  "reference_kind": "instrumented serial original classes; not unmodified application",
+  "reference_sha256": {
+    "references/seca-parity-build/.harness-generated/source-hashes.json": "c4a36fa690377754f4ebf29bcd1526c346072706ffd705f929193898ef82aa30",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.Core.dll": "777da4849d8f7897a13818eb9fab05b2ecb80de848b3019aafefd34b28f791a8",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.dll": "1b1c40f63b7b98e82878ce8656390c12d9a2ed72ca451d6e7adcb46555cccbf2",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.dll": "d36c225a84415c01bc2a8e84096590a7206dfc3d36173e3c7b6a62a04c0a33a9",
+    "references/seca-parity-build/SECA/bin/Debug/Newtonsoft.Json.dll": "973fd70ce48e5ac433a101b42871680c51e2feba2aeec3d400dea4115af3a278",
+    "references/seca-parity-build/SECA/bin/Debug/SourceCleanerEngine.exe": "891735450fc389f4d6e26ab8fb3637bc38226c53ae76f99f91e87b8fdf0da0d6",
+    "tools/seca-reference-harness/.build/harness.exe": "1170931e67a7ddd4634f6201b686d644ae35cf9546322d842f153bfd3077259f",
+    "tools/seca-reference-harness/.gitignore": "99921edb369e12a35a87d768ae481f8c944573626abd4b8f3a1fe78846f30ba7",
+    "tools/seca-reference-harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+    "tools/seca-reference-harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+    "tools/seca-reference-harness/README.md": "d75b5fc13956f7ee511ad7cb8a198a09a53dee86e87019ede68d6d6b57ed86bf",
+    "tools/seca-reference-harness/build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75",
+    "tools/seca-reference-harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+    "tools/seca-reference-harness/run.sh": "d16bada169b7d400c32f1085ec0fc1e1eb965c032b1c94fe42df37a2f2cdbfab",
+    "tools/seca-reference-harness/verify.py": "4fd08accc07e0865cfdb9d9f98f5c836d54b91b4cc91a4368df22c4a684072d8"
+  },
+  "results": [
+    {
+      "case": "H",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "error": "Failed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->143\nFailed to add word attempt1->139\nFailed to add word attempt1->139\nFailed to add word attempt1->143\nFailed to add word attempt1->139\nFailed to add word attempt1->143\nFailed to add word attempt1->120\nFailed to add word attempt1->120\nFailed to add word attempt1->120\nFailed to add word attempt1->116\nFailed to add word attempt1->116\nFailed to add word attempt1->116\nFailed to add word attempt1->116\nFailed to add word attempt1->163\nFailed to add word attempt1->100\nFailed to add word attempt1->100\nFailed to add word attempt1->163\nFailed to add word attempt1->96\nFailed to add word attempt1->96\nFailed to add word attempt1->95\nFailed to add word attempt1->95\nFailed to add word attempt1->90\nFailed to add word attempt1->90\nFailed to add word attempt1->95\nFailed to add wor\n...\nd to add word attempt1->2\nFailed to add word attempt1->112\nFailed to add word attempt1->82\nFailed to add word attempt1->221\nFailed to add word attempt1->40\nFailed to add word attempt1->14\nFailed to add word attempt1->16\nFailed to add word attempt1->19\nFailed to add word attempt1->9\nFailed to add word attempt1->9\nFailed to add word attempt1->17\nFailed to add word attempt1->13\nFailed to add word attempt1->8\nFailed to add word attempt1->17\nFailed to add word attempt1->6\nFailed to add word attempt1->7\nFailed to add word attempt1->15\nFailed to add word attempt1->6\nFailed to add word attempt1->6\nFailed to add word attempt1->7\nFailed to add word attempt1->8\nFailed to add word attempt1->5\nFailed to add word attempt1->6\nFailed to add word attempt1->4\nFailed to add word attempt1->4\nFailed to add word attempt1->4\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->4\nFailed to add word attempt1->2\nFailed to add word attempt1->2\n",
+        "exit_code": null,
+        "failure_summary": null,
+        "status": "timeout",
+        "stderr_sha256": "1b8a88b4c9aafbe23caa539b07d6ce83eeed1b4cffe7fe30c233aabbc16e28af",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "input_sha256": "4c48fa77bd5179f1b135b3a3a65664752891f07a7276274e4310501c50675db5",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 2000,
+        "batches": 12,
+        "classification": "comparable_with_deviations",
+        "documents": 24000,
+        "event_size_range": [
+          1,
+          607
+        ],
+        "excluded_tail": 6322,
+        "labels": 227,
+        "original_ids_sha256": "02432c64bf7a7fe588daee35018f5f1a7e90bdc1bf42a62baecfd2255dbc815f",
+        "scope": "full chosen G/H reconstruction",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/Tweets-T",
+        "variant": "Tweets-T"
+      },
+      "rust": {
+        "emitted_cycles": 6,
+        "error": "\n...\n",
+        "exit_code": null,
+        "failure_summary": null,
+        "status": "timeout",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "ba314855367dd0375163a5b23c10abc5f91c13ebd0d9bc8256918472ca75c798"
+      }
+    }
+  ],
+  "retention": "Full / C# isLightSECA=false; no forgetting",
+  "runner_sha256": "193cf86c53ba87a20a0a91951996e0fd4501c2a7d5e09ef5ab3da0ac3b5d2a66",
+  "rust_adapter_sha256": "46dca5ea7b849dbb36bc8cda8b9840a514e481530fe637ba153d387eb68220f7",
+  "rust_executable_sha256": "818cb5f3c1d67cea4caeeab24a606ccb7edb3906af7c70a3d826d9105218ba93",
+  "rust_toolchain": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "schema_version": 1,
+  "timeout_seconds": 300.0,
+  "tracked_changes": []
+}
