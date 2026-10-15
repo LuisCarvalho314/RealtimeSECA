@@ -23,7 +23,12 @@ impl SecaEngine {
                 return Err(invalid());
             }
             let hkt = tree.hkts_by_id.get(&id).ok_or_else(invalid)?;
-            if hkt.hkt_id != id {
+            if hkt.hkt_id != id
+                || hkt
+                    .expected_words
+                    .iter()
+                    .any(|w| *w != -1 && !self.baseline_word_legend.contains_key(w))
+            {
                 return Err(invalid());
             }
             for node in &hkt.nodes {
@@ -37,6 +42,8 @@ impl SecaEngine {
                     || node
                         .word_ids
                         .iter()
+                        .chain(node.top_words.iter())
+                        .chain(node.word_source_ids.keys())
                         .any(|w| *w != -1 && !self.baseline_word_legend.contains_key(w))
                     || node
                         .word_source_ids
@@ -62,15 +69,49 @@ impl SecaEngine {
         {
             return Err(invalid());
         }
+        self.validate_retained_sources()?;
+        let tokens: BTreeSet<_> = self.baseline_word_legend.values().collect();
+        if tokens.len() != self.baseline_word_legend.len()
+            || self.baseline_word_legend.keys().any(|id| *id <= 0)
+        {
+            return Err(invalid());
+        }
+        Ok(())
+    }
+
+    fn validate_retained_sources(&self) -> Result<(), SecaError> {
+        let invalid = || SecaError::StateError {
+            message: "inconsistent retained source state".into(),
+        };
         let mut batches = BTreeMap::<u32, BTreeSet<i64>>::new();
         let mut source_ids = BTreeSet::new();
+        let current = self.last_processed_batch_index.ok_or_else(invalid)?;
+        let window_start = if self.config.memory_mode == crate::config::MemoryMode::SlidingWindow {
+            current.saturating_sub(
+                self.config
+                    .max_batches_in_memory
+                    .ok_or_else(invalid)?
+                    .saturating_sub(1),
+            )
+        } else {
+            0
+        };
+        let mut previous = None;
         for batch in &self.processed_batches {
+            if batch.batch_index < window_start
+                || batch.batch_index > current
+                || previous.is_some_and(|index: u32| batch.batch_index != index.saturating_add(1))
+            {
+                return Err(invalid());
+            }
+            previous = Some(batch.batch_index);
             for source in &batch.sources {
                 let id = self
                     .source_id_by_url
                     .get(&source.source_id)
                     .ok_or_else(invalid)?;
-                if source.batch_index != batch.batch_index
+                if source.source_id.is_empty()
+                    || source.batch_index != batch.batch_index
                     || !source_ids.insert(*id)
                     || self.baseline_source_legend.get(id) != Some(&source.source_id)
                 {
@@ -84,12 +125,6 @@ impl SecaEngine {
             || source_ids.len() != self.source_id_by_url.len()
             || self.processed_batches.last().map(|b| b.batch_index)
                 != self.last_processed_batch_index
-        {
-            return Err(invalid());
-        }
-        let tokens: BTreeSet<_> = self.baseline_word_legend.values().collect();
-        if tokens.len() != self.baseline_word_legend.len()
-            || self.baseline_word_legend.keys().any(|id| *id <= 0)
         {
             return Err(invalid());
         }

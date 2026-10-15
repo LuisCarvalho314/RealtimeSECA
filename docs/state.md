@@ -83,7 +83,11 @@ Schema-4 snapshots include the complete engine, configuration, batch position,
 and engine version. Restoration rejects unsupported schema/version, absent state,
 or inconsistent envelope metadata. It validates topology reachability, mirrored
 nodes, source memberships, identity/provenance agreement, vocabulary uniqueness,
-and allocator bounds. Configuration changes require explicit replay.
+and allocator bounds. Expected words, presentation words and word-membership keys
+must reference vocabulary IDs (or the refuge marker). Retained batches must be
+strictly ordered and contiguous, no later than the current index, and inside the inclusive gamma
+window in SlidingWindow mode, including empty batches. Configuration changes
+require explicit replay.
 Earlier snapshots and removed configuration selectors are rejected rather than
 silently selecting different semantics.
 
