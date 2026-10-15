@@ -49,3 +49,24 @@ explicitly (threshold precision and HKT boundary/topology). The external referen
 comparison also retains its C# shared-candidate failure and excludes empty input.
 None is a new integration regression or authorization to change scientific semantics.
 The pending scientific decisions and original dataset/protocol uncertainties remain.
+
+## Validation of the consolidated code
+
+- `cargo fmt --all -- --check`: passed.
+- `cargo test --workspace`: 187 passed, zero failures, two existing strict parity
+  tests ignored. Those two were also run explicitly and failed as documented above.
+- `cargo clippy --workspace --all-targets -- -D warnings`: passed.
+- `cargo build --workspace --examples --bins`: passed.
+- Python regressions: datasets 13, clustering 21, evaluation/integration 25,
+  external-reference runner 5; all 64 passed. Dataset tests used the existing pinned
+  source cache in `/tmp/seca-paper-benchmark`, validating its hashes.
+- Actual external Rust/C# fixture execution with repeat: 40 cases, 38 successful
+  in both languages, one excluded empty-input case, one known C# shared-candidate
+  failure. All successful repeats were deterministic. The runner exits nonzero
+  for that known reference failure; this is not reported as a fully passing suite.
+- Canonical Theme G/H implementation and committed evidence unchanged from baseline;
+  full population benchmark runs were not repeated for persistence-only checks.
+
+Raw validation logs are in `/tmp/seca-*-tests.log` and
+`/tmp/seca-consolidation-{tests,clippy,build}.log`; actual comparison outputs are in
+`/tmp/seca-consolidation-reference`. No scientific golden was regenerated.
