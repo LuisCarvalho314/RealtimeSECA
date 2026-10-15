@@ -1,0 +1,16 @@
+{
+  "csharp": [
+    {
+      "ancestor_descriptor_path": [],
+      "scope_sources_sha256": "c1c89c6f34dfdd1571ee12a14fca33609a8f5fea2186d8ca8a65dd810f7cb472",
+      "triggered": true
+    }
+  ],
+  "rust": [
+    {
+      "ancestor_descriptor_path": [],
+      "scope_sources_sha256": "c1c89c6f34dfdd1571ee12a14fca33609a8f5fea2186d8ca8a65dd810f7cb472",
+      "triggered": true
+    }
+  ]
+}

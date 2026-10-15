@@ -1,0 +1,1950 @@
+[
+  {
+    "cycle": 1,
+    "rust": {
+      "hkt_count": 34,
+      "node_count": 240,
+      "hierarchy_depth": 8,
+      "ordinary_node_count": 208,
+      "refuge_node_count": 32,
+      "reconstruction_decisions": 0,
+      "reconstructed_scopes": 0,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 42,
+      "node_count": 263,
+      "hierarchy_depth": 8,
+      "ordinary_node_count": 224,
+      "refuge_node_count": 39,
+      "reconstruction_decisions": 0,
+      "reconstructed_scopes": 0,
+      "scope_violation_count": 0
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "fd6db6b6d1c2bde00f0e98f5ae25d511fbfe1e0ae8877fbdd24d84120907d37e",
+      "rust_canonical_sha256": "82772bcbc9aebb239bd26d3084670c4cc5910f5fa6f3a302c732437949a1c3d9",
+      "csharp_descriptor_topology_sha256": "1e0fb39d2df6a326c9da7daa9cdd5796bbba179ad0889a709dd75f8ccc9b3881",
+      "rust_descriptor_topology_sha256": "9a75aa46a242a4df0f48609c0aa20c7dbca1d25b309bfd5d10bf0fbfd3637cad",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3783,
+        "csharp_only_comembers": 1,
+        "rust_only_comembers": 1,
+        "both_separate": 269645
+      }
+    },
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 60,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 166
+      },
+      "csharp": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 60,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 166
+      },
+      "agreement": {
+        "population": "current_batch",
+        "documents": 740,
+        "unordered_pairs": 273430,
+        "both_comembers": 3783,
+        "csharp_only_comembers": 1,
+        "rust_only_comembers": 1,
+        "both_separate": 269645,
+        "changed_membership_families": 4,
+        "changed_source_ids": [
+          "mstream:News:000091",
+          "mstream:News:000142",
+          "mstream:News:000147",
+          "mstream:News:000627"
+        ]
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 159,
+          "ground_truth_event_count": 133,
+          "nmi": 0.8507253825551482,
+          "bcubed_precision": 0.6480401838048897,
+          "bcubed_recall": 0.6002835198229934,
+          "bcubed_f1": 0.5636307979339779,
+          "purity": 0.7148648648648649
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 159
+      },
+      "csharp": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 159,
+          "ground_truth_event_count": 133,
+          "nmi": 0.8552757604871263,
+          "bcubed_precision": 0.6567560214913156,
+          "bcubed_recall": 0.6117085812480549,
+          "bcubed_f1": 0.5744476583490288,
+          "purity": 0.722972972972973
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 159
+      },
+      "agreement": {
+        "population": "current_batch",
+        "documents": 740,
+        "unordered_pairs": 273430,
+        "both_comembers": 3201,
+        "csharp_only_comembers": 99,
+        "rust_only_comembers": 89,
+        "both_separate": 270041,
+        "changed_membership_families": 126,
+        "changed_source_ids": [
+          "mstream:News:000013",
+          "mstream:News:000034",
+          "mstream:News:000041",
+          "mstream:News:000042",
+          "mstream:News:000052",
+          "mstream:News:000058",
+          "mstream:News:000065",
+          "mstream:News:000073",
+          "mstream:News:000074",
+          "mstream:News:000077",
+          "mstream:News:000089",
+          "mstream:News:000091",
+          "mstream:News:000096",
+          "mstream:News:000111",
+          "mstream:News:000114",
+          "mstream:News:000118",
+          "mstream:News:000123",
+          "mstream:News:000132",
+          "mstream:News:000136",
+          "mstream:News:000142",
+          "mstream:News:000147",
+          "mstream:News:000149",
+          "mstream:News:000162",
+          "mstream:News:000167",
+          "mstream:News:000174",
+          "mstream:News:000178",
+          "mstream:News:000179",
+          "mstream:News:000181",
+          "mstream:News:000185",
+          "mstream:News:000186",
+          "mstream:News:000189",
+          "mstream:News:000197",
+          "mstream:News:000202",
+          "mstream:News:000204",
+          "mstream:News:000209",
+          "mstream:News:000221",
+          "mstream:News:000230",
+          "mstream:News:000231",
+          "mstream:News:000236",
+          "mstream:News:000244",
+          "mstream:News:000247",
+          "mstream:News:000261",
+          "mstream:News:000273",
+          "mstream:News:000281",
+          "mstream:News:000284",
+          "mstream:News:000286",
+          "mstream:News:000291",
+          "mstream:News:000297",
+          "mstream:News:000303",
+          "mstream:News:000306",
+          "mstream:News:000309",
+          "mstream:News:000317",
+          "mstream:News:000330",
+          "mstream:News:000345",
+          "mstream:News:000358",
+          "mstream:News:000360",
+          "mstream:News:000363",
+          "mstream:News:000364",
+          "mstream:News:000371",
+          "mstream:News:000374",
+          "mstream:News:000375",
+          "mstream:News:000386",
+          "mstream:News:000414",
+          "mstream:News:000422",
+          "mstream:News:000433",
+          "mstream:News:000442",
+          "mstream:News:000451",
+          "mstream:News:000453",
+          "mstream:News:000454",
+          "mstream:News:000469",
+          "mstream:News:000476",
+          "mstream:News:000479",
+          "mstream:News:000486",
+          "mstream:News:000491",
+          "mstream:News:000493",
+          "mstream:News:000494",
+          "mstream:News:000499",
+          "mstream:News:000502",
+          "mstream:News:000503",
+          "mstream:News:000507",
+          "mstream:News:000517",
+          "mstream:News:000518",
+          "mstream:News:000522",
+          "mstream:News:000528",
+          "mstream:News:000531",
+          "mstream:News:000538",
+          "mstream:News:000540",
+          "mstream:News:000550",
+          "mstream:News:000552",
+          "mstream:News:000555",
+          "mstream:News:000578",
+          "mstream:News:000579",
+          "mstream:News:000580",
+          "mstream:News:000589",
+          "mstream:News:000590",
+          "mstream:News:000597",
+          "mstream:News:000602",
+          "mstream:News:000606",
+          "mstream:News:000612",
+          "mstream:News:000614",
+          "mstream:News:000618",
+          "mstream:News:000623",
+          "mstream:News:000627",
+          "mstream:News:000630",
+          "mstream:News:000632",
+          "mstream:News:000635",
+          "mstream:News:000645",
+          "mstream:News:000665",
+          "mstream:News:000676",
+          "mstream:News:000678",
+          "mstream:News:000680",
+          "mstream:News:000682",
+          "mstream:News:000684",
+          "mstream:News:000688",
+          "mstream:News:000693",
+          "mstream:News:000694",
+          "mstream:News:000695",
+          "mstream:News:000699",
+          "mstream:News:000706",
+          "mstream:News:000714",
+          "mstream:News:000716",
+          "mstream:News:000721",
+          "mstream:News:000724",
+          "mstream:News:000726",
+          "mstream:News:000731",
+          "mstream:News:000739"
+        ]
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8507253825551482,
+          "csharp": 0.8552757604871263,
+          "absolute_csharp_rust": 0.0045503779319781,
+          "rust_minus_published": -0.03227461744485183,
+          "csharp_minus_published": -0.027724239512873727
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.5636307979339779,
+          "csharp": 0.5744476583490288,
+          "absolute_csharp_rust": 0.010816860415050922,
+          "rust_minus_published": -0.06666920206602212,
+          "csharp_minus_published": -0.05585234165097119
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.7148648648648649,
+          "csharp": 0.722972972972973,
+          "absolute_csharp_rust": 0.008108108108108136,
+          "rust_minus_published": -0.08873513513513509,
+          "csharp_minus_published": -0.08062702702702695
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 2,
+    "rust": {
+      "hkt_count": 96,
+      "node_count": 498,
+      "hierarchy_depth": 9,
+      "ordinary_node_count": 408,
+      "refuge_node_count": 90,
+      "reconstruction_decisions": 16,
+      "reconstructed_scopes": 5,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 102,
+      "node_count": 516,
+      "hierarchy_depth": 9,
+      "ordinary_node_count": 420,
+      "refuge_node_count": 96,
+      "reconstruction_decisions": 16,
+      "reconstructed_scopes": 6,
+      "scope_violation_count": 0
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "7ddc3b93c559755eff2d6709ca7762877680fbe03148616a965d29be4c918ce5",
+      "rust_canonical_sha256": "6831e451fc260192aa2d795d2d443f3d650ccb22ab6cc85fd7d2030a83ffe6c8",
+      "csharp_descriptor_topology_sha256": "b91287ee5598062ed1c4eafe58fd80f6c235f183d244ba21bc7ad0a7e6b41e8b",
+      "rust_descriptor_topology_sha256": "93cc0ccfaef39e46fb7c90f8904661a1ee2bc31b77a78575502080cbc21ae545",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3711,
+        "csharp_only_comembers": 3,
+        "rust_only_comembers": 60,
+        "both_separate": 269656
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "9d06fde10821a1b28ea17d494089132af7c318e7c4975ad594e3851c8c17466f",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 60,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 191
+      },
+      "csharp": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 73,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 195
+      },
+      "agreement": {
+        "population": "current_batch",
+        "documents": 740,
+        "unordered_pairs": 273430,
+        "both_comembers": 3711,
+        "csharp_only_comembers": 3,
+        "rust_only_comembers": 60,
+        "both_separate": 269656,
+        "changed_membership_families": 53,
+        "changed_source_ids": [
+          "mstream:News:000755",
+          "mstream:News:000791",
+          "mstream:News:000793",
+          "mstream:News:000799",
+          "mstream:News:000836",
+          "mstream:News:000837",
+          "mstream:News:000847",
+          "mstream:News:000870",
+          "mstream:News:000873",
+          "mstream:News:000875",
+          "mstream:News:000880",
+          "mstream:News:000883",
+          "mstream:News:000892",
+          "mstream:News:000914",
+          "mstream:News:000933",
+          "mstream:News:000935",
+          "mstream:News:000948",
+          "mstream:News:000949",
+          "mstream:News:000954",
+          "mstream:News:000962",
+          "mstream:News:000979",
+          "mstream:News:000986",
+          "mstream:News:000990",
+          "mstream:News:001046",
+          "mstream:News:001061",
+          "mstream:News:001070",
+          "mstream:News:001073",
+          "mstream:News:001113",
+          "mstream:News:001121",
+          "mstream:News:001153",
+          "mstream:News:001158",
+          "mstream:News:001160",
+          "mstream:News:001163",
+          "mstream:News:001198",
+          "mstream:News:001242",
+          "mstream:News:001244",
+          "mstream:News:001245",
+          "mstream:News:001274",
+          "mstream:News:001277",
+          "mstream:News:001285",
+          "mstream:News:001315",
+          "mstream:News:001335",
+          "mstream:News:001337",
+          "mstream:News:001338",
+          "mstream:News:001356",
+          "mstream:News:001360",
+          "mstream:News:001361",
+          "mstream:News:001366",
+          "mstream:News:001402",
+          "mstream:News:001408",
+          "mstream:News:001428",
+          "mstream:News:001429",
+          "mstream:News:001452"
+        ]
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 187,
+          "ground_truth_event_count": 134,
+          "nmi": 0.8743581558580855,
+          "bcubed_precision": 0.7517569003598414,
+          "bcubed_recall": 0.6262552950118571,
+          "bcubed_f1": 0.6228996217522454,
+          "purity": 0.8027027027027027
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 187
+      },
+      "csharp": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 189,
+          "ground_truth_event_count": 134,
+          "nmi": 0.8742302841122834,
+          "bcubed_precision": 0.754815421065421,
+          "bcubed_recall": 0.6160385577285564,
+          "bcubed_f1": 0.6166305337957456,
+          "purity": 0.8027027027027027
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 189
+      },
+      "agreement": {
+        "population": "current_batch",
+        "documents": 740,
+        "unordered_pairs": 273430,
+        "both_comembers": 3011,
+        "csharp_only_comembers": 47,
+        "rust_only_comembers": 115,
+        "both_separate": 270257,
+        "changed_membership_families": 80,
+        "changed_source_ids": [
+          "mstream:News:000755",
+          "mstream:News:000767",
+          "mstream:News:000768",
+          "mstream:News:000771",
+          "mstream:News:000791",
+          "mstream:News:000793",
+          "mstream:News:000799",
+          "mstream:News:000836",
+          "mstream:News:000847",
+          "mstream:News:000854",
+          "mstream:News:000863",
+          "mstream:News:000873",
+          "mstream:News:000875",
+          "mstream:News:000880",
+          "mstream:News:000881",
+          "mstream:News:000883",
+          "mstream:News:000885",
+          "mstream:News:000892",
+          "mstream:News:000914",
+          "mstream:News:000915",
+          "mstream:News:000933",
+          "mstream:News:000935",
+          "mstream:News:000948",
+          "mstream:News:000949",
+          "mstream:News:000954",
+          "mstream:News:000960",
+          "mstream:News:000966",
+          "mstream:News:000974",
+          "mstream:News:000976",
+          "mstream:News:000986",
+          "mstream:News:000990",
+          "mstream:News:001000",
+          "mstream:News:001020",
+          "mstream:News:001061",
+          "mstream:News:001067",
+          "mstream:News:001070",
+          "mstream:News:001073",
+          "mstream:News:001099",
+          "mstream:News:001106",
+          "mstream:News:001113",
+          "mstream:News:001121",
+          "mstream:News:001135",
+          "mstream:News:001142",
+          "mstream:News:001153",
+          "mstream:News:001163",
+          "mstream:News:001175",
+          "mstream:News:001177",
+          "mstream:News:001189",
+          "mstream:News:001198",
+          "mstream:News:001203",
+          "mstream:News:001205",
+          "mstream:News:001226",
+          "mstream:News:001240",
+          "mstream:News:001242",
+          "mstream:News:001244",
+          "mstream:News:001263",
+          "mstream:News:001269",
+          "mstream:News:001272",
+          "mstream:News:001274",
+          "mstream:News:001277",
+          "mstream:News:001304",
+          "mstream:News:001315",
+          "mstream:News:001330",
+          "mstream:News:001335",
+          "mstream:News:001337",
+          "mstream:News:001339",
+          "mstream:News:001351",
+          "mstream:News:001360",
+          "mstream:News:001361",
+          "mstream:News:001365",
+          "mstream:News:001366",
+          "mstream:News:001402",
+          "mstream:News:001408",
+          "mstream:News:001428",
+          "mstream:News:001429",
+          "mstream:News:001445",
+          "mstream:News:001448",
+          "mstream:News:001456",
+          "mstream:News:001458",
+          "mstream:News:001478"
+        ]
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8743581558580855,
+          "csharp": 0.8742302841122834,
+          "absolute_csharp_rust": 0.00012787174580208838,
+          "rust_minus_published": -0.00864184414191449,
+          "csharp_minus_published": -0.008769715887716578
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6228996217522454,
+          "csharp": 0.6166305337957456,
+          "absolute_csharp_rust": 0.00626908795649983,
+          "rust_minus_published": -0.007400378247754524,
+          "csharp_minus_published": -0.013669466204254355
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8027027027027027,
+          "csharp": 0.8027027027027027,
+          "absolute_csharp_rust": 0.0,
+          "rust_minus_published": -0.0008972972972972615,
+          "csharp_minus_published": -0.0008972972972972615
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 3,
+    "rust": {
+      "hkt_count": 103,
+      "node_count": 575,
+      "hierarchy_depth": 11,
+      "ordinary_node_count": 478,
+      "refuge_node_count": 97,
+      "reconstruction_decisions": 80,
+      "reconstructed_scopes": 20,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 117,
+      "node_count": 619,
+      "hierarchy_depth": 11,
+      "ordinary_node_count": 508,
+      "refuge_node_count": 111,
+      "reconstruction_decisions": 84,
+      "reconstructed_scopes": 30,
+      "scope_violation_count": 92
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "2b83772c9ce6443a9deebf752f82faf08841d7b59fcf1f5ad4a5e3397bc088e4",
+      "rust_canonical_sha256": "2bfd2f4236a0d94c5881879501d7ff3b6181408e786860591da259f3f64f0f7e",
+      "csharp_descriptor_topology_sha256": "88fb825dfa5cbc0b40e91c266eaf0a93e4e319714a4f5242d277b43a395c9b12",
+      "rust_descriptor_topology_sha256": "de39161b86c04666545ef531bdd2cba9b5829e0d97d8b4388de1483031246f90",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3739,
+        "csharp_only_comembers": 6,
+        "rust_only_comembers": 97,
+        "both_separate": 269588
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "ae2f32422941f20095023ea3b3aeff88f3f8dd2d87dd0efb9d0b6f0a7d0e15f0",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 59,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 195
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 189,
+          "ground_truth_event_count": 128,
+          "nmi": 0.8661370945482275,
+          "bcubed_precision": 0.7373248477596304,
+          "bcubed_recall": 0.5872416155047734,
+          "bcubed_f1": 0.5900267786938546,
+          "purity": 0.7824324324324324
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 189
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8661370945482275,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.016862905451772492,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.5900267786938546,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.04027322130614541,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.7824324324324324,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.021167567567567547,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 4,
+    "rust": {
+      "hkt_count": 203,
+      "node_count": 933,
+      "hierarchy_depth": 11,
+      "ordinary_node_count": 738,
+      "refuge_node_count": 195,
+      "reconstruction_decisions": 53,
+      "reconstructed_scopes": 11,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 196,
+      "node_count": 910,
+      "hierarchy_depth": 12,
+      "ordinary_node_count": 722,
+      "refuge_node_count": 188,
+      "reconstruction_decisions": 57,
+      "reconstructed_scopes": 10,
+      "scope_violation_count": 45
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "26b5cf11df201bb1342ef7a2834157b75f35db2a700539bf35fb0fccb427632f",
+      "rust_canonical_sha256": "3294f4d62604d195711cf61d65c337e39a8c5ad6c4371fdd0cdef8bcdf4cc00f",
+      "csharp_descriptor_topology_sha256": "e33bb66a1aef916f1499c87fd147e974f3f40cd2a6509f7e27225c08ca8e1328",
+      "rust_descriptor_topology_sha256": "976a3853e89a774848f9e1dbd41dc9a2dbd1b4b8d5f37e121cfbab4e4b346ab7",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3602,
+        "csharp_only_comembers": 76,
+        "rust_only_comembers": 77,
+        "both_separate": 269675
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "b6136aba2440d23bf74b69706eef64fb187d7933f4f906c6479256f81f184e37",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 75,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 209
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 194,
+          "ground_truth_event_count": 132,
+          "nmi": 0.869135125107836,
+          "bcubed_precision": 0.7486910335594547,
+          "bcubed_recall": 0.5938743361692278,
+          "bcubed_f1": 0.6035366659989502,
+          "purity": 0.7891891891891892
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 194
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.869135125107836,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.013864874892164036,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6035366659989502,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.0267633340010498,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.7891891891891892,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.014410810810810748,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 5,
+    "rust": {
+      "hkt_count": 304,
+      "node_count": 1250,
+      "hierarchy_depth": 11,
+      "ordinary_node_count": 956,
+      "refuge_node_count": 294,
+      "reconstruction_decisions": 24,
+      "reconstructed_scopes": 6,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 269,
+      "node_count": 1120,
+      "hierarchy_depth": 13,
+      "ordinary_node_count": 861,
+      "refuge_node_count": 259,
+      "reconstruction_decisions": 138,
+      "reconstructed_scopes": 36,
+      "scope_violation_count": 81
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "dfb891b76df2f931e94f93503223526b55cac6be5ede36c28600765b87fc1033",
+      "rust_canonical_sha256": "0e0422214739f099e437358489869e79784856aed2037d05149506e05507629c",
+      "csharp_descriptor_topology_sha256": "6241f6c941a64b1d5f45a0fc9db4bd68dc45b292eeefe1f8e7923ca9ebf0662f",
+      "rust_descriptor_topology_sha256": "125edb0b73b0fe68b77e83e48a3c6ff451be830feb34f7a6594767b8265d355b",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3476,
+        "csharp_only_comembers": 159,
+        "rust_only_comembers": 309,
+        "both_separate": 269486
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "ea313c0a9045d70802801217605336e9e3ab4356e197302489ed0748ad3b8066",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 70,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 191
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 193,
+          "ground_truth_event_count": 129,
+          "nmi": 0.8705019710770253,
+          "bcubed_precision": 0.7631281769439664,
+          "bcubed_recall": 0.5786965892481439,
+          "bcubed_f1": 0.5962972988239391,
+          "purity": 0.8121621621621622
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 193
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8705019710770253,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.012498028922974691,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.5962972988239391,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.03400270117606086,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8121621621621622,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.008562162162162212,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 6,
+    "rust": {
+      "hkt_count": 322,
+      "node_count": 1370,
+      "hierarchy_depth": 13,
+      "ordinary_node_count": 1061,
+      "refuge_node_count": 309,
+      "reconstruction_decisions": 254,
+      "reconstructed_scopes": 46,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 292,
+      "node_count": 1251,
+      "hierarchy_depth": 14,
+      "ordinary_node_count": 972,
+      "refuge_node_count": 279,
+      "reconstruction_decisions": 238,
+      "reconstructed_scopes": 47,
+      "scope_violation_count": 158
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "f0c0f63d1c48ba2f5ad0cae73849427386e26c53fc7d591dfa965f6786ad3d6a",
+      "rust_canonical_sha256": "5176ebf684663370872f702c7b32ab125829a8babad29312b50c1eaa7b98bbee",
+      "csharp_descriptor_topology_sha256": "ca9846c8508714458c77953cab2cc234157cf22e61e5e2ead3cc0d4eb03726ee",
+      "rust_descriptor_topology_sha256": "752e5466d28670a5a38a2709a837398487c12df3c31eef94da3137b456687967",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3641,
+        "csharp_only_comembers": 212,
+        "rust_only_comembers": 252,
+        "both_separate": 269325
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "09ecd382c944c83da2b84f745f6f8d2df1af048c39540c804266b71923719742",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 58,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 183
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 182,
+          "ground_truth_event_count": 131,
+          "nmi": 0.8669424240643623,
+          "bcubed_precision": 0.7255145245122024,
+          "bcubed_recall": 0.6131129844365139,
+          "bcubed_f1": 0.5963705759395974,
+          "purity": 0.7783783783783784
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 182
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8669424240643623,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.016057575935637725,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.5963705759395974,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.03392942406040256,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.7783783783783784,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.02522162162162156,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 7,
+    "rust": {
+      "hkt_count": 349,
+      "node_count": 1539,
+      "hierarchy_depth": 13,
+      "ordinary_node_count": 1207,
+      "refuge_node_count": 332,
+      "reconstruction_decisions": 258,
+      "reconstructed_scopes": 53,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 320,
+      "node_count": 1405,
+      "hierarchy_depth": 16,
+      "ordinary_node_count": 1100,
+      "refuge_node_count": 305,
+      "reconstruction_decisions": 245,
+      "reconstructed_scopes": 48,
+      "scope_violation_count": 204
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "1fe185d3fa240ca7fab74bad31a0ab6b942d400fe5529c248b4edbce50b74444",
+      "rust_canonical_sha256": "b25617f620f7b6712a50da3d8301678ad999a5f20ac9988de4caadee7e6d21bb",
+      "csharp_descriptor_topology_sha256": "f778778456a260be6de1997f2991be7a2c1e0f48b9c2a35771aefcc5d2a2644e",
+      "rust_descriptor_topology_sha256": "eaebc8e20ce785b2451db3bc84908159d80372a519b46783d24492ec77fd824b",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3550,
+        "csharp_only_comembers": 145,
+        "rust_only_comembers": 346,
+        "both_separate": 269389
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "86d3b2fb63ec4a6bcb15023c52f1bc6edc533ce86c8ba391ee3b1cd48dbd4911",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 58,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 203
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 193,
+          "ground_truth_event_count": 125,
+          "nmi": 0.8699431722750619,
+          "bcubed_precision": 0.7489192517288492,
+          "bcubed_recall": 0.6004500842392887,
+          "bcubed_f1": 0.6082567659078072,
+          "purity": 0.7986486486486486
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 193
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8699431722750619,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.013056827724938103,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6082567659078072,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.022043234092192776,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.7986486486486486,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.004951351351351385,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 8,
+    "rust": {
+      "hkt_count": 408,
+      "node_count": 1786,
+      "hierarchy_depth": 13,
+      "ordinary_node_count": 1400,
+      "refuge_node_count": 386,
+      "reconstruction_decisions": 284,
+      "reconstructed_scopes": 33,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 412,
+      "node_count": 1756,
+      "hierarchy_depth": 14,
+      "ordinary_node_count": 1366,
+      "refuge_node_count": 390,
+      "reconstruction_decisions": 180,
+      "reconstructed_scopes": 33,
+      "scope_violation_count": 119
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "e810ae1c81ebd353e9ee9dcd018deaa00c6374224b013255e9878569527569b3",
+      "rust_canonical_sha256": "6ff1a2291c9f78e051efe98f7e646282fb580c69014730af31b971b18357998b",
+      "csharp_descriptor_topology_sha256": "f89ad323be7927a6e6ef8fe4922f50d05c13f45fa3c4e4bb59dbdfe4aa471db9",
+      "rust_descriptor_topology_sha256": "c4d8ee6566995f23fb5f1af2cade402c701632487190f6eb54e57573fa0ba649",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3825,
+        "csharp_only_comembers": 147,
+        "rust_only_comembers": 330,
+        "both_separate": 269128
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "aa8ab8be106bf2c8b11d12d7c0917a7db15a66748d019283643b8a1af2e20b18",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 75,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 202
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 185,
+          "ground_truth_event_count": 125,
+          "nmi": 0.8770704388878743,
+          "bcubed_precision": 0.7729882852594524,
+          "bcubed_recall": 0.6188806023482926,
+          "bcubed_f1": 0.6239339694378637,
+          "purity": 0.8216216216216217
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 185
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8770704388878743,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.005929561112125725,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6239339694378637,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.006366030562136249,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8216216216216217,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.018021621621621686,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 9,
+    "rust": {
+      "hkt_count": 519,
+      "node_count": 2222,
+      "hierarchy_depth": 13,
+      "ordinary_node_count": 1729,
+      "refuge_node_count": 493,
+      "reconstruction_decisions": 205,
+      "reconstructed_scopes": 32,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 431,
+      "node_count": 1859,
+      "hierarchy_depth": 15,
+      "ordinary_node_count": 1448,
+      "refuge_node_count": 411,
+      "reconstruction_decisions": 350,
+      "reconstructed_scopes": 52,
+      "scope_violation_count": 235
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "0f1e5718d8aecc2b5116b2e865dd84b6f00acddc941bc07a1f2eb23057a4fbb8",
+      "rust_canonical_sha256": "e81d31e2a86aef763a9ed472280544eb9a51ad2737647e6bc9caca36b4006f48",
+      "csharp_descriptor_topology_sha256": "455ca7083b153ea3bbf86dda8f06c0c64693c2fd56df5c24091341f404a58407",
+      "rust_descriptor_topology_sha256": "fccae0984c638935634cf1c75e069cadb01343109f3a8a5d61727a37b85e2808",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3101,
+        "csharp_only_comembers": 191,
+        "rust_only_comembers": 329,
+        "both_separate": 269809
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "f41295afead66dd34829d865d2345bd6492ce205fdd66b8b8c5fb9158db357b0",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 70,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 215
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 189,
+          "ground_truth_event_count": 124,
+          "nmi": 0.8705494494879459,
+          "bcubed_precision": 0.7543383155883155,
+          "bcubed_recall": 0.592773238123791,
+          "bcubed_f1": 0.6033780800570528,
+          "purity": 0.8094594594594594
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 189
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8705494494879459,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.012450550512054126,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6033780800570528,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.026921919942947126,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8094594594594594,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.005859459459459426,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 10,
+    "rust": {
+      "hkt_count": 537,
+      "node_count": 2342,
+      "hierarchy_depth": 14,
+      "ordinary_node_count": 1831,
+      "refuge_node_count": 511,
+      "reconstruction_decisions": 407,
+      "reconstructed_scopes": 58,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 491,
+      "node_count": 2059,
+      "hierarchy_depth": 16,
+      "ordinary_node_count": 1591,
+      "refuge_node_count": 468,
+      "reconstruction_decisions": 341,
+      "reconstructed_scopes": 55,
+      "scope_violation_count": 223
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "8283ed4613ac1a29e685312467ddfaae7078216aad66ca03e8d6c2899594276a",
+      "rust_canonical_sha256": "eabfe451b1f51e7679d9924ee3b7b1cd3af659ea27e6f443356604c2f1e7bc91",
+      "csharp_descriptor_topology_sha256": "e6e1076ce1420f69244e865c4b94bde5736d523b070ab916341caa3d67dc30f0",
+      "rust_descriptor_topology_sha256": "9a58f23754d5197f4fe485a3ba1f481d59d2b2895065f2435e4dc9b2fab6e596",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3231,
+        "csharp_only_comembers": 142,
+        "rust_only_comembers": 279,
+        "both_separate": 269778
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "d6f07a61c0693a2af7c489488ddf52a252a793b304f3822b9e4e18b6279df7b5",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 66,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 210
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 184,
+          "ground_truth_event_count": 126,
+          "nmi": 0.8786579636383646,
+          "bcubed_precision": 0.7660256346285758,
+          "bcubed_recall": 0.6205446716983228,
+          "bcubed_f1": 0.6249693781699214,
+          "purity": 0.8202702702702702
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 184
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8786579636383646,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.004342036361635437,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6249693781699214,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.005330621830078597,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8202702702702702,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.016670270270270238,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 11,
+    "rust": {
+      "hkt_count": 576,
+      "node_count": 2509,
+      "hierarchy_depth": 14,
+      "ordinary_node_count": 1960,
+      "refuge_node_count": 549,
+      "reconstruction_decisions": 431,
+      "reconstructed_scopes": 59,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 533,
+      "node_count": 2232,
+      "hierarchy_depth": 17,
+      "ordinary_node_count": 1726,
+      "refuge_node_count": 506,
+      "reconstruction_decisions": 415,
+      "reconstructed_scopes": 52,
+      "scope_violation_count": 258
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "6893bd906f77a76646040192f9f3a98a8290749ab3d400bfe52b9ef8bf86164b",
+      "rust_canonical_sha256": "4518332e08585638db863952ddd5b71cef247a2b142a899cd6d653a3d9a024e1",
+      "csharp_descriptor_topology_sha256": "d344f97afa6724e5fefec8da4064d7875b5f29b598249c18dae01cd84d828ab6",
+      "rust_descriptor_topology_sha256": "393990cc9c8ae26f87630fb964507436d377fc5ce9c9810d95e0c55b8a6ef94f",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3526,
+        "csharp_only_comembers": 109,
+        "rust_only_comembers": 209,
+        "both_separate": 269586
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "4cd87dd6cf962adc0f70ec9014bb99a7e3cdb2d8bdcf9686d03c3685c6f42c17",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 73,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 224
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 197,
+          "ground_truth_event_count": 133,
+          "nmi": 0.8781460528200707,
+          "bcubed_precision": 0.7752425251338295,
+          "bcubed_recall": 0.615725060975061,
+          "bcubed_f1": 0.6230234314303965,
+          "purity": 0.8202702702702702
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 197
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.8781460528200707,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.004853947179929263,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6230234314303965,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": -0.007276568569603459,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.8202702702702702,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.016670270270270238,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  },
+  {
+    "cycle": 12,
+    "rust": {
+      "hkt_count": 619,
+      "node_count": 2699,
+      "hierarchy_depth": 15,
+      "ordinary_node_count": 2107,
+      "refuge_node_count": 592,
+      "reconstruction_decisions": 426,
+      "reconstructed_scopes": 49,
+      "scope_violation_count": 0
+    },
+    "reference_completed": true,
+    "csharp": {
+      "hkt_count": 570,
+      "node_count": 2394,
+      "hierarchy_depth": 17,
+      "ordinary_node_count": 1850,
+      "refuge_node_count": 544,
+      "reconstruction_decisions": 434,
+      "reconstructed_scopes": 51,
+      "scope_violation_count": 293
+    },
+    "representation": {
+      "topology_and_membership_equal": false,
+      "descriptor_topology_equal": false,
+      "csharp_canonical_sha256": "dab0ceda8e0bdd59e2ce3c20ac69f8f4f025283ea134f137d01951665b2c8757",
+      "rust_canonical_sha256": "2115c96b23c9243f8bf92dcaeccd8bc30b347bac56896fdc7015f0be327e1ffe",
+      "csharp_descriptor_topology_sha256": "94db9d4aa3941faf715ca12cb84a5b0b27b09315751413ca04a33ddd5908957e",
+      "rust_descriptor_topology_sha256": "6a007f2d22e46d25e33132521f1e4f30d8848716722c71408796aa8d83a6e953",
+      "ordinary_node_co_membership": {
+        "population": "current_batch",
+        "unordered_pairs": 273430,
+        "both_comembers": 3354,
+        "csharp_only_comembers": 135,
+        "rust_only_comembers": 204,
+        "both_separate": 269737
+      }
+    },
+    "reconstruction_scope_evidence_sha256": "b57549f62907029e70b0752f96229431ef7e50753e2590ab0f7f4c560610855b",
+    "direct": {
+      "rust": {
+        "status": "scientific_blocker",
+        "reason": "overlapping/unassigned predictions: paper gives no conversion rule",
+        "overlapping_documents": 88,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 220
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.8621,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.5463,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.7167,
+          "rust": null,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": null,
+          "csharp_minus_published": null
+        }
+      ]
+    },
+    "indirect": {
+      "rust": {
+        "status": "scored",
+        "metrics": {
+          "evaluated_document_count": 740,
+          "predicted_cluster_count": 194,
+          "ground_truth_event_count": 133,
+          "nmi": 0.887925281025513,
+          "bcubed_precision": 0.7765938460938461,
+          "bcubed_recall": 0.6459377461380794,
+          "bcubed_f1": 0.6501937507542224,
+          "purity": 0.822972972972973
+        },
+        "overlapping_documents": 0,
+        "unassigned_documents": 0,
+        "predicted_cluster_count": 194
+      },
+      "csharp": {
+        "status": "clustering_input_failure",
+        "reason": "child sources must be a subset of parent sources"
+      },
+      "metrics_comparison": [
+        {
+          "metric": "nmi",
+          "published_12_cycle_mean": 0.883,
+          "rust": 0.887925281025513,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.00492528102551304,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "bcubed_f1",
+          "published_12_cycle_mean": 0.6303,
+          "rust": 0.6501937507542224,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.019893750754222395,
+          "csharp_minus_published": null
+        },
+        {
+          "metric": "purity",
+          "published_12_cycle_mean": 0.8036,
+          "rust": 0.822972972972973,
+          "csharp": null,
+          "absolute_csharp_rust": null,
+          "rust_minus_published": 0.019372972972973024,
+          "csharp_minus_published": null
+        }
+      ]
+    }
+  }
+]

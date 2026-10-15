@@ -1,0 +1,326 @@
+[
+  {
+    "stage": "G-full",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/G-full/input.json",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/G-full/cycles"
+    ],
+    "elapsed_seconds": 118.79394713044167,
+    "requested_cycles": 12,
+    "completed_cycles": 12,
+    "first_incomplete_cycle": null,
+    "input_sha256": "3fc0361cbb909ffadcb86a6b154d78ec0cf8d08ccb37e3a5419f64f7cca96842",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "0c810a45421e69e72ecbdfc3ea756aa447f26349b6a37b89bd2624f208dfca7b",
+      "cycle-0002.json": "8d551898a17daf887ec21af0678f3a6568ffae610c369580e59eb1bd2d3f2d6d",
+      "cycle-0003.json": "6c041e024b66c1cd766a78b46b19b04d20539ca14cf0adbcc194b2491724e5f5",
+      "cycle-0004.json": "35542d7317949ec5d5b1652a7174733afccbfc951a10a299db3630d457ed9df7",
+      "cycle-0005.json": "4f4903cab8830e3bdc137cfe50c1ef2abd6b78d4b637968d864b51a7577b473f",
+      "cycle-0006.json": "36a0c6e00305938544658044b234df455335e0c48a1095adfbba4f5245273e55",
+      "cycle-0007.json": "b079004429d7d24a20b6ab5861870c5525d01dae088c739ab960e7d73bbc9461",
+      "cycle-0008.json": "0aa8c781c69f48838125f6d0069388238aa71af798a5eed86fe64196c44eb44e",
+      "cycle-0009.json": "16802f3a1d3d0d49c1d76d324e3942b82e184c99b90ae30dd879c90c4ca9b4b8",
+      "cycle-0010.json": "18e6508fae22fe7aa03eae6db082ce826fe5f66b0f673d9a8cc62ef89a381f5b",
+      "cycle-0011.json": "50ac67fe08b87c0b5ab7bb509e57cc20de62807cc52d63de17181ef4e1abc5c4",
+      "cycle-0012.json": "fbf468fa347843e8d1a4b2342c55520669641e6f56aaf91597e0d8a52a988814"
+    },
+    "stderr_sha256": "59a337c9023e666dbc8e373cdd1f5fb8e395fafd14b0813a7d2cb0acc4e6e726",
+    "timeout_seconds": 1800
+  },
+  {
+    "stage": "H-full",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/H-full/input.json",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/H-full/cycles"
+    ],
+    "elapsed_seconds": 670.5670596957207,
+    "requested_cycles": 12,
+    "completed_cycles": 12,
+    "first_incomplete_cycle": null,
+    "input_sha256": "714513a4b6492a58447f4c7229b422c5cbbb4f2d3df122cb73a570dcc1c55158",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "a83b9a906b25ef56aea3fa621779ea6eaf6c9fa53cf101b2201e030e05322286",
+      "cycle-0002.json": "1141a909280f9d4c490355ee97b49dec299288e4857abd63add29eb5323c2293",
+      "cycle-0003.json": "0b5c1c3efe5a6e8bd261e4e2ebc6a1fb2d1677ff60b7e19a51e42c3a865b486e",
+      "cycle-0004.json": "9f228c49894617707f9e56d228b4634c612660d8c65fb3d26216b4ece157d245",
+      "cycle-0005.json": "3a39eb603d58e519cfaeb52f0fc930341ef2c105c7365cc0540a2b0c28a9c598",
+      "cycle-0006.json": "9c6d32d9a917725eed651896c27123a95659e6ad111d33acffac00f6a3ca68c4",
+      "cycle-0007.json": "1767afc0cceb15a00e94c335af4943602501d99bfd081a06b5de3625a15c0eb7",
+      "cycle-0008.json": "54a22b83ef3f32996295a07a74940cd9ded27a1f10a2f53d78eb63ef56c3b187",
+      "cycle-0009.json": "7fb2a01c2f2e08aac1ee4acaec7a5a425330c9c75b299237f0dac65c2d6563bf",
+      "cycle-0010.json": "74814f1a8252bc4d55aa8669f144a3ae33937295ca4b0ac1ad7f5b316834bdcc",
+      "cycle-0011.json": "ab9510bb0e5faf3e539dd814966ad7a7d934df26ed33bee04c715f9d8d1ea960",
+      "cycle-0012.json": "cbcc3f054643cd96d8ff5fa3d380dd250c8c3ccfe9d56534bd13653c7ab03ee8"
+    },
+    "stderr_sha256": "30f963425a999e8ff34b54037c74c44bd42cb6ddf282012f03a0c03e215e8b83",
+    "timeout_seconds": 1800
+  },
+  {
+    "stage": "golden-reconstruct",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "benchmarks/seca-paper/reference/local/runs/golden-reconstruct/input.json",
+      "benchmarks/seca-paper/reference/local/runs/golden-reconstruct/cycles"
+    ],
+    "elapsed_seconds": 0.31576430052518845,
+    "requested_cycles": 3,
+    "completed_cycles": 3,
+    "first_incomplete_cycle": null,
+    "input_sha256": "5565386747dc81c06e458970f16409680b7cd8d6bb57d4d8cee51deb1c6d4a51",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "ec29588a25f00cdc25c8765c48cd8a4c7e4489ca696d0a9ea40a9b2875713bd6",
+      "cycle-0002.json": "09d209bd45263b2394c7820f1461ead78661545c92016e24309db8da8f361304",
+      "cycle-0003.json": "7db376d403f8a0a835c5c110093f77e24d707025054dc44269b0c52ebc8d866b"
+    },
+    "stderr_sha256": "3a67fa7f9f57c25171bab07a92fff210729fe7657bf2a6a4602582f26c8e37d8",
+    "timeout_seconds": 60
+  },
+  {
+    "stage": "golden-shared-candidate-failure",
+    "status": "reference_failure",
+    "exit_code": 1,
+    "command": [
+      "mono",
+      "benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "benchmarks/seca-paper/reference/local/runs/golden-shared-candidate-failure/input.json",
+      "benchmarks/seca-paper/reference/local/runs/golden-shared-candidate-failure/cycles"
+    ],
+    "elapsed_seconds": 0.26597653329372406,
+    "requested_cycles": 2,
+    "completed_cycles": 1,
+    "first_incomplete_cycle": 2,
+    "input_sha256": "7df33bdd5e5db37fa9a4c8e8c29fb82e9861900763a88a5257ca97099670c7bc",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "0dbcb83825a8e5708fe160f515ca09c370618a6a143196f76dcc27757b7b13ca"
+    },
+    "stderr_sha256": "76993fbbea1736b5f4157dc01a9a71f7ff364d6847eac566ca4c7324b5074887",
+    "timeout_seconds": 60
+  },
+  {
+    "stage": "golden-stable",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "benchmarks/seca-paper/reference/local/runs/golden-stable/input.json",
+      "benchmarks/seca-paper/reference/local/runs/golden-stable/cycles"
+    ],
+    "elapsed_seconds": 0.2663697376847267,
+    "requested_cycles": 3,
+    "completed_cycles": 3,
+    "first_incomplete_cycle": null,
+    "input_sha256": "b3b99b8377499bae0b1acc460f8231e68842d1e204fd370f377fd5b1c3a80eff",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "ec29588a25f00cdc25c8765c48cd8a4c7e4489ca696d0a9ea40a9b2875713bd6",
+      "cycle-0002.json": "8e904d82b05716c949a75e208e5bdfb994bd3280f550d44d4f6865a269d9ff4f",
+      "cycle-0003.json": "21e980e821589a4ed9965fb65754652a38d0af515c829935df5905d1133a2fe4"
+    },
+    "stderr_sha256": "aad570d725ca04f23a3981d212edcc2ec35c4846e5fd4ba7ff883ecd56dc7d2a",
+    "timeout_seconds": 60
+  },
+  {
+    "stage": "news-first",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-first/input.json",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-first/cycles"
+    ],
+    "elapsed_seconds": 0.6164276376366615,
+    "requested_cycles": 1,
+    "completed_cycles": 1,
+    "first_incomplete_cycle": null,
+    "input_sha256": "d9853464a26c2554b8c0355ecbb30f6e7d2d46748dd6efeddc336a0e4fb00e83",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "0c810a45421e69e72ecbdfc3ea756aa447f26349b6a37b89bd2624f208dfca7b"
+    },
+    "stderr_sha256": "96921a56acf0e88d10e6d3e15afe6686ba97639eda15637d251a20ff21ac8d30",
+    "timeout_seconds": 1800
+  },
+  {
+    "stage": "news-multiple",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-multiple/input.json",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-multiple/cycles"
+    ],
+    "elapsed_seconds": 5.976348549127579,
+    "requested_cycles": 3,
+    "completed_cycles": 3,
+    "first_incomplete_cycle": null,
+    "input_sha256": "1cf73bbfb18f6c320bb859d2a020d0813025bfe9ce435daeeec0d67aa03ebee9",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "0c810a45421e69e72ecbdfc3ea756aa447f26349b6a37b89bd2624f208dfca7b",
+      "cycle-0002.json": "8d551898a17daf887ec21af0678f3a6568ffae610c369580e59eb1bd2d3f2d6d",
+      "cycle-0003.json": "6c041e024b66c1cd766a78b46b19b04d20539ca14cf0adbcc194b2491724e5f5"
+    },
+    "stderr_sha256": "d49f42fe91576238b4ace52317674e84135b93fc6d6dfa6c587788a5c1cb51e5",
+    "timeout_seconds": 1800
+  },
+  {
+    "stage": "news-small",
+    "status": "complete",
+    "exit_code": 0,
+    "command": [
+      "mono",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/build/checkpoint.exe",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-small/input.json",
+      "/tmp/seca-reference-benchmark/benchmarks/seca-paper/reference/local/runs/news-small/cycles"
+    ],
+    "elapsed_seconds": 0.21574314683675766,
+    "requested_cycles": 1,
+    "completed_cycles": 1,
+    "first_incomplete_cycle": null,
+    "input_sha256": "a7ba04e045f07ffc2a83c8ff59397267ed2d22fb8900680ad96731b34461256a",
+    "checkpoint_binary_sha256": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+    "compiled_sources": {
+      "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+      "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+      "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+      "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+      "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+      "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+      "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+      "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+      "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+      "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+      "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+      "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+      "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+    },
+    "cycle_hashes": {
+      "cycle-0001.json": "53a009867abe25cd457d30b597f678715c0b6491e59fda249a89781e358f302c"
+    },
+    "stderr_sha256": "96921a56acf0e88d10e6d3e15afe6686ba97639eda15637d251a20ff21ac8d30",
+    "timeout_seconds": 1800
+  }
+]

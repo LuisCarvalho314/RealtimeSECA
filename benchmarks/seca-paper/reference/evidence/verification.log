@@ -1,0 +1,24 @@
+../../references/seca-parity-build/.harness-generated/DataHelper.cs(443,35): warning CS0219: The variable `rdr' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(180,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(199,17): warning CS0219: The variable `strength0' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(202,17): warning CS0219: The variable `strength1' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(205,17): warning CS0219: The variable `eligibility0' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(208,17): warning CS0219: The variable `eligibility1' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(212,17): warning CS0219: The variable `importance0' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(215,17): warning CS0219: The variable `importance1' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(273,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(306,28): warning CS0219: The variable `msg' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/HKT.cs(390,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(588,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(615,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(736,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(776,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/HKT.cs(841,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/Node.cs(185,17): warning CS0219: The variable `sourcesOfNewProminWordInNode' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/Node.cs(213,24): warning CS0219: The variable `msg' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/SECAAlgorithm.cs(126,21): warning CS0219: The variable `tempNodesList' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/SECAAlgorithm.cs(508,17): warning CS0162: Unreachable code detected
+../../references/seca-parity-build/.harness-generated/SECAAlgorithm.cs(373,24): warning CS0219: The variable `sss' is assigned but its value is never used
+../../references/seca-parity-build/.harness-generated/SECAAlgorithm.cs(552,17): warning CS0162: Unreachable code detected
+Compilation succeeded - 22 warning(s)
+Passed: manual metrics/topology, subsequent updates, deterministic repeats, invalid-input failure

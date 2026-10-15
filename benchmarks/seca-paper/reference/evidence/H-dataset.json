@@ -1,0 +1,233 @@
+{
+  "manifest": {
+    "schema_version": 1,
+    "theme": "H",
+    "original_dataset_name": "Tweets",
+    "source_variant": "Tweets-T",
+    "path_base": "selected_benchmark_data_directory",
+    "source": {
+      "repository": "https://github.com/jackyin12/MStream",
+      "revision": "ac894075f2bbb93405679e237d2d5d11a325078c",
+      "files": {
+        "News": {
+          "path": "MStream/data/News",
+          "sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+          "bytes": 1064634,
+          "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+          "git_blob": "fc3dddb96d92c67390ed83387ee729ebe1d3822b",
+          "statistics": {
+            "documents": 11109,
+            "labels": 152,
+            "duplicate_ids": 0,
+            "duplicate_text_excess": 350,
+            "duplicate_label_text_excess": 248,
+            "minimum_label_documents": 3,
+            "maximum_label_documents": 430,
+            "ordered_ids_sha256": "97bcb9b71614843fe00928f759dc1341815b36898848a1ceb3f3e10c7542b59e",
+            "ordered_records_sha256": "589b304689365eb4d113d2a323fe7a2a6d8be12ab9be9c9268edc59322e161d1",
+            "token_count": 69235
+          }
+        },
+        "News-T": {
+          "path": "MStream/data/News-T",
+          "sha256": "562d6a1771a4675caedb405d68371348bd7e54db130b633ef5ebd5896157ffbb",
+          "bytes": 1064634,
+          "last_change_revision": "bc7df3ce3b92612e211ea73537a61d8159c1015d",
+          "git_blob": "6ccb49713abe390e1ad59fd8061b64c705dfd851",
+          "statistics": {
+            "documents": 11109,
+            "labels": 152,
+            "duplicate_ids": 0,
+            "duplicate_text_excess": 350,
+            "duplicate_label_text_excess": 248,
+            "minimum_label_documents": 3,
+            "maximum_label_documents": 430,
+            "ordered_ids_sha256": "92ca5cee2968d29f18de7cf113e0fc574ffec85546f5c8f26e5dfac8063110b0",
+            "ordered_records_sha256": "5ef48e3de901820797cf4162bc6bf18b95240b15f010411c9597ed98b566d6cb",
+            "token_count": 69235
+          }
+        },
+        "Tweets": {
+          "path": "MStream/data/Tweets",
+          "sha256": "126d6f0a4fd76abfdb76f555081ed44af4f185d8a202197906886fcf09927b98",
+          "bytes": 3269729,
+          "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+          "git_blob": "26844874b6db4801f3efd6f0f6d913d6322fa64f",
+          "statistics": {
+            "documents": 30322,
+            "labels": 269,
+            "duplicate_ids": 0,
+            "duplicate_text_excess": 4336,
+            "duplicate_label_text_excess": 4329,
+            "minimum_label_documents": 1,
+            "maximum_label_documents": 1628,
+            "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+            "ordered_records_sha256": "07d6ba435ed9f47fe7c5b1bdb9e04d812f2fc0cb8ee733071520e25f05a7a252",
+            "token_count": 241617
+          }
+        },
+        "Tweets-T": {
+          "path": "MStream/data/Tweets-T",
+          "sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+          "bytes": 3269729,
+          "last_change_revision": "bf683c3943db7548d43cdeba6c0a3096fb353333",
+          "git_blob": "12a3db42d86d6e8db2705695d395c4e2a700c232",
+          "statistics": {
+            "documents": 30322,
+            "labels": 269,
+            "duplicate_ids": 0,
+            "duplicate_text_excess": 4336,
+            "duplicate_label_text_excess": 4329,
+            "minimum_label_documents": 1,
+            "maximum_label_documents": 1628,
+            "ordered_ids_sha256": "51682d3a40222666fc0fb65016110d3eeb4b54668f8c8d5dfb285afbf44add05",
+            "ordered_records_sha256": "fb3cc73e4c387dd965d5ec3bd952f0f2396dbdeb14fd2eb81478b35c7e079271",
+            "token_count": 241617
+          }
+        }
+      }
+    },
+    "documents": 24000,
+    "batch_size": 2000,
+    "batch_count": 12,
+    "batches": [
+      {
+        "batch_index": 0,
+        "path": "H/batch-00.json",
+        "documents": 2000,
+        "source_line_start": 1,
+        "source_line_end": 2000,
+        "sha256": "c169ae7d583cd25d5f57df8051d674fc92a647fbfd2f7e37d8ca76189670ad6f"
+      },
+      {
+        "batch_index": 1,
+        "path": "H/batch-01.json",
+        "documents": 2000,
+        "source_line_start": 2001,
+        "source_line_end": 4000,
+        "sha256": "1cead2171fe26a070e6a3ebc80a1efdf737f2c14724e7833ebdc329adf4b07de"
+      },
+      {
+        "batch_index": 2,
+        "path": "H/batch-02.json",
+        "documents": 2000,
+        "source_line_start": 4001,
+        "source_line_end": 6000,
+        "sha256": "c8a9b733241b9d2b87e22b9392fe92e7b07e034d23fca767bfccfb67207e6930"
+      },
+      {
+        "batch_index": 3,
+        "path": "H/batch-03.json",
+        "documents": 2000,
+        "source_line_start": 6001,
+        "source_line_end": 8000,
+        "sha256": "34c80a3190935fcadd817d7638187dade1de53dbb832c17fd831dd37ffda3f64"
+      },
+      {
+        "batch_index": 4,
+        "path": "H/batch-04.json",
+        "documents": 2000,
+        "source_line_start": 8001,
+        "source_line_end": 10000,
+        "sha256": "49d9a112a780cf741afeb03a56c201c78a417d2b8e502d3cf3b9216f0e38c953"
+      },
+      {
+        "batch_index": 5,
+        "path": "H/batch-05.json",
+        "documents": 2000,
+        "source_line_start": 10001,
+        "source_line_end": 12000,
+        "sha256": "76baabe622a86a0d5377b450c81db766a39dab3552bca54aa16eb618d5ee5de5"
+      },
+      {
+        "batch_index": 6,
+        "path": "H/batch-06.json",
+        "documents": 2000,
+        "source_line_start": 12001,
+        "source_line_end": 14000,
+        "sha256": "eab55bb7f8f386ed15ab9c74333b33f1ee42193393568bac1cbad8e2e9dcd7cd"
+      },
+      {
+        "batch_index": 7,
+        "path": "H/batch-07.json",
+        "documents": 2000,
+        "source_line_start": 14001,
+        "source_line_end": 16000,
+        "sha256": "79610f14bd2ea16da9c04e1d0aedceba4ba79671e96627beb7de108b67599f65"
+      },
+      {
+        "batch_index": 8,
+        "path": "H/batch-08.json",
+        "documents": 2000,
+        "source_line_start": 16001,
+        "source_line_end": 18000,
+        "sha256": "544521bdc94ddd3e5365d025801917bc2769cf0ba55d05b43d069ee27c14f9b6"
+      },
+      {
+        "batch_index": 9,
+        "path": "H/batch-09.json",
+        "documents": 2000,
+        "source_line_start": 18001,
+        "source_line_end": 20000,
+        "sha256": "39597af2040ad3f0136dc00180b4795a1b09f9881f1af71cff29add821b9050a"
+      },
+      {
+        "batch_index": 10,
+        "path": "H/batch-10.json",
+        "documents": 2000,
+        "source_line_start": 20001,
+        "source_line_end": 22000,
+        "sha256": "fe306730f8b60a63c99d3634d92d45fbd99e407fbaf3423290304845a2964b2a"
+      },
+      {
+        "batch_index": 11,
+        "path": "H/batch-11.json",
+        "documents": 2000,
+        "source_line_start": 22001,
+        "source_line_end": 24000,
+        "sha256": "1d2ae07ba75d611d061473df1b97766f3d90e5b47779288f9217504842158b90"
+      }
+    ],
+    "ground_truth_path": "H/ground-truth.json",
+    "ground_truth_sha256": "f644e4cb346380dc8d5b1ad7e0157b9d736142403c09c235cdac76687c79b1aa",
+    "preprocessing": "Use upstream textCleaned verbatim; split on whitespace with str.split(); preserve token order and repetitions; no stemming, stop-word removal, case folding, deduplication or additional cleaning.",
+    "source_id_convention": "mstream:Tweets-T:<original Id verbatim>",
+    "label_convention": "clusterNo as decimal string, without relabeling",
+    "reconstruction": {
+      "selection": "reconstructed",
+      "ordering": "reconstructed",
+      "exact_paper_reconstruction": false,
+      "method": "First 24000 physical JSONL records of Tweets-T, in published file order, contiguous batches.",
+      "discarded_tail_documents": 6322,
+      "variant_evidence": "Prefix label count and min/max event sizes match SECA Table 2; variant is inferred, not confirmed.",
+      "uncertainty": "Paper gives no ordered ID list, exact variant filename or truncation procedure; aggregate agreement does not establish exact identity or order."
+    },
+    "selected_statistics": {
+      "documents": 24000,
+      "labels": 227,
+      "duplicate_ids": 0,
+      "duplicate_text_excess": 2187,
+      "duplicate_label_text_excess": 2181,
+      "minimum_label_documents": 1,
+      "maximum_label_documents": 607,
+      "ordered_ids_sha256": "3545fa3c09aa80a71d76350bd0604fa73ef6d20df23ae1f68213a910f7276cf1",
+      "ordered_records_sha256": "8bc71539df24ed797bdbbecfbe5e6de1aa930ff5eae9b934e58405765d38b8b3",
+      "token_count": 193221
+    }
+  },
+  "dataset_hashes": {
+    "H/batch-00.json": "c169ae7d583cd25d5f57df8051d674fc92a647fbfd2f7e37d8ca76189670ad6f",
+    "H/batch-01.json": "1cead2171fe26a070e6a3ebc80a1efdf737f2c14724e7833ebdc329adf4b07de",
+    "H/batch-02.json": "c8a9b733241b9d2b87e22b9392fe92e7b07e034d23fca767bfccfb67207e6930",
+    "H/batch-03.json": "34c80a3190935fcadd817d7638187dade1de53dbb832c17fd831dd37ffda3f64",
+    "H/batch-04.json": "49d9a112a780cf741afeb03a56c201c78a417d2b8e502d3cf3b9216f0e38c953",
+    "H/batch-05.json": "76baabe622a86a0d5377b450c81db766a39dab3552bca54aa16eb618d5ee5de5",
+    "H/batch-06.json": "eab55bb7f8f386ed15ab9c74333b33f1ee42193393568bac1cbad8e2e9dcd7cd",
+    "H/batch-07.json": "79610f14bd2ea16da9c04e1d0aedceba4ba79671e96627beb7de108b67599f65",
+    "H/batch-08.json": "544521bdc94ddd3e5365d025801917bc2769cf0ba55d05b43d069ee27c14f9b6",
+    "H/batch-09.json": "39597af2040ad3f0136dc00180b4795a1b09f9881f1af71cff29add821b9050a",
+    "H/batch-10.json": "fe306730f8b60a63c99d3634d92d45fbd99e407fbaf3423290304845a2964b2a",
+    "H/batch-11.json": "1d2ae07ba75d611d061473df1b97766f3d90e5b47779288f9217504842158b90",
+    "H/ground-truth.json": "f644e4cb346380dc8d5b1ad7e0157b9d736142403c09c235cdac76687c79b1aa"
+  }
+}

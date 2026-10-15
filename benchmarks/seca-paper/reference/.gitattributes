@@ -1,0 +1,2 @@
+# Preserve the exact Mono diagnostic bytes, including exception-trace spaces.
+evidence/*.log -whitespace

@@ -1,0 +1,102 @@
+{
+  "upstream_revision": null,
+  "upstream_revision_note": "Supplied archive has no Git metadata",
+  "reference_root": "/home/azureuser/risklive-dev/experimental",
+  "mono_path": "/home/azureuser/risklive-dev/experimental/references/seca-parity-build/SECA/bin/Debug",
+  "compiled_sources": {
+    "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+    "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+    "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+    "SECA_DataClass/DataHelper.cs": "baad7e827f79fa4b5316a07b9d4dd5faa39a7b675e1dcb8fa28893cd60d7b645",
+    "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+    "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+    "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+    "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+    "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+    "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+    "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+    "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+    "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+  },
+  "generated_sources": {
+    "AlphaError.cs": "dc2eda9b158884560e930b0a6e493b951d5959765f9180773cfe8e5b9704b3f1",
+    "BetaError.cs": "0a50f9f49a6f716b794711e6241effe224b283e57249bb0bbc39ebae4b4c7f39",
+    "Cycles.cs": "e141e9cd2ed42f469c102e160ba4ebc0a3779ff0461366f392440193b1400b1f",
+    "DataHelper.cs": "7df39a0c863e21a535569fe99952b0f1ac5f5a1813c6d0e01ccad8c75ecbd977",
+    "HKT.cs": "877243a82773c7a7f0a974a9f47ba8eca77d17bf9df53f03482d1b531204e548",
+    "HKTChangeMetrics.cs": "f7efa055531c6bea18919821c08e1b15965ce697c190daf5990e03b321b5df96",
+    "Node.cs": "4aa2cab852587ce8f176613efb4f887a63b0bfa9c6b2ce6ad35b401387e1726a",
+    "NodeCyclesDistribution.cs": "d2f194f631cd58c1bfb236dae94f0df62a1ab4836dfec98c8e652f972bb1070d",
+    "NodeUpdatesHistory.cs": "c8feb1d86bed66faf95c2b25494122de8e9918096d6856894fbbbf2ba951cf8e",
+    "OtherMath.cs": "6e2aa4425940ce185b307301314c4c134d27ecd86673c571a96181cbe1e613de",
+    "SECAAlgorithm.cs": "c921402c2f279a79da8976f61add6fb28ea5b0974a8171d00044aa3787f53c1a",
+    "WordChangeMetrics.cs": "ca4abaf873b4965cbb2954434a4fee7a18deb58c1ec19e78ef8f4c3c416d9c42",
+    "WordImportanceError.cs": "13a8cad74ec4b687f0a5227ba66c177316b3dc20650be30f16d2ac7e3272d65b"
+  },
+  "dependencies": {
+    "SourceCleanerEngine.exe": "891735450fc389f4d6e26ab8fb3637bc38226c53ae76f99f91e87b8fdf0da0d6",
+    "Newtonsoft.Json.dll": "973fd70ce48e5ac433a101b42871680c51e2feba2aeec3d400dea4115af3a278",
+    "Accord.dll": "d36c225a84415c01bc2a8e84096590a7206dfc3d36173e3c7b6a62a04c0a33a9",
+    "Accord.Math.dll": "1b1c40f63b7b98e82878ce8656390c12d9a2ed72ca451d6e7adcb46555cccbf2",
+    "Accord.Math.Core.dll": "777da4849d8f7897a13818eb9fab05b2ecb80de848b3019aafefd34b28f791a8"
+  },
+  "harness": {
+    ".gitignore": "99921edb369e12a35a87d768ae481f8c944573626abd4b8f3a1fe78846f30ba7",
+    "Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+    "Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+    "README.md": "d75b5fc13956f7ee511ad7cb8a198a09a53dee86e87019ede68d6d6b57ed86bf",
+    "build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75",
+    "prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+    "run.sh": "d16bada169b7d400c32f1085ec0fc1e1eb965c032b1c94fe42df37a2f2cdbfab",
+    "verify.py": "4fd08accc07e0865cfdb9d9f98f5c836d54b91b4cc91a4368df22c4a684072d8"
+  },
+  "checkpoint_source": "39acc03a87918f60a065bf1f4494329e89f408c09beef12e68f8b6a3b127c127",
+  "checkpoint_binary": "a539bb29752af8a38523d280dcabc21c4b41b94b4148c7b7708fe2c1d4cf2af5",
+  "mono": "Mono JIT compiler version 6.8.0.105 (Debian 6.8.0.105+dfsg-2 Wed Feb 26 23:23:50 UTC 2020)\nCopyright (C) 2002-2014 Novell, Inc, Xamarin Inc and Contributors. www.mono-project.com\n\tTLS:           __thread\n\tSIGSEGV:       altstack\n\tNotifications: epoll\n\tArchitecture:  amd64\n\tDisabled:      none\n\tMisc:          softdebug \n\tInterpreter:   yes\n\tLLVM:          supported, not enabled.\n\tSuspend:       hybrid\n\tGC:            sgen (concurrent by default)\n",
+  "adaptations": [
+    "Existing documented parity harness adaptations unchanged",
+    "Write compact per-cycle JSON after the original completed lifecycle",
+    "Do not retain all prior snapshots; atomic rename each completed output"
+  ],
+  "original_sources": {
+    "SECA_DataClass/AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+    "SECA_DataClass/BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+    "SECA_DataClass/Cycles.cs": "eae936d2aa26fced5b15248349e2b336fef57c77019cf9b27c46bd27406547bc",
+    "SECA_DataClass/DataHelper.cs": "e2f1035a9cb13cd07be77f24ce4f9658a7fc59abd63fb2ebbfa765dcfe54c489",
+    "SECA_DataClass/HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+    "SECA_DataClass/HKTChangeMetrics.cs": "17c7173e63e37101eb54fb82e870451a5643de3c0185229166527a67dd3faf07",
+    "SECA_DataClass/Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+    "SECA_DataClass/NodeCyclesDistribution.cs": "f55f73e599a706cad9d144184997d1e6c1dde186300e88443d2fbd7346ed171e",
+    "SECA_DataClass/NodeUpdatesHistory.cs": "2ef477d5c3bd51d904880ca08e7349c31cb1a17060acb8725a4ece74f1ece09d",
+    "SECA_DataClass/SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+    "SECA_DataClass/WordChangeMetrics.cs": "f75b91228af0f5ddf48e90af6301e7eae5ed4c068e698c8c3bcb4cf4b3017a46",
+    "SECA_DataClass/WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87",
+    "GeneralClass/OtherMath.cs": "9ddea7e3207aada805b1981d1f213859ec0055f4472706262b73ab95520423d6"
+  },
+  "light_lifecycle_sources": {
+    "references/seca-csharp/SECA/SECA/Portal/RetrospectiveAdministrator.cs": "7beef0673cfa3b807b0d91f39b154d5ba7add38c163847b1619a88f851149f8b"
+  },
+  "compiled_sources_match_existing_goldens": true,
+  "benchmark_base": "459117c",
+  "shared_scoring_sources": {
+    "benchmarks/seca-paper/clustering/cluster.py": "4d9629ce8486e1a5b5a09804f453fcc0ef58e4e004841d54d880a4c3b22fcd6f",
+    "benchmarks/seca-paper/evaluation/metrics.py": "9c6b37c5819067795464be005fc72f2427827ffbf15d0bccba4e80f2bcc297ba"
+  },
+  "benchmark_tooling": {
+    ".gitattributes": "f78ba2f23e8efb994070610e92171818b7f3e1ce5f6a2c6499f87bdc822ab065",
+    ".gitignore": "6c834a17318cefa40d5483b382a3abd1aba476e98625065a26724dab950d9ddd",
+    "Checkpoint.cs": "39acc03a87918f60a065bf1f4494329e89f408c09beef12e68f8b6a3b127c127",
+    "README.md": "c0562eeae2e218590f444963bc33d1e7167187727e8c809d01140c2fdae3cff1",
+    "analyze_boundaries.py": "10e6c8f64eff4b3786f5fb6e1ed224faee982da310a41b641282b2c458bef446",
+    "build.py": "ab059bd80bf0f1516e26489261c396859a4ade9ebab370126cd95b0b6fa13490",
+    "compare_engines.py": "a17a0f36f204b5f8771e3067dbe76a615142c3324a7ef7b95dfececa63b14259",
+    "inputs.py": "e750cfd71b18c442c367f31c9029492043b8e8d76d2028d480f0c5363137a0ed",
+    "normalize.py": "8f879435f95077fe19a8f7151372f6cb578d36d27ec512a040efb8425b094735",
+    "package_evidence.py": "df3cdd483d7d6a9aba11f497a3f927a14803b7a91350cbcb469e23e5614aff3d",
+    "reference_execute.py": "5eff598afdc76cd522dc8839797d13d6cc2bbe669a69f387456c76b6f8786004",
+    "tables.py": "57dfc926530cae910cde438f74cab907d138dbf88eb3cb80eca0ec852603432c",
+    "test_compare.py": "00a37c1a4129ea01b7e53934ce615db1250964c4f1c38b32a38362541a24f1d5",
+    "test_reference.py": "0d15c36285966472594cb92058681c31442475740987059e4e0122d9dac4d2e2"
+  },
+  "rust_core_changed": false
+}

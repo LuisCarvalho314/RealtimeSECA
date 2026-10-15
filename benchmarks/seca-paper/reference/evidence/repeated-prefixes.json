@@ -1,0 +1,10 @@
+{
+  "news-first": {
+    "cycle-0001.json": true
+  },
+  "news-multiple": {
+    "cycle-0001.json": true,
+    "cycle-0002.json": true,
+    "cycle-0003.json": true
+  }
+}

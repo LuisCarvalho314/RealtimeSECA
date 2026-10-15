@@ -1,0 +1,15 @@
+{
+  "reference_tests": 9,
+  "clustering_tests": 21,
+  "evaluator_integration_tests": 25,
+  "dataset_tests": 13,
+  "test_total": 68,
+  "prepared_files_verified": 28,
+  "cargo_fmt": "passed",
+  "workspace_tests": "not rerun: no Rust change",
+  "clippy": "not rerun: no Rust change",
+  "golden_hkt_inputs": 21,
+  "golden_hkt_snapshots": 65,
+  "golden_context_inputs": 17,
+  "original_evidence_and_goldens_changed": false
+}

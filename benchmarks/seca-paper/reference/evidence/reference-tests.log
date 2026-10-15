@@ -1,0 +1,14 @@
+test_identical_overlapping_events_retain_membership_multiplicity (test_compare.ComparisonTests.test_identical_overlapping_events_retain_membership_multiplicity) ... ok
+test_membership_families_and_pairs_ignore_event_ids_and_preserve_overlap (test_compare.ComparisonTests.test_membership_families_and_pairs_ignore_event_ids_and_preserve_overlap) ... ok
+test_native_scope_failure_keeps_excess_id_and_blocks_both_methods (test_compare.ComparisonTests.test_native_scope_failure_keeps_excess_id_and_blocks_both_methods) ... ok
+test_order_and_allocator_ids_are_not_scientific_differences (test_compare.ComparisonTests.test_order_and_allocator_ids_are_not_scientific_differences) ... ok
+test_checkpoint_has_identical_successful_snapshots_and_preserves_failure_prefix (test_reference.TranslationTests.test_checkpoint_has_identical_successful_snapshots_and_preserves_failure_prefix) ... ok
+test_distinct_relations_preserve_first_appearance_and_external_order (test_reference.TranslationTests.test_distinct_relations_preserve_first_appearance_and_external_order) ... ok
+test_every_golden_snapshot_preserves_labelled_attachments_and_memberships (test_reference.TranslationTests.test_every_golden_snapshot_preserves_labelled_attachments_and_memberships) ... ok
+test_missing_identity_and_broken_ownership_fail (test_reference.TranslationTests.test_missing_identity_and_broken_ownership_fail) ... ok
+test_stale_refuge_scope_is_preserved_and_shared_adapter_rejects_it (test_reference.TranslationTests.test_stale_refuge_scope_is_preserved_and_shared_adapter_rejects_it) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 10.516s
+
+OK

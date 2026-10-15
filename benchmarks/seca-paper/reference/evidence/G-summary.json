@@ -1,0 +1,102 @@
+{
+  "theme": "G",
+  "engine": "accumulated SECA",
+  "reference_execution_status": "complete",
+  "completed_reference_cycles": 12,
+  "first_substantive_divergence_cycle": 1,
+  "aggregates": {
+    "direct": [
+      {
+        "metric": "nmi",
+        "published": 0.8621,
+        "paired_cycles": [],
+        "csharp_paired_mean": null,
+        "rust_paired_mean": null,
+        "absolute_csharp_rust": null,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": null,
+        "csharp_paired_minus_published": null,
+        "rust_paired_minus_published": null,
+        "rust_full_minus_published": null
+      },
+      {
+        "metric": "bcubed_f1",
+        "published": 0.5463,
+        "paired_cycles": [],
+        "csharp_paired_mean": null,
+        "rust_paired_mean": null,
+        "absolute_csharp_rust": null,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": null,
+        "csharp_paired_minus_published": null,
+        "rust_paired_minus_published": null,
+        "rust_full_minus_published": null
+      },
+      {
+        "metric": "purity",
+        "published": 0.7167,
+        "paired_cycles": [],
+        "csharp_paired_mean": null,
+        "rust_paired_mean": null,
+        "absolute_csharp_rust": null,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": null,
+        "csharp_paired_minus_published": null,
+        "rust_paired_minus_published": null,
+        "rust_full_minus_published": null
+      }
+    ],
+    "indirect": [
+      {
+        "metric": "nmi",
+        "published": 0.883,
+        "paired_cycles": [
+          1,
+          2
+        ],
+        "csharp_paired_mean": 0.8647530222997049,
+        "rust_paired_mean": 0.8625417692066168,
+        "absolute_csharp_rust": 0.002211253093088006,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": 0.8716743759454596,
+        "csharp_paired_minus_published": -0.018246977700295153,
+        "rust_paired_minus_published": -0.02045823079338316,
+        "rust_full_minus_published": -0.011325624054540406
+      },
+      {
+        "metric": "bcubed_f1",
+        "published": 0.6303,
+        "paired_cycles": [
+          1,
+          2
+        ],
+        "csharp_paired_mean": 0.5955390960723872,
+        "rust_paired_mean": 0.5932652098431117,
+        "absolute_csharp_rust": 0.0022738862292754902,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": 0.6088764262416524,
+        "csharp_paired_minus_published": -0.034760903927612774,
+        "rust_paired_minus_published": -0.037034790156888264,
+        "rust_full_minus_published": -0.02142357375834758
+      },
+      {
+        "metric": "purity",
+        "published": 0.8036,
+        "paired_cycles": [
+          1,
+          2
+        ],
+        "csharp_paired_mean": 0.7628378378378379,
+        "rust_paired_mean": 0.7587837837837839,
+        "absolute_csharp_rust": 0.004054054054054013,
+        "csharp_12_cycle_mean": null,
+        "rust_12_cycle_mean": 0.7977477477477477,
+        "csharp_paired_minus_published": -0.04076216216216211,
+        "rust_paired_minus_published": -0.04481621621621612,
+        "rust_full_minus_published": -0.005852252252252277
+      }
+    ]
+  },
+  "interpretation": "C# engine evaluated using the shared reconstructed clustering procedure",
+  "aggregate_policy": "Unweighted current-batch cycle means; paired scoreable cycles are not a full-stream estimate"
+}

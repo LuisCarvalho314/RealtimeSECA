@@ -1,0 +1,258 @@
+{
+  "G": [
+    {
+      "cycle": 1,
+      "decisions": 0,
+      "effective_thresholds": []
+    },
+    {
+      "cycle": 2,
+      "decisions": 16,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 3,
+      "decisions": 84,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 4,
+      "decisions": 57,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 5,
+      "decisions": 138,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 6,
+      "decisions": 238,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 7,
+      "decisions": 245,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 8,
+      "decisions": 180,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 9,
+      "decisions": 350,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 10,
+      "decisions": 341,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 11,
+      "decisions": 415,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 12,
+      "decisions": 434,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    }
+  ],
+  "H": [
+    {
+      "cycle": 1,
+      "decisions": 0,
+      "effective_thresholds": []
+    },
+    {
+      "cycle": 2,
+      "decisions": 1,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 3,
+      "decisions": 94,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 4,
+      "decisions": 117,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 5,
+      "decisions": 1,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 6,
+      "decisions": 46,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 7,
+      "decisions": 35,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 8,
+      "decisions": 297,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 9,
+      "decisions": 252,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 10,
+      "decisions": 65,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 11,
+      "decisions": 601,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    },
+    {
+      "cycle": 12,
+      "decisions": 1374,
+      "effective_thresholds": [
+        [
+          0.1,
+          0.2,
+          0.3
+        ]
+      ]
+    }
+  ]
+}

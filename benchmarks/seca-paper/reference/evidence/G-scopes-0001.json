@@ -1,0 +1,396 @@
+{
+  "csharp": [
+    {
+      "ancestor_descriptor_path": [],
+      "scope_sources_sha256": "2babd85735fd5f7e4d9c2e1d8535120208cb32f8a9d8db61c775b0e8ea00cb2e",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        }
+      ],
+      "scope_sources_sha256": "0abed50b549dafe00b13a01a06469e473ac12de2dbb8a836afb39f765e7affce",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "603263c0254b5107a31dfe9031ad2ecd2ec6dc86108349bf6fb07bbbcc57050b"
+        }
+      ],
+      "scope_sources_sha256": "5dba1eb1615a807e530bba20c4c5d017daca658d0e50ef2589c4c53ab5ebc6ac",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "e124af8c82a34326522b2583c7b581ac166906ab3c016ddc2b3f4d3b1fb37f96"
+        }
+      ],
+      "scope_sources_sha256": "5790c00599d20e6a060fea38f28a3f0f9c2af007bf63e3b6256143e8ccd076a8",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "e124af8c82a34326522b2583c7b581ac166906ab3c016ddc2b3f4d3b1fb37f96"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "b28ffbcdc4b1d7f2793b4213c2c05c176565ae8cd1c54deb94261337a3fa9f08"
+        }
+      ],
+      "scope_sources_sha256": "4efd8858f16a18802d78aa0ec96216bdde396f018c4b134e3638d5a5045131ab",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "8a44aa75659c3a4ef2fa2e96a582ccb4800cd9376e078b19fc079a3293a735b2",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "4bbebd1341de47b0ddb19d76ca7a0f4706b9db7ce7f8a842bf55a4109efa233b"
+        }
+      ],
+      "scope_sources_sha256": "e1df4467355426c4a1ebeff28fc2ba5a60386839393ef9992bce7f40e665742b",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "4bbebd1341de47b0ddb19d76ca7a0f4706b9db7ce7f8a842bf55a4109efa233b"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "9a9fc384be1c64b9a34ded95794c7516fb1ee02c99ab4f8f1a0cc11d8a4c6939"
+        }
+      ],
+      "scope_sources_sha256": "06e75b688a8b6de898feb66d03d1b3b2aed731901c959104019d9af642c02fed",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        }
+      ],
+      "scope_sources_sha256": "27d51c6089b268f3709c25c50c1d96dd148141e8ea58626e50860e8f0c55bef3",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "7ab5e3fd885bea64a64f7ad8484a81f1f282a187d9e2148710b090ee42706dff"
+        }
+      ],
+      "scope_sources_sha256": "34dd15f247c8bd3d164c04df8c77276da28db85911dbb47c41e89953da5079cf",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "b8e7d01c2c75c184b555ec8356fc002fa733b17d47ff9a706adad269654de78f",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "6ad577dc85497f27284e4ae303abca955a98d10e1e9775412303ed95571db619"
+        }
+      ],
+      "scope_sources_sha256": "d716cd61147ba777d2b64725f20fdb7beec2149a7a5c0cf211dddd7a893ae8e5",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "6ad577dc85497f27284e4ae303abca955a98d10e1e9775412303ed95571db619"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "4ccff1c55e27e7b67df31eeeee0979a5bce46e3bf738327f9246e9178e58f092",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "71476aba632e94edbd1d6ae95c64072d6e2638598a6adcd9c381ab7dc7f042ab"
+        }
+      ],
+      "scope_sources_sha256": "afa541067af2818dfc82acc300b014608d5612fe0c0997262d4b2aafd090736d",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "71476aba632e94edbd1d6ae95c64072d6e2638598a6adcd9c381ab7dc7f042ab"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "41e459c9342df037c5999a76c13f0ee12bba5c97fb9f3abd52e2b9412b3f80fb"
+        }
+      ],
+      "scope_sources_sha256": "7cc82bcd4fb539e61b2e708826afc4a336ce350169d7ffe46339b853c40bc6c4",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "d364cda62ab70412fc9676b6e3d887aab26275cc9275a9f1aea49d84853fd4a4",
+      "triggered": true
+    }
+  ],
+  "rust": [
+    {
+      "ancestor_descriptor_path": [],
+      "scope_sources_sha256": "2babd85735fd5f7e4d9c2e1d8535120208cb32f8a9d8db61c775b0e8ea00cb2e",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        }
+      ],
+      "scope_sources_sha256": "0abed50b549dafe00b13a01a06469e473ac12de2dbb8a836afb39f765e7affce",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "603263c0254b5107a31dfe9031ad2ecd2ec6dc86108349bf6fb07bbbcc57050b"
+        }
+      ],
+      "scope_sources_sha256": "5dba1eb1615a807e530bba20c4c5d017daca658d0e50ef2589c4c53ab5ebc6ac",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "e124af8c82a34326522b2583c7b581ac166906ab3c016ddc2b3f4d3b1fb37f96"
+        }
+      ],
+      "scope_sources_sha256": "5790c00599d20e6a060fea38f28a3f0f9c2af007bf63e3b6256143e8ccd076a8",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "e124af8c82a34326522b2583c7b581ac166906ab3c016ddc2b3f4d3b1fb37f96"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "b28ffbcdc4b1d7f2793b4213c2c05c176565ae8cd1c54deb94261337a3fa9f08"
+        }
+      ],
+      "scope_sources_sha256": "5790c00599d20e6a060fea38f28a3f0f9c2af007bf63e3b6256143e8ccd076a8",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "11d7faefdfcb1268cd7954a694d14df49d5818559a59b0d38e5489fc260eb8c9"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "8a44aa75659c3a4ef2fa2e96a582ccb4800cd9376e078b19fc079a3293a735b2",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "4bbebd1341de47b0ddb19d76ca7a0f4706b9db7ce7f8a842bf55a4109efa233b"
+        }
+      ],
+      "scope_sources_sha256": "e1df4467355426c4a1ebeff28fc2ba5a60386839393ef9992bce7f40e665742b",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "4bbebd1341de47b0ddb19d76ca7a0f4706b9db7ce7f8a842bf55a4109efa233b"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "9a9fc384be1c64b9a34ded95794c7516fb1ee02c99ab4f8f1a0cc11d8a4c6939"
+        }
+      ],
+      "scope_sources_sha256": "06e75b688a8b6de898feb66d03d1b3b2aed731901c959104019d9af642c02fed",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "71476aba632e94edbd1d6ae95c64072d6e2638598a6adcd9c381ab7dc7f042ab"
+        }
+      ],
+      "scope_sources_sha256": "afa541067af2818dfc82acc300b014608d5612fe0c0997262d4b2aafd090736d",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "71476aba632e94edbd1d6ae95c64072d6e2638598a6adcd9c381ab7dc7f042ab"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "41e459c9342df037c5999a76c13f0ee12bba5c97fb9f3abd52e2b9412b3f80fb"
+        }
+      ],
+      "scope_sources_sha256": "7cc82bcd4fb539e61b2e708826afc4a336ce350169d7ffe46339b853c40bc6c4",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        }
+      ],
+      "scope_sources_sha256": "27d51c6089b268f3709c25c50c1d96dd148141e8ea58626e50860e8f0c55bef3",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        },
+        {
+          "refuge": false,
+          "descriptors_sha256": "7ab5e3fd885bea64a64f7ad8484a81f1f282a187d9e2148710b090ee42706dff"
+        }
+      ],
+      "scope_sources_sha256": "34dd15f247c8bd3d164c04df8c77276da28db85911dbb47c41e89953da5079cf",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "ada5377e218751932a744b151101cf4a4b40e2edb4d72316f691d9c6afc476fb"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "b8e7d01c2c75c184b555ec8356fc002fa733b17d47ff9a706adad269654de78f",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "6ad577dc85497f27284e4ae303abca955a98d10e1e9775412303ed95571db619"
+        }
+      ],
+      "scope_sources_sha256": "d716cd61147ba777d2b64725f20fdb7beec2149a7a5c0cf211dddd7a893ae8e5",
+      "triggered": false
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": false,
+          "descriptors_sha256": "6ad577dc85497f27284e4ae303abca955a98d10e1e9775412303ed95571db619"
+        },
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "4ccff1c55e27e7b67df31eeeee0979a5bce46e3bf738327f9246e9178e58f092",
+      "triggered": true
+    },
+    {
+      "ancestor_descriptor_path": [
+        {
+          "refuge": true,
+          "descriptors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+      ],
+      "scope_sources_sha256": "d364cda62ab70412fc9676b6e3d887aab26275cc9275a9f1aea49d84853fd4a4",
+      "triggered": true
+    }
+  ]
+}
