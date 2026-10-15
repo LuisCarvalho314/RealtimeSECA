@@ -1,7 +1,7 @@
 use realtime_seca_core::{SecaConfig, SourceBatch, SourceRecord};
 use regex::Regex;
 use std::{fs, path::Path};
-use stop_words::{get as get_stop_words, LANGUAGE};
+use stop_words::{get as get_stop_words, Language};
 pub(crate) fn run_from_csv_command(arguments: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if arguments.len() < 4 {
         eprintln!("Usage:");
@@ -63,15 +63,14 @@ pub(crate) fn convert_csv_to_source_batch(
     let tokenizer = Regex::new(r"[A-Za-z0-9_]+")?;
 
     let stop_words: std::collections::BTreeSet<&'static str> =
-        get_stop_words(LANGUAGE::English).iter().copied().collect();
+        get_stop_words(Language::English).iter().copied().collect();
 
     let headers = reader.headers()?.clone();
 
     let mut sources: Vec<SourceRecord> = Vec::new();
 
-    for (row_index, result) in reader.records().enumerate() {
+    for result in reader.records() {
         let record = result?;
-        let row_number = row_index + 1;
 
         let get = |column_name: &str| -> String {
             if let Some(position) = headers.iter().position(|header| header == column_name) {
@@ -108,6 +107,9 @@ pub(crate) fn convert_csv_to_source_batch(
 
         let mut metadata = serde_json::Map::new();
         for column_name in [
+            "ArticleId",
+            "ArticleID",
+            "article_id",
             "URL",
             "Query",
             "NewsCategory",
@@ -123,7 +125,7 @@ pub(crate) fn convert_csv_to_source_batch(
         }
 
         let source = SourceRecord {
-            source_id: format!("row_{row_number:06}"),
+            source_id: csv_source_identity(&get, &title, &short_summary, &description),
             batch_index,
             tokens: std::mem::take(&mut tokens),
             text: Some(text),
@@ -145,21 +147,41 @@ pub(crate) fn convert_csv_to_source_batch(
     })
 }
 
+// Length-delimited JSON avoids delimiter and hash collisions in anonymous identities.
+fn csv_source_identity(
+    get: &impl Fn(&str) -> String,
+    title: &str,
+    summary: &str,
+    description: &str,
+) -> String {
+    for column in ["ArticleId", "ArticleID", "article_id"] {
+        let id = get(column);
+        if !id.trim().is_empty() {
+            return format!("article:{}", id.trim());
+        }
+    }
+    let raw_url = get("URL");
+    if let Ok(mut url) = url::Url::parse(raw_url.trim()) {
+        if matches!(url.scheme(), "http" | "https") && url.host_str().is_some() {
+            url.set_fragment(None);
+            return format!("url:{url}");
+        }
+    }
+    let fields = [title, summary, description].map(normalize_whitespace);
+    format!(
+        "csv-content:{}",
+        serde_json::to_string(&fields).expect("string serialization")
+    )
+}
+
 pub(crate) fn normalize_whitespace(input: &str) -> String {
     input.split_whitespace().collect::<Vec<_>>().join(" ")
 }
 
 pub(crate) fn parse_timestamp_to_unix_ms(value: &str) -> Option<i64> {
-    let trimmed = value.trim();
-    if trimmed.is_empty() {
-        return None;
-    }
-
-    // Keep this simple for now; add chrono later if needed.
-    // If parsing fails, return None.
-    // You can extend to real parsing with chrono once you inspect your CSV formats.
-    let _ = trimmed;
-    None
+    chrono::DateTime::parse_from_rfc3339(value.trim())
+        .ok()
+        .map(|timestamp| timestamp.timestamp_millis())
 }
 
 pub(crate) fn read_source_batch_json(
@@ -176,4 +198,144 @@ pub(crate) fn read_config_json(
     let file_contents = fs::read_to_string(path)?;
     let config: SecaConfig = serde_json::from_str(&file_contents)?;
     Ok(config)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn convert(csv: &str, index: u32) -> SourceBatch {
+        let path =
+            std::env::temp_dir().join(format!("seca-ingestion-{}-{index}.csv", std::process::id()));
+        fs::write(&path, csv).unwrap();
+        let batch = convert_csv_to_source_batch(&path, index, 1).unwrap();
+        fs::remove_file(path).unwrap();
+        batch
+    }
+
+    #[test]
+    fn identities_survive_files_reordering_and_url_aliases() {
+        let a = convert("Title,URL\nmarket news,HTTPS://Example.org:443/a#section\nother news,https://example.org/b\n", 0);
+        let b = convert(
+            "Title,URL\nother news,https://example.org/b\nmarket news,https://example.org/a\n",
+            1,
+        );
+        assert_ne!(a.sources[0].source_id, b.sources[0].source_id);
+        assert_eq!(a.sources[0].source_id, b.sources[1].source_id);
+        assert_eq!(a.sources[1].source_id, b.sources[0].source_id);
+        assert_eq!(
+            a.sources[0].metadata.as_ref().unwrap()["URL"],
+            "HTTPS://Example.org:443/a#section"
+        );
+    }
+
+    #[test]
+    fn url_normalization_preserves_meaningful_distinctions() {
+        let identity = |url: &str| {
+            csv_source_identity(
+                &|column| {
+                    if column == "URL" {
+                        url.to_string()
+                    } else {
+                        String::new()
+                    }
+                },
+                "news",
+                "",
+                "",
+            )
+        };
+        assert_eq!(
+            identity(" https://EXAMPLE.org:443 "),
+            identity("https://example.org/")
+        );
+        assert_eq!(
+            identity("https://example.org/a/../b#fragment"),
+            identity("https://example.org/b")
+        );
+        for other in [
+            "http://example.org/b",
+            "https://example.org/B",
+            "https://example.org/b?query=1",
+        ] {
+            assert_ne!(identity("https://example.org/b"), identity(other));
+        }
+        assert_ne!(
+            identity("https://example.org/b?a=1&b=2"),
+            identity("https://example.org/b?b=2&a=1")
+        );
+    }
+
+    #[test]
+    fn anonymous_identity_is_deterministic_and_ignores_query_provenance() {
+        let a = convert("Title,Query\nmarket news,first\nother news,first\n", 2);
+        let b = convert("Title,Query\nother news,second\nmarket news,second\n", 3);
+        assert_ne!(a.sources[0].source_id, b.sources[0].source_id);
+        assert_eq!(a.sources[0].source_id, b.sources[1].source_id);
+    }
+
+    #[test]
+    fn explicit_article_id_wins_and_is_preserved() {
+        let a = convert(
+            "ArticleId,Title,URL\narticle-42,market news,https://example.org/a\n",
+            4,
+        );
+        let b = convert(
+            "ArticleId,Title,URL\narticle-42,edited news,https://example.org/b\n",
+            5,
+        );
+        assert_eq!(a.sources[0].source_id, b.sources[0].source_id);
+        assert_eq!(
+            a.sources[0].metadata.as_ref().unwrap()["ArticleId"],
+            "article-42"
+        );
+    }
+
+    #[test]
+    fn converted_batches_deduplicate_only_the_same_article() {
+        let first = convert("Title,URL\nmarket news,https://example.org/a\n", 10);
+        let second = convert("Title,URL\nmarket news,https://example.org/b\n", 11);
+        let repeated = convert("Title,URL\nmarket news,https://EXAMPLE.org:443/a#new\n", 12);
+        let mut engine = realtime_seca_core::SecaEngine::new(SecaConfig::default()).unwrap();
+        engine.build_baseline_tree(first).unwrap();
+        let snapshot = serde_json::to_vec(&engine.snapshot().unwrap()).unwrap();
+        let mut engine = realtime_seca_core::SecaEngine::load_snapshot(
+            serde_json::from_slice(&snapshot).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(engine.process_batch(second).unwrap().sources_processed, 1);
+        assert_eq!(engine.process_batch(repeated).unwrap().sources_processed, 0);
+    }
+
+    #[test]
+    fn timestamps_require_explicit_offsets() {
+        assert_eq!(parse_timestamp_to_unix_ms("1970-01-01T00:00:00Z"), Some(0));
+        assert_eq!(
+            parse_timestamp_to_unix_ms("1970-01-01T01:00:00+01:00"),
+            Some(0)
+        );
+        assert_eq!(
+            parse_timestamp_to_unix_ms("1969-12-31T19:00:00-05:00"),
+            Some(0)
+        );
+        assert_eq!(
+            parse_timestamp_to_unix_ms("1970-01-01T00:00:00.123Z"),
+            Some(123)
+        );
+        for invalid in [
+            "",
+            " ",
+            "bad",
+            "2026-02-30T00:00:00Z",
+            "2026-01-01T12:00:00",
+        ] {
+            assert_eq!(parse_timestamp_to_unix_ms(invalid), None);
+        }
+        let b = convert(
+            "Title,Timestamp,API_Timestamp\nmarket news,bad,1970-01-01T00:00:00Z\nother news,,\n",
+            6,
+        );
+        assert_eq!(b.sources[0].timestamp_unix_ms, Some(0));
+        assert_eq!(b.sources[1].timestamp_unix_ms, None);
+    }
 }
