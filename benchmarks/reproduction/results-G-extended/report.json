@@ -1,0 +1,98 @@
+{
+  "cargo_lock_sha256": "e431e529a1f197c1f2ccd1121d11df04e3dcb32bdacb8845d1faa91fec0de6de",
+  "engine_revision": "01a644f3a7411bd4de4ad172555153fbcf525cc2",
+  "platform": "Linux-5.15.0-1089-azure-x86_64-with-glibc2.31",
+  "python": "3.11.4 (main, Jul  5 2023, 13:45:01) [GCC 11.2.0]",
+  "reference_kind": "instrumented serial original classes; not unmodified application",
+  "reference_sha256": {
+    "references/seca-parity-build/.harness-generated/source-hashes.json": "c4a36fa690377754f4ebf29bcd1526c346072706ffd705f929193898ef82aa30",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.Core.dll": "777da4849d8f7897a13818eb9fab05b2ecb80de848b3019aafefd34b28f791a8",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.dll": "1b1c40f63b7b98e82878ce8656390c12d9a2ed72ca451d6e7adcb46555cccbf2",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.dll": "d36c225a84415c01bc2a8e84096590a7206dfc3d36173e3c7b6a62a04c0a33a9",
+    "references/seca-parity-build/SECA/bin/Debug/Newtonsoft.Json.dll": "973fd70ce48e5ac433a101b42871680c51e2feba2aeec3d400dea4115af3a278",
+    "references/seca-parity-build/SECA/bin/Debug/SourceCleanerEngine.exe": "891735450fc389f4d6e26ab8fb3637bc38226c53ae76f99f91e87b8fdf0da0d6",
+    "tools/seca-reference-harness/.build/harness.exe": "1170931e67a7ddd4634f6201b686d644ae35cf9546322d842f153bfd3077259f",
+    "tools/seca-reference-harness/.gitignore": "99921edb369e12a35a87d768ae481f8c944573626abd4b8f3a1fe78846f30ba7",
+    "tools/seca-reference-harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+    "tools/seca-reference-harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+    "tools/seca-reference-harness/README.md": "d75b5fc13956f7ee511ad7cb8a198a09a53dee86e87019ede68d6d6b57ed86bf",
+    "tools/seca-reference-harness/build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75",
+    "tools/seca-reference-harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+    "tools/seca-reference-harness/run.sh": "d16bada169b7d400c32f1085ec0fc1e1eb965c032b1c94fe42df37a2f2cdbfab",
+    "tools/seca-reference-harness/verify.py": "4fd08accc07e0865cfdb9d9f98f5c836d54b91b4cc91a4368df22c4a684072d8"
+  },
+  "results": [
+    {
+      "case": "G",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "error": "Failed to add word attempt1->3\nFailed to add word attempt1->8\nFailed to add word attempt1->2\nFailed to add word attempt1->10\nFailed to add word attempt1->10\nFailed to add word attempt1->10\nFailed to add word attempt1->3\nFailed to add word attempt1->2\nFailed to add word attempt1->4\nFailed to add word attempt1->38\nFailed to add word attempt1->22\nFailed to add word attempt1->38\nFailed to add word attempt1->22\nFailed to add word attempt1->28\nFailed to add word attempt1->28\nFailed to add word attempt1->26\nFailed to add word attempt1->29\nFailed to add word attempt1->22\nFailed to add word attempt1->26\nFailed to add word attempt1->26\nFailed to add word attempt1->25\nFailed to add word attempt1->23\nFailed to add word attempt1->23\nFailed to add word attempt1->23\nFailed to add word attempt1->23\nFailed to add word attempt1->23\nFailed to add word attempt1->19\nFailed to add word attempt1->11\nFailed to add word attempt1->12\nFailed to add word attempt1->11\nFailed to add word attempt1->11\nFailed to add \n...\n SECA.SECA_DataClass.AlphaError+Options selectedAlphaOption, SECA.SECA_DataClass.BetaError+Options selectedBetaOption, SECA.SECA_DataClass.WordImportanceError+Options selectedWordImportanceOption, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestoWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorAcceptedWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorRejectedWords, SECA.SECA_DataClass.HKT currentHKT, System.Boolean isLightSECA, System.Collections.Concurrent.ConcurrentBag`1[T] deadHKTs, System.Collections.Concurrent.ConcurrentBag`1[T] deadNodes, System.Collections.Concurrent.ConcurrentDictionary`2[TKey,TValue] deadHKTsList, System.Collections.Generic.Dictionary`2[TKey,TValue] toAddSourceWordList, System.Collections.Generic.HashSet`1[T] toRemoveSourceWordList, System.Int32 numInputSourcesToHKTLevel) [0x00350] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n  at Program.Main (System.String[] args) [0x001c4] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n",
+        "exit_code": 1,
+        "failure_summary": "System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.ArgumentException: An item with the same key has already been added. Key: 636",
+        "status": "failed",
+        "stderr_sha256": "c64a37955fb412d50790d9c195d270a29e797b84797feca441d60354d0bd080e",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "input_sha256": "4bc82df6b83e0dfbcd52bb43e6a0c7c391ec55d441216207a3469985ba725ddf",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 740,
+        "batches": 12,
+        "classification": "comparable_with_deviations",
+        "documents": 8880,
+        "event_size_range": [
+          2,
+          354
+        ],
+        "excluded_tail": 2229,
+        "labels": 152,
+        "original_ids_sha256": "604f9fffc7fa48e9ab60fe8440ecadbb50785b3126f91fc1c6143e3a703c5df1",
+        "scope": "full chosen G/H reconstruction",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/News",
+        "variant": "News"
+      },
+      "rust": {
+        "emitted_cycles": 12,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 32573,
+          "hkts": 5641,
+          "max_depth": 14,
+          "nodes": 15072,
+          "reconstruction_targets": 2177,
+          "refuge_nodes": 2218,
+          "represented_sources": 8880,
+          "source_memberships": 90165
+        },
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "70b02381cb10845b460206e6b53bf5c6dbcea8f5e6a24ff94a6eb93c0d8a3bba"
+      }
+    }
+  ],
+  "retention": "Full / C# isLightSECA=false; no forgetting",
+  "runner_sha256": "193cf86c53ba87a20a0a91951996e0fd4501c2a7d5e09ef5ab3da0ac3b5d2a66",
+  "rust_adapter_sha256": "46dca5ea7b849dbb36bc8cda8b9840a514e481530fe637ba153d387eb68220f7",
+  "rust_executable_sha256": "818cb5f3c1d67cea4caeeab24a606ccb7edb3906af7c70a3d826d9105218ba93",
+  "rust_toolchain": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "schema_version": 1,
+  "timeout_seconds": 300.0,
+  "tracked_changes": []
+}

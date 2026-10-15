@@ -1,0 +1,233 @@
+{
+  "source_doi": "10.1109/ACCESS.2023.3331219",
+  "table": 3,
+  "published_page": 127025,
+  "pdf_sha256": "dacd87d997e81820079d85d2f4fd3466705a87b7d5839ba6b98ccc5208f44947",
+  "comparison_status": "unavailable: missing clustering stage; dataset identity/order not established",
+  "rows": [
+    {
+      "theme": "A",
+      "variant": "SECA direct",
+      "average_nmi_percent": 92.73,
+      "average_bcubed_f1_percent": 89.48,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "A",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 92.7,
+      "average_bcubed_f1_percent": 89.53,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "A",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 92.74,
+      "average_bcubed_f1_percent": 89.66,
+      "average_purity_percent": 99.69
+    },
+    {
+      "theme": "A",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 91.83,
+      "average_bcubed_f1_percent": 87.91,
+      "average_purity_percent": 99.91
+    },
+    {
+      "theme": "B",
+      "variant": "SECA direct",
+      "average_nmi_percent": 94.58,
+      "average_bcubed_f1_percent": 91.82,
+      "average_purity_percent": 99.87
+    },
+    {
+      "theme": "B",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 94.39,
+      "average_bcubed_f1_percent": 92.64,
+      "average_purity_percent": 99.87
+    },
+    {
+      "theme": "B",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 94.56,
+      "average_bcubed_f1_percent": 92.27,
+      "average_purity_percent": 99.61
+    },
+    {
+      "theme": "B",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 93.45,
+      "average_bcubed_f1_percent": 91.06,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "C",
+      "variant": "SECA direct",
+      "average_nmi_percent": 92.8,
+      "average_bcubed_f1_percent": 90.1,
+      "average_purity_percent": 99.87
+    },
+    {
+      "theme": "C",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 91.87,
+      "average_bcubed_f1_percent": 89.32,
+      "average_purity_percent": 99.87
+    },
+    {
+      "theme": "C",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 92.43,
+      "average_bcubed_f1_percent": 90.38,
+      "average_purity_percent": 99.65
+    },
+    {
+      "theme": "C",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 91.52,
+      "average_bcubed_f1_percent": 88.42,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "D",
+      "variant": "SECA direct",
+      "average_nmi_percent": 93.16,
+      "average_bcubed_f1_percent": 91.63,
+      "average_purity_percent": 99.83
+    },
+    {
+      "theme": "D",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 93.69,
+      "average_bcubed_f1_percent": 92.22,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "D",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 93.51,
+      "average_bcubed_f1_percent": 92.45,
+      "average_purity_percent": 99.65
+    },
+    {
+      "theme": "D",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 93.02,
+      "average_bcubed_f1_percent": 91.34,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "E",
+      "variant": "SECA direct",
+      "average_nmi_percent": 93.08,
+      "average_bcubed_f1_percent": 90.33,
+      "average_purity_percent": 99.91
+    },
+    {
+      "theme": "E",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 93.29,
+      "average_bcubed_f1_percent": 90.77,
+      "average_purity_percent": 99.82
+    },
+    {
+      "theme": "E",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 93.79,
+      "average_bcubed_f1_percent": 91.53,
+      "average_purity_percent": 99.74
+    },
+    {
+      "theme": "E",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 92.21,
+      "average_bcubed_f1_percent": 89.26,
+      "average_purity_percent": 99.87
+    },
+    {
+      "theme": "F",
+      "variant": "SECA direct",
+      "average_nmi_percent": 90.96,
+      "average_bcubed_f1_percent": 84.89,
+      "average_purity_percent": 99.64
+    },
+    {
+      "theme": "F",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 90.17,
+      "average_bcubed_f1_percent": 83.45,
+      "average_purity_percent": 99.56
+    },
+    {
+      "theme": "F",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 90.99,
+      "average_bcubed_f1_percent": 85.72,
+      "average_purity_percent": 99.55
+    },
+    {
+      "theme": "F",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 89.86,
+      "average_bcubed_f1_percent": 82.98,
+      "average_purity_percent": 99.56
+    },
+    {
+      "theme": "G",
+      "variant": "SECA direct",
+      "average_nmi_percent": 86.21,
+      "average_bcubed_f1_percent": 54.63,
+      "average_purity_percent": 71.67
+    },
+    {
+      "theme": "G",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 88.3,
+      "average_bcubed_f1_percent": 63.03,
+      "average_purity_percent": 80.36
+    },
+    {
+      "theme": "G",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 85.94,
+      "average_bcubed_f1_percent": 55.37,
+      "average_purity_percent": 70.73
+    },
+    {
+      "theme": "G",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 87.93,
+      "average_bcubed_f1_percent": 62.74,
+      "average_purity_percent": 79.2
+    },
+    {
+      "theme": "H",
+      "variant": "SECA direct",
+      "average_nmi_percent": 77.75,
+      "average_bcubed_f1_percent": 53.05,
+      "average_purity_percent": 75.53
+    },
+    {
+      "theme": "H",
+      "variant": "SECA indirect",
+      "average_nmi_percent": 87.52,
+      "average_bcubed_f1_percent": 71.14,
+      "average_purity_percent": 89.18
+    },
+    {
+      "theme": "H",
+      "variant": "SECA-Light direct",
+      "average_nmi_percent": 84.3,
+      "average_bcubed_f1_percent": 64.32,
+      "average_purity_percent": 81.44
+    },
+    {
+      "theme": "H",
+      "variant": "SECA-Light indirect",
+      "average_nmi_percent": 88.85,
+      "average_bcubed_f1_percent": 74.08,
+      "average_purity_percent": 89.03
+    }
+  ]
+}

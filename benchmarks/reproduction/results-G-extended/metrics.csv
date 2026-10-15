@@ -1,0 +1,10 @@
+case,language,status,metric,value,rust_minus_csharp,relative_to_csharp
+G,rust,ok,hkts,5641,,
+G,rust,ok,nodes,15072,,
+G,rust,ok,refuge_nodes,2218,,
+G,rust,ok,source_memberships,90165,,
+G,rust,ok,descriptor_occurrences,32573,,
+G,rust,ok,max_depth,14,,
+G,rust,ok,represented_sources,8880,,
+G,rust,ok,reconstruction_targets,2177,,
+G,csharp,failed,unavailable,,,

@@ -1,0 +1,4215 @@
+{
+  "cargo_lock_sha256": "e431e529a1f197c1f2ccd1121d11df04e3dcb32bdacb8845d1faa91fec0de6de",
+  "engine_revision": "01a644f3a7411bd4de4ad172555153fbcf525cc2",
+  "platform": "Linux-5.15.0-1089-azure-x86_64-with-glibc2.31",
+  "python": "3.11.4 (main, Jul  5 2023, 13:45:01) [GCC 11.2.0]",
+  "reference_kind": "instrumented serial original classes; not unmodified application",
+  "reference_sha256": {
+    "references/seca-parity-build/.harness-generated/source-hashes.json": "c4a36fa690377754f4ebf29bcd1526c346072706ffd705f929193898ef82aa30",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.Core.dll": "777da4849d8f7897a13818eb9fab05b2ecb80de848b3019aafefd34b28f791a8",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.Math.dll": "1b1c40f63b7b98e82878ce8656390c12d9a2ed72ca451d6e7adcb46555cccbf2",
+    "references/seca-parity-build/SECA/bin/Debug/Accord.dll": "d36c225a84415c01bc2a8e84096590a7206dfc3d36173e3c7b6a62a04c0a33a9",
+    "references/seca-parity-build/SECA/bin/Debug/Newtonsoft.Json.dll": "973fd70ce48e5ac433a101b42871680c51e2feba2aeec3d400dea4115af3a278",
+    "references/seca-parity-build/SECA/bin/Debug/SourceCleanerEngine.exe": "891735450fc389f4d6e26ab8fb3637bc38226c53ae76f99f91e87b8fdf0da0d6",
+    "tools/seca-reference-harness/.build/harness.exe": "1170931e67a7ddd4634f6201b686d644ae35cf9546322d842f153bfd3077259f",
+    "tools/seca-reference-harness/.gitignore": "99921edb369e12a35a87d768ae481f8c944573626abd4b8f3a1fe78846f30ba7",
+    "tools/seca-reference-harness/Execution.cs": "2f4ad80ddbc96d5a5a42ea47cba8fc7b3fd642391799bb9fc86b2714156c6436",
+    "tools/seca-reference-harness/Program.cs": "f72ef362fb73664409e965f71a8bd27be83568dbd0386126fe90350bb9c79537",
+    "tools/seca-reference-harness/README.md": "d75b5fc13956f7ee511ad7cb8a198a09a53dee86e87019ede68d6d6b57ed86bf",
+    "tools/seca-reference-harness/build.sh": "76e3a36b58dde679a079b56f570be53dcfb2e410abca44dadd9c66fd6651be75",
+    "tools/seca-reference-harness/prepare.py": "62273ee81b4d66a0409823f55cea6a35305f30d80d7cccdbd81a6a005d3e9672",
+    "tools/seca-reference-harness/run.sh": "d16bada169b7d400c32f1085ec0fc1e1eb965c032b1c94fe42df37a2f2cdbfab",
+    "tools/seca-reference-harness/verify.py": "4fd08accc07e0865cfdb9d9f98f5c836d54b91b4cc91a4368df22c4a684072d8"
+  },
+  "results": [
+    {
+      "case": "parity_context_metrics-alpha_threshold",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 0.0833,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "50298515979a0965a75fe2debcdcb9ff578d8d7bd52c883a9f16d8ea40fe709c"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": -0.5,
+          "rust_minus_csharp": -1
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 1
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "e672f32d882bf090c040a4a90166a1fb05a27e365a10b9048ec0bf2f76cd80ef",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/alpha_threshold.input.json",
+        "sha256": "e672f32d882bf090c040a4a90166a1fb05a27e365a10b9048ec0bf2f76cd80ef"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f84126911703a4741ccee7d64a90b9fe5b4cc9a4776b00b5d995fe0e9eb1b7e9"
+      }
+    },
+    {
+      "case": "parity_context_metrics-below_alpha",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 5
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "0fce966a8519bbad34a39c93f56b494130ccecc2eeb985eb1fa4bc6311cf6b13"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "c74bf2e66107c06e5e0af9e5821e8ea5a3dc4541f384f82d64d08635a4c44dc9",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/below_alpha.input.json",
+        "sha256": "c74bf2e66107c06e5e0af9e5821e8ea5a3dc4541f384f82d64d08635a4c44dc9"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 5
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "51d544d82b981e09fd677422077d285c1d7c0a1e0ef1ec762fa268c2c974136e"
+      }
+    },
+    {
+      "case": "parity_context_metrics-below_beta",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "2bb8902ce45c9d7b69307dd58877a03b79d17e43537d5695c23a375539cf9395"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "c641a92044eb679b890c4646aadcffd4019435af3027e4bd53d17b8fbc779712",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/below_beta.input.json",
+        "sha256": "c641a92044eb679b890c4646aadcffd4019435af3027e4bd53d17b8fbc779712"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "be2cd766b054f60ca6490420a53262c7680c996831aa3643bf84e05ac0cc4e10"
+      }
+    },
+    {
+      "case": "parity_context_metrics-beta_threshold",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 0.0833,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "43b159620b5a13b169451b12e0b44a48b309ec1938f9ab979dca3fca13491c3f"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": -0.5,
+          "rust_minus_csharp": -1
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 1
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "28d1b671400fd042c87528d0f28244f0d830c6d1a370dc9340f73f18b28166fd",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/beta_threshold.input.json",
+        "sha256": "28d1b671400fd042c87528d0f28244f0d830c6d1a370dc9340f73f18b28166fd"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "b409486f90998885a44cc09533ca2b12bf7541dce99ce962bcbdf76b47e9292a"
+      }
+    },
+    {
+      "case": "parity_context_metrics-child",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 8
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "d1958aaffb45e6e462d7cf8d92a7a197e062c10eb18ad7d0cf1f8eb97bc06737"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "cc5fcba7478467caa98d9b2c192412d370611a443db0c7b81adb2a929a43724f",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/child.input.json",
+        "sha256": "cc5fcba7478467caa98d9b2c192412d370611a443db0c7b81adb2a929a43724f"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 8
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "418bf3c381f7de14b31d8bcf59f66cfe8b54a1b2ae0024048bb8cb0ae969aefa"
+      }
+    },
+    {
+      "case": "parity_context_metrics-empty",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "status": "excluded"
+      },
+      "exclusion": "empty batch excluded by reference contract",
+      "input_sha256": "a7a38f9f114b7fd2db3bb4690ed7ffcda7ef175eee02ee1153976c980c1577bd",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/empty.input.json",
+        "sha256": "a7a38f9f114b7fd2db3bb4690ed7ffcda7ef175eee02ee1153976c980c1577bd"
+      },
+      "rust": {
+        "status": "excluded"
+      }
+    },
+    {
+      "case": "parity_context_metrics-exact_alpha",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6242b84f66a9ab0ad058af9a8576fe2ba9996d443704b33655483766224e4f9a"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "5bebd71bfca5488ff5cc72893b42c82ef0dc02174709cd77d78c40b8b699adcd",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/exact_alpha.input.json",
+        "sha256": "5bebd71bfca5488ff5cc72893b42c82ef0dc02174709cd77d78c40b8b699adcd"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f806ab735f0685c2d5d1947ed76e489c88a2353c1a2bc00b418e18cfbfcaa076"
+      }
+    },
+    {
+      "case": "parity_context_metrics-expected_consecutive",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.9,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "40fac7ee9515e231d1bcbcd5b834530f366ba0a88eb306e05962c36734033dbd"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "0a1d8d04ff34ab8e7587bdfe21ab2cb5c40c819bd9b1063e7b6559122934ef1b",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/expected_consecutive.input.json",
+        "sha256": "0a1d8d04ff34ab8e7587bdfe21ab2cb5c40c819bd9b1063e7b6559122934ef1b"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "2af4f992eb9c916434c26673bd3ff172e01e07d61a58ea39e3e6353a84357b76"
+      }
+    },
+    {
+      "case": "parity_context_metrics-expected_trigger",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.9,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 0.4
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "15f36db3d8b5501cf3fef6adb0946fca56a6906867dfc72422ac189f7318e339"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 1.0,
+          "rust_minus_csharp": 1
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 1.0,
+          "rust_minus_csharp": 1
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 1
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.25,
+          "rust_minus_csharp": 1
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.75,
+          "rust_minus_csharp": 3
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "10551d9e323044511b9f62ca32116a5136e26788189fd3483816fe071037638b",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/expected_trigger.input.json",
+        "sha256": "10551d9e323044511b9f62ca32116a5136e26788189fd3483816fe071037638b"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 7
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "dfb4332b50cc3b1c842e6b6b7466aa154bfe2b1017f76c7e053a8a8e8f692f58"
+      }
+    },
+    {
+      "case": "parity_context_metrics-historical_candidate",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.6,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "96d64d2c8619cdb02f5efc3cfeab6737150688de28b3f9eada9b517e89446b65"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "4a9000376bea977167300a461c29364b7323e6ed42a3345176f0662e170c85bc",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/historical_candidate.input.json",
+        "sha256": "4a9000376bea977167300a461c29364b7323e6ed42a3345176f0662e170c85bc"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "eb4599f24e40c307305d2f29567696c0efe697bbf0fe09d6d08d794837646fe4"
+      }
+    },
+    {
+      "case": "parity_context_metrics-just_below_alpha",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5001,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "dde5faa55362a6c3bef13925c58f6e2f3d10b80aa63c789f88d6a6d96068ad1a"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "166566bf01c18e0374245e5a343b93ec20db6a474d0425776ccd5b08df3d0ef6",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/just_below_alpha.input.json",
+        "sha256": "166566bf01c18e0374245e5a343b93ec20db6a474d0425776ccd5b08df3d0ef6"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "84ba2135b6bdb5dfbabe82f9baa95e41d2bdbf9a8197dd0417ba9e3521a8230c"
+      }
+    },
+    {
+      "case": "parity_context_metrics-low_evidence",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 2,
+          "source_memberships": 2
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "0a996450cb0282f2800e7e0d51a7b64c17976b10cf2dd6fa2ed38a726ad1cd1f"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "55379150a180935e72730ce734a5f4071f89c3d8c496daf0b8e189da73a930d0",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/low_evidence.input.json",
+        "sha256": "55379150a180935e72730ce734a5f4071f89c3d8c496daf0b8e189da73a930d0"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 2,
+          "source_memberships": 2
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "eae41ad1e077018a5df208a92f9e6b3f858cfc4ae089eb46e511e7689cf24312"
+      }
+    },
+    {
+      "case": "parity_context_metrics-new_word",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6242b84f66a9ab0ad058af9a8576fe2ba9996d443704b33655483766224e4f9a"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "5bebd71bfca5488ff5cc72893b42c82ef0dc02174709cd77d78c40b8b699adcd",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/new_word.input.json",
+        "sha256": "5bebd71bfca5488ff5cc72893b42c82ef0dc02174709cd77d78c40b8b699adcd"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f806ab735f0685c2d5d1947ed76e489c88a2353c1a2bc00b418e18cfbfcaa076"
+      }
+    },
+    {
+      "case": "parity_context_metrics-node_union",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.4,
+        "alphaError": 1,
+        "beta": 0.4,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e2d6614c19a45250837481b8036677c482b30fec0bbd4ad84e8c9a45779849bd"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "bc4d8557c50e1148e933f796cd76484756edf69c159307f3ac17231ac18be26c",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/node_union.input.json",
+        "sha256": "bc4d8557c50e1148e933f796cd76484756edf69c159307f3ac17231ac18be26c"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "10138ef12be9bf50d48123f77417cda1477df505e10a313813509142b9275d2b"
+      }
+    },
+    {
+      "case": "parity_context_metrics-refuge",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 1,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "eb1fb15011f7162d1886d8060be3e1cf9117f762eea3d8135aedce988f7c02f9"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.25,
+          "rust_minus_csharp": 1
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.25,
+          "rust_minus_csharp": 1
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "49c0d5b2592b2f08a9edd678bbac32637312487cadee2859b01b9c6684974ab0",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/refuge.input.json",
+        "sha256": "49c0d5b2592b2f08a9edd678bbac32637312487cadee2859b01b9c6684974ab0"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 1,
+          "represented_sources": 5,
+          "source_memberships": 5
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "53cda7f0077775bc366d10d2bc8094a7bdd84af71e453a580cb1687786c22245"
+      }
+    },
+    {
+      "case": "parity_context_metrics-shared_candidate",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "error": "System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.ArgumentException: An item with the same key has already been added. Key: 3\n  at System.Collections.Generic.Dictionary`2[TKey,TValue].TryInsert (TKey key, TValue value, System.Collections.Generic.InsertionBehavior behavior) [0x000fd] in <12b418a7818c4ca0893feeaaf67f1e7f>:0 \n  at System.Collections.Generic.Dictionary`2[TKey,TValue].Add (TKey key, TValue value) [0x00000] in <12b418a7818c4ca0893feeaaf67f1e7f>:0 \n  at SECA.SECA_DataClass.HKT+<computeChangeMetricsOfCurrentWordsInHKT>c__AnonStorey1.<>m__0 (System.Collections.Generic.KeyValuePair`2[TKey,TValue] x) [0x00014] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n  at System.Collections.Generic.List`1[T].ForEach (System.Action`1[T] action) [0x0002c] in <12b418a7818c4ca0893feeaaf67f1e7f>:0 \n  at SECA.SECA_DataClass.HKT.computeChangeMetric\n...\n SECA.SECA_DataClass.AlphaError+Options selectedAlphaOption, SECA.SECA_DataClass.BetaError+Options selectedBetaOption, SECA.SECA_DataClass.WordImportanceError+Options selectedWordImportanceOption, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestoWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorAcceptedWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorRejectedWords, SECA.SECA_DataClass.HKT currentHKT, System.Boolean isLightSECA, System.Collections.Concurrent.ConcurrentBag`1[T] deadHKTs, System.Collections.Concurrent.ConcurrentBag`1[T] deadNodes, System.Collections.Concurrent.ConcurrentDictionary`2[TKey,TValue] deadHKTsList, System.Collections.Generic.Dictionary`2[TKey,TValue] toAddSourceWordList, System.Collections.Generic.HashSet`1[T] toRemoveSourceWordList, System.Int32 numInputSourcesToHKTLevel) [0x00350] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n  at Program.Main (System.String[] args) [0x001c4] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n",
+        "exit_code": 1,
+        "failure_summary": "System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.ArgumentException: An item with the same key has already been added. Key: 3",
+        "status": "failed",
+        "stderr_sha256": "0149d31d634b28576b89ff49b8a7106a8659419cf5a14439b0487ce5b3a551ff",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "input_sha256": "10306ce35477d8859940831a161a8f3679ea2f0a7d95cb9f30491f2a456bbd6f",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/shared_candidate.input.json",
+        "sha256": "10306ce35477d8859940831a161a8f3679ea2f0a7d95cb9f30491f2a456bbd6f"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 8,
+          "source_memberships": 8
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "27b1414a4067fbb75e6f5a920456f21188de98e02b7da3f04d925c08bd6a6c59"
+      }
+    },
+    {
+      "case": "parity_context_metrics-unchanged",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "c4f06eec1446d0163ac6be59a26e751ddb304548a54d053a866cc9d72bd49419"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "30d92e04a39ccbd277c66c2baf43af6fa36010676e47885e080e67b78f1b0ed6",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/unchanged.input.json",
+        "sha256": "30d92e04a39ccbd277c66c2baf43af6fa36010676e47885e080e67b78f1b0ed6"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6d766b82de32ea3d218a38625e498145ba8593c129b7992ca3be44697715dc92"
+      }
+    },
+    {
+      "case": "parity_context_metrics-weakening",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "40cf58df60374679c0da644f03d1a76092b85ddd593bffdc8bcdf87dcfa4b75c"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "a01e1c87e2fc8d39e8745edc7cbffd5553cf40e296a55cfccc2c8887a4b7b8c0",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/weakening.input.json",
+        "sha256": "a01e1c87e2fc8d39e8745edc7cbffd5553cf40e296a55cfccc2c8887a4b7b8c0"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "65b104f7080de5bdd4b10425951f11e788276d66e525797a53fbb661db3b4ccf"
+      }
+    },
+    {
+      "case": "parity_context_metrics-wi_threshold",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1000,
+        "wordImportanceError": 0.4
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "543fefbf904bd5fa10b157b4a5e10b7d37ddd978429228bb1ac304adb9952a49"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "f28eba85b3bc44227f002867f28d1be9bcb41b62d2575b94ea98d6b39107aa66",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_context_metrics/wi_threshold.input.json",
+        "sha256": "f28eba85b3bc44227f002867f28d1be9bcb41b62d2575b94ea98d6b39107aa66"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 2,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "be2cd766b054f60ca6490420a53262c7680c996831aa3643bf84e05ac0cc4e10"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-branch_boundary",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 2,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 6
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "255d546c3594f3b29cb12527a0518a9328346d57e56ff9541445a5ddac44a3e8"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": -0.5,
+          "rust_minus_csharp": -1
+        },
+        "hkts": {
+          "relative_to_csharp": -0.5,
+          "rust_minus_csharp": -1
+        },
+        "max_depth": {
+          "relative_to_csharp": -1.0,
+          "rust_minus_csharp": -1
+        },
+        "nodes": {
+          "relative_to_csharp": -0.5,
+          "rust_minus_csharp": -1
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": -0.3333333333333333,
+          "rust_minus_csharp": -2
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "d97eaec6d2a49290d6f7dd4425a770385650f2866ef9c1723cf9b849fc42c1d0",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/branch_boundary/input.json",
+        "sha256": "22cd30ef971b9f947281074f8435f9d711be8e3a56e8360c6fd24db5d45c10ac"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6860c63dec05307fb6f5025d3ec611bc154822e8722965e292d5618e87bad813"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-child",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 10
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "3e8d5bd41d5a79c091fef9760b4b760cc895156a927b457d2537ff9c9f814c88"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "cc60dd7db5ac738e108516e65e992ddeaa751096aa73cc2e0c49091f42f9cee8",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child/input.json",
+        "sha256": "e454219ce444e4db7eb0ed109f970d91d1c73b9730e9a2cb58696cb63cd3f54f"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 10
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "86c2f7eb0119c306f96df1ca4bc8495bf40c0f9f0da043022856c766d7a19b35"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-child_reconstruct",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.11,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.2
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 7,
+          "hkts": 5,
+          "max_depth": 2,
+          "nodes": 9,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 2,
+          "represented_sources": 31,
+          "source_memberships": 64
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "952fe42add2084eec94bbbcdbbd4f54b84d5790b5a0dff6e15dfb46fb82f68cd",
+        "stdout_sha256": "52f4d5a06c2b132131427da36625bfd44f70b1c1101a7f419b4647faac7abd77"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "84da20d5dab7d4f1002af067d913bd4aa08ee053066d206cfdad723ab9cbd824",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/child_reconstruct/input.json",
+        "sha256": "1b2121bc454f00e0e048555ea95e45d10a3b4b8e41d0c682ec170a1adbd8aef8"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 7,
+          "hkts": 5,
+          "max_depth": 2,
+          "nodes": 9,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 2,
+          "represented_sources": 31,
+          "source_memberships": 64
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "d22d4e164a8136e57883bc3932fb4a33b9acadfe3a1884fc2f230a39d9750375"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-collision",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 1,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 99,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "a3517f20554456f0123567f7d45daf27036d8133ffc8f283a9f412e7a72c57bc"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "3fc6b1acb4c7c9729ee23fd604285026d70e991d5906406c1a74f094fd5dd651",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision/input.json",
+        "sha256": "13353db608c5ca06fd0ca6087516bbb85c312cd91bc48a30ad8d20770ff1afdd"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "2854e4b78b8c51d3be8da26b696db783972bae6fe6486b6dc41b972d5151aa64"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-collision_reordered",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 1,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 99,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "50f7e1033c8bc450164655d68ec7826a40968b295b5bf972c609aee058bda0ab"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "7d1360fdd861476174ceede44c4df4ae6e5bcc6f5c31c0a8d2f9a46acac90a39",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_reordered/input.json",
+        "sha256": "abba33ed9214ba93cfae3b28d828f67e0caa4f86dab713f85697d40e67941451"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "045d4e76281bdd8802a2a24aacc351136aee0c18604fd0a84c9514c27dc6e985"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-collision_true_tie",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 1,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 99,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "a40e257e590d3db56b500b0f9e8d003ee9aaf99e5c9af0e9285b987f0644fe34"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "e8d4dcbed8f44ddd060cb34dce105f8037b9eb8cc826ff15d9029ea243a4ce0b",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/collision_true_tie/input.json",
+        "sha256": "0ae0d8ce5130fd410f37f2728bb61b09f3d38c907aec8fe70d9c3647bb6f5b6c"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f68906e5c6fb48ad694ce55553b48b04fc4c89d70b06fb727479555f59b0f5ac"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-competing",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.75,
+        "betaError": 0.13,
+        "branchMinimum": 99,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 7
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "975aa2b4f84a3edccf5957892035ef8a3209e42258e97547a2cf63dffa5aad2b"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "5f546b55c10be4bbe610981acbe057104b3756658bef02a5843de4d58bec1e83",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/competing/input.json",
+        "sha256": "b4b0bcece243c0e72cbaed43038571368748c236c11471ab02b31cb1bda2156c"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 5,
+          "source_memberships": 7
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "52b2615d8975ba90a3379c36e252d3022e0df087fbb442474096ddac54a4d0dd"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-frequency_vs_vocabulary",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.5,
+        "alphaError": 1,
+        "beta": 1,
+        "betaError": 1,
+        "branchMinimum": 99,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 3,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 9,
+          "source_memberships": 12
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "68e84ffda59c9071801dedacc95ef5755d1b427b1a181bbed51009fa90ae2602"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": -0.3333333333333333,
+          "rust_minus_csharp": -1
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": -0.25,
+          "rust_minus_csharp": -3
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "92484bceb5d7095eea563b9517633b185cfdea56cad809de977c3c5969d01826",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/frequency_vs_vocabulary/input.json",
+        "sha256": "6e4b135f9e896ecbbce209e1ede1592e1242d38dcdb7e4a977e384f09e823545"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 9,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e4aebdab0b53c4cef7524b9ed0d2b101d0538964faca81886559ec1bb322ed3a"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-merge_many",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "350c4317377c1924f555198e6bd509c212727a70da860d669841f1ce6c416059"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "8c71a8b108a20107f224d80b8248e3c7fdfa41fcb4df28a60ff5b270c244a321",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/merge_many/input.json",
+        "sha256": "71e9fd270a7ad78f0d557a25071b5908c8d30d3160c6a29be86f654a14ef5f0b"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "754cf9925300f9fc7a541e5970c38dda2c8166535fb33110f358edfef2675ac8"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-new_dominant",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 3,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 1,
+          "represented_sources": 6,
+          "source_memberships": 8
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "27a782e61cd781b5997ac0c10d8a4ec1ded0d99aec451f1bbf70e0e0d28603a4",
+        "stdout_sha256": "928a46485a4b09a9a4dbe4d0a7faa54b5aebd98194d37e706b20dd78743e4c29"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "b59eab1a3fdfa844d28eacda6f683045e19b5a7cf24cfb3511fd10249843bd47",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/new_dominant/input.json",
+        "sha256": "923511dd0035af234acd63ccfdb0f21267387e673e4dd049c7a1f8e05ab3aac6"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 3,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 1,
+          "represented_sources": 6,
+          "source_memberships": 8
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "05908d91bcb7d42c841a9c05e5738343d09e27a7b7d7f9fcbf3e0e44aa529dc7"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-one_prominent",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "60a272ca8d737c8123aa8c3b86730f01e512e120be607aa4cd794fdf8d7f54b6"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "49edb67841c5e1e78359589fc203503c61203ff0ec7587e309c57d4ddf994653",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/one_prominent/input.json",
+        "sha256": "b5de782241581f32d7283abfb305285d37655d41ca5c8a4211f56677ba775ec1"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "dfd837e1d2a4ce3791bc5618def076218c658f42793f7b5bbd1f19024997d0e4"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-overlap_recursive",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.8,
+        "alphaError": 1,
+        "beta": 0.75,
+        "betaError": 1,
+        "branchMinimum": 1,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 3,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 9,
+          "source_memberships": 21
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "d34b0e3e6e25d5150b8f3d3887b62ac8eefd045f8ea40aa1152f67fafd778b50"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.6666666666666666,
+          "rust_minus_csharp": 2
+        },
+        "hkts": {
+          "relative_to_csharp": 1.0,
+          "rust_minus_csharp": 2
+        },
+        "max_depth": {
+          "relative_to_csharp": 1.0,
+          "rust_minus_csharp": 1
+        },
+        "nodes": {
+          "relative_to_csharp": 0.6666666666666666,
+          "rust_minus_csharp": 2
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.38095238095238093,
+          "rust_minus_csharp": 8
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "115d70def29a66c463774e70c7b43a2ddfc849bbc47682cf3fa0c5c48d463e45",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/overlap_recursive/input.json",
+        "sha256": "79d9dbc9582f22da82b38480703e175bb466c79c94f025d4874d0d2281717b38"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 5,
+          "hkts": 4,
+          "max_depth": 2,
+          "nodes": 5,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 9,
+          "source_memberships": 29
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "4b0f4cfbd606f1622464acbd17806f4c5d79396db7cb21f2710cdbd0d3b8d98f"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-refuge",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.8,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 3,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 1,
+          "represented_sources": 7,
+          "source_memberships": 9
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e34b6cddd33ccf59288b9ffea40b71b92e09227d55128ee0773d4a202c698a07"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.2222222222222222,
+          "rust_minus_csharp": 2
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "b97a253c2a11b2c7d77235c8d2b10e2f57ebe62104853d84e09ed8625b969d8f",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/refuge/input.json",
+        "sha256": "270dabfdfa7b769ba3c7ff391092edc51f14fdd74057339972e236bb49bcec1a"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 2,
+          "max_depth": 1,
+          "nodes": 3,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 1,
+          "represented_sources": 7,
+          "source_memberships": 11
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "c0c55c00946f8ef285ac8ba5656b5ab25191fd292fe0a1c598a4642daafdf834"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-root_reconstruct",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.11,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.2
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 3,
+          "max_depth": 2,
+          "nodes": 4,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 1,
+          "represented_sources": 7,
+          "source_memberships": 10
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "615dc08169ad298973e5a38da157fa09b036804f5e23a9d2f078aefd6130282e",
+        "stdout_sha256": "b8787d4e93a168cdedab9fbaeecb81d8ce53cebaeb9e1ef3e89610c883208ace"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "5edd89381ab2a7748b246f6342e318e95e09035f4467cda1102448d9e38e42a2",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/root_reconstruct/input.json",
+        "sha256": "6ef45db346ad034e42f08f4f3bca99357dfa144ab935bb7869ad6b9ccc90cba7"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 3,
+          "hkts": 3,
+          "max_depth": 2,
+          "nodes": 4,
+          "reconstruction_targets": 1,
+          "refuge_nodes": 1,
+          "represented_sources": 7,
+          "source_memberships": 10
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "b2bddab159e4d5382bae62bad8938516d854ec66857bec1cfca3e734f0d5ca15"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-separate",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.75,
+        "betaError": 0.13,
+        "branchMinimum": 99,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 7
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "09956cb47cf82b11e5c05408f93523b611facac97e75c80b34ca039e14b2c46b"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "22f56d2d1104f107f5aa56e8949a3db61fe7f630a183e7d49eb7d99aaa8fb152",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/separate/input.json",
+        "sha256": "53723260757bf48d0afda8ef2fcafdd0c271371ebbb6c73a34bde34a5fb50974"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 2,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 6,
+          "source_memberships": 7
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f48a0b32b607ddf6b87056bb8071dd3e27b52821816308c605cd7ef698598ae9"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-sequential",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 4,
+          "hkts": 3,
+          "max_depth": 2,
+          "nodes": 5,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 2,
+          "represented_sources": 15,
+          "source_memberships": 23
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "371914e6f514bcf29243992c59cbd01ca2b8d3cc093c9352e18441b3e5365d97",
+        "stdout_sha256": "5917cda8e08713d6caa176d40123990d1b647b6dee5ab2e06692caaaa0902fa5"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "c2d4ac4ebb6d2722162ac11ca7caa7391e6efbb0214a376985f299fe06ca8a4c",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/sequential/input.json",
+        "sha256": "a6b2ac2f83f082f71339935e88dc24244c690d3ded977a6c0800c64248b96a89"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 5,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 4,
+          "hkts": 3,
+          "max_depth": 2,
+          "nodes": 5,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 2,
+          "represented_sources": 15,
+          "source_memberships": 23
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "d779882ebb9a9a21d9bc0a6de54fc3aa5f70e201fbbc80f5b6dcb0db1e642be0"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-siblings",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 1,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 6,
+          "hkts": 3,
+          "max_depth": 1,
+          "nodes": 6,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 22,
+          "source_memberships": 40
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "e7730e83a629397c2ac19541655fe3b9ad1bf8c97a1844af695a0e5c72178872"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "23b543cbbe58807a7cb500903a3c9be36bef02d253a5c3cc05b9c2c8f900606f",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/siblings/input.json",
+        "sha256": "24874e66ab04da96b20df9f018773ca6ca71d355bcd17c97656adc9e69b98439"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 6,
+          "hkts": 3,
+          "max_depth": 1,
+          "nodes": 6,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 22,
+          "source_memberships": 40
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "3cf97186980691bacab115b280a3ca9e367f8a310fff3d861cfac47eb457615e"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-single_root",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "d733eb1f15fe444d905f478903f80ae8d8cb26bb987472fae45fa5ea12a23834"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "02dca2cc0bc35d854c81937c668ef2c7a91944432f89f01ee1871ac4d0fe2ff9",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/single_root/input.json",
+        "sha256": "573ecb5663f7931c20a3d96e16f17f89fb7025fefa2bc0df6657855e16b57c7e"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 4,
+          "source_memberships": 4
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6d766b82de32ea3d218a38625e498145ba8593c129b7992ca3be44697715dc92"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-ties_ab",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 99,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "9e107e28313346d95e46444762f220d663c7f190277abca1a241c5388340be96"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "6ace8f1a39dd99322308455a4b62c28a282b32cc8f3dc25df4b8d219ee0a7810",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ab/input.json",
+        "sha256": "e48ff3a2ae2d9522d19aa9f66ea943b5676afed0df643a9fb048331a2aa2e48b"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "359d85e82b1d55f6d849a323537f7de1873aadd805f49d844fca330bc28b2118"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-ties_ba",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.13,
+        "branchMinimum": 99,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "77326bcd11177c5684e692c9ca4c03fe9be3dfb3ce35139b7c4fe4426875339e"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "604b8a85e4e25424ad2a6b53ed02bdf634c75c1e35b97d9b8d41cdcb5cb1cd2f",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/ties_ba/input.json",
+        "sha256": "b8bd960084621701c1aab0fc82e24e44f8c5b9583286b7c0bfaba32fea281c74"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 2,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "45e0fbf27b907320fdc19daadb238f2e316207eb1d60fc13b4e4dfab7c741e35"
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction-unmatched",
+      "classification": "synthetic_characterization",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 1,
+        "beta": 0.5,
+        "betaError": 1,
+        "branchMinimum": 99,
+        "wordImportanceError": 1
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "c0f5dac480bab3f8a4d017c01ffc780123132c6365fe65f0105888f5011225ee"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "hkts": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "max_depth": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": null,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        }
+      },
+      "final_labelled_topology_equal": true,
+      "input_sha256": "bc7d555ff12692fbf3ac43e00212085e7654081dde5677b4d14201e27001067d",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "classification": "synthetic_characterization",
+        "path": "crates/realtime-seca-core/tests/fixtures/parity_hkt_reconstruction/unmatched/input.json",
+        "sha256": "70f43de227c2824ed73fd5501437e88e619822f81ae750a8e4b57c13fca632e1"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 1,
+          "hkts": 1,
+          "max_depth": 0,
+          "nodes": 1,
+          "reconstruction_targets": 0,
+          "refuge_nodes": 0,
+          "represented_sources": 3,
+          "source_memberships": 3
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6d2a234010604a268406899bc5e918563f90495a60fb795ae60a716c21526687"
+      }
+    },
+    {
+      "case": "G",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "error": "Failed to add word attempt1->10\nFailed to add word attempt1->2\nFailed to add word attempt1->8\nFailed to add word attempt1->10\nFailed to add word attempt1->9\nFailed to add word attempt1->7\nFailed to add word attempt1->9\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->2\nFailed to add word attempt1->38\nFailed to add word attempt1->38\nFailed to add word attempt1->22\nFailed to add word attempt1->22\nFailed to add word attempt1->22\nFailed to add word attempt1->28\nFailed to add word attempt1->38\nFailed to add word attempt1->13\nFailed to add word attempt1->13\nFailed to add word attempt1->31\nFailed to add word attempt1->29\nFailed to add word attempt1->26\nFailed to add word attempt1->31\nFailed to add word attempt1->38\nFailed to add word attempt1->26\nFailed to add word attempt1->25\nFailed to add word attempt1->23\nFailed to add word attempt1->23\nFailed to add word attempt1->22\nFailed to add word\n...\n SECA.SECA_DataClass.AlphaError+Options selectedAlphaOption, SECA.SECA_DataClass.BetaError+Options selectedBetaOption, SECA.SECA_DataClass.WordImportanceError+Options selectedWordImportanceOption, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestoWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorAcceptedWords, System.Collections.Generic.Dictionary`2[TKey,TValue] ancestorRejectedWords, SECA.SECA_DataClass.HKT currentHKT, System.Boolean isLightSECA, System.Collections.Concurrent.ConcurrentBag`1[T] deadHKTs, System.Collections.Concurrent.ConcurrentBag`1[T] deadNodes, System.Collections.Concurrent.ConcurrentDictionary`2[TKey,TValue] deadHKTsList, System.Collections.Generic.Dictionary`2[TKey,TValue] toAddSourceWordList, System.Collections.Generic.HashSet`1[T] toRemoveSourceWordList, System.Int32 numInputSourcesToHKTLevel) [0x00350] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n  at Program.Main (System.String[] args) [0x001c4] in <fbefb873b1604c308cbc0e4e14d41431>:0 \n",
+        "exit_code": 1,
+        "failure_summary": "System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.InvalidOperationException: Reference algorithm failure ---> System.ArgumentException: An item with the same key has already been added. Key: 636",
+        "status": "failed",
+        "stderr_sha256": "07db3230c392a3ae1e001cd93cf642fb05891ad5362c48b460884004b45f9d06",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "input_sha256": "4bc82df6b83e0dfbcd52bb43e6a0c7c391ec55d441216207a3469985ba725ddf",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 740,
+        "batches": 12,
+        "classification": "comparable_with_deviations",
+        "documents": 8880,
+        "event_size_range": [
+          2,
+          354
+        ],
+        "excluded_tail": 2229,
+        "labels": 152,
+        "original_ids_sha256": "604f9fffc7fa48e9ab60fe8440ecadbb50785b3126f91fc1c6143e3a703c5df1",
+        "scope": "full chosen G/H reconstruction",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/News",
+        "variant": "News"
+      },
+      "rust": {
+        "emitted_cycles": 7,
+        "error": "\n...\n",
+        "exit_code": null,
+        "failure_summary": null,
+        "status": "timeout",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "307ca3f8087743f7e7256a19f257caa6cb334b504eddf484b8aa624c41b2b864"
+      }
+    },
+    {
+      "case": "H",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "error": "Failed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->139\nFailed to add word attempt1->143\nFailed to add word attempt1->116\nFailed to add word attempt1->139\nFailed to add word attempt1->120\nFailed to add word attempt1->413\nFailed to add word attempt1->163\nFailed to add word attempt1->100\nFailed to add word attempt1->96\nFailed to add word attempt1->163\nFailed to add word attempt1->163\nFailed to add word attempt1->163\nFailed to add word attempt1->95\nFailed to add word attempt1->95\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->413\nFailed to add word attempt1->90\nFailed to add word attempt1->95\nFailed to add word attempt1->90\nFailed to add word attempt1->90\nFailed to add word attempt1->90\nFailed to add word attempt1->83\nFailed to add word attempt1->83\nFailed to add word attempt1->83\nFailed to add word at\n...\npt1->9\nFailed to add word attempt1->9\nFailed to add word attempt1->12\nFailed to add word attempt1->9\nFailed to add word attempt1->8\nFailed to add word attempt1->7\nFailed to add word attempt1->7\nFailed to add word attempt1->8\nFailed to add word attempt1->6\nFailed to add word attempt1->6\nFailed to add word attempt1->7\nFailed to add word attempt1->7\nFailed to add word attempt1->6\nFailed to add word attempt1->5\nFailed to add word attempt1->4\nFailed to add word attempt1->4\nFailed to add word attempt1->5\nFailed to add word attempt1->5\nFailed to add word attempt1->4\nFailed to add word attempt1->4\nFailed to add word attempt1->5\nFailed to add word attempt1->4\nFailed to add word attempt1->4\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->4\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->3\nFailed to add word attempt1->2\nFailed to add word attempt1->2\n",
+        "exit_code": null,
+        "failure_summary": null,
+        "status": "timeout",
+        "stderr_sha256": "06b4f72fc413993c7fe5af3148b2f0cc727e03d58ab7e9c746f09238c9f7e1df",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "input_sha256": "4c48fa77bd5179f1b135b3a3a65664752891f07a7276274e4310501c50675db5",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 2000,
+        "batches": 12,
+        "classification": "comparable_with_deviations",
+        "documents": 24000,
+        "event_size_range": [
+          1,
+          607
+        ],
+        "excluded_tail": 6322,
+        "labels": 227,
+        "original_ids_sha256": "02432c64bf7a7fe588daee35018f5f1a7e90bdc1bf42a62baecfd2255dbc815f",
+        "scope": "full chosen G/H reconstruction",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/Tweets-T",
+        "variant": "Tweets-T"
+      },
+      "rust": {
+        "emitted_cycles": 3,
+        "error": "\n...\n",
+        "exit_code": null,
+        "failure_summary": null,
+        "status": "timeout",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "a2ad8c1f83f25f781c44d705eeec3453410f1e5cd361c43306a12ee5ad691b43"
+      }
+    },
+    {
+      "case": "G-smoke",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 457,
+          "hkts": 26,
+          "max_depth": 2,
+          "nodes": 105,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 4,
+          "represented_sources": 75,
+          "source_memberships": 229
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "86b5a86e1287ff8aa251a9cc4e7db13445d4de810f8c38e7bc0e9b0286ad3b71",
+        "stdout_sha256": "bce68e7a25fabeafcb2bcc5d7bb76d026dcbbfedae2f07e3c4706e6d422211d4"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": -0.00437636761487965,
+          "rust_minus_csharp": -2
+        },
+        "hkts": {
+          "relative_to_csharp": -0.07692307692307693,
+          "rust_minus_csharp": -2
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": -0.01904761904761905,
+          "rust_minus_csharp": -2
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": -0.008733624454148471,
+          "rust_minus_csharp": -2
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "85d708f17fc9c2f5444aee89cf11a6e8e4e6a583196d2ffa1d2e84f5cbfa9d6c",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 25,
+        "batches": 3,
+        "classification": "comparable_with_deviations",
+        "documents": 75,
+        "event_size_range": [
+          1,
+          4
+        ],
+        "excluded_tail": 11034,
+        "labels": 58,
+        "original_ids_sha256": "c51e23cb44c7f84698559d569ec9e6783c51e7624d8dea11483c4e33aa115676",
+        "scope": "75-document smoke subset",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "f68afe2771048371a84fb97f0e8599b437b178117dd3678ec16a52c30b36cfad",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/News",
+        "variant": "News"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 455,
+          "hkts": 24,
+          "max_depth": 2,
+          "nodes": 103,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 4,
+          "represented_sources": 75,
+          "source_memberships": 227
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "7703a67be8ab6267d3d257513b368c30417afea56f3e5531ec0e044849951fdb"
+      }
+    },
+    {
+      "case": "H-smoke",
+      "classification": "comparable_with_deviations",
+      "configuration": {
+        "alpha": 0.7,
+        "alphaError": 0.1,
+        "beta": 0.5,
+        "betaError": 0.2,
+        "branchMinimum": 1,
+        "wordImportanceError": 0.3
+      },
+      "csharp": {
+        "deterministic_repeat": true,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 578,
+          "hkts": 44,
+          "max_depth": 3,
+          "nodes": 127,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 11,
+          "represented_sources": 75,
+          "source_memberships": 303
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "b632d770e239301eb4dc657cd7ffe0613ba16658f0e317f91dfb450a5cc8cebb",
+        "stdout_sha256": "f1cfc45ec98a8a463ada27c499b1a756c3140fa2509c198804e607e491db912a"
+      },
+      "differences": {
+        "descriptor_occurrences": {
+          "relative_to_csharp": -0.025951557093425604,
+          "rust_minus_csharp": -15
+        },
+        "hkts": {
+          "relative_to_csharp": -0.11363636363636363,
+          "rust_minus_csharp": -5
+        },
+        "max_depth": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "nodes": {
+          "relative_to_csharp": -0.03937007874015748,
+          "rust_minus_csharp": -5
+        },
+        "reconstruction_targets": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "refuge_nodes": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "represented_sources": {
+          "relative_to_csharp": 0.0,
+          "rust_minus_csharp": 0
+        },
+        "source_memberships": {
+          "relative_to_csharp": -0.0165016501650165,
+          "rust_minus_csharp": -5
+        }
+      },
+      "final_labelled_topology_equal": false,
+      "input_sha256": "e33200b79e57480b69c771b95cc95c614e83eb83faede89946fb62dfea6b69c0",
+      "missing_measurements": [
+        "NMI",
+        "BCubed F1",
+        "purity",
+        "event recall"
+      ],
+      "missing_reason": "Direct/indirect event clustering is not implemented in Rust or exposed by the reference harness.",
+      "provenance": {
+        "batch_size": 25,
+        "batches": 3,
+        "classification": "comparable_with_deviations",
+        "documents": 75,
+        "event_size_range": [
+          1,
+          9
+        ],
+        "excluded_tail": 30247,
+        "labels": 24,
+        "original_ids_sha256": "c51e23cb44c7f84698559d569ec9e6783c51e7624d8dea11483c4e33aa115676",
+        "scope": "75-document smoke subset",
+        "selection": "physical-record prefix; original file order",
+        "upstream_sha256": "e1b806af9992e881ff75b76efe259dff8b3483d9be11f1110a777356075070cf",
+        "url": "https://raw.githubusercontent.com/jackyin12/MStream/ac894075f2bbb93405679e237d2d5d11a325078c/MStream/data/Tweets-T",
+        "variant": "Tweets-T"
+      },
+      "rust": {
+        "deterministic_repeat": true,
+        "emitted_cycles": 3,
+        "error": null,
+        "exit_code": 0,
+        "metrics": {
+          "descriptor_occurrences": 563,
+          "hkts": 39,
+          "max_depth": 3,
+          "nodes": 122,
+          "reconstruction_targets": 2,
+          "refuge_nodes": 11,
+          "represented_sources": 75,
+          "source_memberships": 298
+        },
+        "repeat_status": "ok",
+        "status": "ok",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "3bb586de611615725d493e632b0518c151791d61e11c51cf30fd9067cf2d798d"
+      }
+    }
+  ],
+  "retention": "Full / C# isLightSECA=false; no forgetting",
+  "runner_sha256": "193cf86c53ba87a20a0a91951996e0fd4501c2a7d5e09ef5ab3da0ac3b5d2a66",
+  "rust_adapter_sha256": "46dca5ea7b849dbb36bc8cda8b9840a514e481530fe637ba153d387eb68220f7",
+  "rust_executable_sha256": "818cb5f3c1d67cea4caeeab24a606ccb7edb3906af7c70a3d826d9105218ba93",
+  "rust_toolchain": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "schema_version": 1,
+  "timeout_seconds": 60.0,
+  "tracked_changes": []
+}
