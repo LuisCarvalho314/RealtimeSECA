@@ -1,5 +1,13 @@
 # SECA benchmark reproduction
 
+Integration note: this is historical Full-memory Rust/C# hierarchy characterization
+from `01a644f`, not the canonical Theme G/H benchmark. The canonical runner,
+clustering, metrics and complete saved evidence are documented in
+[seca-paper-benchmark.md](seca-paper-benchmark.md). Statements below about missing
+clustering apply only to this external-reference adapter and its original checkout.
+Its physical-record prefix differs from the canonical dataset manifests; do not
+combine the two result populations. No scientific proposal is approved here.
+
 This branch adds an executable comparison using public Rust APIs and the existing
 external serial C# harness. **No production algorithm is changed. Full scientific
 parity and reproduction of the paper's clustering scores are not established.**

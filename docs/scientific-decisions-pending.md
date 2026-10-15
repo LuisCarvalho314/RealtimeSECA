@@ -1,5 +1,8 @@
 # Scientific decisions pending
 
+The supplemental [scientific decision proposals](scientific-decision-proposals.md)
+expand the review rationale; they do not approve or replace this pending status.
+
 2026-10-13. Recommendations for scientific review, **not approved algorithm
 changes**. Integration changes ingestion and snapshot validation only. The
 canonical metric path and HKT builder remain unchanged; the two ignored strict

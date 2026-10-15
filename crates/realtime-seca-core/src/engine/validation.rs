@@ -79,7 +79,7 @@ impl SecaEngine {
         for batch in &self.processed_batches {
             if batch.batch_index < window_start
                 || batch.batch_index > current
-                || previous.is_some_and(|index| batch.batch_index <= index)
+                || previous.is_some_and(|index: u32| batch.batch_index != index.saturating_add(1))
             {
                 return Err(invalid());
             }
@@ -89,7 +89,8 @@ impl SecaEngine {
                     .source_id_by_url
                     .get(&source.source_id)
                     .ok_or_else(invalid)?;
-                if source.batch_index != batch.batch_index
+                if source.source_id.is_empty()
+                    || source.batch_index != batch.batch_index
                     || !source_ids.insert(*id)
                     || self.baseline_source_legend.get(id) != Some(&source.source_id)
                 {
