@@ -1,0 +1,52 @@
+name: SECALight Baseline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run tests
+        run: cargo test --locked --workspace
+
+      - name: Run clippy
+        run: cargo clippy --locked --workspace --all-targets -- -D warnings
+
+      - name: Build
+        run: cargo build --locked --workspace --examples --bins
+
+      - name: Download verified datasets
+        run: python3 benchmarks/seca-paper/datasets/download.py
+
+      - name: Dataset test suite
+        run: python3 -m unittest discover -s benchmarks/seca-paper/datasets -v
+
+      - name: Clustering contracts
+        run: python3 -m unittest discover -s benchmarks/seca-paper/clustering
+
+      - name: External reference runner contracts
+        run: python3 -m unittest discover -s benchmarks/reproduction -v
+
+      - name: Evaluation and real-engine integration
+        run: |
+          SECA_TEST_ENGINE="$PWD/target/debug/realtime-seca-cli" \
+          python3 -m unittest discover \
+          -s benchmarks/seca-paper/evaluation \
+          -t benchmarks/seca-paper -v
