@@ -1,6 +1,6 @@
 use crate::ingestion::{read_config_json, read_source_batch_json};
 use crate::presentation::print_usage;
-use realtime_seca_core::{SecaConfig, SecaEngine, SourceBatch, SourceRecord};
+use realtime_seca_core::{SecaConfig, SecaEngine, SourceBatch};
 use serde::Serialize;
 use std::{fs, path::Path};
 #[derive(Debug, Serialize)]
@@ -90,7 +90,7 @@ pub(crate) fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn s
         return Err("--chunk-count must be > 0".into());
     }
 
-    let chunks = split_batch_into_sequential_chunks(&batch, resolved_chunk_count)?;
+    let chunks = split_batch_into_sequential_chunks(batch, resolved_chunk_count)?;
     let chunk_size_effective = chunks.first().map(|chunk| chunk.sources.len()).unwrap_or(0);
 
     let output_dir = Path::new(&out_dir);
@@ -106,32 +106,14 @@ pub(crate) fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn s
     };
 
     let mut engine = SecaEngine::new(config)?;
-    let mut files: Vec<String> = Vec::with_capacity(chunks.len());
-
-    for (idx, chunk) in chunks.into_iter().enumerate() {
-        if idx == 0 {
-            engine.build_baseline_tree(chunk)?;
-        } else {
-            engine.process_batch(chunk)?;
-        }
-
-        let file_name = format!("tree_batch_{idx:04}.json");
-        let file_path = output_dir.join(&file_name);
-        let verbose_tree_export = engine.export_baseline_tree_verbose()?;
-        let verbose_tree_json = serde_json::to_string_pretty(&verbose_tree_export)?;
-        fs::write(&file_path, verbose_tree_json)?;
-        files.push(file_name);
-    }
-
-    let manifest = TimelineManifest {
-        total_batches: files.len(),
-        sources_total: total_sources,
-        chunk_count: resolved_chunk_count,
+    let manifest = write_timeline(
+        &mut engine,
+        chunks,
+        output_dir,
+        total_sources,
         chunk_size_effective,
-        files,
-    };
+    )?;
     let manifest_path = output_dir.join("timeline_manifest.json");
-    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
 
     println!("Timeline build completed");
     println!("Output directory: {}", output_dir.display());
@@ -142,7 +124,7 @@ pub(crate) fn run_timeline_command(arguments: &[String]) -> Result<(), Box<dyn s
 }
 
 pub(crate) fn split_batch_into_sequential_chunks(
-    batch: &SourceBatch,
+    batch: SourceBatch,
     chunk_count: usize,
 ) -> Result<Vec<SourceBatch>, Box<dyn std::error::Error>> {
     if chunk_count == 0 {
@@ -155,30 +137,24 @@ pub(crate) fn split_batch_into_sequential_chunks(
     let total = batch.sources.len();
     let base = total / chunk_count;
     let remainder = total % chunk_count;
-    let mut start = 0usize;
+    let mut sources = batch.sources.into_iter();
     let mut chunks = Vec::with_capacity(chunk_count);
 
     for chunk_index in 0..chunk_count {
         let length = base + usize::from(chunk_index < remainder);
-        let end = start + length;
-
-        let chunk_sources = batch.sources[start..end]
-            .iter()
-            .map(|source| SourceRecord {
-                source_id: source.source_id.clone(),
-                batch_index: chunk_index as u32,
-                tokens: source.tokens.clone(),
-                text: source.text.clone(),
-                timestamp_unix_ms: source.timestamp_unix_ms,
-                metadata: source.metadata.clone(),
+        let chunk_sources = sources
+            .by_ref()
+            .take(length)
+            .map(|mut source| {
+                source.batch_index = chunk_index as u32;
+                source
             })
-            .collect::<Vec<_>>();
+            .collect();
 
         chunks.push(SourceBatch {
             batch_index: chunk_index as u32,
             sources: chunk_sources,
         });
-        start = end;
     }
 
     Ok(chunks)
@@ -266,6 +242,25 @@ pub(crate) fn run_timeline_many_command(
         fs::remove_dir_all(output_dir)?;
     }
     fs::create_dir_all(output_dir)?;
+    write_timeline(
+        &mut engine,
+        batches,
+        output_dir,
+        total_sources,
+        chunk_size_effective,
+    )?;
+    println!("Timeline build completed: {total_batches} daily batches, {total_sources} sources");
+    Ok(())
+}
+/// Execute already prepared batches; input validation stays with each command.
+fn write_timeline(
+    engine: &mut SecaEngine,
+    batches: Vec<SourceBatch>,
+    output_dir: &Path,
+    sources_total: usize,
+    chunk_size_effective: usize,
+) -> Result<TimelineManifest, Box<dyn std::error::Error>> {
+    let total_batches = batches.len();
     let mut files = Vec::with_capacity(total_batches);
     for (index, batch) in batches.into_iter().enumerate() {
         if index == 0 {
@@ -280,7 +275,7 @@ pub(crate) fn run_timeline_many_command(
     }
     let manifest = TimelineManifest {
         total_batches,
-        sources_total: total_sources,
+        sources_total,
         chunk_count: total_batches,
         chunk_size_effective,
         files,
@@ -289,9 +284,9 @@ pub(crate) fn run_timeline_many_command(
         output_dir.join("timeline_manifest.json"),
         serde_json::to_string_pretty(&manifest)?,
     )?;
-    println!("Timeline build completed: {total_batches} daily batches, {total_sources} sources");
-    Ok(())
+    Ok(manifest)
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;

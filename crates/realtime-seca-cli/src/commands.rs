@@ -66,7 +66,6 @@ pub(crate) fn run_baseline_command(arguments: &[String]) -> Result<(), Box<dyn s
 
     let mut engine = SecaEngine::new(config)?;
     let result = engine.build_baseline_tree(batch)?;
-    let snapshot = engine.snapshot()?;
 
     println!("Baseline build completed");
     println!("Batch index: {}", result.batch_index);
@@ -76,8 +75,8 @@ pub(crate) fn run_baseline_command(arguments: &[String]) -> Result<(), Box<dyn s
         println!("Explanation: {}", explanation.summary);
     }
 
-    let snapshot_json = serde_json::to_string_pretty(&snapshot)?;
     if let Some(path) = snapshot_output_path {
+        let snapshot_json = serde_json::to_string_pretty(&engine.snapshot()?)?;
         fs::write(&path, snapshot_json)?;
         println!("Snapshot written to {}", path);
     }
