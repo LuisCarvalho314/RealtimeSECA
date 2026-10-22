@@ -1,5 +1,5 @@
 use super::fixtures::*;
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 #[test]
 fn rebuilt_subtree_hkts_are_state1() {
     let mut engine = build_small_baseline_engine();
@@ -32,7 +32,7 @@ fn rebuilt_subtree_hkts_are_state1() {
 }
 #[test]
 fn subtree_rebuild_scoped_dataset_filters_ancestor_words() {
-    use std::collections::{BTreeMap, BTreeSet};
+    use std::collections::BTreeSet;
 
     let mut engine = build_small_baseline_engine();
 
@@ -60,15 +60,10 @@ fn subtree_rebuild_scoped_dataset_filters_ancestor_words() {
         .map(|(id, _)| *id)
         .unwrap();
 
-    let mut accepted = BTreeMap::new();
-    accepted.insert(word_id_a, (1_usize, 0_usize));
+    let accepted = BTreeSet::from([word_id_a]);
     trigger_plan
-        .ancestor_accepted_words_by_hkt_id
+        .ancestor_words_by_hkt_id
         .insert(hkt_id, accepted);
-
-    trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
 
     trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
     trigger_plan
@@ -90,7 +85,7 @@ fn subtree_rebuild_scoped_dataset_filters_ancestor_words() {
 }
 #[test]
 fn subtree_rebuild_scoped_dataset_filters_full_ancestor_word_set() {
-    use std::collections::{BTreeMap, BTreeSet};
+    use std::collections::BTreeSet;
 
     let mut engine = build_small_baseline_engine();
 
@@ -114,18 +109,11 @@ fn subtree_rebuild_scoped_dataset_filters_full_ancestor_word_set() {
         .map(|(id, _)| *id)
         .unwrap();
 
-    let mut ancestor_words = BTreeMap::new();
-    ancestor_words.insert(word_id_a, (1_usize, 0_usize));
+    let mut ancestor_words = BTreeSet::new();
+    ancestor_words.insert(word_id_a);
     trigger_plan
         .ancestor_words_by_hkt_id
         .insert(hkt_id, ancestor_words);
-
-    trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
-    trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
 
     trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
     trigger_plan
@@ -148,7 +136,7 @@ fn subtree_rebuild_scoped_dataset_filters_full_ancestor_word_set() {
 }
 #[test]
 fn subtree_rebuild_scoped_dataset_matches_csharp_state0_state1_merge() {
-    use std::collections::{BTreeMap, BTreeSet};
+    use std::collections::BTreeSet;
 
     let mut engine = build_small_baseline_engine();
 
@@ -173,18 +161,11 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_state0_state1_merge() {
         .map(|(id, _)| *id)
         .unwrap();
 
-    let mut ancestor_words = BTreeMap::new();
-    ancestor_words.insert(word_id_b, (2_usize, 0_usize));
+    let mut ancestor_words = BTreeSet::new();
+    ancestor_words.insert(word_id_b);
     trigger_plan
         .ancestor_words_by_hkt_id
         .insert(hkt_id, ancestor_words);
-
-    trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
-    trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
 
     trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
     trigger_plan
@@ -213,7 +194,7 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_state0_state1_merge() {
 }
 #[test]
 fn subtree_rebuild_scoped_dataset_matches_csharp_word_source_counts() {
-    use std::collections::{BTreeMap, BTreeSet};
+    use std::collections::BTreeSet;
 
     let mut engine = build_small_baseline_engine();
 
@@ -238,18 +219,11 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_word_source_counts() {
         .map(|(id, _)| *id)
         .unwrap();
 
-    let mut ancestor_words = BTreeMap::new();
-    ancestor_words.insert(word_id_b, (2_usize, 0_usize));
+    let mut ancestor_words = BTreeSet::new();
+    ancestor_words.insert(word_id_b);
     trigger_plan
         .ancestor_words_by_hkt_id
         .insert(hkt_id, ancestor_words);
-
-    trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
-    trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .insert(hkt_id, BTreeMap::new());
 
     trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
     trigger_plan
@@ -317,7 +291,7 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_word_source_counts() {
 }
 #[test]
 fn subtree_rebuild_scoped_dataset_uses_only_current_hkt_sources_for_state0() {
-    use std::collections::{BTreeMap, BTreeSet};
+    use std::collections::BTreeSet;
 
     let mut engine = build_small_baseline_engine();
 
@@ -357,13 +331,7 @@ fn subtree_rebuild_scoped_dataset_uses_only_current_hkt_sources_for_state0() {
         .insert(child_hkt_id, BTreeSet::new());
     trigger_plan
         .ancestor_words_by_hkt_id
-        .insert(child_hkt_id, BTreeMap::new());
-    trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .insert(child_hkt_id, BTreeMap::new());
-    trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .insert(child_hkt_id, BTreeMap::new());
+        .insert(child_hkt_id, BTreeSet::new());
 
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
         &engine,

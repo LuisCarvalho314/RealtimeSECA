@@ -1,4 +1,4 @@
-use super::scope_mapping::{HktScopeSnapshot, MappedHktScopeState};
+use super::scope_mapping::HktScopeSnapshot;
 use super::trigger::AncestorContext;
 use super::*;
 impl SecaEngine {
@@ -119,10 +119,7 @@ impl SecaEngine {
     }
     pub(super) fn build_child_ancestor_context_from_parent_node(
         &self,
-        _batch: &SourceBatch,
         scope: &HktScopeSnapshot,
-        _mapped: &MappedHktScopeState,
-        _hkt_id: i32,
         parent_node_id: i32,
         ancestor: &AncestorContext,
     ) -> AncestorContext {
@@ -134,8 +131,7 @@ impl SecaEngine {
             .flatten()
             .filter(|id| **id != -1)
         {
-            child.ancestor_words.insert(*word, (0, 0));
-            child.ancestor_accepted_words.insert(*word, (0, 0));
+            child.insert(*word);
         }
         child
     }

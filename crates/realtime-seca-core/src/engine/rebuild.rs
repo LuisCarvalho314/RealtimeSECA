@@ -179,17 +179,6 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
         .get(&target_hkt_id)
         .cloned()
         .unwrap_or_default();
-    let ancestor_accept = trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
-    let ancestor_reject = trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
-
     let mut records: Vec<SourceWordRecord> = Vec::new();
     let mut source_word_id_counter: i32 = 1;
     let mut seen_pairs: BTreeSet<(i64, i32)> = BTreeSet::new();
@@ -211,10 +200,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
             }
 
             let word_id = if let Some(word_id) = baseline_word_id_by_token.get(normalized) {
-                if ancestor_words.contains_key(word_id)
-                    || ancestor_accept.contains_key(word_id)
-                    || ancestor_reject.contains_key(word_id)
-                {
+                if ancestor_words.contains(word_id) {
                     continue;
                 }
                 *word_id

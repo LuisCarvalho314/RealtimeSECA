@@ -143,11 +143,10 @@ impl SecaEngine {
                 }
             }
         }
-        current_words_in_hkt.extend(ancestor.ancestor_accepted_words.keys().copied());
 
         let state0_prominent_count = prior_df
             .iter()
-            .filter(|(word, _)| !ancestor.ancestor_words.contains_key(word))
+            .filter(|(word, _)| !ancestor.contains(word))
             .map(|(word, old)| {
                 let added = self
                     .baseline_word_legend
@@ -164,7 +163,7 @@ impl SecaEngine {
                     .filter(|(token, _)| {
                         token_to_word_id
                             .get(*token)
-                            .is_none_or(|word| !ancestor.ancestor_words.contains_key(word))
+                            .is_none_or(|word| !ancestor.contains(word))
                     })
                     .map(|(_, count)| *count),
             )
@@ -189,21 +188,8 @@ impl SecaEngine {
             }
         }
 
-        if !ancestor.ancestor_rejected_words.is_empty() {
-            for (rejected_word_id, (state0_count, state1_count)) in
-                &ancestor.ancestor_rejected_words
-            {
-                let ratio =
-                    (*state0_count + *state1_count) as f64 / (state0_prominent_count as f64);
-                if ratio >= alpha_threshold {
-                    updated_expected_word_ids.insert(*rejected_word_id);
-                }
-            }
-        }
-
-        updated_expected_word_ids.retain(|word| {
-            !current_words_in_hkt.contains(word) && !ancestor.ancestor_words.contains_key(word)
-        });
+        updated_expected_word_ids
+            .retain(|word| !current_words_in_hkt.contains(word) && !ancestor.contains(word));
 
         HktUpdateStage {
             updated_expected_word_ids,
