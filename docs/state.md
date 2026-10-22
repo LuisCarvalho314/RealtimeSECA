@@ -52,7 +52,19 @@ The vocabulary remains valid even when its words currently have no sources.
 
 Scope snapshots, mapped incoming indexes, candidate words, word measurements,
 ancestor context, scoped reconstruction records, replacement trees, and trigger
-plans are local to one transaction. Candidate membership is separate from old
+plans are local to one transaction. Ancestry contains only excluded descriptors
+on attachment nodes, accumulated along the path; there are no accepted/rejected
+count maps. One ordered target map keeps each reconstruction's exact incoming
+scope and exclusion set together. Its keys supply both the reported target IDs
+and execution order; non-emptiness supplies the reconstruction flag.
+
+Construction keeps each unfinished HKT and its original input scope local to
+recursion, and generates its public node cache only after node mutations finish.
+Replacement adds allocator offsets to owned IDs and derives the replacement cache
+from those remapped nodes. Persistent engine cache validation remains unchanged.
+Pending source and word memberships move into committed memberships at merge.
+
+Candidate membership is separate from old
 node vocabulary while errors are measured. A triggered parent suppresses child
 inspection, ensuring selected reconstruction targets do not overlap.
 
