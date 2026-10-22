@@ -1,5 +1,4 @@
 use super::*;
-use crate::tree::{Hkt, Node};
 use std::collections::BTreeSet;
 
 impl SecaEngine {
@@ -297,45 +296,30 @@ fn remap_subtree_ids(
     node_id_offset: i32,
     new_parent_node_id: i32,
 ) -> HktBuildOutput {
-    let mut node_id_map: BTreeMap<i32, i32> = BTreeMap::new();
-    let mut hkt_id_map: BTreeMap<i32, i32> = BTreeMap::new();
-
-    for old_id in subtree.nodes_by_id.keys() {
-        node_id_map.insert(*old_id, *old_id + node_id_offset);
-    }
-    for old_id in subtree.hkts_by_id.keys() {
-        hkt_id_map.insert(*old_id, *old_id + hkt_id_offset);
-    }
-
-    let mut new_nodes_by_id: BTreeMap<i32, Node> = BTreeMap::new();
-    for (old_id, mut node) in subtree.nodes_by_id {
-        let new_id = *node_id_map.get(&old_id).unwrap();
-        node.node_id = new_id;
-        node.hkt_id = *hkt_id_map.get(&node.hkt_id).unwrap();
-        new_nodes_by_id.insert(new_id, node);
-    }
-
-    let mut new_hkts_by_id: BTreeMap<i32, Hkt> = BTreeMap::new();
-    for (old_id, mut hkt) in subtree.hkts_by_id {
-        let new_id = *hkt_id_map.get(&old_id).unwrap();
-        hkt.hkt_id = new_id;
-
-        if hkt.parent_node_id == 0 {
-            hkt.parent_node_id = new_parent_node_id;
-        } else {
-            hkt.parent_node_id = *node_id_map.get(&hkt.parent_node_id).unwrap();
-        }
-
-        for node in &mut hkt.nodes {
-            node.node_id = *node_id_map.get(&node.node_id).unwrap();
-            node.hkt_id = new_id;
-        }
-
-        new_hkts_by_id.insert(new_id, hkt);
-    }
-
+    let hkts_by_id: BTreeMap<_, _> = subtree
+        .hkts_by_id
+        .into_values()
+        .map(|mut hkt| {
+            hkt.hkt_id += hkt_id_offset;
+            hkt.parent_node_id = if hkt.parent_node_id == 0 {
+                new_parent_node_id
+            } else {
+                hkt.parent_node_id + node_id_offset
+            };
+            for node in &mut hkt.nodes {
+                node.node_id += node_id_offset;
+                node.hkt_id = hkt.hkt_id;
+            }
+            (hkt.hkt_id, hkt)
+        })
+        .collect();
+    let nodes_by_id = hkts_by_id
+        .values()
+        .flat_map(|hkt| &hkt.nodes)
+        .map(|node| (node.node_id, node.clone()))
+        .collect();
     HktBuildOutput {
-        hkts_by_id: new_hkts_by_id,
-        nodes_by_id: new_nodes_by_id,
+        hkts_by_id,
+        nodes_by_id,
     }
 }

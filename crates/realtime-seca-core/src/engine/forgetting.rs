@@ -12,11 +12,7 @@ impl SecaEngine {
             return Ok(None);
         };
 
-        let gamma_usize = usize::try_from(gamma).map_err(|_| SecaError::StateError {
-            message: "max_batches_in_memory conversion overflow".to_string(),
-        })?;
-
-        if gamma_usize == 0 {
+        if gamma == 0 {
             return Err(SecaError::InvalidConfiguration {
                 message: "max_batches_in_memory must be > 0 when using SlidingWindow".to_string(),
             });
@@ -43,7 +39,6 @@ impl SecaEngine {
             if let Some(external_source_id) = self.baseline_source_legend.remove(source_id) {
                 self.source_id_by_url.remove(external_source_id.as_str());
             }
-            self.baseline_source_legend.remove(source_id);
         }
 
         self.processed_batches

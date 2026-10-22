@@ -74,13 +74,7 @@ impl SecaEngine {
             })?;
 
         for node in &mut hkt.nodes {
-            let pending_word_sources: Vec<(i32, BTreeSet<i64>)> = node
-                .word_source_ids_new_from_batches
-                .iter()
-                .map(|(word_id, sources)| (*word_id, sources.clone()))
-                .collect();
-
-            for (word_id, sources) in pending_word_sources {
+            for (word_id, sources) in std::mem::take(&mut node.word_source_ids_new_from_batches) {
                 node.word_source_ids
                     .entry(word_id)
                     .or_default()
@@ -88,10 +82,7 @@ impl SecaEngine {
             }
 
             node.source_ids
-                .extend(node.source_ids_new_from_batches.iter().copied());
-
-            node.source_ids_new_from_batches.clear();
-            node.word_source_ids_new_from_batches.clear();
+                .append(&mut node.source_ids_new_from_batches);
 
             if let Some(global_node) = hkt_build_output.nodes_by_id.get_mut(&node.node_id) {
                 *global_node = node.clone();

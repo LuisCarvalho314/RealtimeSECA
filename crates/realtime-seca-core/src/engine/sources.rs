@@ -52,8 +52,6 @@ impl SecaEngine {
         batch_index: u32,
     ) -> i64 {
         let internal_source_id = self.stable_source_id(external_source_id);
-        self.baseline_source_legend
-            .insert(internal_source_id, external_source_id.to_string());
         self.source_ids_by_batch_index
             .entry(batch_index)
             .or_default()
