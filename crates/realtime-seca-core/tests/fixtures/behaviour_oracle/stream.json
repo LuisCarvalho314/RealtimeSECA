@@ -1,0 +1,619 @@
+{
+  "configs": {
+    "full": {
+      "hkt_builder": {
+        "minimum_threshold_against_max_word_count": 0.7,
+        "similarity_threshold": 0.5,
+        "minimum_number_of_sources_to_create_branch_for_node": 1
+      },
+      "seca_thresholds": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "alpha_error_threshold": 0.11,
+        "beta_error_threshold": 0.2,
+        "word_importance_error_threshold": 0.2
+      },
+      "memory_mode": "Full",
+      "max_batches_in_memory": null
+    },
+    "gamma3": {
+      "hkt_builder": {
+        "minimum_threshold_against_max_word_count": 0.7,
+        "similarity_threshold": 0.5,
+        "minimum_number_of_sources_to_create_branch_for_node": 1
+      },
+      "seca_thresholds": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "alpha_error_threshold": 0.11,
+        "beta_error_threshold": 0.2,
+        "word_importance_error_threshold": 0.2
+      },
+      "memory_mode": "SlidingWindow",
+      "max_batches_in_memory": 3
+    }
+  },
+  "batches": [
+    {
+      "batch_index": 1,
+      "sources": [
+        {
+          "source_id": "s0",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "b"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s1",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "b"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s2",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "b"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s3",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "b"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s4",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "c"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s5",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "c"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s6",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "c"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s7",
+          "batch_index": 1,
+          "tokens": [
+            "a",
+            "c"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s8",
+          "batch_index": 1,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s9",
+          "batch_index": 1,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s10",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "e"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s11",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "e"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s12",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "e"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s13",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "e"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s14",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "f"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s15",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "f"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s16",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "f"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s17",
+          "batch_index": 1,
+          "tokens": [
+            "d",
+            "f"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s18",
+          "batch_index": 1,
+          "tokens": [
+            "d"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "s19",
+          "batch_index": 1,
+          "tokens": [
+            "d"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    },
+    {
+      "batch_index": 2,
+      "sources": [
+        {
+          "source_id": "n0",
+          "batch_index": 2,
+          "tokens": [
+            "a",
+            "x"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n1",
+          "batch_index": 2,
+          "tokens": [
+            "a",
+            "x"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n2",
+          "batch_index": 2,
+          "tokens": [
+            "a",
+            "x"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n3",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n4",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n5",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n6",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n7",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n8",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "n9",
+          "batch_index": 2,
+          "tokens": [
+            "a"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    },
+    {
+      "batch_index": 3,
+      "sources": [
+        {
+          "source_id": "n0",
+          "batch_index": 3,
+          "tokens": [
+            "ignored"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "third",
+          "batch_index": 3,
+          "tokens": [
+            " a ",
+            "a",
+            "x",
+            ""
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "third",
+          "batch_index": 3,
+          "tokens": [
+            "discarded"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    },
+    {
+      "batch_index": 4,
+      "sources": []
+    },
+    {
+      "batch_index": 5,
+      "sources": []
+    },
+    {
+      "batch_index": 6,
+      "sources": []
+    },
+    {
+      "batch_index": 7,
+      "sources": [
+        {
+          "source_id": "s0",
+          "batch_index": 7,
+          "tokens": [
+            "a",
+            "readmitted"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    },
+    {
+      "batch_index": 8,
+      "sources": [
+        {
+          "source_id": "z0",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z1",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z2",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z3",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z4",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z5",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z6",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        },
+        {
+          "source_id": "z7",
+          "batch_index": 8,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    },
+    {
+      "batch_index": 9,
+      "sources": [
+        {
+          "source_id": "z8",
+          "batch_index": 9,
+          "tokens": [
+            "z"
+          ],
+          "text": "discard payload",
+          "timestamp_unix_ms": 42,
+          "metadata": {
+            "discard": true
+          }
+        }
+      ]
+    }
+  ]
+}
