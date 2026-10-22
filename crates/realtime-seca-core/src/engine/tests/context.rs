@@ -4,7 +4,7 @@ use crate::config::SecaConfig;
 use crate::types::{SourceBatch, SourceRecord};
 
 use super::fixtures::*;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeSet;
 #[test]
 fn update_stage_includes_new_tokens_in_expected_words_count() {
     let mut config = SecaConfig::default();
@@ -172,13 +172,7 @@ fn update_stage_excludes_ancestor_accepted_words_from_expected_set() {
         .map_batch_into_hkt_scope(&batch, &all_source_indexes, &scope_snapshot)
         .unwrap();
 
-    let mut ancestor_accepted = BTreeMap::new();
-    ancestor_accepted.insert(-2_i32, (1_usize, 0_usize));
-    let ancestor = crate::engine::trigger::AncestorContext::with_sets(
-        BTreeMap::new(),
-        ancestor_accepted,
-        BTreeMap::new(),
-    );
+    let ancestor = BTreeSet::from([-2]);
 
     let update_stage = engine
         .compute_update_stage_for_scope(
@@ -371,58 +365,6 @@ fn update_stage_includes_state0_dominant_expected_word() {
             .updated_expected_word_ids
             .contains(&legacy_word_id),
         "expected legacy to be admitted via state0+state1 / state0_prominent ratio"
-    );
-}
-#[test]
-fn update_stage_ancestor_rejected_words_without_state1_token_are_pruned_by_reset() {
-    let mut config = SecaConfig::default();
-    config.seca_thresholds.alpha = 0.7;
-    config.seca_thresholds.beta = 0.0;
-
-    let mut engine = SecaEngine::new(config).unwrap();
-    engine
-        .build_baseline_tree(make_batch(0, &[("s1", &["a"]), ("s2", &["a"])]))
-        .unwrap();
-
-    let root_hkt_id = engine
-        .hkt_build_output
-        .as_ref()
-        .unwrap()
-        .hkts_by_id
-        .values()
-        .find(|hkt| hkt.parent_node_id == 0)
-        .unwrap()
-        .hkt_id;
-
-    let scope_snapshot = engine.snapshot_hkt_scope(root_hkt_id).unwrap();
-    let batch = make_batch(1, &[("n1", &["a"])]);
-    let all_source_indexes: BTreeSet<usize> = (0..batch.sources.len()).collect();
-    let mapped_scope = engine
-        .map_batch_into_hkt_scope(&batch, &all_source_indexes, &scope_snapshot)
-        .unwrap();
-
-    // new token is not in batch, but should be admitted via ancestor rejected counts
-    let mut ancestor_rejected = BTreeMap::new();
-    ancestor_rejected.insert(-2_i32, (1_usize, 1_usize)); // ratio 2 / prominent(2) = 1.0
-    let ancestor = crate::engine::trigger::AncestorContext::with_sets(
-        BTreeMap::new(),
-        BTreeMap::new(),
-        ancestor_rejected,
-    );
-
-    let update_stage = engine
-        .compute_update_stage_for_scope(
-            &batch,
-            &scope_snapshot,
-            &mapped_scope,
-            &ancestor,
-            &engine.build_baseline_source_word_sets().unwrap(),
-        )
-        .unwrap();
-
-    assert!(
-        !update_stage.updated_expected_word_ids.contains(&-2),
-        "expected ancestor-rejected word without state1 token to be pruned by reset"
     );
 }
 #[test]

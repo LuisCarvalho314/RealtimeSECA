@@ -11,7 +11,6 @@ use crate::ENGINE_VERSION;
 use std::collections::{BTreeMap, BTreeSet};
 
 mod baseline;
-pub(crate) mod batch_stats;
 mod context;
 mod diagnostics;
 mod evidence;
@@ -27,7 +26,6 @@ mod validation;
 
 #[cfg(test)]
 mod tests;
-use self::batch_stats::compute_batch_word_stats;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct SecaEngine {
@@ -146,7 +144,7 @@ impl SecaEngine {
             summary: format!("Processed batch {}", batch.batch_index),
             reason_codes: vec![
                 "SECA_TRIGGER_EVALUATED".into(),
-                if plan.any_reconstruction_triggered {
+                if !plan.targets.is_empty() {
                     "SECA_RECONSTRUCTION_TRIGGERED".into()
                 } else {
                     "SECA_RECONSTRUCTION_SKIPPED".into()
@@ -161,8 +159,8 @@ impl SecaEngine {
             sources_processed: batch.sources.len(),
             sources_forgotten,
             active_source_count: self.baseline_source_legend.len(),
-            reconstructed_hkt_ids: plan.reconstruct_hkt_ids,
-            reconstruction_triggered: plan.any_reconstruction_triggered,
+            reconstructed_hkt_ids: plan.targets.keys().copied().collect(),
+            reconstruction_triggered: !plan.targets.is_empty(),
             notes: Vec::new(),
         })
     }

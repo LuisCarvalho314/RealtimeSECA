@@ -27,15 +27,7 @@ impl SecaEngine {
         let retained_words = self.build_baseline_source_word_sets()?;
         let all_source_indexes: BTreeSet<usize> = (0..batch.sources.len()).collect();
 
-        let mut plan = RecursiveTriggerPlan {
-            diagnostics: Vec::new(),
-            any_reconstruction_triggered: false,
-            reconstruct_hkt_ids: Vec::new(),
-            reconstruct_scopes_by_hkt_id: BTreeMap::new(),
-            ancestor_words_by_hkt_id: BTreeMap::new(),
-            ancestor_accepted_words_by_hkt_id: BTreeMap::new(),
-            ancestor_rejected_words_by_hkt_id: BTreeMap::new(),
-        };
+        let mut plan = RecursiveTriggerPlan::default();
 
         self.evaluate_hkt_recursively_for_batch(
             batch,
@@ -45,10 +37,6 @@ impl SecaEngine {
             &mut plan,
             &retained_words,
         )?;
-
-        // Report targets in deterministic order.
-        plan.reconstruct_hkt_ids.sort_unstable();
-        plan.reconstruct_hkt_ids.dedup();
 
         Ok(plan)
     }
@@ -91,27 +79,15 @@ impl SecaEngine {
 
         plan.diagnostics.push(decision.clone());
 
-        plan.ancestor_accepted_words_by_hkt_id
-            .insert(hkt_id, ancestor.ancestor_accepted_words.clone());
-        plan.ancestor_rejected_words_by_hkt_id
-            .insert(hkt_id, ancestor.ancestor_rejected_words.clone());
-        plan.ancestor_words_by_hkt_id
-            .insert(hkt_id, ancestor.ancestor_words.clone());
-
         if decision.should_reconstruct {
-            plan.any_reconstruction_triggered = true;
-
-            if !plan.reconstruct_hkt_ids.contains(&hkt_id) {
-                plan.reconstruct_hkt_ids.push(hkt_id);
-            }
-
-            // Preserve the exact scoped provenance that caused the trigger.
-            plan.reconstruct_scopes_by_hkt_id
-                .entry(hkt_id)
-                .and_modify(|existing_scope| {
-                    existing_scope.extend(mapped_scope.scoped_batch_source_indexes.iter().copied());
-                })
-                .or_insert_with(|| mapped_scope.scoped_batch_source_indexes.clone());
+            // One visit per scope; ordered keys also preserve reconstruction allocation order.
+            plan.targets.insert(
+                hkt_id,
+                ReconstructionTarget {
+                    source_indexes: mapped_scope.scoped_batch_source_indexes,
+                    excluded_words: ancestor.clone(),
+                },
+            );
 
             // Per paper: stop descending below a triggered HKT.
             return Ok(());
@@ -148,10 +124,7 @@ impl SecaEngine {
 
         for (child_hkt_id, child_scope, parent_node_id) in child_hkt_ids {
             let child_ancestor = self.build_child_ancestor_context_from_parent_node(
-                batch,
                 &scope_snapshot,
-                &mapped_scope,
-                hkt_id,
                 parent_node_id,
                 ancestor,
             );
@@ -236,12 +209,13 @@ impl SecaEngine {
 #[derive(Debug, Clone, Default)]
 pub(crate) struct RecursiveTriggerPlan {
     pub(crate) diagnostics: Vec<crate::types::HktDecisionDiagnostics>,
-    pub(crate) any_reconstruction_triggered: bool,
-    pub(crate) reconstruct_hkt_ids: Vec<i32>,
-    pub(crate) reconstruct_scopes_by_hkt_id: BTreeMap<i32, BTreeSet<usize>>,
-    pub(crate) ancestor_words_by_hkt_id: BTreeMap<i32, BTreeMap<i32, (usize, usize)>>,
-    pub(crate) ancestor_accepted_words_by_hkt_id: BTreeMap<i32, BTreeMap<i32, (usize, usize)>>,
-    pub(crate) ancestor_rejected_words_by_hkt_id: BTreeMap<i32, BTreeMap<i32, (usize, usize)>>,
+    pub(crate) targets: BTreeMap<i32, ReconstructionTarget>,
+}
+
+#[derive(Debug, Clone, Default)]
+pub(crate) struct ReconstructionTarget {
+    pub(crate) source_indexes: BTreeSet<usize>,
+    pub(crate) excluded_words: BTreeSet<i32>,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -268,26 +242,5 @@ pub(crate) struct WordChangeMetrics {
     pub(crate) importance: f64,
 }
 
-#[derive(Debug, Clone, Default)]
-pub(super) struct AncestorContext {
-    // All ancestor words we've considered so far (for diagnostics / parity)
-    pub(super) ancestor_words: BTreeMap<i32, (usize, usize)>,
-    // Paper-critical sets
-    pub(super) ancestor_accepted_words: BTreeMap<i32, (usize, usize)>,
-    pub(super) ancestor_rejected_words: BTreeMap<i32, (usize, usize)>,
-}
-
-impl AncestorContext {
-    #[allow(dead_code)]
-    pub(super) fn with_sets(
-        ancestor_words: BTreeMap<i32, (usize, usize)>,
-        ancestor_accepted_words: BTreeMap<i32, (usize, usize)>,
-        ancestor_rejected_words: BTreeMap<i32, (usize, usize)>,
-    ) -> Self {
-        Self {
-            ancestor_words,
-            ancestor_accepted_words,
-            ancestor_rejected_words,
-        }
-    }
-}
+// Only descriptors on attachment nodes are excluded; this is not E05's broader exclusion.
+pub(super) type AncestorContext = BTreeSet<i32>;

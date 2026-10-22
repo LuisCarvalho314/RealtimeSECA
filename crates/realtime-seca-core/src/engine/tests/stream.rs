@@ -1,6 +1,6 @@
 use super::super::*;
 use crate::config::{MemoryMode, SecaConfig};
-use crate::engine::batch_stats::compute_batch_word_stats;
+use crate::engine::input::compute_batch_word_stats;
 
 use super::fixtures::*;
 use crate::tree::Hkt;
@@ -271,7 +271,10 @@ fn three_decisions_and_260_display_scopes_preserve_the_trigger_plan() {
     assert_eq!(before, serde_json::to_value(&engine).unwrap());
     let report = engine.process_batch(batch).unwrap();
     assert_eq!(report.decision_diagnostics, plan.diagnostics);
-    assert_eq!(report.reconstructed_hkt_ids, plan.reconstruct_hkt_ids);
+    assert_eq!(
+        report.reconstructed_hkt_ids,
+        plan.targets.keys().copied().collect::<Vec<_>>()
+    );
     assert!(!report.reconstruction_triggered);
     assert_eq!(report.display_diagnostics.len(), 260);
     assert_eq!(pre_display.len(), 260);
@@ -411,7 +414,8 @@ fn compute_batch_word_stats_uses_document_frequency_not_raw_frequency() {
         ],
     );
 
-    let stats = compute_batch_word_stats(&batch, &baseline_engine.baseline_word_legend);
+    let (stats, frequencies) =
+        compute_batch_word_stats(&batch, &baseline_engine.baseline_word_legend);
 
     // unique words = {a,b,x}
     assert_eq!(stats.unique_words_in_batch, 3);
@@ -425,9 +429,9 @@ fn compute_batch_word_stats_uses_document_frequency_not_raw_frequency() {
     assert_eq!(stats.max_word_document_frequency, 2);
     assert_eq!(stats.total_sources_in_batch, 3);
 
-    assert_eq!(stats.word_document_frequency.get("a"), Some(&2));
-    assert_eq!(stats.word_document_frequency.get("b"), Some(&2));
-    assert_eq!(stats.word_document_frequency.get("x"), Some(&2));
+    assert_eq!(frequencies.get("a"), Some(&2));
+    assert_eq!(frequencies.get("b"), Some(&2));
+    assert_eq!(frequencies.get("x"), Some(&2));
 }
 #[test]
 fn process_batch_stores_last_batch_word_stats_summary() {
@@ -474,11 +478,11 @@ fn evaluate_trigger_plan_runs_after_baseline_and_is_deterministic() {
         .evaluate_seca_trigger_plan_for_batch(&batch)
         .unwrap();
 
+    assert_eq!(!plan_one.targets.is_empty(), !plan_two.targets.is_empty());
     assert_eq!(
-        plan_one.any_reconstruction_triggered,
-        plan_two.any_reconstruction_triggered
+        plan_one.targets.keys().copied().collect::<Vec<_>>(),
+        plan_two.targets.keys().copied().collect::<Vec<_>>()
     );
-    assert_eq!(plan_one.reconstruct_hkt_ids, plan_two.reconstruct_hkt_ids);
 }
 #[test]
 fn recursive_trigger_plan_is_deterministic_for_same_input() {
@@ -509,11 +513,11 @@ fn recursive_trigger_plan_is_deterministic_for_same_input() {
         .evaluate_seca_trigger_plan_for_batch(&batch)
         .unwrap();
 
+    assert_eq!(!plan_one.targets.is_empty(), !plan_two.targets.is_empty());
     assert_eq!(
-        plan_one.any_reconstruction_triggered,
-        plan_two.any_reconstruction_triggered
+        plan_one.targets.keys().copied().collect::<Vec<_>>(),
+        plan_two.targets.keys().copied().collect::<Vec<_>>()
     );
-    assert_eq!(plan_one.reconstruct_hkt_ids, plan_two.reconstruct_hkt_ids);
 }
 #[test]
 fn strict_thresholds_trigger_recursive_plan_and_emit_reasons() {
@@ -530,9 +534,9 @@ fn strict_thresholds_trigger_recursive_plan_and_emit_reasons() {
 
     let plan = engine.evaluate_seca_trigger_plan_for_batch(&batch).unwrap();
 
-    assert!(plan.any_reconstruction_triggered);
+    assert!(!plan.targets.is_empty());
     assert!(
-        !plan.reconstruct_hkt_ids.is_empty(),
+        !plan.targets.keys().copied().collect::<Vec<_>>().is_empty(),
         "expected at least one HKT to be marked for reconstruction"
     );
 }

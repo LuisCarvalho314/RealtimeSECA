@@ -39,7 +39,7 @@ Paths below are relative to `crates/realtime-seca-core/src`.
 |---|---|
 | `engine/mod.rs` | Engine ownership, configuration validation, transactional orchestration |
 | `engine/baseline.rs` | Initial batch conversion and HKT construction |
-| `engine/input.rs` | Sequence validation, deduplication, vocabulary admission, payload retention |
+| `engine/input.rs` | Sequence validation, deduplication, document frequencies, vocabulary admission, payload retention |
 | `engine/sources.rs` | Stable source IDs and batch identity registration |
 | `engine/scope_mapping.rs` | Immutable scope snapshots and incoming node assignment |
 | `engine/context.rs` | Candidate strength admission, incoming word memberships, beta admission, membership mutation |
@@ -51,7 +51,6 @@ Paths below are relative to `crates/realtime-seca-core/src`.
 | `engine/snapshotting.rs` | Full snapshots, restoration, and tree export |
 | `engine/validation.rs` | Restore-time topology, membership, identity, and allocator checks |
 | `engine/diagnostics.rs` | Observations on final topology for the existing tree viewer |
-| `engine/batch_stats.rs` | Document-frequency counts for the retained public batch summary |
 | `tree/hkt_builder.rs`, `tree/models.rs` | Recursive CA construction and hierarchy types |
 | `types.rs`, `config.rs`, `error.rs` | Batch/report/snapshot contracts, parameters, errors |
 
@@ -61,6 +60,18 @@ pipeline framework. Mapping yields `MappedHktScopeState`; context builds
 `RecursiveTriggerPlan`. These objects live only for the current operation. Retained source-word sets are
 computed once per traversal and passed explicitly to context and measurements.
 The builder consumes `SourceWordRecord` rows and returns `HktBuildOutput`.
+It keeps frequency-ordered rows in vectors and carries original input slices down
+recursion. Each HKT owns its nodes while branches and top words are completed;
+explicit counters preserve depth-first ID allocation independently of insertion.
+The public node lookup mirror is generated once from finished HKTs. There is no
+build-wide archive of recursive inputs or mutable construction node mirror.
+
+Ancestor context is one set of excluded attachment-node descriptors. Trigger
+plans own one ordered map from target ID to incoming source indexes and excluded
+words; accepted scopes retain no plan ancestry. Decisions remain in traversal
+order, while target keys determine ascending reconstruction and report order.
+Input preparation reuses document-frequency keys for lexical vocabulary admission
+and returns the existing public summary directly.
 
 ## Mutation boundaries
 
@@ -74,7 +85,9 @@ Forgetting edits memberships and source indexes together, retaining learned topo
 `hkts_by_id` owns ordered nodes; `nodes_by_id` mirrors nodes for parent lookup.
 Context, reconstruction, and forgetting synchronize both representations within
 one candidate transaction. Restoration validates their equality. This explicit
-cache remains because parent-scope lookup and ancestor propagation consume it.
+runtime cache remains because parent-scope lookup and ancestor propagation consume
+it. Construction and replacement materialize it from finished owned nodes rather
+than synchronizing intermediate construction copies.
 
 ## Infrastructure and persistence
 
@@ -82,7 +95,9 @@ The core takes tokenized batches and returns Rust data. It performs no filesyste
 CSV, HTTP, or RiskLive ingestion work. CLI `main.rs` dispatches to `commands.rs`,
 `timeline.rs`, `ingestion.rs`, `presentation.rs`, `server.rs`, and `update.rs`.
 The two timeline commands retain their distinct consumers: chunking one input and
-preserving already grouped input batches. Both invoke the same selective engine.
+preserving already grouped input batches. Both invoke the same selective engine through a shared export/manifest loop.
+Chunking consumes source records while retaining their order and payloads; each
+command still owns its input validation and output-directory preparation.
 Newsmap's configuration writer exposes only supported parameters.
 
 `update.rs` loads schema-4 state, checks configuration equality, runs one batch,
@@ -108,3 +123,6 @@ against separately held truth. The `paper_stream` Rust example invokes the same
 public baseline/update/snapshot APIs and saves evidence at this application
 boundary. Benchmark code owns its files; production state ownership and the
 canonical update path are unchanged. See [the scientific report](seca-paper-benchmark.md).
+
+Measured changes and remaining ownership opportunities are recorded in
+[the structural simplification report](secalight-simplification-results.md).

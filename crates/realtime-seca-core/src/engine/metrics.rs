@@ -67,13 +67,12 @@ impl SecaEngine {
                 members.extend(added);
             }
             for word in node_words {
-                let prior = scope
+                let mut updated = scope
                     .node_word_source_ids_by_node_id
                     .get(node)
                     .and_then(|by_word| by_word.get(&word))
                     .cloned()
                     .unwrap_or_default();
-                let mut updated = prior.clone();
                 if let Some(added) = stage
                     .node_state1_sources_by_word_id
                     .get(node)

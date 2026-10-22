@@ -45,7 +45,7 @@ impl SecaEngine {
             });
         };
 
-        let mut hkts: Vec<BaselineHktExport> = hkt_build_output
+        let hkts: Vec<BaselineHktExport> = hkt_build_output
             .hkts_by_id
             .values()
             .map(|hkt| BaselineHktExport {
@@ -57,7 +57,7 @@ impl SecaEngine {
             })
             .collect();
 
-        let mut nodes: Vec<BaselineNodeExport> = hkt_build_output
+        let nodes: Vec<BaselineNodeExport> = hkt_build_output
             .nodes_by_id
             .values()
             .map(|node| BaselineNodeExport {
@@ -69,9 +69,6 @@ impl SecaEngine {
                 is_refuge_node: node.is_refuge_node(),
             })
             .collect();
-
-        hkts.sort_by_key(|hkt| hkt.hkt_id);
-        nodes.sort_by_key(|node| node.node_id);
 
         Ok(BaselineTreeExport { hkts, nodes })
     }
@@ -103,7 +100,7 @@ impl SecaEngine {
                 }
             };
 
-        let mut hkts: Vec<BaselineHktVerboseExport> = hkt_build_output
+        let hkts: Vec<BaselineHktVerboseExport> = hkt_build_output
             .hkts_by_id
             .values()
             .map(|hkt| {
@@ -131,7 +128,7 @@ impl SecaEngine {
             })
             .collect();
 
-        let mut nodes: Vec<BaselineNodeVerboseExport> = hkt_build_output
+        let nodes: Vec<BaselineNodeVerboseExport> = hkt_build_output
             .nodes_by_id
             .values()
             .map(|node| BaselineNodeVerboseExport {
@@ -158,9 +155,6 @@ impl SecaEngine {
                 is_refuge_node: node.is_refuge_node(),
             })
             .collect();
-
-        hkts.sort_by_key(|hkt| hkt.hkt_id);
-        nodes.sort_by_key(|node| node.node_id);
 
         let word_legend: Vec<WordLegendEntry> = self
             .baseline_word_legend

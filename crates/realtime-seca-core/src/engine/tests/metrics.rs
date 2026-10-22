@@ -20,7 +20,7 @@ fn paper_policy_trigger_plan_can_fire_on_unassigned_expected_words() {
 
     let plan = engine.evaluate_seca_trigger_plan_for_batch(&batch).unwrap();
 
-    assert!(plan.any_reconstruction_triggered);
+    assert!(!plan.targets.is_empty());
 }
 #[test]
 fn paper_policy_process_batch_triggers_on_unassigned_expected_words() {

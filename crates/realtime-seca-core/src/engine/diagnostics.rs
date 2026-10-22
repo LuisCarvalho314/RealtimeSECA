@@ -150,14 +150,8 @@ impl SecaEngine {
                 .get(parent_node)
                 .cloned()
                 .unwrap_or_default();
-            let context = self.build_child_ancestor_context_from_parent_node(
-                batch,
-                &scope,
-                &mapped,
-                id,
-                *parent_node,
-                ancestor,
-            );
+            let context =
+                self.build_child_ancestor_context_from_parent_node(&scope, *parent_node, ancestor);
             self.display_scope_recursive(
                 batch,
                 *child,

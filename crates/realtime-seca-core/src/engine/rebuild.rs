@@ -1,5 +1,4 @@
 use super::*;
-use crate::tree::{Hkt, Node};
 use std::collections::BTreeSet;
 
 impl SecaEngine {
@@ -48,7 +47,7 @@ impl SecaEngine {
         trigger_plan: &crate::engine::trigger::RecursiveTriggerPlan,
     ) -> Result<BTreeMap<i32, i32>, SecaError> {
         let mut replacements = BTreeMap::new();
-        for target_hkt_id in &trigger_plan.reconstruct_hkt_ids {
+        for target_hkt_id in trigger_plan.targets.keys() {
             let target_hkt_id = *target_hkt_id;
 
             // Get parent_node_id with immutable access
@@ -161,34 +160,17 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1 sources: from trigger plan scoped indexes (current batch only)
-    let scoped_indexes = trigger_plan
-        .reconstruct_scopes_by_hkt_id
+    let empty_target = super::trigger::ReconstructionTarget::default();
+    let target = trigger_plan
+        .targets
         .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
+        .unwrap_or(&empty_target);
 
     // token -> word_id
     let mut baseline_word_id_by_token: BTreeMap<&str, i32> = BTreeMap::new();
     for (word_id, token) in &engine.baseline_word_legend {
         baseline_word_id_by_token.insert(token.as_str(), *word_id);
     }
-
-    // Ancestor filter sets
-    let ancestor_words = trigger_plan
-        .ancestor_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
-    let ancestor_accept = trigger_plan
-        .ancestor_accepted_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
-    let ancestor_reject = trigger_plan
-        .ancestor_rejected_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
 
     let mut records: Vec<SourceWordRecord> = Vec::new();
     let mut source_word_id_counter: i32 = 1;
@@ -211,10 +193,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
             }
 
             let word_id = if let Some(word_id) = baseline_word_id_by_token.get(normalized) {
-                if ancestor_words.contains_key(word_id)
-                    || ancestor_accept.contains_key(word_id)
-                    || ancestor_reject.contains_key(word_id)
-                {
+                if target.excluded_words.contains(word_id) {
                     continue;
                 }
                 *word_id
@@ -259,7 +238,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1: scoped sources from current batch
-    for idx in scoped_indexes {
+    for &idx in &target.source_indexes {
         if let Some(source) = current_batch.sources.get(idx) {
             push_source(&source.source_id, &source.tokens);
         }
@@ -317,45 +296,30 @@ fn remap_subtree_ids(
     node_id_offset: i32,
     new_parent_node_id: i32,
 ) -> HktBuildOutput {
-    let mut node_id_map: BTreeMap<i32, i32> = BTreeMap::new();
-    let mut hkt_id_map: BTreeMap<i32, i32> = BTreeMap::new();
-
-    for old_id in subtree.nodes_by_id.keys() {
-        node_id_map.insert(*old_id, *old_id + node_id_offset);
-    }
-    for old_id in subtree.hkts_by_id.keys() {
-        hkt_id_map.insert(*old_id, *old_id + hkt_id_offset);
-    }
-
-    let mut new_nodes_by_id: BTreeMap<i32, Node> = BTreeMap::new();
-    for (old_id, mut node) in subtree.nodes_by_id {
-        let new_id = *node_id_map.get(&old_id).unwrap();
-        node.node_id = new_id;
-        node.hkt_id = *hkt_id_map.get(&node.hkt_id).unwrap();
-        new_nodes_by_id.insert(new_id, node);
-    }
-
-    let mut new_hkts_by_id: BTreeMap<i32, Hkt> = BTreeMap::new();
-    for (old_id, mut hkt) in subtree.hkts_by_id {
-        let new_id = *hkt_id_map.get(&old_id).unwrap();
-        hkt.hkt_id = new_id;
-
-        if hkt.parent_node_id == 0 {
-            hkt.parent_node_id = new_parent_node_id;
-        } else {
-            hkt.parent_node_id = *node_id_map.get(&hkt.parent_node_id).unwrap();
-        }
-
-        for node in &mut hkt.nodes {
-            node.node_id = *node_id_map.get(&node.node_id).unwrap();
-            node.hkt_id = new_id;
-        }
-
-        new_hkts_by_id.insert(new_id, hkt);
-    }
-
+    let hkts_by_id: BTreeMap<_, _> = subtree
+        .hkts_by_id
+        .into_values()
+        .map(|mut hkt| {
+            hkt.hkt_id += hkt_id_offset;
+            hkt.parent_node_id = if hkt.parent_node_id == 0 {
+                new_parent_node_id
+            } else {
+                hkt.parent_node_id + node_id_offset
+            };
+            for node in &mut hkt.nodes {
+                node.node_id += node_id_offset;
+                node.hkt_id = hkt.hkt_id;
+            }
+            (hkt.hkt_id, hkt)
+        })
+        .collect();
+    let nodes_by_id = hkts_by_id
+        .values()
+        .flat_map(|hkt| &hkt.nodes)
+        .map(|node| (node.node_id, node.clone()))
+        .collect();
     HktBuildOutput {
-        hkts_by_id: new_hkts_by_id,
-        nodes_by_id: new_nodes_by_id,
+        hkts_by_id,
+        nodes_by_id,
     }
 }
