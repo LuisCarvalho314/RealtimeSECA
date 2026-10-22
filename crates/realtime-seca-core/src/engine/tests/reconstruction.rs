@@ -653,3 +653,145 @@ fn ancestor_propagation_updates_owned_nodes_and_lookup_cache_together() {
     assert_eq!(owned, cached);
     assert!(owned.source_ids.contains(&12345));
 }
+
+#[test]
+fn attachment_exclusions_accumulate_through_three_levels() {
+    let mut config = crate::config::SecaConfig::default();
+    config.hkt_builder.minimum_threshold_against_max_word_count = 0.7;
+    let mut engine = crate::engine::SecaEngine::new(config).unwrap();
+    engine
+        .build_baseline_tree(make_batch(
+            0,
+            &[
+                ("s1", &["a", "b", "c"]),
+                ("s2", &["a", "b", "c"]),
+                ("s3", &["a", "b"]),
+                ("s4", &["a", "b"]),
+                ("s5", &["a"]),
+                ("s6", &["a"]),
+                ("s7", &["a"]),
+                ("s8", &["a"]),
+            ],
+        ))
+        .unwrap();
+    let mut id = root_hkt_id(&engine);
+    let mut excluded = BTreeSet::new();
+    for token in ["a", "b"] {
+        let scope = engine.snapshot_hkt_scope(id).unwrap();
+        let word = *engine
+            .baseline_word_legend
+            .iter()
+            .find(|(_, t)| t.as_str() == token)
+            .unwrap()
+            .0;
+        let node = *scope
+            .node_word_ids_by_node_id
+            .iter()
+            .find(|(_, words)| words.contains(&word))
+            .unwrap()
+            .0;
+        excluded = engine.build_child_ancestor_context_from_parent_node(&scope, node, &excluded);
+        assert!(excluded.contains(&word));
+        id = scope.child_hkt_ids_by_parent_node_id[&node];
+    }
+    assert_eq!(excluded.len(), 2);
+    let plan = crate::engine::trigger::RecursiveTriggerPlan {
+        targets: BTreeMap::from([(
+            id,
+            crate::engine::trigger::ReconstructionTarget {
+                source_indexes: BTreeSet::new(),
+                excluded_words: excluded,
+            },
+        )]),
+        ..Default::default()
+    };
+    let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
+        &engine,
+        &make_batch(1, &[]),
+        &plan,
+        id,
+    )
+    .unwrap();
+    assert!(!records.is_empty());
+    assert!(records.iter().all(|r| r.word.as_deref() == Some("c")));
+}
+
+#[test]
+fn reconstruction_failure_after_parent_acceptance_does_not_commit() {
+    let mut config = crate::config::SecaConfig::default();
+    config.hkt_builder.minimum_threshold_against_max_word_count = 0.7;
+    config.seca_thresholds.alpha = 0.7;
+    config.seca_thresholds.alpha_error_threshold = 0.11;
+    config.seca_thresholds.beta_error_threshold = 0.2;
+    config.seca_thresholds.word_importance_error_threshold = 0.2;
+    let mut engine = crate::engine::SecaEngine::new(config).unwrap();
+    let rows: Vec<_> = (0..20)
+        .map(|i| {
+            let topic = if i < 10 { "a" } else { "d" };
+            let words = match i % 10 {
+                0..=3 => vec![topic, if topic == "a" { "b" } else { "e" }],
+                4..=7 => vec![topic, if topic == "a" { "c" } else { "f" }],
+                _ => vec![topic],
+            };
+            (format!("s{i}"), words)
+        })
+        .collect();
+    let refs: Vec<_> = rows
+        .iter()
+        .map(|(id, words)| (id.as_str(), words.as_slice()))
+        .collect();
+    engine.build_baseline_tree(make_batch(0, &refs)).unwrap();
+    let rows: Vec<_> = (0..20)
+        .map(|i| {
+            let topic = if i < 10 { "a" } else { "d" };
+            (
+                format!("n{i}"),
+                if i % 10 < 3 {
+                    vec![topic, if topic == "a" { "x" } else { "y" }]
+                } else {
+                    vec![topic]
+                },
+            )
+        })
+        .collect();
+    let refs: Vec<_> = rows
+        .iter()
+        .map(|(id, words)| (id.as_str(), words.as_slice()))
+        .collect();
+    let batch = make_batch(1, &refs);
+    let mut candidate = engine.clone();
+    let prepared = candidate.prepare_batch(batch.clone()).unwrap();
+    let plan = candidate
+        .evaluate_seca_trigger_plan_for_batch(&prepared)
+        .unwrap();
+    assert!(!plan.diagnostics[0].should_reconstruct);
+    assert_eq!(plan.targets.len(), 2, "both disjoint children must trigger");
+    assert!(!plan.targets.contains_key(&root_hkt_id(&engine)));
+
+    // Force the builder boundary to fail, after vocabulary admission and parent mutation.
+    engine.config.hkt_builder.similarity_threshold = 2.0;
+    let before = serde_json::to_value(&engine).unwrap();
+    let error = engine.process_batch(batch.clone()).unwrap_err();
+    assert!(error.to_string().contains("similarity_threshold"));
+    assert_eq!(serde_json::to_value(&engine).unwrap(), before);
+    engine.config.hkt_builder.similarity_threshold = 0.5;
+    let mut restarted = crate::engine::SecaEngine::load_snapshot(
+        serde_json::from_value(serde_json::to_value(engine.snapshot().unwrap()).unwrap()).unwrap(),
+    )
+    .unwrap();
+    let live = engine.process_batch(batch.clone()).unwrap();
+    let continued = restarted.process_batch(batch).unwrap();
+    assert_eq!(live.reconstructed_hkt_ids.len(), 2);
+    assert!(live
+        .reconstructed_hkt_ids
+        .windows(2)
+        .all(|pair| pair[0] < pair[1]));
+    assert_eq!(
+        serde_json::to_value(live).unwrap(),
+        serde_json::to_value(continued).unwrap()
+    );
+    assert_eq!(
+        serde_json::to_value(&engine).unwrap(),
+        serde_json::to_value(restarted).unwrap()
+    );
+}
