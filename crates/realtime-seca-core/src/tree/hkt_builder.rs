@@ -50,25 +50,18 @@ impl HktBuilder {
 
         sort_source_word_records_desc(&mut source_word_records);
         let root_input = records_to_map_by_source_word_id(source_word_records);
-        let root_hkt = self.create_hkt(&mut state, root_input, 0, is_state1)?;
+        let root_hkt = self.create_hkt(&mut state, root_input.clone(), 0, is_state1)?;
 
         if let Some(root_hkt) = root_hkt {
-            let root_hkt_id = root_hkt.hkt_id;
             let root_hkt_clone_for_recursion = root_hkt.clone();
             state.hkts_by_id.insert(root_hkt.hkt_id, root_hkt);
 
-            // Branches refine the original root source-word scope.
-            let root_scope_records = state
-                .hkt_input_scopes
-                .get(&root_hkt_id)
-                .cloned()
-                .unwrap_or_default();
-
+            // Recurse over the original scope, before descriptor rows were removed.
+            let root_scope_records: Vec<_> = root_input.into_values().collect();
             self.create_branches(
                 &mut state,
                 &root_hkt_clone_for_recursion,
                 &root_scope_records,
-                0,
                 is_state1,
             )?;
         }
@@ -100,11 +93,6 @@ impl HktBuilder {
 
         let hkt_id = state.next_hkt_id();
         let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words.clone(), is_state1);
-
-        // Retain this scope only during construction for recursive branch expansion.
-        state
-            .hkt_input_scopes
-            .insert(hkt_id, source_word_map.values().cloned().collect());
 
         // Create first node from the first (highest word count) entry.
         let first_node_id = state.next_node_id();
@@ -200,11 +188,8 @@ impl HktBuilder {
         state: &mut BuilderState,
         hkt: &Hkt,
         source_word_scope: &[SourceWordRecord],
-        current_hkt_level: usize,
         is_state1: bool,
     ) -> Result<(), SecaError> {
-        let _ = current_hkt_level; // kept for parity/future instrumentation
-
         for node in &hkt.nodes {
             if node.source_ids.len() <= self.minimum_number_of_sources_to_create_branch_for_node {
                 continue;
@@ -253,24 +238,8 @@ impl HktBuilder {
 
             if let Some(child_hkt) = child_hkt {
                 let child_hkt_clone = child_hkt.clone();
-                let child_hkt_id = child_hkt.hkt_id;
                 state.hkts_by_id.insert(child_hkt.hkt_id, child_hkt);
-
-                if !sorted_scope.is_empty() {
-                    let recurse_scope = state
-                        .hkt_input_scopes
-                        .get(&child_hkt_id)
-                        .cloned()
-                        .unwrap_or_else(|| sorted_scope.clone());
-
-                    self.create_branches(
-                        state,
-                        &child_hkt_clone,
-                        &recurse_scope,
-                        current_hkt_level + 1,
-                        is_state1,
-                    )?;
-                }
+                self.create_branches(state, &child_hkt_clone, &sorted_scope, is_state1)?;
             }
         }
 
@@ -441,8 +410,6 @@ impl HktBuilder {
 struct BuilderState {
     hkts_by_id: BTreeMap<i32, Hkt>,
     nodes_by_id: BTreeMap<i32, Node>,
-    /// Stores the source-word scope used to construct each HKT for later branch expansion.
-    hkt_input_scopes: BTreeMap<i32, Vec<SourceWordRecord>>,
 }
 
 impl BuilderState {
