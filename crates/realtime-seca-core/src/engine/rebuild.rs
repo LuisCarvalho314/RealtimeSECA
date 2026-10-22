@@ -48,7 +48,7 @@ impl SecaEngine {
         trigger_plan: &crate::engine::trigger::RecursiveTriggerPlan,
     ) -> Result<BTreeMap<i32, i32>, SecaError> {
         let mut replacements = BTreeMap::new();
-        for target_hkt_id in &trigger_plan.reconstruct_hkt_ids {
+        for target_hkt_id in trigger_plan.targets.keys() {
             let target_hkt_id = *target_hkt_id;
 
             // Get parent_node_id with immutable access
@@ -161,8 +161,8 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1 sources: from trigger plan scoped indexes (current batch only)
-    let scoped_indexes = trigger_plan
-        .reconstruct_scopes_by_hkt_id
+    let target = trigger_plan
+        .targets
         .get(&target_hkt_id)
         .cloned()
         .unwrap_or_default();
@@ -173,12 +173,6 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
         baseline_word_id_by_token.insert(token.as_str(), *word_id);
     }
 
-    // Ancestor filter sets
-    let ancestor_words = trigger_plan
-        .ancestor_words_by_hkt_id
-        .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
     let mut records: Vec<SourceWordRecord> = Vec::new();
     let mut source_word_id_counter: i32 = 1;
     let mut seen_pairs: BTreeSet<(i64, i32)> = BTreeSet::new();
@@ -200,7 +194,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
             }
 
             let word_id = if let Some(word_id) = baseline_word_id_by_token.get(normalized) {
-                if ancestor_words.contains(word_id) {
+                if target.excluded_words.contains(word_id) {
                     continue;
                 }
                 *word_id
@@ -245,7 +239,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1: scoped sources from current batch
-    for idx in scoped_indexes {
+    for idx in target.source_indexes {
         if let Some(source) = current_batch.sources.get(idx) {
             push_source(&source.source_id, &source.tokens);
         }

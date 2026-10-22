@@ -27,13 +27,7 @@ impl SecaEngine {
         let retained_words = self.build_baseline_source_word_sets()?;
         let all_source_indexes: BTreeSet<usize> = (0..batch.sources.len()).collect();
 
-        let mut plan = RecursiveTriggerPlan {
-            diagnostics: Vec::new(),
-            any_reconstruction_triggered: false,
-            reconstruct_hkt_ids: Vec::new(),
-            reconstruct_scopes_by_hkt_id: BTreeMap::new(),
-            ancestor_words_by_hkt_id: BTreeMap::new(),
-        };
+        let mut plan = RecursiveTriggerPlan::default();
 
         self.evaluate_hkt_recursively_for_batch(
             batch,
@@ -43,10 +37,6 @@ impl SecaEngine {
             &mut plan,
             &retained_words,
         )?;
-
-        // Report targets in deterministic order.
-        plan.reconstruct_hkt_ids.sort_unstable();
-        plan.reconstruct_hkt_ids.dedup();
 
         Ok(plan)
     }
@@ -89,23 +79,15 @@ impl SecaEngine {
 
         plan.diagnostics.push(decision.clone());
 
-        plan.ancestor_words_by_hkt_id
-            .insert(hkt_id, ancestor.clone());
-
         if decision.should_reconstruct {
-            plan.any_reconstruction_triggered = true;
-
-            if !plan.reconstruct_hkt_ids.contains(&hkt_id) {
-                plan.reconstruct_hkt_ids.push(hkt_id);
-            }
-
-            // Preserve the exact scoped provenance that caused the trigger.
-            plan.reconstruct_scopes_by_hkt_id
-                .entry(hkt_id)
-                .and_modify(|existing_scope| {
-                    existing_scope.extend(mapped_scope.scoped_batch_source_indexes.iter().copied());
-                })
-                .or_insert_with(|| mapped_scope.scoped_batch_source_indexes.clone());
+            // One visit per scope; ordered keys also preserve reconstruction allocation order.
+            plan.targets.insert(
+                hkt_id,
+                ReconstructionTarget {
+                    source_indexes: mapped_scope.scoped_batch_source_indexes,
+                    excluded_words: ancestor.clone(),
+                },
+            );
 
             // Per paper: stop descending below a triggered HKT.
             return Ok(());
@@ -227,10 +209,13 @@ impl SecaEngine {
 #[derive(Debug, Clone, Default)]
 pub(crate) struct RecursiveTriggerPlan {
     pub(crate) diagnostics: Vec<crate::types::HktDecisionDiagnostics>,
-    pub(crate) any_reconstruction_triggered: bool,
-    pub(crate) reconstruct_hkt_ids: Vec<i32>,
-    pub(crate) reconstruct_scopes_by_hkt_id: BTreeMap<i32, BTreeSet<usize>>,
-    pub(crate) ancestor_words_by_hkt_id: BTreeMap<i32, BTreeSet<i32>>,
+    pub(crate) targets: BTreeMap<i32, ReconstructionTarget>,
+}
+
+#[derive(Debug, Clone, Default)]
+pub(crate) struct ReconstructionTarget {
+    pub(crate) source_indexes: BTreeSet<usize>,
+    pub(crate) excluded_words: BTreeSet<i32>,
 }
 
 #[derive(Debug, Clone, Default)]

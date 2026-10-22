@@ -7,10 +7,13 @@ fn rebuilt_subtree_hkts_are_state1() {
     let root_hkt_id = root_hkt_id(&engine);
     let batch = make_batch(1, &[("s_new_state1", &["z"])]);
     let mut forced_plan = engine.evaluate_seca_trigger_plan_for_batch(&batch).unwrap();
-    forced_plan.reconstruct_hkt_ids = vec![root_hkt_id];
+    forced_plan.targets.retain(|id, _| *id == root_hkt_id);
+    forced_plan.targets.entry(root_hkt_id).or_default();
     forced_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(root_hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(root_hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     engine
         .rebuild_selected_hkts_from_trigger_plan(&batch, &forced_plan)
@@ -62,13 +65,18 @@ fn subtree_rebuild_scoped_dataset_filters_ancestor_words() {
 
     let accepted = BTreeSet::from([word_id_a]);
     trigger_plan
-        .ancestor_words_by_hkt_id
-        .insert(hkt_id, accepted);
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .excluded_words = accepted;
 
-    trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == hkt_id);
+    trigger_plan.targets.entry(hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(hkt_id, BTreeSet::from([0_usize])); // only the first source
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]); // only the first source
 
     // Build scoped records
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
@@ -112,13 +120,18 @@ fn subtree_rebuild_scoped_dataset_filters_full_ancestor_word_set() {
     let mut ancestor_words = BTreeSet::new();
     ancestor_words.insert(word_id_a);
     trigger_plan
-        .ancestor_words_by_hkt_id
-        .insert(hkt_id, ancestor_words);
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .excluded_words = ancestor_words;
 
-    trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == hkt_id);
+    trigger_plan.targets.entry(hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
         &engine,
@@ -164,13 +177,18 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_state0_state1_merge() {
     let mut ancestor_words = BTreeSet::new();
     ancestor_words.insert(word_id_b);
     trigger_plan
-        .ancestor_words_by_hkt_id
-        .insert(hkt_id, ancestor_words);
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .excluded_words = ancestor_words;
 
-    trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == hkt_id);
+    trigger_plan.targets.entry(hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
         &engine,
@@ -222,13 +240,18 @@ fn subtree_rebuild_scoped_dataset_matches_csharp_word_source_counts() {
     let mut ancestor_words = BTreeSet::new();
     ancestor_words.insert(word_id_b);
     trigger_plan
-        .ancestor_words_by_hkt_id
-        .insert(hkt_id, ancestor_words);
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .excluded_words = ancestor_words;
 
-    trigger_plan.reconstruct_hkt_ids = vec![hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == hkt_id);
+    trigger_plan.targets.entry(hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
         &engine,
@@ -325,13 +348,18 @@ fn subtree_rebuild_scoped_dataset_uses_only_current_hkt_sources_for_state0() {
 
     let batch = make_batch(1, &[(&unrelated_source_url, &["x"])]);
     let mut trigger_plan = engine.evaluate_seca_trigger_plan_for_batch(&batch).unwrap();
-    trigger_plan.reconstruct_hkt_ids = vec![child_hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == child_hkt_id);
+    trigger_plan.targets.entry(child_hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(child_hkt_id, BTreeSet::new());
+        .targets
+        .entry(child_hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::new();
     trigger_plan
-        .ancestor_words_by_hkt_id
-        .insert(child_hkt_id, BTreeSet::new());
+        .targets
+        .entry(child_hkt_id)
+        .or_default()
+        .excluded_words = BTreeSet::new();
 
     let records = crate::engine::rebuild::build_scoped_source_word_records_for_hkt(
         &engine,
@@ -433,10 +461,13 @@ fn subtree_rebuild_propagates_state1_sources_to_parent_chain() {
     let mut trigger_plan = engine
         .evaluate_seca_trigger_plan_for_batch(&state1_batch)
         .unwrap();
-    trigger_plan.reconstruct_hkt_ids = vec![child_hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == child_hkt_id);
+    trigger_plan.targets.entry(child_hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(child_hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(child_hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     let new_source_id = engine.stable_source_id("s_new_parent");
 
@@ -495,10 +526,13 @@ fn subtree_rebuild_propagates_state1_sources_to_all_ancestors() {
     let mut trigger_plan = engine
         .evaluate_seca_trigger_plan_for_batch(&state1_batch)
         .unwrap();
-    trigger_plan.reconstruct_hkt_ids = vec![child_hkt_id];
+    trigger_plan.targets.retain(|id, _| *id == child_hkt_id);
+    trigger_plan.targets.entry(child_hkt_id).or_default();
     trigger_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(child_hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(child_hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     let new_source_id = engine.stable_source_id("s_new_chain");
 
@@ -567,10 +601,13 @@ fn subtree_rebuild_preserves_parent_linkage() {
 
     // Force rebuild on target
     let mut forced_plan = trigger_plan.clone();
-    forced_plan.reconstruct_hkt_ids = vec![target_hkt_id];
+    forced_plan.targets.retain(|id, _| *id == target_hkt_id);
+    forced_plan.targets.entry(target_hkt_id).or_default();
     forced_plan
-        .reconstruct_scopes_by_hkt_id
-        .insert(target_hkt_id, BTreeSet::from([0_usize]));
+        .targets
+        .entry(target_hkt_id)
+        .or_default()
+        .source_indexes = BTreeSet::from([0_usize]);
 
     engine
         .rebuild_selected_hkts_from_trigger_plan(&batch, &forced_plan)
