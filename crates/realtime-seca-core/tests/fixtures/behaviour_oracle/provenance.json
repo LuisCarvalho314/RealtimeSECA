@@ -1,0 +1,18 @@
+{
+  "baseline_revision": "d7e6e657b6acdc354a2a4bdfe2a672510bf555cb",
+  "baseline_tree": "2aa07b71dbec9dd2a0692b3e597d711749424ca5",
+  "capture_date_utc": "2026-10-22",
+  "rustc": "1.92.0 (ded5c06cf 2025-12-08)",
+  "platform": "Linux x86_64",
+  "capture_command": "cargo run --offline --locked -q -p realtime-seca-core --example capture_behaviour_oracle > /tmp/seca-oracle-capture.json",
+  "origin": "Public API execution of the unmodified baseline engine; only new observer/example/input files added. No production changes.",
+  "baseline_recovery": "Local Git lacked the merge commit. Its signed payload/signature were read through the GitHub connector and reconstructed with git hash-object; the resulting SHA exactly matched the requested revision. The tree already existed locally at 074f400. No existing worktree was changed.",
+  "determinism": "Two fresh-process captures were byte-identical.",
+  "input_recipe": "Two-topic selective-child recipe from tests/seca_light_stream.rs, followed by duplicate/normalization, empty-window, identity-readmission, new-dominant and accepted-continuation batches.",
+  "sha256": {
+    "stream.json": "f33765a99adc970a6172fb0ca0b79128c670d3b1dd39946777526d9d3cfcd07c",
+    "expected.json": "f074b97e6895ae892b44b562580f9d5adf4dd85a8766a7d25118480ab6e9fef5"
+  },
+  "observer_sha256": "f80e6ba1e8c2e7397039750c5a4051f32440319b78db705152cb2a0ab5d6fe50",
+  "interpretation": "Compatibility characterization only; pending scientific decisions unchanged."
+}
