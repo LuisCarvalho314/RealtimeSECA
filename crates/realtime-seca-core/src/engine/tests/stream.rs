@@ -1,6 +1,6 @@
 use super::super::*;
 use crate::config::{MemoryMode, SecaConfig};
-use crate::engine::batch_stats::compute_batch_word_stats;
+use crate::engine::input::compute_batch_word_stats;
 
 use super::fixtures::*;
 use crate::tree::Hkt;
@@ -414,7 +414,8 @@ fn compute_batch_word_stats_uses_document_frequency_not_raw_frequency() {
         ],
     );
 
-    let stats = compute_batch_word_stats(&batch, &baseline_engine.baseline_word_legend);
+    let (stats, frequencies) =
+        compute_batch_word_stats(&batch, &baseline_engine.baseline_word_legend);
 
     // unique words = {a,b,x}
     assert_eq!(stats.unique_words_in_batch, 3);
@@ -428,9 +429,9 @@ fn compute_batch_word_stats_uses_document_frequency_not_raw_frequency() {
     assert_eq!(stats.max_word_document_frequency, 2);
     assert_eq!(stats.total_sources_in_batch, 3);
 
-    assert_eq!(stats.word_document_frequency.get("a"), Some(&2));
-    assert_eq!(stats.word_document_frequency.get("b"), Some(&2));
-    assert_eq!(stats.word_document_frequency.get("x"), Some(&2));
+    assert_eq!(frequencies.get("a"), Some(&2));
+    assert_eq!(frequencies.get("b"), Some(&2));
+    assert_eq!(frequencies.get("x"), Some(&2));
 }
 #[test]
 fn process_batch_stores_last_batch_word_stats_summary() {

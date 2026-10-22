@@ -11,7 +11,6 @@ use crate::ENGINE_VERSION;
 use std::collections::{BTreeMap, BTreeSet};
 
 mod baseline;
-pub(crate) mod batch_stats;
 mod context;
 mod diagnostics;
 mod evidence;
@@ -27,7 +26,6 @@ mod validation;
 
 #[cfg(test)]
 mod tests;
-use self::batch_stats::compute_batch_word_stats;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct SecaEngine {

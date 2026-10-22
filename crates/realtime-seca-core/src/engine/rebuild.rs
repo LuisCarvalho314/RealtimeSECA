@@ -160,11 +160,11 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1 sources: from trigger plan scoped indexes (current batch only)
+    let empty_target = super::trigger::ReconstructionTarget::default();
     let target = trigger_plan
         .targets
         .get(&target_hkt_id)
-        .cloned()
-        .unwrap_or_default();
+        .unwrap_or(&empty_target);
 
     // token -> word_id
     let mut baseline_word_id_by_token: BTreeMap<&str, i32> = BTreeMap::new();
@@ -238,7 +238,7 @@ pub(crate) fn build_scoped_source_word_records_for_hkt(
     }
 
     // State1: scoped sources from current batch
-    for idx in target.source_indexes {
+    for &idx in &target.source_indexes {
         if let Some(source) = current_batch.sources.get(idx) {
             push_source(&source.source_id, &source.tokens);
         }
