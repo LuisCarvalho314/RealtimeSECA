@@ -26,7 +26,7 @@ impl Default for Config {
             beta: 0.5,
             error_limits: metrics::Errors {
                 alpha: 0.1,
-                beta: 0.13,
+                beta: 0.2,
                 importance: 0.3,
             },
             minimum_branch_sources: 2,
@@ -58,6 +58,22 @@ pub struct Source {
 struct Evidence {
     words: Words,
     batch: u64,
+}
+
+fn residual_scope(
+    parent: &Sources,
+    excluded: &Words,
+    evidence: &BTreeMap<String, Evidence>,
+) -> Sources {
+    parent
+        .iter()
+        .filter(|id| {
+            evidence
+                .get(*id)
+                .is_some_and(|source| source.words.iter().any(|w| !excluded.contains(w)))
+        })
+        .cloned()
+        .collect()
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize)]
@@ -199,25 +215,45 @@ impl Model {
         }) {
             return Err("invalid retained evidence".into());
         }
-        fn tree(h: &Hkt, scope: &Sources) -> bool {
+        fn tree(
+            h: &Hkt,
+            scope: &Sources,
+            excluded: &Words,
+            evidence: &BTreeMap<String, Evidence>,
+        ) -> bool {
+            let mut child_excluded = excluded.clone();
+            child_excluded.extend(metrics::vocabulary(h));
+
             h.nodes.iter().filter(|n| n.words.is_empty()).count() <= 1
                 && h.nodes.iter().all(|n| {
                     n.sources.is_subset(scope)
                         && n.words.iter().all(|w| !w.trim().is_empty())
-                        && n.child.as_ref().is_none_or(|c| tree(c, &n.sources))
+                        && n.child.as_ref().is_none_or(|child| {
+                            let child_scope = residual_scope(
+                                &n.sources,
+                                &child_excluded,
+                                evidence,
+                            );
+
+                            tree(
+                                child,
+                                &child_scope,
+                                &child_excluded,
+                                evidence,
+                            )
+                        })
                 })
-                && h.nodes
-                    .iter()
-                    .flat_map(|n| &n.sources)
-                    .cloned()
-                    .collect::<Sources>()
-                    == *scope
         }
-        if !tree(&self.root, &self.retained_sources())
-            || (self.next_batch == 0 && !self.root.nodes.is_empty())
+        if !tree(
+            &self.root,
+            &self.retained_sources(),
+            &Words::new(),
+            &self.retained,
+        ) || (self.next_batch == 0 && !self.root.nodes.is_empty())
         {
             return Err("invalid hierarchy memberships".into());
         }
+
         Ok(())
     }
 }

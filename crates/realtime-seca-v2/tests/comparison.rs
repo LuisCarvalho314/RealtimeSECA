@@ -117,7 +117,7 @@ fn intentional_frequency_order_correction() {
     );
 }
 #[test]
-fn intentional_historical_candidate_persistence_correction() {
+fn deferred_candidates_do_not_change_descriptors() {
     let (mut a, mut b) = pair(0.6, 0.5, None);
     update(
         &mut a,
@@ -127,10 +127,10 @@ fn intentional_historical_candidate_persistence_correction() {
     );
     update(&mut a, &mut b, 1, &[(5, "a x"), (6, "a x")]);
     assert!(!v1_words(&a)[0].contains("x"));
-    assert!(b.root().nodes[0].words.contains("x"));
+    assert!(!b.root().nodes[0].words.contains("x"));
     update(&mut a, &mut b, 2, &[(7, "a x")]);
     assert!(!v1_words(&a)[0].contains("x"));
-    assert!(b.root().nodes[0].words.contains("x"));
+    assert!(!b.root().nodes[0].words.contains("x"));
 }
 #[test]
 fn identical_window_and_duplicate_identity_lifecycle() {

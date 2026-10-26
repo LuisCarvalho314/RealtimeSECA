@@ -1,3 +1,4 @@
+use crate::residual_scope;
 use crate::{
     metrics::{self, Frequencies},
     Config, Decision, Evidence, Hkt, Node, Sources, Words,
@@ -64,18 +65,16 @@ pub(crate) fn construct(
             ..Node::default()
         });
     }
-    let mut residual = excluded.clone();
-    residual.extend(metrics::vocabulary(&hkt));
+    let mut child_excluded = excluded.clone();
+    child_excluded.extend(metrics::vocabulary(&hkt));
+
     for node in &mut hkt.nodes {
-        let supported = node
-            .sources
-            .iter()
-            .filter(|id| evidence[*id].words.iter().any(|w| !residual.contains(w)))
-            .count();
-        if supported >= config.minimum_branch_sources {
+        let child_scope = residual_scope(&node.sources, &child_excluded, evidence);
+
+        if child_scope.len() >= config.minimum_branch_sources {
             node.child = Some(Box::new(construct(
-                &node.sources,
-                &residual,
+                &child_scope,
+                &child_excluded,
                 evidence,
                 config,
             )));
@@ -98,15 +97,8 @@ fn map_incoming(hkt: &mut Hkt, incoming: &Sources, evidence: &Store) {
             unmatched.insert(id.clone());
         }
     }
-    if !unmatched.is_empty() {
-        if let Some(refuge) = hkt.nodes.iter_mut().find(|n| n.words.is_empty()) {
-            refuge.sources.extend(unmatched);
-        } else {
-            hkt.nodes.push(Node {
-                sources: unmatched,
-                ..Node::default()
-            });
-        }
+    if let Some(refuge) = hkt.nodes.iter_mut().find(|n| n.words.is_empty()) {
+        refuge.sources.extend(unmatched);
     }
 }
 
@@ -142,22 +134,20 @@ pub(crate) fn evolve(
         *hkt = construct(scope, excluded, evidence, config);
         return;
     }
-    for node in hkt.nodes.iter_mut().filter(|n| !n.words.is_empty()) {
-        for word in &candidates {
-            if metrics::eligibility(&df[word], &node.sources) >= config.beta {
-                node.words.insert(word.clone());
-            }
-        }
-    }
+
     let mut child_excluded = excluded.clone();
     child_excluded.extend(metrics::vocabulary(hkt));
+
     for (index, node) in hkt.nodes.iter_mut().enumerate() {
         if let Some(child) = &mut node.child {
-            let child_incoming = node.sources.intersection(incoming).cloned().collect();
+            let child_scope = residual_scope(&node.sources, &child_excluded, evidence);
+
+            let child_incoming: Sources = child_scope.intersection(incoming).cloned().collect();
+
             path.push(index);
             evolve(
                 child,
-                &node.sources,
+                &child_scope,
                 &child_incoming,
                 &child_excluded,
                 evidence,
