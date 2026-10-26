@@ -1,0 +1,18 @@
+{
+  "case": "random-299",
+  "input": {
+    "records": [
+      {
+        "source": 1,
+        "word": 1
+      },
+      {
+        "source": 3,
+        "word": 1
+      }
+    ],
+    "alpha": 0.7,
+    "beta": 0.0,
+    "branchMinimum": 2
+  }
+}

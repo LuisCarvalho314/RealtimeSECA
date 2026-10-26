@@ -1,0 +1,69 @@
+{
+  "status": "reported by pre-restart evaluator; not a completed comparable measurement",
+  "observed_exit_code": 137,
+  "implementation": "production baseline adapter",
+  "termination_cause": "unknown; hierarchy growth/resource pressure plausible, not diagnosed",
+  "exact_input": "not checkpointed by original runner; unavailable after restart",
+  "generator_seed": 20711,
+  "old_random_dimensions": {
+    "sources": [
+      1,
+      3,
+      12,
+      30
+    ],
+    "vocabulary": [
+      1,
+      5,
+      12
+    ],
+    "density": [
+      0.1,
+      0.35,
+      0.8
+    ],
+    "alpha": [
+      0,
+      0.3,
+      0.7,
+      1
+    ],
+    "beta": [
+      0,
+      0.5,
+      1
+    ],
+    "branchMinimum": [
+      1,
+      2,
+      4
+    ]
+  },
+  "old_synthetic_workloads": [
+    [
+      100,
+      40,
+      0.1,
+      10
+    ],
+    [
+      1000,
+      40,
+      0.1,
+      10
+    ],
+    [
+      1000,
+      12,
+      0.5,
+      10
+    ],
+    [
+      100,
+      12,
+      0.5,
+      1
+    ]
+  ],
+  "response": "bounded random vocabulary to8 and separate recursive workload vocabulary8; flat scaling40 words suppresses recursion with branchMinimum>=source count; no performance claim from failure"
+}

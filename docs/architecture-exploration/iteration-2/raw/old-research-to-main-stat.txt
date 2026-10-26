@@ -1,0 +1,345 @@
+ .github/workflows/baseline.yml                     |    52 +
+ .gitignore                                         |     1 -
+ Cargo.lock                                         |   718 +
+ README.md                                          |     4 +
+ benchmarks/reproduction/.gitattributes             |     1 +
+ benchmarks/reproduction/.gitignore                 |     3 +
+ benchmarks/reproduction/Cargo.lock                 |   590 +
+ benchmarks/reproduction/README.md                  |     7 +
+ benchmarks/reproduction/datasets.json              |     6 +
+ benchmarks/reproduction/published.json             |   233 +
+ .../reproduction/results-G-extended/metrics.csv    |    10 +
+ .../reproduction/results-G-extended/report.json    |    98 +
+ .../reproduction/results-H-extended/metrics.csv    |     3 +
+ .../reproduction/results-H-extended/report.json    |    89 +
+ benchmarks/reproduction/results/metrics.csv        |   656 +
+ benchmarks/reproduction/results/report.json        |  4215 +++
+ benchmarks/reproduction/run.py                     |   321 +
+ benchmarks/reproduction/test_runner.py             |    70 +
+ benchmarks/reproduction/validation.json            |    40 +
+ benchmarks/seca-paper/.gitignore                   |     2 +
+ benchmarks/seca-paper/check_run.py                 |    85 +
+ benchmarks/seca-paper/clustering/cluster.py        |   284 +
+ benchmarks/seca-paper/clustering/test_cluster.py   |   268 +
+ benchmarks/seca-paper/compare.py                   |    21 +
+ benchmarks/seca-paper/config/Full.json             |    29 +
+ benchmarks/seca-paper/config/SlidingWindow.json    |    29 +
+ .../seca-paper/datasets}/.gitignore                |     1 +
+ benchmarks/seca-paper/datasets/audit_history.py    |    66 +
+ benchmarks/seca-paper/datasets/common.py           |    96 +
+ benchmarks/seca-paper/datasets/download.py         |    54 +
+ .../seca-paper/datasets/historical-audit.json      |    57 +
+ benchmarks/seca-paper/datasets/manifests/G.json    |   216 +
+ benchmarks/seca-paper/datasets/manifests/H.json    |   216 +
+ benchmarks/seca-paper/datasets/prepare.py          |    97 +
+ benchmarks/seca-paper/datasets/sources.json        |    85 +
+ benchmarks/seca-paper/datasets/test_datasets.py    |   260 +
+ benchmarks/seca-paper/datasets/verify.py           |    39 +
+ .../seca-paper/evaluation}/.gitignore              |     0
+ benchmarks/seca-paper/evaluation/__init__.py       |     1 +
+ benchmarks/seca-paper/evaluation/adapters.py       |    24 +
+ benchmarks/seca-paper/evaluation/comparison.py     |    87 +
+ benchmarks/seca-paper/evaluation/contracts.py      |   113 +
+ .../evaluation/fixtures/assignments-0000.json      |    22 +
+ .../evaluation/fixtures/assignments-0001.json      |    22 +
+ .../seca-paper/evaluation/fixtures/batch-0000.json |    21 +
+ .../seca-paper/evaluation/fixtures/batch-0001.json |    21 +
+ .../evaluation/fixtures/config-Full.json           |    27 +
+ .../evaluation/fixtures/config-SlidingWindow.json  |    27 +
+ .../seca-paper/evaluation/fixtures/manifest.json   |    19 +
+ .../seca-paper/evaluation/fixtures/truth.json      |    18 +
+ benchmarks/seca-paper/evaluation/io.py             |    40 +
+ benchmarks/seca-paper/evaluation/make_fixture.py   |    40 +
+ benchmarks/seca-paper/evaluation/metrics.py        |    93 +
+ .../seca-paper/evaluation/test_integration.py      |    87 +
+ benchmarks/seca-paper/evaluation/test_metrics.py   |    84 +
+ benchmarks/seca-paper/evaluation/test_runner.py    |   188 +
+ .../final/G-Full-direct/artifact-hashes.json       |    80 +
+ .../final/G-Full-direct/assignments-0000.json.gz   |   Bin 0 -> 4873 bytes
+ .../final/G-Full-direct/assignments-0001.json.gz   |   Bin 0 -> 4991 bytes
+ .../final/G-Full-direct/assignments-0002.json.gz   |   Bin 0 -> 4999 bytes
+ .../final/G-Full-direct/assignments-0003.json.gz   |   Bin 0 -> 5079 bytes
+ .../final/G-Full-direct/assignments-0004.json.gz   |   Bin 0 -> 4975 bytes
+ .../final/G-Full-direct/assignments-0005.json.gz   |   Bin 0 -> 4974 bytes
+ .../final/G-Full-direct/assignments-0006.json.gz   |   Bin 0 -> 5016 bytes
+ .../final/G-Full-direct/assignments-0007.json.gz   |   Bin 0 -> 5035 bytes
+ .../final/G-Full-direct/assignments-0008.json.gz   |   Bin 0 -> 5089 bytes
+ .../final/G-Full-direct/assignments-0009.json.gz   |   Bin 0 -> 5083 bytes
+ .../final/G-Full-direct/assignments-0010.json.gz   |   Bin 0 -> 5117 bytes
+ .../final/G-Full-direct/assignments-0011.json.gz   |   Bin 0 -> 5136 bytes
+ .../evidence/final/G-Full-direct/cycles.json       |   134 +
+ .../G-Full-direct/independent-recomputation.json   |   126 +
+ .../evidence/final/G-Full-direct/run.json          |   395 +
+ .../evidence/final/G-Full-direct/scores.csv        |    13 +
+ .../evidence/final/G-Full-direct/summary.json      |    34 +
+ .../final/G-Full-indirect/artifact-hashes.json     |    80 +
+ .../final/G-Full-indirect/assignments-0000.json.gz |   Bin 0 -> 4728 bytes
+ .../final/G-Full-indirect/assignments-0001.json.gz |   Bin 0 -> 4858 bytes
+ .../final/G-Full-indirect/assignments-0002.json.gz |   Bin 0 -> 4924 bytes
+ .../final/G-Full-indirect/assignments-0003.json.gz |   Bin 0 -> 4918 bytes
+ .../final/G-Full-indirect/assignments-0004.json.gz |   Bin 0 -> 4903 bytes
+ .../final/G-Full-indirect/assignments-0005.json.gz |   Bin 0 -> 4906 bytes
+ .../final/G-Full-indirect/assignments-0006.json.gz |   Bin 0 -> 4930 bytes
+ .../final/G-Full-indirect/assignments-0007.json.gz |   Bin 0 -> 4924 bytes
+ .../final/G-Full-indirect/assignments-0008.json.gz |   Bin 0 -> 5015 bytes
+ .../final/G-Full-indirect/assignments-0009.json.gz |   Bin 0 -> 4996 bytes
+ .../final/G-Full-indirect/assignments-0010.json.gz |   Bin 0 -> 5008 bytes
+ .../final/G-Full-indirect/assignments-0011.json.gz |   Bin 0 -> 4978 bytes
+ .../evidence/final/G-Full-indirect/cycles.json     |   134 +
+ .../G-Full-indirect/independent-recomputation.json |   126 +
+ .../evidence/final/G-Full-indirect/run.json        |   346 +
+ .../evidence/final/G-Full-indirect/scores.csv      |    13 +
+ .../evidence/final/G-Full-indirect/summary.json    |    34 +
+ .../evidence/final/G-Full-ordering-check.json      |    46 +
+ .../evidence/final/G-Full-resume-check.json        |    14 +
+ .../G-SlidingWindow-direct/artifact-hashes.json    |    80 +
+ .../assignments-0000.json.gz                       |   Bin 0 -> 4873 bytes
+ .../assignments-0001.json.gz                       |   Bin 0 -> 4991 bytes
+ .../assignments-0002.json.gz                       |   Bin 0 -> 4999 bytes
+ .../assignments-0003.json.gz                       |   Bin 0 -> 5079 bytes
+ .../assignments-0004.json.gz                       |   Bin 0 -> 5006 bytes
+ .../assignments-0005.json.gz                       |   Bin 0 -> 4954 bytes
+ .../assignments-0006.json.gz                       |   Bin 0 -> 4982 bytes
+ .../assignments-0007.json.gz                       |   Bin 0 -> 4985 bytes
+ .../assignments-0008.json.gz                       |   Bin 0 -> 5051 bytes
+ .../assignments-0009.json.gz                       |   Bin 0 -> 5058 bytes
+ .../assignments-0010.json.gz                       |   Bin 0 -> 5032 bytes
+ .../assignments-0011.json.gz                       |   Bin 0 -> 4991 bytes
+ .../final/G-SlidingWindow-direct/cycles.json       |   134 +
+ .../independent-recomputation.json                 |   126 +
+ .../evidence/final/G-SlidingWindow-direct/run.json |   395 +
+ .../final/G-SlidingWindow-direct/scores.csv        |    13 +
+ .../final/G-SlidingWindow-direct/summary.json      |    34 +
+ .../G-SlidingWindow-indirect/artifact-hashes.json  |    80 +
+ .../assignments-0000.json.gz                       |   Bin 0 -> 4728 bytes
+ .../assignments-0001.json.gz                       |   Bin 0 -> 4858 bytes
+ .../assignments-0002.json.gz                       |   Bin 0 -> 4924 bytes
+ .../assignments-0003.json.gz                       |   Bin 0 -> 4883 bytes
+ .../assignments-0004.json.gz                       |   Bin 0 -> 4867 bytes
+ .../assignments-0005.json.gz                       |   Bin 0 -> 4860 bytes
+ .../assignments-0006.json.gz                       |   Bin 0 -> 4851 bytes
+ .../assignments-0007.json.gz                       |   Bin 0 -> 4854 bytes
+ .../assignments-0008.json.gz                       |   Bin 0 -> 4945 bytes
+ .../assignments-0009.json.gz                       |   Bin 0 -> 4910 bytes
+ .../assignments-0010.json.gz                       |   Bin 0 -> 4886 bytes
+ .../assignments-0011.json.gz                       |   Bin 0 -> 4856 bytes
+ .../final/G-SlidingWindow-indirect/cycles.json     |   134 +
+ .../independent-recomputation.json                 |   126 +
+ .../final/G-SlidingWindow-indirect/run.json        |   346 +
+ .../final/G-SlidingWindow-indirect/scores.csv      |    13 +
+ .../final/G-SlidingWindow-indirect/summary.json    |    34 +
+ .../final/G-SlidingWindow-ordering-check.json      |    46 +
+ .../final/G-SlidingWindow-resume-check.json        |    14 +
+ .../seca-paper/evidence/final/G-summary.json       |   138 +
+ .../final/H-Full-direct/artifact-hashes.json       |    83 +
+ .../final/H-Full-direct/assignments-0000.json.gz   |   Bin 0 -> 12462 bytes
+ .../final/H-Full-direct/assignments-0001.json.gz   |   Bin 0 -> 12548 bytes
+ .../final/H-Full-direct/assignments-0002.json.gz   |   Bin 0 -> 12571 bytes
+ .../final/H-Full-direct/assignments-0003.json.gz   |   Bin 0 -> 12755 bytes
+ .../final/H-Full-direct/assignments-0004.json.gz   |   Bin 0 -> 12662 bytes
+ .../final/H-Full-direct/assignments-0005.json.gz   |   Bin 0 -> 12463 bytes
+ .../final/H-Full-direct/assignments-0006.json.gz   |   Bin 0 -> 12607 bytes
+ .../final/H-Full-direct/assignments-0007.json.gz   |   Bin 0 -> 12733 bytes
+ .../final/H-Full-direct/assignments-0008.json.gz   |   Bin 0 -> 12711 bytes
+ .../final/H-Full-direct/assignments-0009.json.gz   |   Bin 0 -> 12786 bytes
+ .../final/H-Full-direct/assignments-0010.json.gz   |   Bin 0 -> 12542 bytes
+ .../final/H-Full-direct/assignments-0011.json.gz   |   Bin 0 -> 12375 bytes
+ .../evidence/final/H-Full-direct/cycles.json       |   134 +
+ .../H-Full-direct/independent-recomputation.json   |   126 +
+ .../evidence/final/H-Full-direct/run.json          |   395 +
+ .../evidence/final/H-Full-direct/scores.csv        |    13 +
+ .../evidence/final/H-Full-direct/summary.json      |    34 +
+ .../final/H-Full-indirect/artifact-hashes.json     |    80 +
+ .../final/H-Full-indirect/assignments-0000.json.gz |   Bin 0 -> 12133 bytes
+ .../final/H-Full-indirect/assignments-0001.json.gz |   Bin 0 -> 12178 bytes
+ .../final/H-Full-indirect/assignments-0002.json.gz |   Bin 0 -> 12165 bytes
+ .../final/H-Full-indirect/assignments-0003.json.gz |   Bin 0 -> 12314 bytes
+ .../final/H-Full-indirect/assignments-0004.json.gz |   Bin 0 -> 12309 bytes
+ .../final/H-Full-indirect/assignments-0005.json.gz |   Bin 0 -> 12155 bytes
+ .../final/H-Full-indirect/assignments-0006.json.gz |   Bin 0 -> 12259 bytes
+ .../final/H-Full-indirect/assignments-0007.json.gz |   Bin 0 -> 12316 bytes
+ .../final/H-Full-indirect/assignments-0008.json.gz |   Bin 0 -> 12065 bytes
+ .../final/H-Full-indirect/assignments-0009.json.gz |   Bin 0 -> 12131 bytes
+ .../final/H-Full-indirect/assignments-0010.json.gz |   Bin 0 -> 12131 bytes
+ .../final/H-Full-indirect/assignments-0011.json.gz |   Bin 0 -> 12086 bytes
+ .../evidence/final/H-Full-indirect/cycles.json     |   134 +
+ .../H-Full-indirect/independent-recomputation.json |   126 +
+ .../evidence/final/H-Full-indirect/run.json        |   346 +
+ .../evidence/final/H-Full-indirect/scores.csv      |    13 +
+ .../evidence/final/H-Full-indirect/summary.json    |    34 +
+ .../evidence/final/H-Full-ordering-check.json      |    46 +
+ .../evidence/final/H-Full-resume-check.json        |    14 +
+ .../H-SlidingWindow-direct/artifact-hashes.json    |    80 +
+ .../assignments-0000.json.gz                       |   Bin 0 -> 12462 bytes
+ .../assignments-0001.json.gz                       |   Bin 0 -> 12548 bytes
+ .../assignments-0002.json.gz                       |   Bin 0 -> 12571 bytes
+ .../assignments-0003.json.gz                       |   Bin 0 -> 12755 bytes
+ .../assignments-0004.json.gz                       |   Bin 0 -> 12573 bytes
+ .../assignments-0005.json.gz                       |   Bin 0 -> 12290 bytes
+ .../assignments-0006.json.gz                       |   Bin 0 -> 12403 bytes
+ .../assignments-0007.json.gz                       |   Bin 0 -> 12392 bytes
+ .../assignments-0008.json.gz                       |   Bin 0 -> 12011 bytes
+ .../assignments-0009.json.gz                       |   Bin 0 -> 12318 bytes
+ .../assignments-0010.json.gz                       |   Bin 0 -> 12028 bytes
+ .../assignments-0011.json.gz                       |   Bin 0 -> 11945 bytes
+ .../final/H-SlidingWindow-direct/cycles.json       |   134 +
+ .../independent-recomputation.json                 |   126 +
+ .../evidence/final/H-SlidingWindow-direct/run.json |   395 +
+ .../final/H-SlidingWindow-direct/scores.csv        |    13 +
+ .../final/H-SlidingWindow-direct/summary.json      |    34 +
+ .../H-SlidingWindow-indirect/artifact-hashes.json  |    80 +
+ .../assignments-0000.json.gz                       |   Bin 0 -> 12133 bytes
+ .../assignments-0001.json.gz                       |   Bin 0 -> 12178 bytes
+ .../assignments-0002.json.gz                       |   Bin 0 -> 12165 bytes
+ .../assignments-0003.json.gz                       |   Bin 0 -> 12305 bytes
+ .../assignments-0004.json.gz                       |   Bin 0 -> 12205 bytes
+ .../assignments-0005.json.gz                       |   Bin 0 -> 12006 bytes
+ .../assignments-0006.json.gz                       |   Bin 0 -> 12067 bytes
+ .../assignments-0007.json.gz                       |   Bin 0 -> 12107 bytes
+ .../assignments-0008.json.gz                       |   Bin 0 -> 11849 bytes
+ .../assignments-0009.json.gz                       |   Bin 0 -> 11897 bytes
+ .../assignments-0010.json.gz                       |   Bin 0 -> 11937 bytes
+ .../assignments-0011.json.gz                       |   Bin 0 -> 11856 bytes
+ .../final/H-SlidingWindow-indirect/cycles.json     |   134 +
+ .../independent-recomputation.json                 |   126 +
+ .../final/H-SlidingWindow-indirect/run.json        |   346 +
+ .../final/H-SlidingWindow-indirect/scores.csv      |    13 +
+ .../final/H-SlidingWindow-indirect/summary.json    |    34 +
+ .../final/H-SlidingWindow-ordering-check.json      |    46 +
+ .../final/H-SlidingWindow-resume-check.json        |    14 +
+ .../seca-paper/evidence/final/H-summary.json       |   138 +
+ .../seca-paper/evidence/final/cargo-clippy.log     |    58 +
+ .../evidence/final/cargo-test-workspace.log        |   243 +
+ .../seca-paper/evidence/final/engine-Cargo.lock    |   718 +
+ .../seca-paper/evidence/final/environment.json     |    12 +
+ .../seca-paper/evidence/final/evidence-sha256.json |   172 +
+ .../evidence/final/integration-review.json         |    33 +
+ .../evidence/final/population-diagnostics.json     |    42 +
+ .../evidence/final/published-comparison.json       |   274 +
+ .../evidence/final/published-comparison.md         |    12 +
+ .../evidence/final/python-clustering.log           |    47 +
+ .../seca-paper/evidence/final/python-datasets.log  |    18 +
+ .../evidence/final/python-evaluation.log           |    30 +
+ .../seca-paper/evidence/final/real-data-smoke.json |   146 +
+ .../evidence/final/repeated-learning-check.json    |    26 +
+ .../seca-paper/evidence/final/strict-context.log   |    24 +
+ .../seca-paper/evidence/final/strict-hkt.log       |    24 +
+ .../seca-paper/evidence/final/validation.json      |    18 +
+ benchmarks/seca-paper/execute.py                   |    83 +
+ benchmarks/seca-paper/real_smoke.py                |    77 +
+ benchmarks/seca-paper/recompute.py                 |    61 +
+ benchmarks/seca-paper/run.py                       |   166 +
+ benchmarks/seca-paper/summarize.py                 |    29 +
+ crates/realtime-seca-cli/src/commands.rs           |     3 +-
+ crates/realtime-seca-cli/src/ingestion.rs          |     9 +-
+ crates/realtime-seca-cli/src/timeline.rs           |    83 +-
+ crates/realtime-seca-cli/tests/csv_workflow.rs     |    42 +-
+ .../realtime-seca-core/examples/benchmark_repro.rs |    96 +
+ .../examples/benchmark_stream.rs                   |   254 -
+ .../examples/capture_behaviour_oracle.rs           |    10 +
+ crates/realtime-seca-core/examples/paper_stream.rs |    72 +
+ .../realtime-seca-core/src/engine/batch_stats.rs   |    55 -
+ crates/realtime-seca-core/src/engine/context.rs    |    35 +-
+ .../realtime-seca-core/src/engine/diagnostics.rs   |    10 +-
+ crates/realtime-seca-core/src/engine/evidence.rs   |     8 +-
+ crates/realtime-seca-core/src/engine/forgetting.rs |     7 +-
+ crates/realtime-seca-core/src/engine/input.rs      |    70 +-
+ crates/realtime-seca-core/src/engine/metrics.rs    |     3 +-
+ crates/realtime-seca-core/src/engine/mod.rs        |     8 +-
+ crates/realtime-seca-core/src/engine/rebuild.rs    |    98 +-
+ .../realtime-seca-core/src/engine/snapshotting.rs  |    14 +-
+ crates/realtime-seca-core/src/engine/sources.rs    |     2 -
+ .../realtime-seca-core/src/engine/tests/context.rs |    62 +-
+ .../realtime-seca-core/src/engine/tests/metrics.rs |     2 +-
+ .../src/engine/tests/reconstruction.rs             |   311 +-
+ .../realtime-seca-core/src/engine/tests/stream.rs  |    32 +-
+ crates/realtime-seca-core/src/engine/trigger.rs    |    83 +-
+ crates/realtime-seca-core/src/engine/validation.rs |    24 +-
+ crates/realtime-seca-core/src/tree/hkt_builder.rs  |   218 +-
+ .../realtime-seca-core/tests/behaviour_oracle.rs   |   110 +
+ .../tests/fixtures/behaviour_oracle/expected.json  | 26002 +++++++++++++++++++
+ .../fixtures/behaviour_oracle/provenance.json      |    18 +
+ .../tests/fixtures/behaviour_oracle/stream.json    |   619 +
+ .../tests/fixtures/behaviour_oracle/validation.md  |    82 +
+ .../fixtures/parity_context_metrics/replay.py      |     3 +-
+ .../parity_hkt_reconstruction/reference.py         |    22 +-
+ .../scientific_context/csharp-source-hashes.json   |    15 +
+ .../expected_history.csharp.json                   |   933 +
+ .../scientific_context/expected_history.input.json |    84 +
+ .../scientific_context/expected_history.rust.json  |   462 +
+ .../expected_trigger.csharp.json                   |   514 +
+ .../scientific_context/expected_trigger.input.json |    54 +
+ .../scientific_context/expected_trigger.rust.json  |   241 +
+ .../scientific_context/historical_beta.csharp.json |   984 +
+ .../scientific_context/historical_beta.input.json  |    81 +
+ .../scientific_context/historical_beta.rust.json   |   518 +
+ .../historical_beta_trigger.csharp.json            |  1078 +
+ .../historical_beta_trigger.input.json             |    81 +
+ .../historical_beta_trigger.rust.json              |   537 +
+ .../fixtures/scientific_context/provenance.json    |    12 +
+ .../tests/fixtures/scientific_context/replay.py    |    32 +
+ .../shared_asymmetric.csharp.stderr.txt            |    16 +
+ .../shared_asymmetric.input.json                   |    95 +
+ .../scientific_context/shared_asymmetric.rust.json |   362 +
+ .../fixtures/scientific_context/shared_sets.json   |    60 +
+ .../tests/parity_context_metrics.rs                |    16 +
+ .../tests/parity_hkt_reconstruction.rs             |     7 +
+ .../tests/scientific_context_contract.rs           |   164 +
+ .../tests/seca_light_invariants.rs                 |    63 +-
+ .../tests/snapshot_validation.rs                   |   247 +
+ .../tests/support/behaviour_oracle.rs              |   250 +
+ docs/algorithm.md                                  |     6 +-
+ docs/architecture-exploration/.gitignore           |     2 -
+ .../architecture_candidates.md                     |   166 -
+ docs/architecture-exploration/comparison.md        |   180 -
+ docs/architecture-exploration/metric_results.json  |   131 -
+ docs/architecture-exploration/prototypes/README.md |    70 -
+ .../prototypes/bitset/README.md                    |    62 -
+ .../prototypes/bitset/seca_bitset.py               |   142 -
+ .../prototypes/bitset/test_bitset.py               |    55 -
+ .../prototypes/direct/README.md                    |    75 -
+ .../prototypes/direct/evaluate.py                  |    27 -
+ .../prototypes/direct/random0_regression.json      |  1321 -
+ .../prototypes/direct/results.json                 |   230 -
+ .../prototypes/direct/seca.py                      |   142 -
+ .../prototypes/direct/test_seca.py                 |    66 -
+ .../prototypes/evaluate.py                         |   130 -
+ .../prototypes/evaluate_metrics.py                 |    30 -
+ .../prototypes/prepare_comparison.py               |    25 -
+ .../prototypes/replay_reference.py                 |    19 -
+ .../prototypes/rust-baseline/Cargo.lock            |   136 -
+ .../prototypes/rust-baseline/Cargo.toml            |    11 -
+ .../prototypes/rust-baseline/src/main.rs           |    68 -
+ docs/architecture-exploration/recommendation.md    |   106 -
+ .../architecture-exploration/reference_replay.json |   107 -
+ docs/architecture-exploration/results.json         |  1045 -
+ .../semantic_specification.md                      |   143 -
+ docs/architecture-exploration/validation.md        |    46 -
+ docs/architecture.md                               |    35 +-
+ docs/audit-2026-10.md                              |   252 +
+ docs/audit-engineering-evidence-2026-10.md         |   140 +
+ docs/behaviour-regression-oracle.md                |   116 +
+ docs/benchmark-reproduction.md                     |   402 +
+ docs/cli-ingestion.md                              |    37 +
+ docs/consolidation-main.md                         |    72 +
+ docs/integration-seca-correctness.md               |   267 +
+ docs/parity-context-metrics.md                     |    45 +-
+ docs/parity-executable-provenance.json             |   219 +
+ docs/parity-executable-summary.md                  |   252 +
+ docs/parity-hkt-reconstruction.md                  |    25 +-
+ docs/parity-reference-harness.md                   |   147 +
+ docs/performance.md                                |     5 +
+ docs/research-context-semantics.md                 |   270 +
+ docs/scientific-decision-proposals.md              |   466 +
+ docs/scientific-decisions-pending.md               |    54 +
+ docs/seca-benchmark-datasets.md                    |   258 +
+ docs/seca-benchmark-evaluation.md                  |   215 +
+ docs/seca-clustering-evaluation.md                 |   139 +
+ docs/seca-paper-benchmark.md                       |   322 +
+ docs/seca-simplification-audit.md                  |   555 +
+ docs/secalight-simplification-performance.csv      |   721 +
+ docs/secalight-simplification-performance.json     |   384 +
+ docs/secalight-simplification-results.md           |   228 +
+ docs/state.md                                      |    23 +-
+ rust-toolchain.toml                                |     3 +
+ 344 files changed, 58916 insertions(+), 5498 deletions(-)

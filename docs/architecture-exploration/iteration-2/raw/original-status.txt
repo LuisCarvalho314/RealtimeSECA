@@ -1,0 +1,11 @@
+ M crates/realtime-seca-core/src/engine/validation.rs
+ M crates/realtime-seca-core/tests/seca_light_invariants.rs
+ M docs/algorithm.md
+ M docs/architecture.md
+ M docs/state.md
+?? .worktrees/
+?? crates/realtime-seca-core/tests/fixtures/scientific_context/
+?? crates/realtime-seca-core/tests/scientific_context_contract.rs
+?? docs/research-context-semantics.md
+?? references/
+?? tools/

@@ -1,0 +1,197 @@
+diff --git a/crates/realtime-seca-core/src/engine/validation.rs b/crates/realtime-seca-core/src/engine/validation.rs
+index b9424f7..fde3111 100644
+--- a/crates/realtime-seca-core/src/engine/validation.rs
++++ b/crates/realtime-seca-core/src/engine/validation.rs
+@@ -6,6 +6,22 @@ impl SecaEngine {
+         let invalid = || SecaError::StateError {
+             message: "inconsistent model state".into(),
+         };
++        self.validate_restored_topology()?;
++        self.validate_retained_evidence()?;
++        let tokens: BTreeSet<_> = self.baseline_word_legend.values().collect();
++        if tokens.len() != self.baseline_word_legend.len()
++            || self.baseline_word_legend.keys().any(|id| *id <= 0)
++        {
++            return Err(invalid());
++        }
++        Ok(())
++    }
++
++    fn validate_restored_topology(&self) -> Result<(), SecaError> {
++        let invalid = || SecaError::StateError {
++            message: "inconsistent model topology".into(),
++        };
++        let known_word = |w: &i32| *w == -1 || self.baseline_word_legend.contains_key(w);
+         let tree = self.hkt_build_output.as_ref().ok_or_else(invalid)?;
+         let roots: Vec<_> = tree
+             .hkts_by_id
+@@ -23,7 +39,7 @@ impl SecaEngine {
+                 return Err(invalid());
+             }
+             let hkt = tree.hkts_by_id.get(&id).ok_or_else(invalid)?;
+-            if hkt.hkt_id != id {
++            if hkt.hkt_id != id || !hkt.expected_words.iter().all(known_word) {
+                 return Err(invalid());
+             }
+             for node in &hkt.nodes {
+@@ -34,10 +50,8 @@ impl SecaEngine {
+                         .source_ids
+                         .iter()
+                         .any(|s| !self.baseline_source_legend.contains_key(s))
+-                    || node
+-                        .word_ids
+-                        .iter()
+-                        .any(|w| *w != -1 && !self.baseline_word_legend.contains_key(w))
++                    || !node.word_ids.iter().chain(&node.top_words).all(known_word)
++                    || !node.word_source_ids.keys().all(known_word)
+                     || node
+                         .word_source_ids
+                         .values()
+@@ -62,15 +76,37 @@ impl SecaEngine {
+         {
+             return Err(invalid());
+         }
++        Ok(())
++    }
++
++    fn validate_retained_evidence(&self) -> Result<(), SecaError> {
++        let invalid = || SecaError::StateError {
++            message: "inconsistent retained evidence".into(),
++        };
++        let current = self.last_processed_batch_index.ok_or_else(invalid)?;
++        let window_start = if self.config.memory_mode == crate::config::MemoryMode::SlidingWindow {
++            current.saturating_sub(self.config.max_batches_in_memory.ok_or_else(invalid)? - 1)
++        } else {
++            0
++        };
++        let mut previous = None;
+         let mut batches = BTreeMap::<u32, BTreeSet<i64>>::new();
+         let mut source_ids = BTreeSet::new();
+         for batch in &self.processed_batches {
++            if batch.batch_index < window_start
++                || batch.batch_index > current
++                || previous.is_some_and(|index| batch.batch_index <= index)
++            {
++                return Err(invalid());
++            }
++            previous = Some(batch.batch_index);
+             for source in &batch.sources {
+                 let id = self
+                     .source_id_by_url
+                     .get(&source.source_id)
+                     .ok_or_else(invalid)?;
+-                if source.batch_index != batch.batch_index
++                if source.source_id.is_empty()
++                    || source.batch_index != batch.batch_index
+                     || !source_ids.insert(*id)
+                     || self.baseline_source_legend.get(id) != Some(&source.source_id)
+                 {
+@@ -87,12 +123,6 @@ impl SecaEngine {
+         {
+             return Err(invalid());
+         }
+-        let tokens: BTreeSet<_> = self.baseline_word_legend.values().collect();
+-        if tokens.len() != self.baseline_word_legend.len()
+-            || self.baseline_word_legend.keys().any(|id| *id <= 0)
+-        {
+-            return Err(invalid());
+-        }
+         Ok(())
+     }
+ }
+diff --git a/crates/realtime-seca-core/tests/seca_light_invariants.rs b/crates/realtime-seca-core/tests/seca_light_invariants.rs
+index 64e1661..a1f4637 100644
+--- a/crates/realtime-seca-core/tests/seca_light_invariants.rs
++++ b/crates/realtime-seca-core/tests/seca_light_invariants.rs
+@@ -1,4 +1,4 @@
+-//! Persistence-boundary regressions; intentionally retain failing validation tests.
++//! Persistence-boundary regressions, including corrupt snapshot rejection.
+ use realtime_seca_core::{MemoryMode, SecaConfig, SecaEngine, SourceBatch, SourceRecord};
+ use serde_json::{json, Value};
+ use std::collections::{BTreeMap, BTreeSet};
+@@ -428,3 +428,21 @@ fn failed_initialization_overwrite_and_invalid_identity_leave_complete_state_unc
+     );
+     assert_invariants(&e, 3);
+ }
++
++rejection!(snapshot_rejects_duplicate_retained_batch, |s| {
++    let batch = s["state"]["processed_batches"][0].clone();
++    s["state"]["processed_batches"]
++        .as_array_mut()
++        .unwrap()
++        .insert(0, batch);
++});
++rejection!(snapshot_rejects_empty_retained_identity, |s| {
++    let id = s["state"]["source_id_by_url"]["original"].clone();
++    s["state"]["source_id_by_url"]
++        .as_object_mut()
++        .unwrap()
++        .remove("original");
++    s["state"]["source_id_by_url"][""] = id.clone();
++    s["state"]["baseline_source_legend"][id.as_i64().unwrap().to_string()] = json!("");
++    s["state"]["processed_batches"][0]["sources"][0]["source_id"] = json!("");
++});
+diff --git a/docs/algorithm.md b/docs/algorithm.md
+index 161d937..3f636a5 100644
+--- a/docs/algorithm.md
++++ b/docs/algorithm.md
+@@ -88,3 +88,13 @@ Construction tie ordering, refuge recursion, and ancestor exclusion retain the
+ existing builder behavior. Independent reproduction of the referenced CA
+ construction algorithm and published case study remains scientific validation
+ work. No alternative error metrics or full-rebuild fallback are supported.
++
++The integrated parity audits distinguish old-main defects from the canonical
++implementation and source correspondence from executed cross-language parity:
++[context and metrics](parity-context-metrics.md),
++[construction and reconstruction](parity-hkt-reconstruction.md). They provide no
++new evidence resolving the ambiguities above. Candidate beta uses the updated
++node union, deliberately differing from C#'s prominent-word source denominator.
++The builder's branch minimum is an exclusive cutoff (`source count > minimum`),
++whereas C# uses an inclusive cutoff; this existing choice remains unresolved
++against the original CA construction reference.
+diff --git a/docs/architecture.md b/docs/architecture.md
+index 6c1c1ea..85861b6 100644
+--- a/docs/architecture.md
++++ b/docs/architecture.md
+@@ -73,7 +73,9 @@ Forgetting edits memberships and source indexes together, retaining learned topo
+ 
+ `hkts_by_id` owns ordered nodes; `nodes_by_id` mirrors nodes for parent lookup.
+ Context, reconstruction, and forgetting synchronize both representations within
+-one candidate transaction. Restoration validates their equality. This explicit
++one candidate transaction. Restoration validates their equality. Restore checks in `validation.rs` are
++separated into topology and retained-evidence checks so the persistence boundary
++also validates every vocabulary reference and the configured retention window. This explicit
+ cache remains because parent-scope lookup and ancestor propagation consume it.
+ 
+ ## Infrastructure and persistence
+diff --git a/docs/state.md b/docs/state.md
+index c5cb3e3..ae07513 100644
+--- a/docs/state.md
++++ b/docs/state.md
+@@ -84,6 +84,10 @@ and engine version. Restoration rejects unsupported schema/version, absent state
+ or inconsistent envelope metadata. It validates topology reachability, mirrored
+ nodes, source memberships, identity/provenance agreement, vocabulary uniqueness,
+ and allocator bounds. Configuration changes require explicit replay.
++Expected words, node top words, and word-membership keys must also resolve in the
++vocabulary (with `-1` allowed as the refuge marker). Retained batches are strictly
++increasing, cannot lie in the future, and in SlidingWindow mode cannot precede
++the gamma cutoff. Retained external identities must be nonempty.
+ Earlier snapshots and removed configuration selectors are rejected rather than
+ silently selecting different semantics.
+ 
+@@ -92,3 +96,15 @@ A tree export is insufficient: it omits tokens and internal continuation state.
+ Filesystem atomicity belongs to the CLI; concurrent writers require application
+ coordination. A crash may leave an uncommitted tree export, but the old model file
+ remains usable until the state rename succeeds.
++
++## CSV application identities
++
++CLI conversion trims nonempty URLs and prefixes them with `url:`. URL-less rows
++receive `csv-row:<conversion UUID>:<batch index>:<row number>`, so independently
++converted files cannot share fallback identities. The saved SourceBatch JSON is
++the replay artifact: reconverting CSV creates fresh URL-less identities and does
++not deduplicate the same anonymous article across conversions. URL identity does
++not canonicalize URL aliases or track lifetime duplicates after gamma expiration.
++CSV timestamps accept RFC3339 or space-separated dates with explicit numeric
++UTC offsets; malformed and timezone-free values remain unset. These are ingestion
++contracts, not algorithmic time or forgetting rules.

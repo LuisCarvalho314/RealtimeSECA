@@ -1,0 +1,926 @@
+[
+  {
+    "case": "container-validation-3d",
+    "source_count": [
+      2,
+      8
+    ],
+    "exact_state_equal": true,
+    "baseline": {
+      "seconds": 0.000419063,
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        0.000101891
+      ],
+      "updates": [
+        {
+          "ok": true,
+          "report": {
+            "active_source_count": 8,
+            "batch_index": 1,
+            "decision_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 6,
+                "output_hkt_id": 1,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "scoped_source_count": 6,
+                "should_reconstruct": false,
+                "trigger_reasons": []
+              }
+            ],
+            "display_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 8,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "unavailable_reason": null
+              }
+            ],
+            "hkts_inspected": 1,
+            "notes": [],
+            "reconstructed_hkt_ids": [],
+            "reconstruction_triggered": false,
+            "sources_forgotten": 0,
+            "sources_processed": 6
+          }
+        }
+      ]
+    },
+    "candidate": {
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        3.3172e-05
+      ],
+      "updates": [
+        {
+          "decisions": [
+            {
+              "hkt_id": 1,
+              "paper_alpha_error": 0.0,
+              "paper_beta_error": 0.0,
+              "paper_word_importance_error": 0.0,
+              "should_reconstruct": false
+            }
+          ],
+          "ok": true,
+          "replacements": {}
+        }
+      ]
+    }
+  },
+  {
+    "case": "container-validation-7d",
+    "source_count": [
+      2,
+      8
+    ],
+    "exact_state_equal": true,
+    "baseline": {
+      "seconds": 0.000357829,
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        9.4897e-05
+      ],
+      "updates": [
+        {
+          "ok": true,
+          "report": {
+            "active_source_count": 8,
+            "batch_index": 1,
+            "decision_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 6,
+                "output_hkt_id": 1,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "scoped_source_count": 6,
+                "should_reconstruct": false,
+                "trigger_reasons": []
+              }
+            ],
+            "display_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 8,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "unavailable_reason": null
+              }
+            ],
+            "hkts_inspected": 1,
+            "notes": [],
+            "reconstructed_hkt_ids": [],
+            "reconstruction_triggered": false,
+            "sources_forgotten": 0,
+            "sources_processed": 6
+          }
+        }
+      ]
+    },
+    "candidate": {
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        2.149e-05
+      ],
+      "updates": [
+        {
+          "decisions": [
+            {
+              "hkt_id": 1,
+              "paper_alpha_error": 0.0,
+              "paper_beta_error": 0.0,
+              "paper_word_importance_error": 0.0,
+              "should_reconstruct": false
+            }
+          ],
+          "ok": true,
+          "replacements": {}
+        }
+      ]
+    }
+  },
+  {
+    "case": "container-validation-30d",
+    "source_count": [
+      2,
+      8
+    ],
+    "exact_state_equal": true,
+    "baseline": {
+      "seconds": 0.000363921,
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        9.1271e-05
+      ],
+      "updates": [
+        {
+          "ok": true,
+          "report": {
+            "active_source_count": 8,
+            "batch_index": 1,
+            "decision_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 6,
+                "output_hkt_id": 1,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "scoped_source_count": 6,
+                "should_reconstruct": false,
+                "trigger_reasons": []
+              }
+            ],
+            "display_diagnostics": [
+              {
+                "hkt_id": 1,
+                "mapped_source_count": 8,
+                "paper_alpha_error": 0.0,
+                "paper_beta_error": 0.0,
+                "paper_word_importance_error": 0.0,
+                "unavailable_reason": null
+              }
+            ],
+            "hkts_inspected": 1,
+            "notes": [],
+            "reconstructed_hkt_ids": [],
+            "reconstruction_triggered": false,
+            "sources_forgotten": 0,
+            "sources_processed": 6
+          }
+        }
+      ]
+    },
+    "candidate": {
+      "states": [
+        {
+          "expected_words": [
+            2,
+            4,
+            5
+          ],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2
+                ],
+                "2": [
+                  1,
+                  2
+                ],
+                "4": [
+                  1,
+                  2
+                ],
+                "5": [
+                  1,
+                  2
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        },
+        {
+          "expected_words": [],
+          "hkt_id": 1,
+          "nodes": [
+            {
+              "child": null,
+              "hkt_id": 1,
+              "node_id": 1,
+              "sources": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "top_words": [],
+              "word_sources": {
+                "1": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "2": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "4": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "5": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "words": [
+                1,
+                2,
+                4,
+                5
+              ]
+            }
+          ],
+          "parent_node_id": 0
+        }
+      ],
+      "update_seconds": [
+        2.1621e-05
+      ],
+      "updates": [
+        {
+          "decisions": [
+            {
+              "hkt_id": 1,
+              "paper_alpha_error": 0.0,
+              "paper_beta_error": 0.0,
+              "paper_word_importance_error": 0.0,
+              "should_reconstruct": false
+            }
+          ],
+          "ok": true,
+          "replacements": {}
+        }
+      ]
+    }
+  }
+]

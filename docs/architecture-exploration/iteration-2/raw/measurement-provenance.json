@@ -1,0 +1,73 @@
+{
+  "production_commit": "e0ca91eb62e1e5843ddb47d98ec71a388a67f6d5",
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)\nbinary: rustc\ncommit-hash: ded5c06cf21d2b93bffd5d884aa6e96934ee4234\ncommit-date: 2025-12-08\nhost: x86_64-unknown-linux-gnu\nrelease: 1.92.0\nLLVM version: 21.1.3\n",
+  "platform": "Linux-5.15.0-1089-azure-x86_64-with-glibc2.31",
+  "release_settings": "Cargo default release opt-level3; no LTO, no CPU pinning, no target-cpu override; all adapter and candidate serde versions match workspace lock",
+  "counts": {
+    "candidate": {
+      "total": 954,
+      "files": {
+        "docs/architecture-exploration/iteration-2/rust-candidates/src/evolution.rs": 391,
+        "docs/architecture-exploration/iteration-2/rust-candidates/src/lib.rs": 290,
+        "docs/architecture-exploration/iteration-2/rust-candidates/src/main.rs": 27,
+        "docs/architecture-exploration/iteration-2/rust-candidates/src/evolution/context.rs": 246
+      }
+    },
+    "adapter": {
+      "total": 341,
+      "files": {
+        "docs/architecture-exploration/iteration-2/evaluation-baseline/src/stream.rs": 133,
+        "docs/architecture-exploration/iteration-2/evaluation-baseline/src/allocation.rs": 48,
+        "docs/architecture-exploration/iteration-2/evaluation-baseline/src/main.rs": 87,
+        "docs/architecture-exploration/iteration-2/evaluation-baseline/src/bin/candidate_stream.rs": 26,
+        "docs/architecture-exploration/iteration-2/evaluation-baseline/src/bin/probe.rs": 47
+      }
+    },
+    "production": {
+      "total": 3253,
+      "files": {
+        "crates/realtime-seca-core/src/config.rs": 72,
+        "crates/realtime-seca-core/src/lib.rs": 17,
+        "crates/realtime-seca-core/src/error.rs": 13,
+        "crates/realtime-seca-core/src/types.rs": 169,
+        "crates/realtime-seca-core/src/engine/scope_mapping.rs": 182,
+        "crates/realtime-seca-core/src/engine/forgetting.rs": 82,
+        "crates/realtime-seca-core/src/engine/trigger.rs": 246,
+        "crates/realtime-seca-core/src/engine/baseline.rs": 179,
+        "crates/realtime-seca-core/src/engine/mod.rs": 174,
+        "crates/realtime-seca-core/src/engine/evidence.rs": 138,
+        "crates/realtime-seca-core/src/engine/rebuild.rs": 325,
+        "crates/realtime-seca-core/src/engine/snapshotting.rs": 186,
+        "crates/realtime-seca-core/src/engine/sources.rs": 61,
+        "crates/realtime-seca-core/src/engine/validation.rs": 118,
+        "crates/realtime-seca-core/src/engine/context.rs": 327,
+        "crates/realtime-seca-core/src/engine/diagnostics.rs": 168,
+        "crates/realtime-seca-core/src/engine/metrics.rs": 146,
+        "crates/realtime-seca-core/src/engine/input.rs": 127,
+        "crates/realtime-seca-core/src/engine/tests.rs": 10,
+        "crates/realtime-seca-core/src/tree/mod.rs": 5,
+        "crates/realtime-seca-core/src/tree/models.rs": 72,
+        "crates/realtime-seca-core/src/tree/hkt_builder.rs": 436
+      }
+    }
+  },
+  "source_sha256": {
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/src/stream.rs": "bdfa4d4b0d5a5571b8b757ee7cafc42cfe854951447db6c59c22abc73ed56949",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/src/allocation.rs": "ff90f995bba19b8f2f3aa1bcf4d348d0c938bc0e8e19413f54a67cf862a76af8",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/src/main.rs": "1cb5971c2fd1d0cb792ff28f95b6d1a67d42358402b60b365a06bf0a7fead586",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/src/bin/candidate_stream.rs": "501dc5328315437dec9af6149812fa5cd322cf68f62b90a0ce5f8fa4a303d3c9",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/src/bin/probe.rs": "51f12707d1bf9024df1a3a43a911e444fbe8bcd4fd9fbf6882acd9db626f0318",
+    "docs/architecture-exploration/iteration-2/rust-candidates/tests/evolution.rs": "ded5f45d75983fa542f25d4853089bf2e0c69c962cf89103bfae182d017d0995",
+    "docs/architecture-exploration/iteration-2/rust-candidates/src/evolution.rs": "eb2069a51fa786de4aa2212a966006a9479a77eb5f3334777d16b42d8c35aba7",
+    "docs/architecture-exploration/iteration-2/rust-candidates/src/lib.rs": "51fa7ffdbe227bd373f37943ec408ed5421bbaf11e19ea8159397ee17fc5711f",
+    "docs/architecture-exploration/iteration-2/rust-candidates/src/main.rs": "0cdbc0ec1a71fe2c00331cd68bbf0cbf0603c695eeae4525ee6ccb3c366a9313",
+    "docs/architecture-exploration/iteration-2/rust-candidates/src/evolution/context.rs": "8b8dd521468f9b6f1a8e9cbbe9dd2cc46586143390fa926d8260d7e6f0ebfd93"
+  },
+  "input_fixture_sha256": "55d677e7787e3988e462f65a49d3b64e243b0f7a366dfc30adfb87eec6b1e763",
+  "binary_sha256": {
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/target/release/seca-exploration-baseline": "d9af6149524b546ddcc0b9dfae9d1dc395850be13d0f6e0ac1ff908528f1e0b6",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/target/release/probe": "385343b5ba01f0323809ad1746b113692f37189a7934eec5d843bc4cf044614e",
+    "docs/architecture-exploration/iteration-2/evaluation-baseline/target/release/candidate_stream": "ee6d44c8cf612ec65f3b1fab2627070452f76f2705a1e6049d949c68545347d2",
+    "docs/architecture-exploration/iteration-2/rust-candidates/target/release/seca-research-candidates": "8073449f38ceb0a2da7d488cf0eb9a23a8e238c0f5f2151a5a024287d8217b77"
+  }
+}

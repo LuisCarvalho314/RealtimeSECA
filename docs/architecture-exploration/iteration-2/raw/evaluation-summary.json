@@ -1,0 +1,15 @@
+{
+  "construction_cases": 343,
+  "construction_exact_full_passed": 343,
+  "construction_measured_workloads": 7,
+  "evolution_sequences": 110,
+  "attempted_updates": 426,
+  "scope_decisions": 823,
+  "evolution_all_exact": true,
+  "archived_container_sequences": 3,
+  "timed_trials_per_implementation": 5,
+  "candidate_unit_tests": 5,
+  "candidate_independent_lifecycle_tests": 12,
+  "evaluator_fmt_exit": 0,
+  "evaluator_clippy_exit": 0
+}

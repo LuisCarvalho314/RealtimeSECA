@@ -1,0 +1,156 @@
+[
+  {
+    "workload": "archived-news-25",
+    "input_sha256": "6654803ab487eed1e8f2f8bbfde6768060a4ed17b43e2bd0765e828dee960e5b",
+    "production": {
+      "allocations": 1149,
+      "peak_additional_live_bytes": 232992,
+      "requested_bytes": 457564,
+      "peak_rss_kib": 2968
+    },
+    "sets": {
+      "allocations": 2930,
+      "peak_additional_live_bytes": 376008,
+      "requested_bytes": 561840,
+      "peak_rss_kib": 3084
+    },
+    "masks": {
+      "allocations": 4020,
+      "peak_additional_live_bytes": 413904,
+      "requested_bytes": 711848,
+      "peak_rss_kib": 3300
+    }
+  },
+  {
+    "workload": "archived-news-100",
+    "input_sha256": "e3adff767c08551a657d87a19f56730ff35d4847e047fff9ab389ded666ae713",
+    "production": {
+      "allocations": 7783,
+      "peak_additional_live_bytes": 792088,
+      "requested_bytes": 4054252,
+      "peak_rss_kib": 4364
+    },
+    "sets": {
+      "allocations": 23778,
+      "peak_additional_live_bytes": 1508960,
+      "requested_bytes": 4176704,
+      "peak_rss_kib": 4600
+    },
+    "masks": {
+      "allocations": 30935,
+      "peak_additional_live_bytes": 1672968,
+      "requested_bytes": 5235312,
+      "peak_rss_kib": 4648
+    }
+  },
+  {
+    "workload": "archived-news-250",
+    "input_sha256": "09c2ba527179c45480b105a2840faf48dd241238c55dd4510b53eb62c3c58e8b",
+    "production": {
+      "allocations": 18076,
+      "peak_additional_live_bytes": 1658720,
+      "requested_bytes": 10001512,
+      "peak_rss_kib": 7520
+    },
+    "sets": {
+      "allocations": 57343,
+      "peak_additional_live_bytes": 3037312,
+      "requested_bytes": 9955184,
+      "peak_rss_kib": 7528
+    },
+    "masks": {
+      "allocations": 74097,
+      "peak_additional_live_bytes": 3437344,
+      "requested_bytes": 12504048,
+      "peak_rss_kib": 7712
+    }
+  },
+  {
+    "workload": "controlled-100-40-0.1-100",
+    "input_sha256": "6e7c22cca1bed9e2a2bee06b74e89c4ae8b78c02f990fa643517d8bc427a2072",
+    "production": {
+      "allocations": 402,
+      "peak_additional_live_bytes": 73664,
+      "requested_bytes": 132384,
+      "peak_rss_kib": 2696
+    },
+    "sets": {
+      "allocations": 292,
+      "peak_additional_live_bytes": 49128,
+      "requested_bytes": 62984,
+      "peak_rss_kib": 2896
+    },
+    "masks": {
+      "allocations": 383,
+      "peak_additional_live_bytes": 52056,
+      "requested_bytes": 79600,
+      "peak_rss_kib": 2752
+    }
+  },
+  {
+    "workload": "controlled-1000-40-0.1-1000",
+    "input_sha256": "c5fae1cb3f36e4c42239033cb6f14ffd3772f20111b3890b96a7b9f84389d1e0",
+    "production": {
+      "allocations": 4161,
+      "peak_additional_live_bytes": 717104,
+      "requested_bytes": 1270864,
+      "peak_rss_kib": 5324
+    },
+    "sets": {
+      "allocations": 2968,
+      "peak_additional_live_bytes": 496520,
+      "requested_bytes": 659232,
+      "peak_rss_kib": 5332
+    },
+    "masks": {
+      "allocations": 3249,
+      "peak_additional_live_bytes": 509608,
+      "requested_bytes": 863536,
+      "peak_rss_kib": 5384
+    }
+  },
+  {
+    "workload": "controlled-1000-8-0.5-20",
+    "input_sha256": "0844e35cabf30a6a16de5cb11175e92536a2e5ad49267e98957397933e395fd6",
+    "production": {
+      "allocations": 50809,
+      "peak_additional_live_bytes": 4234696,
+      "requested_bytes": 20268788,
+      "peak_rss_kib": 6904
+    },
+    "sets": {
+      "allocations": 34979,
+      "peak_additional_live_bytes": 1893600,
+      "requested_bytes": 8552264,
+      "peak_rss_kib": 5220
+    },
+    "masks": {
+      "allocations": 42860,
+      "peak_additional_live_bytes": 1898600,
+      "requested_bytes": 11478056,
+      "peak_rss_kib": 5436
+    }
+  },
+  {
+    "workload": "controlled-100-8-0.5-4",
+    "input_sha256": "3a5b29de67a6ec8563fdb6b082e84f0f6ca4c95df7fe2ff2292fdc379fbad542",
+    "production": {
+      "allocations": 2998,
+      "peak_additional_live_bytes": 307808,
+      "requested_bytes": 862396,
+      "peak_rss_kib": 2984
+    },
+    "sets": {
+      "allocations": 2634,
+      "peak_additional_live_bytes": 160104,
+      "requested_bytes": 413344,
+      "peak_rss_kib": 2924
+    },
+    "masks": {
+      "allocations": 3405,
+      "peak_additional_live_bytes": 162000,
+      "requested_bytes": 542864,
+      "peak_rss_kib": 2724
+    }
+  }
+]

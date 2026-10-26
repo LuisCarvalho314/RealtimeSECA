@@ -1,0 +1,569 @@
+[
+  {
+    "name": "container-validation-3d",
+    "input": {
+      "construction": {
+        "records": [
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 2
+          },
+          {
+            "source": 1,
+            "word": 3
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 4
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 5
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 2
+          },
+          {
+            "source": 2,
+            "word": 6
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 4
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 5
+          }
+        ],
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "initial_index": 0,
+      "gamma": 3,
+      "alpha_error_threshold": 1.0,
+      "beta_error_threshold": 1.0,
+      "importance_error_threshold": 1.0,
+      "batches": [
+        {
+          "index": 1,
+          "sources": [
+            {
+              "id": 1,
+              "words": [
+                1,
+                2,
+                7,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 2,
+              "words": [
+                1,
+                2,
+                8,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 3,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 4,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 5,
+              "words": [
+                1,
+                2,
+                10,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 6,
+              "words": [
+                1,
+                2,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 7,
+              "words": [
+                1,
+                2,
+                11,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 8,
+              "words": [
+                1,
+                2,
+                12,
+                1,
+                4,
+                1,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "provenance": [
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_3d_2026-01-14_batch.json",
+        "sha256": "c6e6c102f62add557ad41094f1d66902aebff0c635b2a078e3a85d4ca757099e"
+      },
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_3d_2026-01-15_batch.json",
+        "sha256": "c3649aba035d93e3a6351f91164615c94a1d3ed971ea63ec229e0e1041ecc050"
+      }
+    ],
+    "source_count": [
+      2,
+      8
+    ]
+  },
+  {
+    "name": "container-validation-7d",
+    "input": {
+      "construction": {
+        "records": [
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 2
+          },
+          {
+            "source": 1,
+            "word": 3
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 4
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 5
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 2
+          },
+          {
+            "source": 2,
+            "word": 6
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 4
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 5
+          }
+        ],
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "initial_index": 0,
+      "gamma": 7,
+      "alpha_error_threshold": 1.0,
+      "beta_error_threshold": 1.0,
+      "importance_error_threshold": 1.0,
+      "batches": [
+        {
+          "index": 1,
+          "sources": [
+            {
+              "id": 1,
+              "words": [
+                1,
+                2,
+                7,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 2,
+              "words": [
+                1,
+                2,
+                8,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 3,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 4,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 5,
+              "words": [
+                1,
+                2,
+                10,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 6,
+              "words": [
+                1,
+                2,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 7,
+              "words": [
+                1,
+                2,
+                11,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 8,
+              "words": [
+                1,
+                2,
+                12,
+                1,
+                4,
+                1,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "provenance": [
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_7d_2026-01-14_batch.json",
+        "sha256": "c6e6c102f62add557ad41094f1d66902aebff0c635b2a078e3a85d4ca757099e"
+      },
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_7d_2026-01-15_batch.json",
+        "sha256": "c3649aba035d93e3a6351f91164615c94a1d3ed971ea63ec229e0e1041ecc050"
+      }
+    ],
+    "source_count": [
+      2,
+      8
+    ]
+  },
+  {
+    "name": "container-validation-30d",
+    "input": {
+      "construction": {
+        "records": [
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 2
+          },
+          {
+            "source": 1,
+            "word": 3
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 4
+          },
+          {
+            "source": 1,
+            "word": 1
+          },
+          {
+            "source": 1,
+            "word": 5
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 2
+          },
+          {
+            "source": 2,
+            "word": 6
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 4
+          },
+          {
+            "source": 2,
+            "word": 1
+          },
+          {
+            "source": 2,
+            "word": 5
+          }
+        ],
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "initial_index": 0,
+      "gamma": 30,
+      "alpha_error_threshold": 1.0,
+      "beta_error_threshold": 1.0,
+      "importance_error_threshold": 1.0,
+      "batches": [
+        {
+          "index": 1,
+          "sources": [
+            {
+              "id": 1,
+              "words": [
+                1,
+                2,
+                7,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 2,
+              "words": [
+                1,
+                2,
+                8,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 3,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 4,
+              "words": [
+                1,
+                2,
+                9,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 5,
+              "words": [
+                1,
+                2,
+                10,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 6,
+              "words": [
+                1,
+                2,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 7,
+              "words": [
+                1,
+                2,
+                11,
+                1,
+                4,
+                1,
+                5
+              ]
+            },
+            {
+              "id": 8,
+              "words": [
+                1,
+                2,
+                12,
+                1,
+                4,
+                1,
+                5
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "provenance": [
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_30d_2026-01-14_batch.json",
+        "sha256": "c6e6c102f62add557ad41094f1d66902aebff0c635b2a078e3a85d4ca757099e"
+      },
+      {
+        "path": "/home/azureuser/risklive-dev/.container-test/seca-validation/data/runtime/seca/relevant_news_data_30d_2026-01-15_batch.json",
+        "sha256": "c3649aba035d93e3a6351f91164615c94a1d3ed971ea63ec229e0e1041ecc050"
+      }
+    ],
+    "source_count": [
+      2,
+      8
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "production_commit": "e0ca91eb62e1e5843ddb47d98ec71a388a67f6d5",
+  "research_commit": "dffae7b88a7218ab778056c13e42b97bc9c5facb",
+  "baseline_production_sources_unchanged": true,
+  "original_tracked_working_patch_unchanged": true,
+  "original_patch_sha256": "1d016a5628d9d80e0e082ebb2753d67a1510c031fdb82cc807c43bf1f1b25ca3",
+  "deliverables": [
+    "baseline.md",
+    "scientific_equivalence.md",
+    "rust_architectures.md",
+    "evolution_validation.md",
+    "benchmark_results.md",
+    "recommendation.md"
+  ],
+  "production_tests": {
+    "passed": 191,
+    "failed": 0,
+    "ignored": 2
+  },
+  "candidate_tests": {
+    "construction_unit": 5,
+    "independent_lifecycle": 12
+  },
+  "equation_checks": 14,
+  "all_format_and_clippy_checks_passed": true,
+  "experimental_snapshot_is_production_compatible": false
+}

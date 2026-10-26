@@ -1,0 +1,498 @@
+diff --git a/crates/realtime-seca-core/src/engine/context.rs b/crates/realtime-seca-core/src/engine/context.rs
+index 20a7206..93589e9 100644
+--- a/crates/realtime-seca-core/src/engine/context.rs
++++ b/crates/realtime-seca-core/src/engine/context.rs
+@@ -74,13 +74,7 @@ impl SecaEngine {
+             })?;
+ 
+         for node in &mut hkt.nodes {
+-            let pending_word_sources: Vec<(i32, BTreeSet<i64>)> = node
+-                .word_source_ids_new_from_batches
+-                .iter()
+-                .map(|(word_id, sources)| (*word_id, sources.clone()))
+-                .collect();
+-
+-            for (word_id, sources) in pending_word_sources {
++            for (word_id, sources) in std::mem::take(&mut node.word_source_ids_new_from_batches) {
+                 node.word_source_ids
+                     .entry(word_id)
+                     .or_default()
+@@ -88,10 +82,7 @@ impl SecaEngine {
+             }
+ 
+             node.source_ids
+-                .extend(node.source_ids_new_from_batches.iter().copied());
+-
+-            node.source_ids_new_from_batches.clear();
+-            node.word_source_ids_new_from_batches.clear();
++                .append(&mut node.source_ids_new_from_batches);
+ 
+             if let Some(global_node) = hkt_build_output.nodes_by_id.get_mut(&node.node_id) {
+                 *global_node = node.clone();
+@@ -143,11 +134,10 @@ impl SecaEngine {
+                 }
+             }
+         }
+-        current_words_in_hkt.extend(ancestor.ancestor_accepted_words.keys().copied());
+ 
+         let state0_prominent_count = prior_df
+             .iter()
+-            .filter(|(word, _)| !ancestor.ancestor_words.contains_key(word))
++            .filter(|(word, _)| !ancestor.contains(word))
+             .map(|(word, old)| {
+                 let added = self
+                     .baseline_word_legend
+@@ -164,7 +154,7 @@ impl SecaEngine {
+                     .filter(|(token, _)| {
+                         token_to_word_id
+                             .get(*token)
+-                            .is_none_or(|word| !ancestor.ancestor_words.contains_key(word))
++                            .is_none_or(|word| !ancestor.contains(word))
+                     })
+                     .map(|(_, count)| *count),
+             )
+@@ -189,21 +179,8 @@ impl SecaEngine {
+             }
+         }
+ 
+-        if !ancestor.ancestor_rejected_words.is_empty() {
+-            for (rejected_word_id, (state0_count, state1_count)) in
+-                &ancestor.ancestor_rejected_words
+-            {
+-                let ratio =
+-                    (*state0_count + *state1_count) as f64 / (state0_prominent_count as f64);
+-                if ratio >= alpha_threshold {
+-                    updated_expected_word_ids.insert(*rejected_word_id);
+-                }
+-            }
+-        }
+-
+-        updated_expected_word_ids.retain(|word| {
+-            !current_words_in_hkt.contains(word) && !ancestor.ancestor_words.contains_key(word)
+-        });
++        updated_expected_word_ids
++            .retain(|word| !current_words_in_hkt.contains(word) && !ancestor.contains(word));
+ 
+         HktUpdateStage {
+             updated_expected_word_ids,
+diff --git a/crates/realtime-seca-core/src/engine/metrics.rs b/crates/realtime-seca-core/src/engine/metrics.rs
+index 5c6b5aa..6726a82 100644
+--- a/crates/realtime-seca-core/src/engine/metrics.rs
++++ b/crates/realtime-seca-core/src/engine/metrics.rs
+@@ -67,13 +67,12 @@ impl SecaEngine {
+                 members.extend(added);
+             }
+             for word in node_words {
+-                let prior = scope
++                let mut updated = scope
+                     .node_word_source_ids_by_node_id
+                     .get(node)
+                     .and_then(|by_word| by_word.get(&word))
+                     .cloned()
+                     .unwrap_or_default();
+-                let mut updated = prior.clone();
+                 if let Some(added) = stage
+                     .node_state1_sources_by_word_id
+                     .get(node)
+diff --git a/crates/realtime-seca-core/src/tree/hkt_builder.rs b/crates/realtime-seca-core/src/tree/hkt_builder.rs
+index ffd50b5..ebf8117 100644
+--- a/crates/realtime-seca-core/src/tree/hkt_builder.rs
++++ b/crates/realtime-seca-core/src/tree/hkt_builder.rs
+@@ -49,84 +49,61 @@ impl HktBuilder {
+         let mut state = BuilderState::default();
+ 
+         sort_source_word_records_desc(&mut source_word_records);
+-        let root_input = records_to_map_by_source_word_id(source_word_records);
+-        let root_hkt = self.create_hkt(&mut state, root_input, 0, is_state1)?;
+-
+-        if let Some(root_hkt) = root_hkt {
+-            let root_hkt_id = root_hkt.hkt_id;
+-            let root_hkt_clone_for_recursion = root_hkt.clone();
+-            state.hkts_by_id.insert(root_hkt.hkt_id, root_hkt);
+-
+-            // Branches refine the original root source-word scope.
+-            let root_scope_records = state
+-                .hkt_input_scopes
+-                .get(&root_hkt_id)
+-                .cloned()
+-                .unwrap_or_default();
+-
+-            self.create_branches(
+-                &mut state,
+-                &root_hkt_clone_for_recursion,
+-                &root_scope_records,
+-                0,
+-                is_state1,
+-            )?;
++        if let Some(mut root) =
++            self.create_hkt(&mut state, source_word_records.clone(), 0, is_state1)?
++        {
++            self.create_branches(&mut state, &mut root, &source_word_records, is_state1)?;
++            state.hkts_by_id.insert(root.hkt_id, root);
+         }
+ 
+-        // Keep the two existing node indexes identical, including branch top words.
+-        for hkt in state.hkts_by_id.values_mut() {
+-            for node in &mut hkt.nodes {
+-                *node = state.nodes_by_id[&node.node_id].clone();
+-            }
+-        }
++        // Public lookup mirror is materialized once, after all node mutations.
++        let nodes_by_id = state
++            .hkts_by_id
++            .values()
++            .flat_map(|hkt| &hkt.nodes)
++            .map(|node| (node.node_id, node.clone()))
++            .collect();
+         Ok(HktBuildOutput {
+             hkts_by_id: state.hkts_by_id,
+-            nodes_by_id: state.nodes_by_id,
++            nodes_by_id,
+         })
+     }
+ 
+     fn create_hkt(
+         &self,
+         state: &mut BuilderState,
+-        mut source_word_map: BTreeMap<i32, SourceWordRecord>,
++        mut scope_records: Vec<SourceWordRecord>,
+         parent_node_id: i32,
+         is_state1: bool,
+     ) -> Result<Option<Hkt>, SecaError> {
+-        let expected_words = self.find_expected_words_general(&source_word_map);
++        let expected_words = self.find_expected_words_general(&scope_records);
+ 
+         if expected_words.is_empty() {
+             return Ok(None);
+         }
+ 
+         let hkt_id = state.next_hkt_id();
+-        let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words.clone(), is_state1);
+-
+-        // Retain this scope only during construction for recursive branch expansion.
+-        state
+-            .hkt_input_scopes
+-            .insert(hkt_id, source_word_map.values().cloned().collect());
++        let mut hkt = Hkt::new(hkt_id, parent_node_id, expected_words, is_state1);
+ 
+         // Create first node from the first (highest word count) entry.
+         let first_node_id = state.next_node_id();
+-        let first_node =
+-            self.create_node_from_first_word(first_node_id, hkt_id, &source_word_map)?;
+-        hkt.nodes.push(first_node.clone());
+-        state.nodes_by_id.insert(first_node.node_id, first_node);
++        let first_node = self.create_node_from_first_word(first_node_id, hkt_id, &scope_records)?;
++        hkt.nodes.push(first_node);
+ 
+-        let first_word_id = first_entry(&source_word_map)
++        let first_word_id = first_entry(&scope_records)
+             .ok_or_else(|| SecaError::StateError {
+                 message: "source_word_map unexpectedly empty while creating first node".to_string(),
+             })?
+             .word_id;
+ 
+-        self.remove_word_and_its_corresponding_sources(first_word_id, &mut source_word_map);
++        self.remove_word_and_its_corresponding_sources(first_word_id, &mut scope_records);
+         hkt.expected_words.remove(&first_word_id);
+ 
+         // Iterate eligible words in deterministic ascending ID order.
+         let expected_word_ids: Vec<i32> = hkt.expected_words.iter().copied().collect();
+ 
+         for expected_word_id in expected_word_ids {
+-            let sources_of_expected_word = source_ids_for_word(&source_word_map, expected_word_id);
++            let sources_of_expected_word = source_ids_for_word(&scope_records, expected_word_id);
+ 
+             if sources_of_expected_word.is_empty() {
+                 // If already removed due to prior mutation, skip.
+@@ -147,22 +124,9 @@ impl HktBuilder {
+                         .insert(expected_word_id, sources_of_expected_word.clone());
+                 }
+ 
+-                let collided_node_id = hkt.nodes[node_index].node_id;
+-                if let Some(global_node) = state.nodes_by_id.get_mut(&collided_node_id) {
+-                    global_node.word_ids.insert(expected_word_id);
+-                    global_node
+-                        .source_ids
+-                        .extend(sources_of_expected_word.iter().copied());
+-                    if !sources_of_expected_word.is_empty() {
+-                        global_node
+-                            .word_source_ids
+-                            .insert(expected_word_id, sources_of_expected_word.clone());
+-                    }
+-                }
+-
+                 self.remove_word_and_its_corresponding_sources(
+                     expected_word_id,
+-                    &mut source_word_map,
++                    &mut scope_records,
+                 );
+             } else {
+                 let new_node_id = state.next_node_id();
+@@ -170,26 +134,24 @@ impl HktBuilder {
+                     new_node_id,
+                     hkt_id,
+                     expected_word_id,
+-                    &source_word_map,
++                    &scope_records,
+                 )?;
+-                hkt.nodes.push(new_node.clone());
+-                state.nodes_by_id.insert(new_node.node_id, new_node);
++                hkt.nodes.push(new_node);
+ 
+                 self.remove_word_and_its_corresponding_sources(
+                     expected_word_id,
+-                    &mut source_word_map,
++                    &mut scope_records,
+                 );
+             }
+         }
+ 
+         // Refuge node for leftover sources not mapped to any node.
+-        let refugee_sources = find_refugee_sources(&source_word_map, &hkt.nodes);
++        let refugee_sources = find_refugee_sources(&scope_records, &hkt.nodes);
+         if !refugee_sources.is_empty() {
+             let refuge_node_id = state.next_node_id();
+             let refuge_node =
+                 self.create_node_for_refuge_sources(refuge_node_id, hkt_id, &refugee_sources);
+-            hkt.nodes.push(refuge_node.clone());
+-            state.nodes_by_id.insert(refuge_node.node_id, refuge_node);
++            hkt.nodes.push(refuge_node);
+         }
+ 
+         Ok(Some(hkt))
+@@ -198,14 +160,11 @@ impl HktBuilder {
+     fn create_branches(
+         &self,
+         state: &mut BuilderState,
+-        hkt: &Hkt,
++        hkt: &mut Hkt,
+         source_word_scope: &[SourceWordRecord],
+-        current_hkt_level: usize,
+         is_state1: bool,
+     ) -> Result<(), SecaError> {
+-        let _ = current_hkt_level; // kept for parity/future instrumentation
+-
+-        for node in &hkt.nodes {
++        for node in &mut hkt.nodes {
+             if node.source_ids.len() <= self.minimum_number_of_sources_to_create_branch_for_node {
+                 continue;
+             }
+@@ -244,46 +203,22 @@ impl HktBuilder {
+             }
+ 
+             // "topWords" helper (C# addNodeTopWords)
+-            if let Some(global_node) = state.nodes_by_id.get_mut(&node.node_id) {
+-                self.add_node_top_words(global_node, &sorted_scope);
+-            }
+-
+-            let child_input_map = records_to_map_by_source_word_id(sorted_scope.clone());
+-            let child_hkt = self.create_hkt(state, child_input_map, node.node_id, is_state1)?;
+-
+-            if let Some(child_hkt) = child_hkt {
+-                let child_hkt_clone = child_hkt.clone();
+-                let child_hkt_id = child_hkt.hkt_id;
+-                state.hkts_by_id.insert(child_hkt.hkt_id, child_hkt);
+-
+-                if !sorted_scope.is_empty() {
+-                    let recurse_scope = state
+-                        .hkt_input_scopes
+-                        .get(&child_hkt_id)
+-                        .cloned()
+-                        .unwrap_or_else(|| sorted_scope.clone());
+-
+-                    self.create_branches(
+-                        state,
+-                        &child_hkt_clone,
+-                        &recurse_scope,
+-                        current_hkt_level + 1,
+-                        is_state1,
+-                    )?;
+-                }
++            self.add_node_top_words(node, &sorted_scope);
++            if let Some(mut child) =
++                self.create_hkt(state, sorted_scope.clone(), node.node_id, is_state1)?
++            {
++                self.create_branches(state, &mut child, &sorted_scope, is_state1)?;
++                state.hkts_by_id.insert(child.hkt_id, child);
+             }
+         }
+ 
+         Ok(())
+     }
+ 
+-    fn find_expected_words_general(
+-        &self,
+-        source_word_map: &BTreeMap<i32, SourceWordRecord>,
+-    ) -> BTreeSet<i32> {
++    fn find_expected_words_general(&self, scope_records: &[SourceWordRecord]) -> BTreeSet<i32> {
+         let mut expected_words = BTreeSet::new();
+ 
+-        let Some(first_record) = first_entry(source_word_map) else {
++        let Some(first_record) = first_entry(scope_records) else {
+             return expected_words;
+         };
+ 
+@@ -293,7 +228,7 @@ impl HktBuilder {
+         }
+ 
+         // Descending frequencies allow stopping at the first ineligible word.
+-        for record in source_word_map.values() {
++        for record in scope_records.iter() {
+             let ratio = record.word_number_of_sources as f64 / maximum_word_count as f64;
+             if ratio >= self.minimum_threshold_against_max_word_count {
+                 expected_words.insert(record.word_id);
+@@ -309,18 +244,13 @@ impl HktBuilder {
+         &self,
+         new_node_id: i32,
+         hkt_id: i32,
+-        source_word_map: &BTreeMap<i32, SourceWordRecord>,
++        scope_records: &[SourceWordRecord],
+     ) -> Result<Node, SecaError> {
+-        let first_record = first_entry(source_word_map).ok_or_else(|| SecaError::StateError {
++        let first_record = first_entry(scope_records).ok_or_else(|| SecaError::StateError {
+             message: "cannot create node from empty source_word_map".to_string(),
+         })?;
+ 
+-        self.create_node_for_specific_word(
+-            new_node_id,
+-            hkt_id,
+-            first_record.word_id,
+-            source_word_map,
+-        )
++        self.create_node_for_specific_word(new_node_id, hkt_id, first_record.word_id, scope_records)
+     }
+ 
+     fn create_node_for_specific_word(
+@@ -328,13 +258,13 @@ impl HktBuilder {
+         new_node_id: i32,
+         hkt_id: i32,
+         word_id: i32,
+-        source_word_map: &BTreeMap<i32, SourceWordRecord>,
++        scope_records: &[SourceWordRecord],
+     ) -> Result<Node, SecaError> {
+         let mut node = Node::new(new_node_id, hkt_id);
+         node.word_ids.insert(word_id);
+ 
+         let mut sources_for_word: BTreeSet<i64> = BTreeSet::new();
+-        for record in source_word_map.values() {
++        for record in scope_records.iter() {
+             if record.word_id == word_id {
+                 sources_for_word.insert(record.source_id);
+             }
+@@ -371,18 +301,9 @@ impl HktBuilder {
+     fn remove_word_and_its_corresponding_sources(
+         &self,
+         word_id: i32,
+-        source_word_map: &mut BTreeMap<i32, SourceWordRecord>,
++        scope_records: &mut Vec<SourceWordRecord>,
+     ) {
+-        let keys_to_remove: Vec<i32> = source_word_map
+-            .iter()
+-            .filter_map(|(source_word_id, record)| {
+-                (record.word_id == word_id).then_some(*source_word_id)
+-            })
+-            .collect();
+-
+-        for key in keys_to_remove {
+-            source_word_map.remove(&key);
+-        }
++        scope_records.retain(|record| record.word_id != word_id);
+     }
+ 
+     fn find_best_collided_node_index(
+@@ -437,34 +358,25 @@ impl HktBuilder {
+     }
+ }
+ 
+-#[derive(Debug, Default, Clone)]
++#[derive(Debug, Default)]
+ struct BuilderState {
+     hkts_by_id: BTreeMap<i32, Hkt>,
+-    nodes_by_id: BTreeMap<i32, Node>,
+-    /// Stores the source-word scope used to construct each HKT for later branch expansion.
+-    hkt_input_scopes: BTreeMap<i32, Vec<SourceWordRecord>>,
++    hkt_count: i32,
++    node_count: i32,
+ }
+ 
+ impl BuilderState {
+-    fn next_hkt_id(&self) -> i32 {
+-        self.hkts_by_id.len() as i32 + 1
++    fn next_hkt_id(&mut self) -> i32 {
++        self.hkt_count += 1;
++        self.hkt_count
+     }
+ 
+-    fn next_node_id(&self) -> i32 {
+-        self.nodes_by_id.len() as i32 + 1
++    fn next_node_id(&mut self) -> i32 {
++        self.node_count += 1;
++        self.node_count
+     }
+ }
+ 
+-fn records_to_map_by_source_word_id(
+-    records: Vec<SourceWordRecord>,
+-) -> BTreeMap<i32, SourceWordRecord> {
+-    let mut map = BTreeMap::new();
+-    for (index, record) in records.into_iter().enumerate() {
+-        map.insert((index as i32) + 1, record);
+-    }
+-    map
+-}
+-
+ fn sort_source_word_records_desc(records: &mut [SourceWordRecord]) {
+     // Equal document frequencies retain source-word record order.
+     records.sort_by(|left_record, right_record| {
+@@ -475,26 +387,20 @@ fn sort_source_word_records_desc(records: &mut [SourceWordRecord]) {
+     });
+ }
+ 
+-fn first_entry(source_word_map: &BTreeMap<i32, SourceWordRecord>) -> Option<&SourceWordRecord> {
+-    source_word_map.values().next()
++fn first_entry(scope_records: &[SourceWordRecord]) -> Option<&SourceWordRecord> {
++    scope_records.first()
+ }
+ 
+-fn source_ids_for_word(
+-    source_word_map: &BTreeMap<i32, SourceWordRecord>,
+-    word_id: i32,
+-) -> BTreeSet<i64> {
+-    source_word_map
+-        .values()
++fn source_ids_for_word(scope_records: &[SourceWordRecord], word_id: i32) -> BTreeSet<i64> {
++    scope_records
++        .iter()
+         .filter_map(|record| (record.word_id == word_id).then_some(record.source_id))
+         .collect()
+ }
+ 
+-fn find_refugee_sources(
+-    source_word_map: &BTreeMap<i32, SourceWordRecord>,
+-    nodes: &[Node],
+-) -> BTreeSet<i64> {
+-    let all_remaining_sources: BTreeSet<i64> = source_word_map
+-        .values()
++fn find_refugee_sources(scope_records: &[SourceWordRecord], nodes: &[Node]) -> BTreeSet<i64> {
++    let all_remaining_sources: BTreeSet<i64> = scope_records
++        .iter()
+         .map(|record| record.source_id)
+         .collect();
+ 
+diff --git a/docs/algorithm.md b/docs/algorithm.md
+index 161d937..55cecf2 100644
+--- a/docs/algorithm.md
++++ b/docs/algorithm.md
+@@ -5,8 +5,10 @@ Contextual Analysis (SECA) Approach*, IEEE Access 11 (2023), 127011–127034,
+ [DOI](https://doi.org/10.1109/ACCESS.2023.3331219).
+ Section V defines the HKT representation; VII-A/Figure 3 defines evolution;
+ VII-B defines change metrics; VII-C adds forgetting. Construction builds on the
+-Contextual Analysis work cited by the paper. This project implements hierarchy
+-evolution, not the paper's direct/indirect event clustering evaluation.
++Contextual Analysis work cited by the paper. The production engine implements
++hierarchy evolution. The paper's direct/indirect event clustering is evaluated
++separately by the [experimental benchmark](seca-paper-benchmark.md);
++its reconstruction assumptions do not change the contracts below.
+ 
+ ## Paper contract
+ 

@@ -1,0 +1,12 @@
+[package]
+name = "seca-exploration-baseline"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+realtime-seca-core = { path = "../../../../crates/realtime-seca-core" }
+serde_json = "1"
+seca-research-candidates = { path = "../rust-candidates" }

@@ -1,0 +1,20 @@
+   Compiling seca-research-candidates v0.1.0 (/tmp/seca-iteration-2/docs/architecture-exploration/iteration-2/rust-candidates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.25s
+     Running tests/evolution.rs (/tmp/seca-iteration-2/docs/architecture-exploration/iteration-2/rust-candidates/target/debug/deps/evolution-21ea376245d477cc)
+
+running 12 tests
+test descriptor_errors_use_contextual_node_union_and_distinct_word_counts ... ok
+test empty_batches_expire_evidence_but_keep_learned_topology_and_allow_readmission ... ok
+test candidate_history_counts_retained_sources_without_promoting_descriptors ... ok
+test full_memory_keeps_sources_across_empty_updates ... ok
+test expiry_prunes_every_recursive_membership_and_preserves_topology_vocabulary_allocators ... ok
+test importance_trigger_is_strict_and_unassigned_expectations_do_not_join_w0 ... ok
+test overlapping_mapping_is_not_a_partition ... ok
+test unsupported_empty_root_failure_rolls_back_new_vocabulary_registration ... ok
+test disjoint_children_reconstruct_while_unaffected_sibling_is_identical ... ok
+test validation_precedes_deduplication_and_failures_preserve_complete_state ... ok
+test parent_trigger_suppresses_descendant_decisions_and_recycles_no_ids ... ok
+test json_restart_preserves_subsequent_decisions_allocators_and_state ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

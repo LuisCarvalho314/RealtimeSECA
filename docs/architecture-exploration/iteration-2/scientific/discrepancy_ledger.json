@@ -1,0 +1,3054 @@
+[
+  {
+    "fixture": "parity_hkt_reconstruction/branch_boundary",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 2,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 4,
+            "words": [
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "parity_hkt_reconstruction/child_reconstruct",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 1,
+      "alphaError": 0.11,
+      "betaError": 0.2,
+      "wordImportanceError": 0.2,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 8,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 9,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 10,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 11,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 12,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 13,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 14,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 15,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 16,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 17,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 18,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 19,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 20,
+            "words": [
+              "d"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 21,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 22,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 23,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 24,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 25,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 26,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 27,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 28,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 29,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 30,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 31,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "f"
+                ],
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "e"
+                ],
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "e"
+                ],
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "f"
+                ],
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "parity_hkt_reconstruction/collision_true_tie",
+    "input": {
+      "alpha": 1,
+      "beta": 0.5,
+      "branchMinimum": 99,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b",
+            "c"
+          ],
+          "sources": [
+            "2",
+            "3",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a",
+            "c"
+          ],
+          "sources": [
+            "1",
+            "3",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b"
+          ],
+          "sources": [
+            "2",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "parity_hkt_reconstruction/frequency_vs_vocabulary",
+    "input": {
+      "alpha": 0.5,
+      "beta": 1,
+      "branchMinimum": 99,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "b"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "z"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 8,
+            "words": [
+              "z"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 9,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "z"
+          ],
+          "sources": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "z"
+          ],
+          "sources": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a",
+            "b"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "parity_hkt_reconstruction/overlap_recursive",
+    "input": {
+      "alpha": 0.8,
+      "beta": 0.75,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 8,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 9,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/0",
+                  "nodes": [
+                    {
+                      "words": [
+                        "c"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/1",
+                  "nodes": [
+                    {
+                      "words": [
+                        "b"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "parity_hkt_reconstruction/siblings",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 8,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 9,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 10,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 11,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 12,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 13,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 14,
+            "words": [
+              "d",
+              "e"
+            ]
+          },
+          {
+            "id": 15,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 16,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 17,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 18,
+            "words": [
+              "d",
+              "f"
+            ]
+          },
+          {
+            "id": 19,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 20,
+            "words": [
+              "d"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 21,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 22,
+            "words": [
+              "d",
+              "e"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "f"
+                ],
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "e"
+                ],
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "10",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "5",
+                  "6",
+                  "7",
+                  "8"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "e"
+                ],
+                "sources": [
+                  "11",
+                  "12",
+                  "13",
+                  "14"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "f"
+                ],
+                "sources": [
+                  "15",
+                  "16",
+                  "17",
+                  "18"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/boundary_3_baseline",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 3,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/branch_boundary",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 2,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 4,
+            "words": [
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/branch_boundary_reversed",
+    "input": {
+      "alpha": 0.7,
+      "beta": 0.5,
+      "branchMinimum": 2,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 2,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 1,
+            "words": [
+              "b",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 3,
+            "words": [
+              "b",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 4,
+            "words": [
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/collision_true_tie",
+    "input": {
+      "alpha": 1,
+      "beta": 0.5,
+      "branchMinimum": 99,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b",
+            "c"
+          ],
+          "sources": [
+            "2",
+            "3",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a",
+            "c"
+          ],
+          "sources": [
+            "1",
+            "3",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b"
+          ],
+          "sources": [
+            "2",
+            "4"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/frequency_vs_vocabulary",
+    "input": {
+      "alpha": 0.5,
+      "beta": 1,
+      "branchMinimum": 99,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "b"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "z"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "z"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 8,
+            "words": [
+              "z"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 9,
+            "words": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "z"
+          ],
+          "sources": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "b"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "z"
+          ],
+          "sources": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a",
+            "b"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/overlap_child_rebuilt",
+    "input": {
+      "alpha": 0.8,
+      "beta": 0.75,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 0.2,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 8,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 9,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 10,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 11,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 12,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 13,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 14,
+            "words": [
+              "d"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 15,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 16,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 17,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 18,
+            "words": [
+              "a",
+              "x"
+            ]
+          },
+          {
+            "id": 19,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 20,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 21,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 22,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 23,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 24,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 25,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 26,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/0",
+                  "nodes": [
+                    {
+                      "words": [
+                        "c"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/1",
+                  "nodes": [
+                    {
+                      "words": [
+                        "b"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": null
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/overlap_child_rebuilt_reversed",
+    "input": {
+      "alpha": 0.8,
+      "beta": 0.75,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 0.2,
+      "batches": [
+        [
+          {
+            "id": 14,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 13,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 12,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 11,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 10,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 9,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 8,
+            "words": [
+              "d"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "c",
+              "a"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "c",
+              "a"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 1,
+            "words": [
+              "b",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 25,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 24,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 23,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 22,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 21,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 20,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 19,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 18,
+            "words": [
+              "x",
+              "a"
+            ]
+          },
+          {
+            "id": 17,
+            "words": [
+              "x",
+              "a"
+            ]
+          },
+          {
+            "id": 16,
+            "words": [
+              "x",
+              "a"
+            ]
+          },
+          {
+            "id": 15,
+            "words": [
+              "x",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 26,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "d"
+          ],
+          "sources": [
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "8",
+            "9"
+          ],
+          "refuge": false,
+          "child": null
+        },
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/1",
+            "nodes": [
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/1/0",
+                  "nodes": [
+                    {
+                      "words": [
+                        "b"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              },
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/1/1",
+                  "nodes": [
+                    {
+                      "words": [
+                        "c"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/overlap_recursive",
+    "input": {
+      "alpha": 0.8,
+      "beta": 0.75,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 1,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "a",
+              "c"
+            ]
+          },
+          {
+            "id": 7,
+            "words": [
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 8,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 9,
+            "words": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/0",
+                  "nodes": [
+                    {
+                      "words": [
+                        "c"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              },
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/1",
+                  "nodes": [
+                    {
+                      "words": [
+                        "b"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture": "scientific_hkt/overlap_recursive_reversed",
+    "input": {
+      "alpha": 0.8,
+      "beta": 0.75,
+      "branchMinimum": 1,
+      "alphaError": 1,
+      "betaError": 1,
+      "wordImportanceError": 1,
+      "batches": [
+        [
+          {
+            "id": 7,
+            "words": [
+              "a"
+            ]
+          },
+          {
+            "id": 6,
+            "words": [
+              "c",
+              "a"
+            ]
+          },
+          {
+            "id": 5,
+            "words": [
+              "c",
+              "a"
+            ]
+          },
+          {
+            "id": 4,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 3,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 2,
+            "words": [
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": 1,
+            "words": [
+              "b",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 8,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          }
+        ],
+        [
+          {
+            "id": 9,
+            "words": [
+              "c",
+              "b",
+              "a"
+            ]
+          }
+        ]
+      ]
+    },
+    "csharp_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": null
+              },
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "rust_baseline": {
+      "path": "root",
+      "nodes": [
+        {
+          "words": [
+            "a"
+          ],
+          "sources": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "refuge": false,
+          "child": {
+            "path": "root/0",
+            "nodes": [
+              {
+                "words": [
+                  "c"
+                ],
+                "sources": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/0",
+                  "nodes": [
+                    {
+                      "words": [
+                        "b"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              },
+              {
+                "words": [
+                  "b"
+                ],
+                "sources": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "refuge": false,
+                "child": {
+                  "path": "root/0/1",
+                  "nodes": [
+                    {
+                      "words": [
+                        "c"
+                      ],
+                      "sources": [
+                        "3",
+                        "4"
+                      ],
+                      "refuge": false,
+                      "child": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

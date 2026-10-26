@@ -1,0 +1,4439 @@
+{
+  "seed": 20711,
+  "platform": "Linux-5.15.0-1089-azure-x86_64-with-glibc2.31",
+  "checks": [
+    {
+      "case": "scientific_hkt/boundary_2_baseline",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/boundary_2_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/boundary_3_baseline",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/boundary_3_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/boundary_4_baseline",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/boundary_4_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/branch_boundary",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/branch_boundary_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_rebuilt_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_rebuilt_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_child_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_child_rebuilt_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_rebuilt",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_rebuilt_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_reversed",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/branch_boundary",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/child",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/child_reconstruct",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision_reordered",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision_true_tie",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/competing",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/frequency_vs_vocabulary",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/merge_many",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/new_dominant",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/one_prominent",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/overlap_recursive",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/refuge",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/root_reconstruct",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/separate",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/sequential",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/siblings",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/single_root",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/ties_ab",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/ties_ba",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "parity_hkt_reconstruction/unmatched",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-0",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-1",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-2",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-3",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-4",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-5",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-6",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-7",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-8",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-9",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-10",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-11",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-12",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-13",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-14",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-15",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-16",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-17",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-18",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-19",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-20",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-21",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-22",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-23",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-24",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-25",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-26",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-27",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-28",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-29",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-30",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-31",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-32",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-33",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-34",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-35",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-36",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-37",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-38",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-39",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-40",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-41",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-42",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-43",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-44",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-45",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-46",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-47",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-48",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-49",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-50",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-51",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-52",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-53",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-54",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-55",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-56",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-57",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-58",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-59",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-60",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-61",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-62",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-63",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-64",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-65",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-66",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-67",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-68",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-69",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-70",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-71",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-72",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-73",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-74",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-75",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-76",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-77",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-78",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-79",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-80",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-81",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-82",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-83",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-84",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-85",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-86",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-87",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-88",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-89",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-90",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-91",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-92",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-93",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-94",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-95",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-96",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-97",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-98",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-99",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-100",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-101",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-102",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-103",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-104",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-105",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-106",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-107",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-108",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-109",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-110",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-111",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-112",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-113",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-114",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-115",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-116",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-117",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-118",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-119",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-120",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-121",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-122",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-123",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-124",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-125",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-126",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-127",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-128",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-129",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-130",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-131",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-132",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-133",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-134",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-135",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-136",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-137",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-138",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-139",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-140",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-141",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-142",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-143",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-144",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-145",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-146",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-147",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-148",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-149",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-150",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-151",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-152",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-153",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-154",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-155",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-156",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-157",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-158",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-159",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-160",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-161",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-162",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-163",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-164",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-165",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-166",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-167",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-168",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-169",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-170",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-171",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-172",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-173",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-174",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-175",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-176",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-177",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-178",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-179",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-180",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-181",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-182",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-183",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-184",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-185",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-186",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-187",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-188",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-189",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-190",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-191",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-192",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-193",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-194",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-195",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-196",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-197",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-198",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-199",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-200",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-201",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-202",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-203",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-204",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-205",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-206",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-207",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-208",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-209",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-210",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-211",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-212",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-213",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-214",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-215",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-216",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-217",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-218",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-219",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-220",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-221",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-222",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-223",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-224",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-225",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-226",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-227",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-228",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-229",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-230",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-231",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-232",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-233",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-234",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-235",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-236",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-237",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-238",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-239",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-240",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-241",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-242",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-243",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-244",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-245",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-246",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-247",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-248",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-249",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-250",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-251",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-252",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-253",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-254",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-255",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-256",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-257",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-258",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-259",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-260",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-261",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-262",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-263",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-264",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-265",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-266",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-267",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-268",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-269",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-270",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-271",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-272",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-273",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-274",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-275",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-276",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-277",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-278",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-279",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-280",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-281",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-282",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-283",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-284",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-285",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-286",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-287",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-288",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-289",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-290",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-291",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-292",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-293",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-294",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-295",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-296",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-297",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-298",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    },
+    {
+      "case": "random-299",
+      "sets": {
+        "tree": true,
+        "full": true
+      },
+      "masks": {
+        "tree": true,
+        "full": true
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "workload": "archived-news-25",
+      "sources": 25,
+      "words": 535,
+      "relations": 743,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "input_sha256": "6654803ab487eed1e8f2f8bbfde6768060a4ed17b43e2bd0765e828dee960e5b",
+      "topology": {
+        "hkts": 2,
+        "nodes": 5,
+        "depth": 2
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.000198011,
+          0.000197089,
+          0.000194103,
+          0.000196728,
+          0.000198401
+        ],
+        "total_seconds": [
+          0.000353461,
+          0.000355274,
+          0.000360184,
+          0.000354923,
+          0.000356817
+        ],
+        "peak_rss_kib": [
+          3876,
+          3856,
+          3800,
+          3756,
+          3808
+        ],
+        "median_ms": 0.355274
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.000286625,
+          0.000291565,
+          0.000285594,
+          0.000280655,
+          0.00028344
+        ],
+        "total_seconds": [
+          0.000286625,
+          0.000291565,
+          0.000285594,
+          0.000280655,
+          0.00028344
+        ],
+        "peak_rss_kib": [
+          3232,
+          3116,
+          3100,
+          3104,
+          3104
+        ],
+        "median_ms": 0.285594,
+        "ratio": 0.8038696893102226
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.000358099,
+          0.000352389,
+          0.000397664,
+          0.00035312,
+          0.000355655
+        ],
+        "total_seconds": [
+          0.000358099,
+          0.000352389,
+          0.000397664,
+          0.00035312,
+          0.000355655
+        ],
+        "peak_rss_kib": [
+          3152,
+          3216,
+          3188,
+          3160,
+          3224
+        ],
+        "median_ms": 0.355655,
+        "ratio": 1.0010724117160277
+      }
+    },
+    {
+      "workload": "archived-news-100",
+      "sources": 100,
+      "words": 1339,
+      "relations": 2862,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "input_sha256": "e3adff767c08551a657d87a19f56730ff35d4847e047fff9ab389ded666ae713",
+      "topology": {
+        "hkts": 14,
+        "nodes": 42,
+        "depth": 6
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.001959343,
+          0.001915931,
+          0.001908047,
+          0.001963631,
+          0.001970104
+        ],
+        "total_seconds": [
+          0.00254059,
+          0.002524821,
+          0.002478444,
+          0.002550729,
+          0.002580935
+        ],
+        "peak_rss_kib": [
+          5924,
+          5972,
+          5900,
+          5860,
+          5768
+        ],
+        "median_ms": 2.54059
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.002716318,
+          0.00267441,
+          0.002741947,
+          0.002761212,
+          0.002702753
+        ],
+        "total_seconds": [
+          0.002716318,
+          0.00267441,
+          0.002741947,
+          0.002761212,
+          0.002702753
+        ],
+        "peak_rss_kib": [
+          4464,
+          4416,
+          4380,
+          4548,
+          4416
+        ],
+        "median_ms": 2.7163180000000002,
+        "ratio": 1.0691681853427748
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.003604861,
+          0.003428831,
+          0.003544648,
+          0.003472593,
+          0.003475317
+        ],
+        "total_seconds": [
+          0.003604861,
+          0.003428831,
+          0.003544648,
+          0.003472593,
+          0.003475317
+        ],
+        "peak_rss_kib": [
+          4516,
+          4624,
+          4588,
+          4600,
+          4596
+        ],
+        "median_ms": 3.475317,
+        "ratio": 1.3679172948016012
+      }
+    },
+    {
+      "workload": "archived-news-250",
+      "sources": 250,
+      "words": 2648,
+      "relations": 6955,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 10
+      },
+      "input_sha256": "09c2ba527179c45480b105a2840faf48dd241238c55dd4510b53eb62c3c58e8b",
+      "topology": {
+        "hkts": 21,
+        "nodes": 93,
+        "depth": 5
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.005149497,
+          0.005083404,
+          0.005087852,
+          0.005179654,
+          0.005152373
+        ],
+        "total_seconds": [
+          0.006619506,
+          0.006581135,
+          0.006550687,
+          0.006681221,
+          0.006638692
+        ],
+        "peak_rss_kib": [
+          9772,
+          9632,
+          9676,
+          9660,
+          9688
+        ],
+        "median_ms": 6.6195059999999994
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.007450379,
+          0.008163793,
+          0.007377614,
+          0.007471038,
+          0.007375198
+        ],
+        "total_seconds": [
+          0.007450379,
+          0.008163793,
+          0.007377614,
+          0.007471038,
+          0.007375198
+        ],
+        "peak_rss_kib": [
+          7180,
+          7220,
+          7320,
+          7428,
+          7164
+        ],
+        "median_ms": 7.450379,
+        "ratio": 1.1255188831311582
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.009363997,
+          0.010138485,
+          0.009393383,
+          0.009367033,
+          0.010082221
+        ],
+        "total_seconds": [
+          0.009363997,
+          0.010138485,
+          0.009393383,
+          0.009367033,
+          0.010082221
+        ],
+        "peak_rss_kib": [
+          7372,
+          7308,
+          7236,
+          7220,
+          7224
+        ],
+        "median_ms": 9.393383,
+        "ratio": 1.4190459227622123
+      }
+    },
+    {
+      "workload": "controlled-100-40-0.1-100",
+      "sources": 100,
+      "words": 40,
+      "relations": 427,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 100
+      },
+      "input_sha256": "6e7c22cca1bed9e2a2bee06b74e89c4ae8b78c02f990fa643517d8bc427a2072",
+      "topology": {
+        "hkts": 1,
+        "nodes": 14,
+        "depth": 1
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.000141284,
+          0.000123962,
+          0.000125464,
+          0.000123541,
+          0.000154158
+        ],
+        "total_seconds": [
+          0.000209451,
+          0.000189534,
+          0.000190646,
+          0.000188673,
+          0.000220092
+        ],
+        "peak_rss_kib": [
+          3632,
+          3464,
+          3424,
+          3544,
+          3672
+        ],
+        "median_ms": 0.19064599999999998
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.000100087,
+          9.7302e-05,
+          9.5037e-05,
+          9.5468e-05,
+          9.3154e-05
+        ],
+        "total_seconds": [
+          0.000100087,
+          9.7302e-05,
+          9.5037e-05,
+          9.5468e-05,
+          9.3154e-05
+        ],
+        "peak_rss_kib": [
+          2980,
+          3080,
+          2984,
+          2824,
+          3136
+        ],
+        "median_ms": 0.095468,
+        "ratio": 0.5007605719501065
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.000110637,
+          0.000108593,
+          0.000109555,
+          0.000109474,
+          0.000108984
+        ],
+        "total_seconds": [
+          0.000110637,
+          0.000108593,
+          0.000109555,
+          0.000109474,
+          0.000108984
+        ],
+        "peak_rss_kib": [
+          2908,
+          2936,
+          3016,
+          2928,
+          2952
+        ],
+        "median_ms": 0.109474,
+        "ratio": 0.5742265770065986
+      }
+    },
+    {
+      "workload": "controlled-1000-40-0.1-1000",
+      "sources": 990,
+      "words": 40,
+      "relations": 4040,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 1000
+      },
+      "input_sha256": "c5fae1cb3f36e4c42239033cb6f14ffd3772f20111b3890b96a7b9f84389d1e0",
+      "topology": {
+        "hkts": 1,
+        "nodes": 38,
+        "depth": 1
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.001990802,
+          0.0019896,
+          0.001995832,
+          0.001986303,
+          0.001932654
+        ],
+        "total_seconds": [
+          0.002601213,
+          0.002592036,
+          0.002609689,
+          0.002592157,
+          0.002527195
+        ],
+        "peak_rss_kib": [
+          7616,
+          7572,
+          7504,
+          7448,
+          7540
+        ],
+        "median_ms": 2.592157
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.001572741,
+          0.001584883,
+          0.001568873,
+          0.001580225,
+          0.001604821
+        ],
+        "total_seconds": [
+          0.001572741,
+          0.001584883,
+          0.001568873,
+          0.001580225,
+          0.001604821
+        ],
+        "peak_rss_kib": [
+          5356,
+          5360,
+          5388,
+          5388,
+          5464
+        ],
+        "median_ms": 1.580225,
+        "ratio": 0.6096177816389979
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.000939477,
+          0.000930871,
+          0.000972679,
+          0.000938956,
+          0.000944586
+        ],
+        "total_seconds": [
+          0.000939477,
+          0.000930871,
+          0.000972679,
+          0.000938956,
+          0.000944586
+        ],
+        "peak_rss_kib": [
+          5460,
+          5396,
+          5480,
+          5356,
+          5328
+        ],
+        "median_ms": 0.939477,
+        "ratio": 0.36243059351729084
+      }
+    },
+    {
+      "workload": "controlled-1000-8-0.5-20",
+      "sources": 998,
+      "words": 8,
+      "relations": 4016,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 20
+      },
+      "input_sha256": "0844e35cabf30a6a16de5cb11175e92536a2e5ad49267e98957397933e395fd6",
+      "topology": {
+        "hkts": 199,
+        "nodes": 315,
+        "depth": 7
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.016209917,
+          0.016150446,
+          0.016052593,
+          0.017057812,
+          0.01622242
+        ],
+        "total_seconds": [
+          0.016803337,
+          0.016720321,
+          0.016624523,
+          0.017616546,
+          0.016878587
+        ],
+        "peak_rss_kib": [
+          25172,
+          25040,
+          25140,
+          25052,
+          25212
+        ],
+        "median_ms": 16.803337000000003
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.009486477,
+          0.009581995,
+          0.009510171,
+          0.009624274,
+          0.00961729
+        ],
+        "total_seconds": [
+          0.009486477,
+          0.009581995,
+          0.009510171,
+          0.009624274,
+          0.00961729
+        ],
+        "peak_rss_kib": [
+          11992,
+          11836,
+          11964,
+          11836,
+          11836
+        ],
+        "median_ms": 9.581995,
+        "ratio": 0.5702435772132641
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.011658538,
+          0.011694073,
+          0.01165423,
+          0.011629343,
+          0.011661633
+        ],
+        "total_seconds": [
+          0.011658538,
+          0.011694073,
+          0.01165423,
+          0.011629343,
+          0.011661633
+        ],
+        "peak_rss_kib": [
+          11912,
+          11872,
+          11872,
+          11996,
+          11980
+        ],
+        "median_ms": 11.658538,
+        "ratio": 0.6938227805584092
+      }
+    },
+    {
+      "workload": "controlled-100-8-0.5-4",
+      "sources": 100,
+      "words": 8,
+      "relations": 411,
+      "parameters": {
+        "alpha": 0.7,
+        "beta": 0.5,
+        "branchMinimum": 4
+      },
+      "input_sha256": "3a5b29de67a6ec8563fdb6b082e84f0f6ca4c95df7fe2ff2292fdc379fbad542",
+      "topology": {
+        "hkts": 47,
+        "nodes": 78,
+        "depth": 5
+      },
+      "baseline_exact_result_equal": true,
+      "baseline": {
+        "core_seconds": [
+          0.000735535,
+          0.000716299,
+          0.000752637,
+          0.00070072,
+          0.000702583
+        ],
+        "total_seconds": [
+          0.000790979,
+          0.000769148,
+          0.000805586,
+          0.000752697,
+          0.000755242
+        ],
+        "peak_rss_kib": [
+          4596,
+          4672,
+          4676,
+          4792,
+          4576
+        ],
+        "median_ms": 0.7691479999999999
+      },
+      "sets_exact_result_equal": true,
+      "sets": {
+        "core_seconds": [
+          0.000487973,
+          0.000471481,
+          0.000474277,
+          0.000473044,
+          0.000496057
+        ],
+        "total_seconds": [
+          0.000487973,
+          0.000471481,
+          0.000474277,
+          0.000473044,
+          0.000496057
+        ],
+        "peak_rss_kib": [
+          3404,
+          3384,
+          3248,
+          3468,
+          3280
+        ],
+        "median_ms": 0.474277,
+        "ratio": 0.6166264490059131
+      },
+      "masks_exact_result_equal": true,
+      "masks": {
+        "core_seconds": [
+          0.000607425,
+          0.000574484,
+          0.000578882,
+          0.000607887,
+          0.00060461
+        ],
+        "total_seconds": [
+          0.000607425,
+          0.000574484,
+          0.000578882,
+          0.000607887,
+          0.00060461
+        ],
+        "peak_rss_kib": [
+          3496,
+          3316,
+          3432,
+          3192,
+          3232
+        ],
+        "median_ms": 0.60461,
+        "ratio": 0.7860775819478176
+      }
+    }
+  ]
+}
