@@ -1,0 +1,230 @@
+{
+  "scope": "baseline ordered structural projection only; excludes expectedWords, IDs, top_words, all updates",
+  "results": [
+    {
+      "fixture": "parity_hkt_reconstruction/branch_boundary",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/child",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/child_reconstruct",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/collision",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/collision_reordered",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/collision_true_tie",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/competing",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/frequency_vs_vocabulary",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/merge_many",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/new_dominant",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/one_prominent",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/overlap_recursive",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/refuge",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/root_reconstruct",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/separate",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/sequential",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/siblings",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/single_root",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/ties_ab",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/ties_ba",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "parity_hkt_reconstruction/unmatched",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/boundary_2_baseline",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/boundary_2_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/boundary_3_baseline",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/boundary_3_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/boundary_4_baseline",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/boundary_4_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/branch_boundary",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/branch_boundary_reversed",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/collision_true_tie",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/collision_true_tie_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/collision_true_tie_rebuilt_reversed",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/collision_true_tie_reversed",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/frequency_vs_vocabulary",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/frequency_vs_vocabulary_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/frequency_vs_vocabulary_rebuilt_reversed",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/frequency_vs_vocabulary_reversed",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/overlap_child_rebuilt",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/overlap_child_rebuilt_reversed",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/overlap_recursive",
+      "rust": true,
+      "csharp": false
+    },
+    {
+      "fixture": "scientific_hkt/overlap_recursive_rebuilt",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/overlap_recursive_rebuilt_reversed",
+      "rust": true,
+      "csharp": true
+    },
+    {
+      "fixture": "scientific_hkt/overlap_recursive_reversed",
+      "rust": true,
+      "csharp": false
+    }
+  ],
+  "totals": {
+    "rust": {
+      "pass": 43,
+      "fail": 0
+    },
+    "csharp": {
+      "pass": 28,
+      "fail": 15
+    }
+  }
+}

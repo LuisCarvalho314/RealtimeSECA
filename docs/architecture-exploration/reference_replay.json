@@ -1,0 +1,107 @@
+[
+  {
+    "fixture": "branch_boundary",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "child",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "child_reconstruct",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "collision",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "collision_reordered",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "collision_true_tie",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "competing",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "frequency_vs_vocabulary",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "merge_many",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "new_dominant",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "one_prominent",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "overlap_recursive",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "refuge",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "root_reconstruct",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "separate",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "sequential",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "siblings",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "single_root",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "ties_ab",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "ties_ba",
+    "exit": 0,
+    "matches": true
+  },
+  {
+    "fixture": "unmatched",
+    "exit": 0,
+    "matches": true
+  }
+]

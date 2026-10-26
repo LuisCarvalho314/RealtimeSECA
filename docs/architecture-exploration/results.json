@@ -1,0 +1,1045 @@
+{
+  "contract": "ordered construction words, sources, word_sources, child; no lifecycle parity",
+  "python": "3.11.4 (main, Jul  5 2023, 13:45:01) [GCC 11.2.0]",
+  "platform": "linux",
+  "source_sha256": {
+    "crates/realtime-seca-core/src/config.rs": "384283456513714c5be707c685083e9b7f2329e3a415d15eeb819fc21f09768c",
+    "crates/realtime-seca-core/src/lib.rs": "0485dd8da11ebaa9c9e826c5f7bf13411d8685a29110287155cc40af4073a5ad",
+    "crates/realtime-seca-core/src/error.rs": "8e73589bb737e6c87efac5091da99227a366fc324feb60acd5957f46c987924d",
+    "crates/realtime-seca-core/src/types.rs": "12cdcd6d3b4ad53a45fa5c073c4dc811e21639432055d1b49a2be444334a0147",
+    "crates/realtime-seca-core/src/engine/scope_mapping.rs": "e4b70ef7f10e0bd68aca534de1ed4e018f719bde0a8ff75b43b7316e5b906d41",
+    "crates/realtime-seca-core/src/engine/forgetting.rs": "96bfd7c05253d1c528592cd9616ca9a1bff97102ad38d4ce5cd41a52715dc597",
+    "crates/realtime-seca-core/src/engine/trigger.rs": "26ae1aef6abf5fa8082eecff776faaa3a702c1e772a30cef92526cca18c34272",
+    "crates/realtime-seca-core/src/engine/baseline.rs": "a5ec913ba2291067611dcc05fa0fee0cb68d3c82e7c1432c6207be59418c8d80",
+    "crates/realtime-seca-core/src/engine/mod.rs": "bd85f6a83a35e7b94e5929a660cf248eac979d2982e9675eefb89e93712a6d67",
+    "crates/realtime-seca-core/src/engine/evidence.rs": "cf90becd2a81ec1c448c0a32c0d678230ac277155acca57672e18ffb13bfb75d",
+    "crates/realtime-seca-core/src/engine/rebuild.rs": "621a5b711c0a4828c7e78ffb6174a10d89377c82c13ecec4e17e61a7975929ff",
+    "crates/realtime-seca-core/src/engine/snapshotting.rs": "4c57aedcbde9c76b0d9b3ccf418bc4714f7b117fa950a371eee0fadd6f496777",
+    "crates/realtime-seca-core/src/engine/sources.rs": "dc29750e5c1c5f56de26719bcc397836a2fdb90cfc3ee0a71dad0624716bceb6",
+    "crates/realtime-seca-core/src/engine/validation.rs": "bb087ab2cded3cc15521873dafb2af2e761f4d17fe83b6b0c25fd9e14dcd4f2a",
+    "crates/realtime-seca-core/src/engine/context.rs": "0199a53651de9da143798a37ed89cb2b309b948e0fcb918213dbc38ed3f58bb7",
+    "crates/realtime-seca-core/src/engine/diagnostics.rs": "fedf821ec1ce08adcd3f4d429a8c56f9671756f57815f6a684861574089b28a6",
+    "crates/realtime-seca-core/src/engine/batch_stats.rs": "b1dcfd1b5bb796dfeec57974a877ce30a358a64c9963c476497281397fe20c18",
+    "crates/realtime-seca-core/src/engine/metrics.rs": "934d209b4917913a7a4dbcb36b24292510112c5abb171a69f304c431909623da",
+    "crates/realtime-seca-core/src/engine/input.rs": "e2cd297a137969c8c89c8652fd664be36740e6fdbd5ddc068c2acdc9fedffec6",
+    "crates/realtime-seca-core/src/engine/tests.rs": "a00b3b14fdf5490cadc9337c850615ca0e72c263ac2d37b3149cb50c601950ee",
+    "crates/realtime-seca-core/src/engine/tests/fixtures.rs": "aa3a2438a846a339eb88ea8d409b1fded8bf2b4f94f6dab62ef3ffcdfaba37ee",
+    "crates/realtime-seca-core/src/engine/tests/forgetting.rs": "a9afc14ee265d2a5d67111f4a7501bf79e5c7bdbe936a8d88910e71cf0b40c9b",
+    "crates/realtime-seca-core/src/engine/tests/reconstruction.rs": "4ccaf0d441612e558f4fd7aaffc09865327d21f1c1d4ff38f25a6309bb6f4aff",
+    "crates/realtime-seca-core/src/engine/tests/mapping.rs": "9eb83f828d7b66fa914aeb9985df2895f3428e7f08de57e42e3d4212c8413986",
+    "crates/realtime-seca-core/src/engine/tests/baseline.rs": "096d088a18749acc8501e224b69e414c420299f8aa5311422f7eb8f745f1dcda",
+    "crates/realtime-seca-core/src/engine/tests/context.rs": "a6deac813c11b05f2d68423c6205c2920f2867206d985a57493fc9e9a13b19a7",
+    "crates/realtime-seca-core/src/engine/tests/stream.rs": "cfc446dd4b99f59d1ff48fb9bdf0b589e248e8a8d4779d66f230874f7ca2cc65",
+    "crates/realtime-seca-core/src/engine/tests/metrics.rs": "c51062c2ebef0454d5fa577baa783299d869fc1931c39e4846c5b7ed9a5a383b",
+    "crates/realtime-seca-core/src/engine/tests/snapshots.rs": "88c9a2587516e7790deedb3be011b590f6b291a25196c873440fc1d18d5f20d5",
+    "crates/realtime-seca-core/src/tree/mod.rs": "6567dd7c7455188f46a46eb31ec26ad458c9b7b0a1a83f7ad176c140d42ac3be",
+    "crates/realtime-seca-core/src/tree/models.rs": "d10d6ecaf7e2523e1b09e25681c5c998d61bc8b640fd353ee57afab239f8fc56",
+    "crates/realtime-seca-core/src/tree/hkt_builder.rs": "b218fcee17d466350339000f2828be10ee84065e4cbbeb4657c71dc23c8f9163"
+  },
+  "seed": 711,
+  "checks": [
+    {
+      "case": "scientific_hkt/boundary_2_baseline",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/boundary_2_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/boundary_3_baseline",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/boundary_3_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/boundary_4_baseline",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/boundary_4_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/branch_boundary",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/branch_boundary_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_rebuilt_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/collision_true_tie_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_rebuilt_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/frequency_vs_vocabulary_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_child_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_child_rebuilt_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_rebuilt",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_rebuilt_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "scientific_hkt/overlap_recursive_reversed",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/branch_boundary",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/child",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/child_reconstruct",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision_reordered",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/collision_true_tie",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/competing",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/frequency_vs_vocabulary",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/merge_many",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/new_dominant",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/one_prominent",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/overlap_recursive",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/refuge",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/root_reconstruct",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/separate",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/sequential",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/siblings",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/single_root",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/ties_ab",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/ties_ba",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "parity_hkt_reconstruction/unmatched",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-0",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-1",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-2",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-3",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-4",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-5",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-6",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-7",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-8",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-9",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-10",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-11",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-12",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-13",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-14",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-15",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-16",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-17",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-18",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-19",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-20",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-21",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-22",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-23",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-24",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-25",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-26",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-27",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-28",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-29",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-30",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-31",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-32",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-33",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-34",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-35",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-36",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-37",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-38",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-39",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-40",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-41",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-42",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-43",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-44",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-45",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-46",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-47",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-48",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-49",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-50",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-51",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-52",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-53",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-54",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-55",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-56",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-57",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-58",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-59",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-60",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-61",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-62",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-63",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-64",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-65",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-66",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-67",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-68",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-69",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-70",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-71",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-72",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-73",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-74",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-75",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-76",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-77",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-78",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-79",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-80",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-81",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-82",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-83",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-84",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-85",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-86",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-87",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-88",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-89",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-90",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-91",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-92",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-93",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-94",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-95",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-96",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-97",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-98",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    },
+    {
+      "case": "random-99",
+      "direct": true,
+      "bitset": true,
+      "simplified": true
+    }
+  ],
+  "measurements": [
+    {
+      "workload": "news-25",
+      "sources": 25,
+      "words": 535,
+      "relations": 743,
+      "rust_core_median_ms": 0.306763,
+      "rust_total_median_ms": 0.468657,
+      "rust_peak_rss_kib": 3376,
+      "simplified": {
+        "median_ms": 0.479276,
+        "peak_rss_kib": 3444,
+        "matches_rust": true
+      },
+      "direct": {
+        "median_ms": 1.497894525527954,
+        "python_peak_bytes": 464978,
+        "matches_rust": true,
+        "peak_rss_kib": 18548
+      },
+      "bitset": {
+        "median_ms": 1.1424124240875244,
+        "python_peak_bytes": 212628,
+        "matches_rust": true,
+        "peak_rss_kib": 18368
+      }
+    },
+    {
+      "workload": "news-100",
+      "sources": 100,
+      "words": 1339,
+      "relations": 2862,
+      "rust_core_median_ms": 3.3109290000000002,
+      "rust_total_median_ms": 4.095796,
+      "rust_peak_rss_kib": 5988,
+      "simplified": {
+        "median_ms": 4.056003,
+        "peak_rss_kib": 5944,
+        "matches_rust": true
+      },
+      "direct": {
+        "median_ms": 12.997299432754517,
+        "python_peak_bytes": 1937404,
+        "matches_rust": true,
+        "peak_rss_kib": 20928
+      },
+      "bitset": {
+        "median_ms": 11.368773877620697,
+        "python_peak_bytes": 884566,
+        "matches_rust": true,
+        "peak_rss_kib": 19852
+      }
+    },
+    {
+      "workload": "news-250",
+      "sources": 250,
+      "words": 2648,
+      "relations": 6955,
+      "rust_core_median_ms": 8.60178,
+      "rust_total_median_ms": 10.365218,
+      "rust_peak_rss_kib": 11040,
+      "simplified": {
+        "median_ms": 10.395194,
+        "peak_rss_kib": 10932,
+        "matches_rust": true
+      },
+      "direct": {
+        "median_ms": 40.14928638935089,
+        "python_peak_bytes": 4319367,
+        "matches_rust": true,
+        "peak_rss_kib": 24608
+      },
+      "bitset": {
+        "median_ms": 31.641334295272827,
+        "python_peak_bytes": 2246257,
+        "matches_rust": true,
+        "peak_rss_kib": 22244
+      }
+    },
+    {
+      "workload": "controlled-100",
+      "sources": 100,
+      "words": 40,
+      "relations": 1707,
+      "rust_core_median_ms": 7.542941,
+      "rust_total_median_ms": 9.239232,
+      "rust_peak_rss_kib": 5924,
+      "simplified": {
+        "median_ms": 9.337365,
+        "peak_rss_kib": 5980,
+        "matches_rust": true
+      },
+      "direct": {
+        "median_ms": 14.646105468273163,
+        "python_peak_bytes": 1036444,
+        "matches_rust": true,
+        "peak_rss_kib": 19796
+      },
+      "bitset": {
+        "median_ms": 18.811769783496857,
+        "python_peak_bytes": 407225,
+        "matches_rust": true,
+        "peak_rss_kib": 19036
+      }
+    },
+    {
+      "workload": "controlled-1000",
+      "sources": 1000,
+      "words": 40,
+      "relations": 17208,
+      "rust_core_median_ms": 78.626351,
+      "rust_total_median_ms": 88.52248399999999,
+      "rust_peak_rss_kib": 32112,
+      "simplified": {
+        "median_ms": 88.540869,
+        "peak_rss_kib": 32196,
+        "matches_rust": true
+      },
+      "direct": {
+        "median_ms": 129.3228715658188,
+        "python_peak_bytes": 7625917,
+        "matches_rust": true,
+        "peak_rss_kib": 30352
+      },
+      "bitset": {
+        "median_ms": 195.9592029452324,
+        "python_peak_bytes": 2602416,
+        "matches_rust": true,
+        "peak_rss_kib": 25612
+      }
+    }
+  ],
+  "baseline_revision": "c6cc0ac3edaf7aa2c902d2e6d86f63e9cfc9accc plus existing working-tree changes; source hashes identify actual inputs",
+  "simplified_revision": "d7e6e657b6acdc354a2a4bdfe2a672510bf555cb",
+  "prototype_sha256": {
+    "docs/architecture-exploration/prototypes/bitset/seca_bitset.py": "3ec84c23b3da3e8f86247aff599006f77c0ed8511ebf43864063ba0054e61002",
+    "docs/architecture-exploration/prototypes/bitset/test_bitset.py": "19e08a0277df2d68fcfb95d6863bfa1dceb6b1ce67ca8845cbd08c2419d7aab1",
+    "docs/architecture-exploration/prototypes/direct/evaluate.py": "a670081950c081597de44701dc9ce955707b1f1997bf6eaa020397fa4dd657b9",
+    "docs/architecture-exploration/prototypes/direct/seca.py": "1d57424798850ea9fb8fa6f040255f1099e1ae7fe82b9fed446881095693b294",
+    "docs/architecture-exploration/prototypes/direct/test_seca.py": "9d03b87e11b74f450892f9d102cd6bb1558d30c3986d199e379e67a2dd542f5a",
+    "docs/architecture-exploration/prototypes/evaluate.py": "7c10f481cdfbc42bd68a5bb1b0b97ff81a6486e2abec53067cb3e62df20a48a8",
+    "docs/architecture-exploration/prototypes/evaluate_metrics.py": "c2be80d3a56bf2c4132ad29abf8d2175b54cd93bb01c0d96940d10181c2deb29",
+    "docs/architecture-exploration/prototypes/prepare_comparison.py": "0a584e9ee9653aae203abf4c195ddcfd438f54a00a5749a45274e7f67a6eafd8",
+    "docs/architecture-exploration/prototypes/replay_reference.py": "3c1b68a115d039ddae4cb616053b1bf59a09efc17a3144ddee70c90388667966"
+  }
+}

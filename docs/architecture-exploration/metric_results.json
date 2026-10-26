@@ -1,0 +1,131 @@
+{
+  "scope": "direct reducer over captured C# measurements only; no update parity",
+  "checks": [
+    {
+      "fixture": "alpha_threshold.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "below_alpha.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "below_beta.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "beta_threshold.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "child.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "child.csharp",
+      "cycle": 2,
+      "hkt": 2,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "exact_alpha.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "expected_consecutive.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "expected_consecutive.csharp",
+      "cycle": 3,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "expected_trigger.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "expected_trigger.csharp",
+      "cycle": 3,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "historical_candidate.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "just_below_alpha.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "low_evidence.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "new_word.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "node_union.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "refuge.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "unchanged.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "unchanged.csharp",
+      "cycle": 3,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "weakening.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    },
+    {
+      "fixture": "wi_threshold.csharp",
+      "cycle": 2,
+      "hkt": 1,
+      "matches_rounding_envelope": true
+    }
+  ]
+}
