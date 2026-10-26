@@ -614,31 +614,48 @@ fn child_only_receives_sources_with_residual_words() {
         )
         .unwrap();
 
+    // Baseline construction.
     let parent = &model.root().nodes[0];
     assert_eq!(parent.sources, sources(&[1, 2, 3, 4]));
 
     let child = parent.child.as_ref().unwrap();
-
     assert_eq!(child.nodes.len(), 1);
     assert_eq!(child.nodes[0].words, words("b"));
     assert_eq!(child.nodes[0].sources, sources(&[1, 2]));
 
     // Source 5 has no residual vocabulary.
-    // Source 6 has residual vocabulary, but no
-    // existing child descriptor matches it.
-    assert!(child.nodes.iter().all(|n| {
-        !n.sources.contains("5") && !n.sources.contains("6")
-    }));
+    // Source 6 has residual vocabulary ("z"),
+    // but does not match the existing child descriptor.
+    model
+        .update(1, vec![source(5, "a"), source(6, "a z")])
+        .unwrap();
 
-    // Source 6 is still available for later learning.
+    let parent = &model.root().nodes[0];
+
+    // Both sources match the parent descriptor "a".
+    assert_eq!(parent.sources, sources(&[1, 2, 3, 4, 5, 6]));
+
+    let child = parent.child.as_ref().unwrap();
+
+    // Accepted updates do not create new child nodes.
+    assert_eq!(child.nodes.len(), 1);
+    assert_eq!(child.nodes[0].words, words("b"));
+    assert_eq!(child.nodes[0].sources, sources(&[1, 2]));
+
+    // Neither source enters a child node.
+    assert!(child
+        .nodes
+        .iter()
+        .all(|n| { !n.sources.contains("5") && !n.sources.contains("6") }));
+
+    // Unmatched evidence remains available for future learning.
     assert!(model.retained_sources().contains("6"));
 
-    // Saving and loading must preserve the new invariant.
+    // Serialization preserves the model.
     let json = serde_json::to_string(&model).unwrap();
     let restored: Model = serde_json::from_str(&json).unwrap();
     assert_eq!(restored, model);
 }
-
 
 #[test]
 fn unmatched_evidence_triggers_later_reconstruction() {
@@ -651,10 +668,9 @@ fn unmatched_evidence_triggers_later_reconstruction() {
     let mut model = Model::new(c).unwrap();
 
     // Initial tree contains only a.
-    model.update(
-        0,
-        vec![source(1, "a"), source(2, "a")],
-    ).unwrap();
+    model
+        .update(0, vec![source(1, "a"), source(2, "a")])
+        .unwrap();
 
     assert_eq!(
         model.root(),
@@ -665,10 +681,7 @@ fn unmatched_evidence_triggers_later_reconstruction() {
 
     // x appears once. It is below alpha and must
     // not create a new refuge or descriptor.
-    let decisions = model.update(
-        1,
-        vec![source(3, "x")],
-    ).unwrap();
+    let decisions = model.update(1, vec![source(3, "x")]).unwrap();
 
     assert_eq!(decisions.len(), 1);
     assert!(!decisions[0].reconstructed);
@@ -683,10 +696,7 @@ fn unmatched_evidence_triggers_later_reconstruction() {
     );
 
     // But the unmatched source is retained.
-    assert_eq!(
-        model.retained_sources(),
-        sources(&[1, 2, 3])
-    );
+    assert_eq!(model.retained_sources(), sources(&[1, 2, 3]));
 
     // A model with unmapped evidence must also
     // survive serialization and restoration.
@@ -697,10 +707,7 @@ fn unmatched_evidence_triggers_later_reconstruction() {
     // A second x arrives.
     // Now D(a)=2 and D(x)=2.
     // WI error = 2/(2+2) = 0.5 > 0.4.
-    let decisions = model.update(
-        2,
-        vec![source(4, "x")],
-    ).unwrap();
+    let decisions = model.update(2, vec![source(4, "x")]).unwrap();
 
     assert_eq!(decisions.len(), 1);
     assert!(decisions[0].reconstructed);
@@ -711,11 +718,7 @@ fn unmatched_evidence_triggers_later_reconstruction() {
     assert_eq!(
         model.root(),
         &Hkt {
-            nodes: vec![
-                node("a", &[1, 2]),
-                node("x", &[3, 4]),
-            ],
+            nodes: vec![node("a", &[1, 2]), node("x", &[3, 4]),],
         }
     );
 }
-
