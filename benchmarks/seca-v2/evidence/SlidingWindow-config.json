@@ -1,0 +1,1 @@
+{"hkt_builder": {"minimum_number_of_sources_to_create_branch_for_node": 10, "minimum_threshold_against_max_word_count": 0.7, "similarity_threshold": 0.5}, "max_batches_in_memory": 3, "memory_mode": "SlidingWindow", "seca_thresholds": {"alpha": 0.7, "alpha_error_threshold": 0.1, "beta": 0.5, "beta_error_threshold": 0.2, "word_importance_error_threshold": 0.3}}

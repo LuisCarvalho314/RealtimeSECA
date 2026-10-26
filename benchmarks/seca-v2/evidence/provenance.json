@@ -1,0 +1,24 @@
+{
+  "base": "e0ca91eb62e1e5843ddb47d98ec71a388a67f6d5",
+  "branch": "research/seca-v2-first-principles",
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "platform": "Linux 5.15.0-1089-azure x86_64 GNU/Linux",
+  "source_sha256": {
+    "Cargo.lock": "8d705ce63d2767a2eb0e7b1fd554447e07ac7716e9a19d7cc69de3306aa2b316",
+    "Cargo.toml": "d04f9c611ba2eb41e78d9d1226f65677493505bebc56f56de593e7a5ceede175",
+    "crates/realtime-seca-v2/Cargo.toml": "7229051f478b5627f0f108dddaded80479c23ad52f17ed4ab5a2767e51f8bb8a",
+    "crates/realtime-seca-v2/examples/compare_stream.rs": "5db2b0390f6df92485572c9f160ba6df0beb312df28bd45bd42b8b2dbbabdea4",
+    "crates/realtime-seca-v2/src/lib.rs": "3d0935245be7a00849bd9d3bc3d9c699c4ccf6e4ddf3b4b4dd080ddbe98c6bda",
+    "crates/realtime-seca-v2/src/metrics.rs": "ae89d6a42154eb0ff3ecc131429f1cd5b6c9d525afa8b7a02a3f585d5c6d0b12",
+    "crates/realtime-seca-v2/src/recursive.rs": "241ddf9b428dfa7c072484ae3abd9f7072d2272312942066245a81913b59f3ea",
+    "crates/realtime-seca-v2/tests/comparison.rs": "36f7d53bcc7d4bc9693b1dcb1d4561256699ad0a24a42ec607253cb4a3841db9",
+    "crates/realtime-seca-v2/tests/mathematics.rs": "fba1f08da77db3337a20380d85704eeda633f95cc0961f0876feb56010ed7b13",
+    "benchmarks/seca-v2/compare.py": "a97b728bdac07fdfc9b7f6b760b80d3c66b2bf485d13180bcdc96e7d25224bca",
+    "benchmarks/seca-v2/summarize.py": "ffad5f356dd16968f6fc361c4ceb4e98fee1270e520444c721577da68ab1174f",
+    "docs/v2/architecture.md": "0939294d9c926c511e7841d40aa4929b854f0eb2e4b0d22d6f89567fc2242c8e",
+    "docs/v2/report.md": "03dba9bec131207a84ddf61d33ddccb4f1a2ac05433237e8913d5e58932cbd5e",
+    "docs/v2/specification.md": "4ff4ef2ea7b0aa821ebaa404c9a2419dc8af11b6eacd7f594f392f089a3fbe0e"
+  },
+  "measured_H_binary_sha256": "05ac8ca702ecf44578d434a5d52eee3d2b71670f69acbf373a7ee2046d5e95c1",
+  "note": "Final review source hashes. G ran before equivalent map-entry/helper extraction cleanups; H ran the final core. No scientific logic changed between these builds."
+}

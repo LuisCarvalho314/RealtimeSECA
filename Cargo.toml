@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "crates/realtime-seca-core",
+    "crates/realtime-seca-v2",
     "crates/realtime-seca-cli",
 ]
 resolver = "2"
