@@ -27,11 +27,15 @@ new node. The resulting descriptors are `cyber|deal|monday`, `sale`, and
 `thanksgiving`.
 
 The observed original C# execution processed `sale → cyber → monday → deal →
-thanksgiving` and produced `cyber|monday|sale`, `deal`, `thanksgiving`. Its child
+thanksgiving` and produced `cyber|monday|sale`, `deal`, `thanksgiving`. The
+[original C# candidate-order trace](evidence/seca-v2-ordering/news-g-black-friday-csharp-construction-trace.json)
+records the input rows, candidate order, beta scores, node memberships, original
+compiled result, traced-copy result, and Rust counterfactual replays. Its child
 rows are frequency sorted, but equal-frequency row order comes from a concurrent
 dictionary and candidate iteration uses a hash set. Replaying that order with
 Rust's grouping calculation reproduced every observed beta score and node
-membership. The difference is order, not vocabulary, scope, or beta arithmetic.
+membership at this path. The difference here is order, not vocabulary, observed
+scope, or beta arithmetic. This local trace does not explain other News G paths.
 
 The regression fixture is
 [`news_g_friday_child.tsv`](../crates/realtime-seca-v2/tests/fixtures/news_g_friday_child.tsv).

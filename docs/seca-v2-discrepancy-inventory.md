@@ -8,17 +8,17 @@ difference concerns a reproducibility rule or state/implementation defect not
 specified by the publications. An engineering difference can still change
 descriptors and later scientific measurements.
 
-The baseline comparison uses the saved C# reference snapshot and the Rust v2
-`research/seca-v2-cumulative-path-exclusion` run at commit
-`bd28080d53d4efe5369d9c14bd2f5ed8bb60f3a3`. The source batch contains 740
+The baseline comparison uses the saved C# reference snapshot and a verified
+first-wins Rust v2 build from commit `7fc0ba5c0df4b00f00245414de19ee9ad29fb763`.
+The source batch contains 740
 News G documents with alpha 0.7 and beta 0.5. The C# snapshot SHA-256 is
 `9d941e7c3fdd754554888860a6f8735396c793e791b179119824a58aba521037`;
-the Rust cycle-0 snapshot SHA-256 is
-`571faa2da5cf972643ae92219b8e08c977bb4e3b781097a5e74778ff776be68e`.
+the canonical Rust cycle-0 tree SHA-256 is
+`1cc62e6ab654ebb987034bc3878abda4216d2ba4859ff6467aa7d89d31f58d88`.
 [Matched-HKT data](evidence/seca-v2-ordering/news-g-hkt-comparison.csv)
-shows 42 matched paths, 8 ordinary descriptor partitions that differ, and one
+shows 42 matched paths, 7 ordinary descriptor partitions that differ, and one
 matched path with a different observed source union. Those counts are baseline
-observations; they do not represent eight independent causes.
+observations; they do not represent seven independent causes.
 
 ## First-cycle matched HKT differences
 
@@ -26,16 +26,15 @@ observations; they do not represent eight independent causes.
 | --- | --- | --- |
 | `black / friday` | Five words all have DF 4; the traced original C# methods process `sale, cyber, monday, deal, thanksgiving`, while v2 uses lexical order. A Rust replay of the C# order matches every beta score, descriptor, and source membership. | **Engineering tie policy, proven** for the directly executed case. It changes the greedy scientific grouping. C# has no portable tie rule. |
 | `kanye|west / kardashian|kim` | Same 12-source union. Rust admits sibling words `rogen,seth` (DF 5); C# admits `james,parody` (DF 3). Excluding the sibling words reduces the local maximum from 5 to 4, allowing the DF-3 words through alpha. | **Scientific scope/exclusion choice, strongly supported.** Rust v2 excludes path descriptors; the C# baseline consumes descriptors adopted at the current HKT before child construction. |
-| `REFUGE / REFUGE / deal` | Same 12 sources and ordinary vocabulary, but `afghan|leader` versus `afghan|security`, among other groupings. All eight relevant words have DF 2. | **Engineering ordering/collision tie hypothesis.** Exact first causal step has not been instrumented here; beta or row state cannot yet be ruled out. |
 | `REFUGE / REFUGE / report` | Same 12 sources; Rust additionally adopts `nsa,porn`, sibling descriptors absent from the C# child. | **Scientific sibling-exclusion choice, strongly supported.** |
 | `REFUGE / REFUGE / seahawks` | Same 10 sources; Rust adopts sibling word `year` in the `seahawks` child. | **Scientific sibling-exclusion choice, strongly supported.** |
 | `REFUGE / REFUGE / year` | Same 13 sources; Rust adopts sibling word `seahawks` in the `year` child. | **Scientific sibling-exclusion choice, strongly supported.** |
 | `kanye|west / franco|rogen|seth / bound|james|parody|video` | C# has 10 observed sources; Rust has those plus source 646. Descendant vocabularies differ. | **Downstream scientific scope/membership divergence.** Its independent cause is unproved; upstream descriptor and source routing already differ. |
-| six nested refuge attachments | Same 94-source union and descriptor vocabulary, but several words join different nodes; all listed divergent words have DF 2. | **Engineering tie/order hypothesis.** No candidate-level trace has isolated the first difference. |
+| six-level nested refuge path | Same observed source union and descriptor vocabulary, but several words join different nodes. | **Ordering/collision tie hypothesis.** No candidate-level trace has isolated the first difference. |
 
-The first, third, and eighth rows share vocabulary and observed scope, but only
-the first has a direct C# construction trace and counterfactual Rust replay.
-The four sibling-word rows are instances of the same model question: whether
+The `black / friday` and nested refuge rows share vocabulary and observed scope,
+but only the first has a direct C# construction trace and counterfactual Rust replay.
+The sibling-word rows are instances of the same model question: whether
 child construction excludes only descriptors on its ancestry path, as v2 does
 (`crates/realtime-seca-v2/src/recursive.rs:69–79`), or all words adopted by the
 current HKT, as in the C# baseline (`HKT.cs:661–662, 687–719`). The original CA
@@ -68,7 +67,7 @@ classes, with different applicability to v2:
 | Minimum branch support | **Scientific counted-set ambiguity** | C# tests parent node source count; v2 tests residual child scope length (`recursive.rs:72–75`). An inclusive numeric boundary alone does not settle which set is counted. |
 | Equal beta scores between existing nodes | **Engineering tie choice** | C# selects the last enumerated maximum; v2 keeps the first strict maximum (`recursive.rs:33–43`). This may alter topology, and node iteration itself can depend on earlier scientific choices. No News G path in this inventory isolates such a tie. |
 | C# four-decimal error rounding versus Rust full precision | **Engineering numeric policy** | Controlled alpha/beta threshold fixtures change trigger decisions. There is no published four-decimal requirement; v2 uses full precision (`recursive.rs:125–127`). |
-| C# stale expected-word counts and duplicate-key failure on shared candidates | **Engineering defects** | Controlled fixtures show a changed WI trigger and a surfaced exception. Copying those behaviors would not resolve the underlying model semantics. |
+| C# cached expected-word counts and duplicate-key failure on shared candidates | **Observed implementation behavior** | Controlled fixtures show a changed WI trigger and a surfaced exception. Their causal contribution to News G has not been established. |
 | C# refuge membership not committed at an accepted parent, and output-only IDs/order | **Engineering state/representation** | In controlled fixtures, Rust retains unmatched refuge membership and C# can leave its parent stale. IDs and sibling display order are incidental only where labelled memberships and later behavior agree. |
 
 The explicit UTF-8 tie comparator and its regression test make the current Rust

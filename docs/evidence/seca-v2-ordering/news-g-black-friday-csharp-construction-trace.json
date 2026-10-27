@@ -1,0 +1,4831 @@
+{
+  "case": "News G, cycle 1 (batch_index 0)",
+  "path": "ordinary:black / ordinary:friday",
+  "alpha": 0.7,
+  "beta": 0.5,
+  "provenance": {
+    "fixture_input_sha256": "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005",
+    "saved_csharp_snapshot_sha256": "9d941e7c3fdd754554888860a6f8735396c793e791b179119824a58aba521037",
+    "saved_rust_cycle_00_sha256": "571faa2da5cf972643ae92219b8e08c977bb4e3b781097a5e74778ff776be68e",
+    "original_compiled_seca_sha256": "6386a6b5e3a3b88a2e1539a72bcdce537e4e579a1be80c4937fab96da0ae7cd6",
+    "original_hkt_source_sha256": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+    "execution": "Original SECA.exe assembly called via public HKT methods under Mono; traced copy compiled from original source with read-only probes."
+  },
+  "word_ids": {
+    "black": 83,
+    "friday": 84,
+    "sale": 85,
+    "cyber": 86,
+    "monday": 87,
+    "deal": 192,
+    "thanksgiving": 166
+  },
+  "source_scope": {
+    "parent": [
+      14,
+      33,
+      59,
+      105,
+      191,
+      193,
+      216,
+      248,
+      249,
+      278,
+      279,
+      323,
+      328,
+      337,
+      402,
+      403,
+      482,
+      492,
+      512,
+      553,
+      583,
+      595,
+      598,
+      609,
+      648,
+      656,
+      711
+    ],
+    "child": [
+      14,
+      33,
+      59,
+      105,
+      193,
+      216,
+      248,
+      249,
+      323,
+      482,
+      512,
+      553,
+      583,
+      595,
+      598,
+      648,
+      656,
+      711
+    ]
+  },
+  "dictionary_rows": {
+    "parent_before": [
+      {
+        "row_id": 2,
+        "source_id": 14,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 6,
+        "source_id": 33,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 15,
+        "source_id": 59,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 19,
+        "source_id": 105,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 24,
+        "source_id": 193,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 28,
+        "source_id": 216,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 33,
+        "source_id": 248,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 35,
+        "source_id": 249,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 57,
+        "source_id": 323,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 76,
+        "source_id": 482,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 89,
+        "source_id": 512,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 92,
+        "source_id": 553,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 98,
+        "source_id": 583,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 101,
+        "source_id": 595,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 104,
+        "source_id": 598,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 117,
+        "source_id": 648,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 127,
+        "source_id": 656,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 130,
+        "source_id": 711,
+        "word_id": 84,
+        "frequency": 18,
+        "word": "friday"
+      },
+      {
+        "row_id": 22,
+        "source_id": 191,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 39,
+        "source_id": 278,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 58,
+        "source_id": 328,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 63,
+        "source_id": 337,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 66,
+        "source_id": 402,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 72,
+        "source_id": 403,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 110,
+        "source_id": 609,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 3,
+        "source_id": 14,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 4,
+        "source_id": 14,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 5,
+        "source_id": 14,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 8,
+        "source_id": 33,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 9,
+        "source_id": 33,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 10,
+        "source_id": 33,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 11,
+        "source_id": 33,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 26,
+        "source_id": 193,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 30,
+        "source_id": 216,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 77,
+        "source_id": 482,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 78,
+        "source_id": 482,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 93,
+        "source_id": 553,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 97,
+        "source_id": 583,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 99,
+        "source_id": 583,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 100,
+        "source_id": 583,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 105,
+        "source_id": 598,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 106,
+        "source_id": 598,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 108,
+        "source_id": 598,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 122,
+        "source_id": 648,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 128,
+        "source_id": 656,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 12,
+        "source_id": 33,
+        "word_id": 41,
+        "frequency": 2,
+        "word": "review"
+      },
+      {
+        "row_id": 43,
+        "source_id": 279,
+        "word_id": 637,
+        "frequency": 2,
+        "word": "kim"
+      },
+      {
+        "row_id": 44,
+        "source_id": 279,
+        "word_id": 638,
+        "frequency": 2,
+        "word": "kardashian"
+      },
+      {
+        "row_id": 45,
+        "source_id": 279,
+        "word_id": 871,
+        "frequency": 2,
+        "word": "rock"
+      },
+      {
+        "row_id": 49,
+        "source_id": 279,
+        "word_id": 453,
+        "frequency": 2,
+        "word": "kanye"
+      },
+      {
+        "row_id": 50,
+        "source_id": 279,
+        "word_id": 454,
+        "frequency": 2,
+        "word": "west"
+      },
+      {
+        "row_id": 67,
+        "source_id": 402,
+        "word_id": 41,
+        "frequency": 2,
+        "word": "review"
+      },
+      {
+        "row_id": 69,
+        "source_id": 403,
+        "word_id": 1459,
+        "frequency": 2,
+        "word": "langston"
+      },
+      {
+        "row_id": 70,
+        "source_id": 403,
+        "word_id": 1460,
+        "frequency": 2,
+        "word": "hughes"
+      },
+      {
+        "row_id": 75,
+        "source_id": 482,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 79,
+        "source_id": 492,
+        "word_id": 637,
+        "frequency": 2,
+        "word": "kim"
+      },
+      {
+        "row_id": 80,
+        "source_id": 492,
+        "word_id": 638,
+        "frequency": 2,
+        "word": "kardashian"
+      },
+      {
+        "row_id": 81,
+        "source_id": 492,
+        "word_id": 871,
+        "frequency": 2,
+        "word": "rock"
+      },
+      {
+        "row_id": 83,
+        "source_id": 492,
+        "word_id": 453,
+        "frequency": 2,
+        "word": "kanye"
+      },
+      {
+        "row_id": 84,
+        "source_id": 492,
+        "word_id": 454,
+        "frequency": 2,
+        "word": "west"
+      },
+      {
+        "row_id": 113,
+        "source_id": 609,
+        "word_id": 1459,
+        "frequency": 2,
+        "word": "langston"
+      },
+      {
+        "row_id": 114,
+        "source_id": 609,
+        "word_id": 1460,
+        "frequency": 2,
+        "word": "hughes"
+      },
+      {
+        "row_id": 118,
+        "source_id": 648,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 119,
+        "source_id": 648,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 126,
+        "source_id": 656,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 129,
+        "source_id": 656,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 133,
+        "source_id": 711,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 134,
+        "source_id": 711,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 136,
+        "source_id": 711,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 1,
+        "source_id": 14,
+        "word_id": 82,
+        "frequency": 1,
+        "word": "turkey"
+      },
+      {
+        "row_id": 7,
+        "source_id": 33,
+        "word_id": 191,
+        "frequency": 1,
+        "word": "iphone"
+      },
+      {
+        "row_id": 13,
+        "source_id": 59,
+        "word_id": 320,
+        "frequency": 1,
+        "word": "thing"
+      },
+      {
+        "row_id": 14,
+        "source_id": 59,
+        "word_id": 285,
+        "frequency": 1,
+        "word": "buy"
+      },
+      {
+        "row_id": 16,
+        "source_id": 105,
+        "word_id": 550,
+        "frequency": 1,
+        "word": "guest"
+      },
+      {
+        "row_id": 17,
+        "source_id": 105,
+        "word_id": 551,
+        "frequency": 1,
+        "word": "column"
+      },
+      {
+        "row_id": 18,
+        "source_id": 105,
+        "word_id": 552,
+        "frequency": 1,
+        "word": "bonding"
+      },
+      {
+        "row_id": 20,
+        "source_id": 191,
+        "word_id": 880,
+        "frequency": 1,
+        "word": "whitaker"
+      },
+      {
+        "row_id": 21,
+        "source_id": 191,
+        "word_id": 881,
+        "frequency": 1,
+        "word": "bassett"
+      },
+      {
+        "row_id": 23,
+        "source_id": 191,
+        "word_id": 883,
+        "frequency": 1,
+        "word": "soar"
+      },
+      {
+        "row_id": 25,
+        "source_id": 193,
+        "word_id": 887,
+        "frequency": 1,
+        "word": "ate"
+      },
+      {
+        "row_id": 27,
+        "source_id": 193,
+        "word_id": 888,
+        "frequency": 1,
+        "word": "destroyed"
+      },
+      {
+        "row_id": 29,
+        "source_id": 216,
+        "word_id": 962,
+        "frequency": 1,
+        "word": "feast"
+      },
+      {
+        "row_id": 31,
+        "source_id": 248,
+        "word_id": 605,
+        "frequency": 1,
+        "word": "violence"
+      },
+      {
+        "row_id": 32,
+        "source_id": 248,
+        "word_id": 1049,
+        "frequency": 1,
+        "word": "american"
+      },
+      {
+        "row_id": 34,
+        "source_id": 248,
+        "word_id": 1050,
+        "frequency": 1,
+        "word": "tradition"
+      },
+      {
+        "row_id": 36,
+        "source_id": 249,
+        "word_id": 1051,
+        "frequency": 1,
+        "word": "bleeding"
+      },
+      {
+        "row_id": 37,
+        "source_id": 249,
+        "word_id": 1052,
+        "frequency": 1,
+        "word": "gray"
+      },
+      {
+        "row_id": 38,
+        "source_id": 249,
+        "word_id": 508,
+        "frequency": 1,
+        "word": "thursday"
+      },
+      {
+        "row_id": 40,
+        "source_id": 278,
+        "word_id": 1114,
+        "frequency": 1,
+        "word": "gift"
+      },
+      {
+        "row_id": 41,
+        "source_id": 278,
+        "word_id": 259,
+        "frequency": 1,
+        "word": "family"
+      },
+      {
+        "row_id": 42,
+        "source_id": 278,
+        "word_id": 1115,
+        "frequency": 1,
+        "word": "connection"
+      },
+      {
+        "row_id": 46,
+        "source_id": 279,
+        "word_id": 1116,
+        "frequency": 1,
+        "word": "sexy"
+      },
+      {
+        "row_id": 47,
+        "source_id": 279,
+        "word_id": 1117,
+        "frequency": 1,
+        "word": "lbd"
+      },
+      {
+        "row_id": 48,
+        "source_id": 279,
+        "word_id": 1118,
+        "frequency": 1,
+        "word": "lipstick"
+      },
+      {
+        "row_id": 51,
+        "source_id": 279,
+        "word_id": 1119,
+        "frequency": 1,
+        "word": "concert"
+      },
+      {
+        "row_id": 52,
+        "source_id": 323,
+        "word_id": 1249,
+        "frequency": 1,
+        "word": "shopyourworld"
+      },
+      {
+        "row_id": 53,
+        "source_id": 323,
+        "word_id": 1250,
+        "frequency": 1,
+        "word": "association"
+      },
+      {
+        "row_id": 54,
+        "source_id": 323,
+        "word_id": 1251,
+        "frequency": 1,
+        "word": "axis"
+      },
+      {
+        "row_id": 55,
+        "source_id": 323,
+        "word_id": 332,
+        "frequency": 1,
+        "word": "bank"
+      },
+      {
+        "row_id": 56,
+        "source_id": 323,
+        "word_id": 1252,
+        "frequency": 1,
+        "word": "celebrates"
+      },
+      {
+        "row_id": 59,
+        "source_id": 328,
+        "word_id": 463,
+        "frequency": 1,
+        "word": "good"
+      },
+      {
+        "row_id": 60,
+        "source_id": 328,
+        "word_id": 1262,
+        "frequency": 1,
+        "word": "deed"
+      },
+      {
+        "row_id": 61,
+        "source_id": 328,
+        "word_id": 463,
+        "frequency": 1,
+        "word": "good"
+      },
+      {
+        "row_id": 62,
+        "source_id": 328,
+        "word_id": 1263,
+        "frequency": 1,
+        "word": "song"
+      },
+      {
+        "row_id": 64,
+        "source_id": 337,
+        "word_id": 1286,
+        "frequency": 1,
+        "word": "bold"
+      },
+      {
+        "row_id": 65,
+        "source_id": 337,
+        "word_id": 1287,
+        "frequency": 1,
+        "word": "clumsy"
+      },
+      {
+        "row_id": 68,
+        "source_id": 402,
+        "word_id": 1458,
+        "frequency": 1,
+        "word": "preach"
+      },
+      {
+        "row_id": 71,
+        "source_id": 403,
+        "word_id": 513,
+        "frequency": 1,
+        "word": "holiday"
+      },
+      {
+        "row_id": 73,
+        "source_id": 482,
+        "word_id": 496,
+        "frequency": 1,
+        "word": "local"
+      },
+      {
+        "row_id": 74,
+        "source_id": 482,
+        "word_id": 1494,
+        "frequency": 1,
+        "word": "shop"
+      },
+      {
+        "row_id": 82,
+        "source_id": 492,
+        "word_id": 1659,
+        "frequency": 1,
+        "word": "dress"
+      },
+      {
+        "row_id": 85,
+        "source_id": 492,
+        "word_id": 1660,
+        "frequency": 1,
+        "word": "madison"
+      },
+      {
+        "row_id": 86,
+        "source_id": 492,
+        "word_id": 1661,
+        "frequency": 1,
+        "word": "square"
+      },
+      {
+        "row_id": 87,
+        "source_id": 512,
+        "word_id": 1512,
+        "frequency": 1,
+        "word": "area"
+      },
+      {
+        "row_id": 88,
+        "source_id": 512,
+        "word_id": 1704,
+        "frequency": 1,
+        "word": "prohibit"
+      },
+      {
+        "row_id": 90,
+        "source_id": 512,
+        "word_id": 514,
+        "frequency": 1,
+        "word": "shopping"
+      },
+      {
+        "row_id": 91,
+        "source_id": 553,
+        "word_id": 545,
+        "frequency": 1,
+        "word": "best"
+      },
+      {
+        "row_id": 94,
+        "source_id": 553,
+        "word_id": 370,
+        "frequency": 1,
+        "word": "tv"
+      },
+      {
+        "row_id": 95,
+        "source_id": 553,
+        "word_id": 1798,
+        "frequency": 1,
+        "word": "depends"
+      },
+      {
+        "row_id": 96,
+        "source_id": 583,
+        "word_id": 1868,
+        "frequency": 1,
+        "word": "difference"
+      },
+      {
+        "row_id": 102,
+        "source_id": 595,
+        "word_id": 1883,
+        "frequency": 1,
+        "word": "feel"
+      },
+      {
+        "row_id": 103,
+        "source_id": 595,
+        "word_id": 1884,
+        "frequency": 1,
+        "word": "month"
+      },
+      {
+        "row_id": 107,
+        "source_id": 598,
+        "word_id": 17,
+        "frequency": 1,
+        "word": "travel"
+      },
+      {
+        "row_id": 109,
+        "source_id": 598,
+        "word_id": 1890,
+        "frequency": 1,
+        "word": "guidebook"
+      },
+      {
+        "row_id": 111,
+        "source_id": 609,
+        "word_id": 908,
+        "frequency": 1,
+        "word": "retain"
+      },
+      {
+        "row_id": 112,
+        "source_id": 609,
+        "word_id": 630,
+        "frequency": 1,
+        "word": "heart"
+      },
+      {
+        "row_id": 115,
+        "source_id": 609,
+        "word_id": 1906,
+        "frequency": 1,
+        "word": "classic"
+      },
+      {
+        "row_id": 116,
+        "source_id": 609,
+        "word_id": 1492,
+        "frequency": 1,
+        "word": "story"
+      },
+      {
+        "row_id": 120,
+        "source_id": 648,
+        "word_id": 1985,
+        "frequency": 1,
+        "word": "strategy"
+      },
+      {
+        "row_id": 121,
+        "source_id": 648,
+        "word_id": 1986,
+        "frequency": 1,
+        "word": "seeking"
+      },
+      {
+        "row_id": 123,
+        "source_id": 656,
+        "word_id": 1997,
+        "frequency": 1,
+        "word": "historic"
+      },
+      {
+        "row_id": 124,
+        "source_id": 656,
+        "word_id": 1998,
+        "frequency": 1,
+        "word": "triangle"
+      },
+      {
+        "row_id": 125,
+        "source_id": 656,
+        "word_id": 1514,
+        "frequency": 1,
+        "word": "store"
+      },
+      {
+        "row_id": 131,
+        "source_id": 711,
+        "word_id": 2093,
+        "frequency": 1,
+        "word": "hard"
+      },
+      {
+        "row_id": 132,
+        "source_id": 711,
+        "word_id": 378,
+        "frequency": 1,
+        "word": "core"
+      },
+      {
+        "row_id": 135,
+        "source_id": 711,
+        "word_id": 2094,
+        "frequency": 1,
+        "word": "camp"
+      }
+    ],
+    "parent_after": [
+      {
+        "row_id": 22,
+        "source_id": 191,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 39,
+        "source_id": 278,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 58,
+        "source_id": 328,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 63,
+        "source_id": 337,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 66,
+        "source_id": 402,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 72,
+        "source_id": 403,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 110,
+        "source_id": 609,
+        "word_id": 882,
+        "frequency": 7,
+        "word": "nativity"
+      },
+      {
+        "row_id": 3,
+        "source_id": 14,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 4,
+        "source_id": 14,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 5,
+        "source_id": 14,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 8,
+        "source_id": 33,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 9,
+        "source_id": 33,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 10,
+        "source_id": 33,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 11,
+        "source_id": 33,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 26,
+        "source_id": 193,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 30,
+        "source_id": 216,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 77,
+        "source_id": 482,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 78,
+        "source_id": 482,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 93,
+        "source_id": 553,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 97,
+        "source_id": 583,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 99,
+        "source_id": 583,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 100,
+        "source_id": 583,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 105,
+        "source_id": 598,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 106,
+        "source_id": 598,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 108,
+        "source_id": 598,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 122,
+        "source_id": 648,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 128,
+        "source_id": 656,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 12,
+        "source_id": 33,
+        "word_id": 41,
+        "frequency": 2,
+        "word": "review"
+      },
+      {
+        "row_id": 43,
+        "source_id": 279,
+        "word_id": 637,
+        "frequency": 2,
+        "word": "kim"
+      },
+      {
+        "row_id": 44,
+        "source_id": 279,
+        "word_id": 638,
+        "frequency": 2,
+        "word": "kardashian"
+      },
+      {
+        "row_id": 45,
+        "source_id": 279,
+        "word_id": 871,
+        "frequency": 2,
+        "word": "rock"
+      },
+      {
+        "row_id": 49,
+        "source_id": 279,
+        "word_id": 453,
+        "frequency": 2,
+        "word": "kanye"
+      },
+      {
+        "row_id": 50,
+        "source_id": 279,
+        "word_id": 454,
+        "frequency": 2,
+        "word": "west"
+      },
+      {
+        "row_id": 67,
+        "source_id": 402,
+        "word_id": 41,
+        "frequency": 2,
+        "word": "review"
+      },
+      {
+        "row_id": 69,
+        "source_id": 403,
+        "word_id": 1459,
+        "frequency": 2,
+        "word": "langston"
+      },
+      {
+        "row_id": 70,
+        "source_id": 403,
+        "word_id": 1460,
+        "frequency": 2,
+        "word": "hughes"
+      },
+      {
+        "row_id": 75,
+        "source_id": 482,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 79,
+        "source_id": 492,
+        "word_id": 637,
+        "frequency": 2,
+        "word": "kim"
+      },
+      {
+        "row_id": 80,
+        "source_id": 492,
+        "word_id": 638,
+        "frequency": 2,
+        "word": "kardashian"
+      },
+      {
+        "row_id": 81,
+        "source_id": 492,
+        "word_id": 871,
+        "frequency": 2,
+        "word": "rock"
+      },
+      {
+        "row_id": 83,
+        "source_id": 492,
+        "word_id": 453,
+        "frequency": 2,
+        "word": "kanye"
+      },
+      {
+        "row_id": 84,
+        "source_id": 492,
+        "word_id": 454,
+        "frequency": 2,
+        "word": "west"
+      },
+      {
+        "row_id": 113,
+        "source_id": 609,
+        "word_id": 1459,
+        "frequency": 2,
+        "word": "langston"
+      },
+      {
+        "row_id": 114,
+        "source_id": 609,
+        "word_id": 1460,
+        "frequency": 2,
+        "word": "hughes"
+      },
+      {
+        "row_id": 118,
+        "source_id": 648,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 119,
+        "source_id": 648,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 126,
+        "source_id": 656,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 129,
+        "source_id": 656,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 133,
+        "source_id": 711,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 134,
+        "source_id": 711,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 136,
+        "source_id": 711,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 1,
+        "source_id": 14,
+        "word_id": 82,
+        "frequency": 1,
+        "word": "turkey"
+      },
+      {
+        "row_id": 7,
+        "source_id": 33,
+        "word_id": 191,
+        "frequency": 1,
+        "word": "iphone"
+      },
+      {
+        "row_id": 13,
+        "source_id": 59,
+        "word_id": 320,
+        "frequency": 1,
+        "word": "thing"
+      },
+      {
+        "row_id": 14,
+        "source_id": 59,
+        "word_id": 285,
+        "frequency": 1,
+        "word": "buy"
+      },
+      {
+        "row_id": 16,
+        "source_id": 105,
+        "word_id": 550,
+        "frequency": 1,
+        "word": "guest"
+      },
+      {
+        "row_id": 17,
+        "source_id": 105,
+        "word_id": 551,
+        "frequency": 1,
+        "word": "column"
+      },
+      {
+        "row_id": 18,
+        "source_id": 105,
+        "word_id": 552,
+        "frequency": 1,
+        "word": "bonding"
+      },
+      {
+        "row_id": 20,
+        "source_id": 191,
+        "word_id": 880,
+        "frequency": 1,
+        "word": "whitaker"
+      },
+      {
+        "row_id": 21,
+        "source_id": 191,
+        "word_id": 881,
+        "frequency": 1,
+        "word": "bassett"
+      },
+      {
+        "row_id": 23,
+        "source_id": 191,
+        "word_id": 883,
+        "frequency": 1,
+        "word": "soar"
+      },
+      {
+        "row_id": 25,
+        "source_id": 193,
+        "word_id": 887,
+        "frequency": 1,
+        "word": "ate"
+      },
+      {
+        "row_id": 27,
+        "source_id": 193,
+        "word_id": 888,
+        "frequency": 1,
+        "word": "destroyed"
+      },
+      {
+        "row_id": 29,
+        "source_id": 216,
+        "word_id": 962,
+        "frequency": 1,
+        "word": "feast"
+      },
+      {
+        "row_id": 31,
+        "source_id": 248,
+        "word_id": 605,
+        "frequency": 1,
+        "word": "violence"
+      },
+      {
+        "row_id": 32,
+        "source_id": 248,
+        "word_id": 1049,
+        "frequency": 1,
+        "word": "american"
+      },
+      {
+        "row_id": 34,
+        "source_id": 248,
+        "word_id": 1050,
+        "frequency": 1,
+        "word": "tradition"
+      },
+      {
+        "row_id": 36,
+        "source_id": 249,
+        "word_id": 1051,
+        "frequency": 1,
+        "word": "bleeding"
+      },
+      {
+        "row_id": 37,
+        "source_id": 249,
+        "word_id": 1052,
+        "frequency": 1,
+        "word": "gray"
+      },
+      {
+        "row_id": 38,
+        "source_id": 249,
+        "word_id": 508,
+        "frequency": 1,
+        "word": "thursday"
+      },
+      {
+        "row_id": 40,
+        "source_id": 278,
+        "word_id": 1114,
+        "frequency": 1,
+        "word": "gift"
+      },
+      {
+        "row_id": 41,
+        "source_id": 278,
+        "word_id": 259,
+        "frequency": 1,
+        "word": "family"
+      },
+      {
+        "row_id": 42,
+        "source_id": 278,
+        "word_id": 1115,
+        "frequency": 1,
+        "word": "connection"
+      },
+      {
+        "row_id": 46,
+        "source_id": 279,
+        "word_id": 1116,
+        "frequency": 1,
+        "word": "sexy"
+      },
+      {
+        "row_id": 47,
+        "source_id": 279,
+        "word_id": 1117,
+        "frequency": 1,
+        "word": "lbd"
+      },
+      {
+        "row_id": 48,
+        "source_id": 279,
+        "word_id": 1118,
+        "frequency": 1,
+        "word": "lipstick"
+      },
+      {
+        "row_id": 51,
+        "source_id": 279,
+        "word_id": 1119,
+        "frequency": 1,
+        "word": "concert"
+      },
+      {
+        "row_id": 52,
+        "source_id": 323,
+        "word_id": 1249,
+        "frequency": 1,
+        "word": "shopyourworld"
+      },
+      {
+        "row_id": 53,
+        "source_id": 323,
+        "word_id": 1250,
+        "frequency": 1,
+        "word": "association"
+      },
+      {
+        "row_id": 54,
+        "source_id": 323,
+        "word_id": 1251,
+        "frequency": 1,
+        "word": "axis"
+      },
+      {
+        "row_id": 55,
+        "source_id": 323,
+        "word_id": 332,
+        "frequency": 1,
+        "word": "bank"
+      },
+      {
+        "row_id": 56,
+        "source_id": 323,
+        "word_id": 1252,
+        "frequency": 1,
+        "word": "celebrates"
+      },
+      {
+        "row_id": 59,
+        "source_id": 328,
+        "word_id": 463,
+        "frequency": 1,
+        "word": "good"
+      },
+      {
+        "row_id": 60,
+        "source_id": 328,
+        "word_id": 1262,
+        "frequency": 1,
+        "word": "deed"
+      },
+      {
+        "row_id": 61,
+        "source_id": 328,
+        "word_id": 463,
+        "frequency": 1,
+        "word": "good"
+      },
+      {
+        "row_id": 62,
+        "source_id": 328,
+        "word_id": 1263,
+        "frequency": 1,
+        "word": "song"
+      },
+      {
+        "row_id": 64,
+        "source_id": 337,
+        "word_id": 1286,
+        "frequency": 1,
+        "word": "bold"
+      },
+      {
+        "row_id": 65,
+        "source_id": 337,
+        "word_id": 1287,
+        "frequency": 1,
+        "word": "clumsy"
+      },
+      {
+        "row_id": 68,
+        "source_id": 402,
+        "word_id": 1458,
+        "frequency": 1,
+        "word": "preach"
+      },
+      {
+        "row_id": 71,
+        "source_id": 403,
+        "word_id": 513,
+        "frequency": 1,
+        "word": "holiday"
+      },
+      {
+        "row_id": 73,
+        "source_id": 482,
+        "word_id": 496,
+        "frequency": 1,
+        "word": "local"
+      },
+      {
+        "row_id": 74,
+        "source_id": 482,
+        "word_id": 1494,
+        "frequency": 1,
+        "word": "shop"
+      },
+      {
+        "row_id": 82,
+        "source_id": 492,
+        "word_id": 1659,
+        "frequency": 1,
+        "word": "dress"
+      },
+      {
+        "row_id": 85,
+        "source_id": 492,
+        "word_id": 1660,
+        "frequency": 1,
+        "word": "madison"
+      },
+      {
+        "row_id": 86,
+        "source_id": 492,
+        "word_id": 1661,
+        "frequency": 1,
+        "word": "square"
+      },
+      {
+        "row_id": 87,
+        "source_id": 512,
+        "word_id": 1512,
+        "frequency": 1,
+        "word": "area"
+      },
+      {
+        "row_id": 88,
+        "source_id": 512,
+        "word_id": 1704,
+        "frequency": 1,
+        "word": "prohibit"
+      },
+      {
+        "row_id": 90,
+        "source_id": 512,
+        "word_id": 514,
+        "frequency": 1,
+        "word": "shopping"
+      },
+      {
+        "row_id": 91,
+        "source_id": 553,
+        "word_id": 545,
+        "frequency": 1,
+        "word": "best"
+      },
+      {
+        "row_id": 94,
+        "source_id": 553,
+        "word_id": 370,
+        "frequency": 1,
+        "word": "tv"
+      },
+      {
+        "row_id": 95,
+        "source_id": 553,
+        "word_id": 1798,
+        "frequency": 1,
+        "word": "depends"
+      },
+      {
+        "row_id": 96,
+        "source_id": 583,
+        "word_id": 1868,
+        "frequency": 1,
+        "word": "difference"
+      },
+      {
+        "row_id": 102,
+        "source_id": 595,
+        "word_id": 1883,
+        "frequency": 1,
+        "word": "feel"
+      },
+      {
+        "row_id": 103,
+        "source_id": 595,
+        "word_id": 1884,
+        "frequency": 1,
+        "word": "month"
+      },
+      {
+        "row_id": 107,
+        "source_id": 598,
+        "word_id": 17,
+        "frequency": 1,
+        "word": "travel"
+      },
+      {
+        "row_id": 109,
+        "source_id": 598,
+        "word_id": 1890,
+        "frequency": 1,
+        "word": "guidebook"
+      },
+      {
+        "row_id": 111,
+        "source_id": 609,
+        "word_id": 908,
+        "frequency": 1,
+        "word": "retain"
+      },
+      {
+        "row_id": 112,
+        "source_id": 609,
+        "word_id": 630,
+        "frequency": 1,
+        "word": "heart"
+      },
+      {
+        "row_id": 115,
+        "source_id": 609,
+        "word_id": 1906,
+        "frequency": 1,
+        "word": "classic"
+      },
+      {
+        "row_id": 116,
+        "source_id": 609,
+        "word_id": 1492,
+        "frequency": 1,
+        "word": "story"
+      },
+      {
+        "row_id": 120,
+        "source_id": 648,
+        "word_id": 1985,
+        "frequency": 1,
+        "word": "strategy"
+      },
+      {
+        "row_id": 121,
+        "source_id": 648,
+        "word_id": 1986,
+        "frequency": 1,
+        "word": "seeking"
+      },
+      {
+        "row_id": 123,
+        "source_id": 656,
+        "word_id": 1997,
+        "frequency": 1,
+        "word": "historic"
+      },
+      {
+        "row_id": 124,
+        "source_id": 656,
+        "word_id": 1998,
+        "frequency": 1,
+        "word": "triangle"
+      },
+      {
+        "row_id": 125,
+        "source_id": 656,
+        "word_id": 1514,
+        "frequency": 1,
+        "word": "store"
+      },
+      {
+        "row_id": 131,
+        "source_id": 711,
+        "word_id": 2093,
+        "frequency": 1,
+        "word": "hard"
+      },
+      {
+        "row_id": 132,
+        "source_id": 711,
+        "word_id": 378,
+        "frequency": 1,
+        "word": "core"
+      },
+      {
+        "row_id": 135,
+        "source_id": 711,
+        "word_id": 2094,
+        "frequency": 1,
+        "word": "camp"
+      }
+    ],
+    "child_before": [
+      {
+        "row_id": 3,
+        "source_id": 14,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 4,
+        "source_id": 14,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 5,
+        "source_id": 14,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 8,
+        "source_id": 33,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 9,
+        "source_id": 33,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 10,
+        "source_id": 33,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 11,
+        "source_id": 33,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 26,
+        "source_id": 193,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 30,
+        "source_id": 216,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 77,
+        "source_id": 482,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 78,
+        "source_id": 482,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 93,
+        "source_id": 553,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 97,
+        "source_id": 583,
+        "word_id": 166,
+        "frequency": 4,
+        "word": "thanksgiving"
+      },
+      {
+        "row_id": 99,
+        "source_id": 583,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 100,
+        "source_id": 583,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 105,
+        "source_id": 598,
+        "word_id": 86,
+        "frequency": 4,
+        "word": "cyber"
+      },
+      {
+        "row_id": 106,
+        "source_id": 598,
+        "word_id": 87,
+        "frequency": 4,
+        "word": "monday"
+      },
+      {
+        "row_id": 108,
+        "source_id": 598,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 122,
+        "source_id": 648,
+        "word_id": 85,
+        "frequency": 4,
+        "word": "sale"
+      },
+      {
+        "row_id": 128,
+        "source_id": 656,
+        "word_id": 192,
+        "frequency": 4,
+        "word": "deal"
+      },
+      {
+        "row_id": 75,
+        "source_id": 482,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 118,
+        "source_id": 648,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 119,
+        "source_id": 648,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 126,
+        "source_id": 656,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 129,
+        "source_id": 656,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 133,
+        "source_id": 711,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 134,
+        "source_id": 711,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 136,
+        "source_id": 711,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 1,
+        "source_id": 14,
+        "word_id": 82,
+        "frequency": 1,
+        "word": "turkey"
+      },
+      {
+        "row_id": 7,
+        "source_id": 33,
+        "word_id": 191,
+        "frequency": 1,
+        "word": "iphone"
+      },
+      {
+        "row_id": 12,
+        "source_id": 33,
+        "word_id": 41,
+        "frequency": 1,
+        "word": "review"
+      },
+      {
+        "row_id": 13,
+        "source_id": 59,
+        "word_id": 320,
+        "frequency": 1,
+        "word": "thing"
+      },
+      {
+        "row_id": 14,
+        "source_id": 59,
+        "word_id": 285,
+        "frequency": 1,
+        "word": "buy"
+      },
+      {
+        "row_id": 16,
+        "source_id": 105,
+        "word_id": 550,
+        "frequency": 1,
+        "word": "guest"
+      },
+      {
+        "row_id": 17,
+        "source_id": 105,
+        "word_id": 551,
+        "frequency": 1,
+        "word": "column"
+      },
+      {
+        "row_id": 18,
+        "source_id": 105,
+        "word_id": 552,
+        "frequency": 1,
+        "word": "bonding"
+      },
+      {
+        "row_id": 25,
+        "source_id": 193,
+        "word_id": 887,
+        "frequency": 1,
+        "word": "ate"
+      },
+      {
+        "row_id": 27,
+        "source_id": 193,
+        "word_id": 888,
+        "frequency": 1,
+        "word": "destroyed"
+      },
+      {
+        "row_id": 29,
+        "source_id": 216,
+        "word_id": 962,
+        "frequency": 1,
+        "word": "feast"
+      },
+      {
+        "row_id": 31,
+        "source_id": 248,
+        "word_id": 605,
+        "frequency": 1,
+        "word": "violence"
+      },
+      {
+        "row_id": 32,
+        "source_id": 248,
+        "word_id": 1049,
+        "frequency": 1,
+        "word": "american"
+      },
+      {
+        "row_id": 34,
+        "source_id": 248,
+        "word_id": 1050,
+        "frequency": 1,
+        "word": "tradition"
+      },
+      {
+        "row_id": 36,
+        "source_id": 249,
+        "word_id": 1051,
+        "frequency": 1,
+        "word": "bleeding"
+      },
+      {
+        "row_id": 37,
+        "source_id": 249,
+        "word_id": 1052,
+        "frequency": 1,
+        "word": "gray"
+      },
+      {
+        "row_id": 38,
+        "source_id": 249,
+        "word_id": 508,
+        "frequency": 1,
+        "word": "thursday"
+      },
+      {
+        "row_id": 52,
+        "source_id": 323,
+        "word_id": 1249,
+        "frequency": 1,
+        "word": "shopyourworld"
+      },
+      {
+        "row_id": 53,
+        "source_id": 323,
+        "word_id": 1250,
+        "frequency": 1,
+        "word": "association"
+      },
+      {
+        "row_id": 54,
+        "source_id": 323,
+        "word_id": 1251,
+        "frequency": 1,
+        "word": "axis"
+      },
+      {
+        "row_id": 55,
+        "source_id": 323,
+        "word_id": 332,
+        "frequency": 1,
+        "word": "bank"
+      },
+      {
+        "row_id": 56,
+        "source_id": 323,
+        "word_id": 1252,
+        "frequency": 1,
+        "word": "celebrates"
+      },
+      {
+        "row_id": 73,
+        "source_id": 482,
+        "word_id": 496,
+        "frequency": 1,
+        "word": "local"
+      },
+      {
+        "row_id": 74,
+        "source_id": 482,
+        "word_id": 1494,
+        "frequency": 1,
+        "word": "shop"
+      },
+      {
+        "row_id": 87,
+        "source_id": 512,
+        "word_id": 1512,
+        "frequency": 1,
+        "word": "area"
+      },
+      {
+        "row_id": 88,
+        "source_id": 512,
+        "word_id": 1704,
+        "frequency": 1,
+        "word": "prohibit"
+      },
+      {
+        "row_id": 90,
+        "source_id": 512,
+        "word_id": 514,
+        "frequency": 1,
+        "word": "shopping"
+      },
+      {
+        "row_id": 91,
+        "source_id": 553,
+        "word_id": 545,
+        "frequency": 1,
+        "word": "best"
+      },
+      {
+        "row_id": 94,
+        "source_id": 553,
+        "word_id": 370,
+        "frequency": 1,
+        "word": "tv"
+      },
+      {
+        "row_id": 95,
+        "source_id": 553,
+        "word_id": 1798,
+        "frequency": 1,
+        "word": "depends"
+      },
+      {
+        "row_id": 96,
+        "source_id": 583,
+        "word_id": 1868,
+        "frequency": 1,
+        "word": "difference"
+      },
+      {
+        "row_id": 102,
+        "source_id": 595,
+        "word_id": 1883,
+        "frequency": 1,
+        "word": "feel"
+      },
+      {
+        "row_id": 103,
+        "source_id": 595,
+        "word_id": 1884,
+        "frequency": 1,
+        "word": "month"
+      },
+      {
+        "row_id": 107,
+        "source_id": 598,
+        "word_id": 17,
+        "frequency": 1,
+        "word": "travel"
+      },
+      {
+        "row_id": 109,
+        "source_id": 598,
+        "word_id": 1890,
+        "frequency": 1,
+        "word": "guidebook"
+      },
+      {
+        "row_id": 120,
+        "source_id": 648,
+        "word_id": 1985,
+        "frequency": 1,
+        "word": "strategy"
+      },
+      {
+        "row_id": 121,
+        "source_id": 648,
+        "word_id": 1986,
+        "frequency": 1,
+        "word": "seeking"
+      },
+      {
+        "row_id": 123,
+        "source_id": 656,
+        "word_id": 1997,
+        "frequency": 1,
+        "word": "historic"
+      },
+      {
+        "row_id": 124,
+        "source_id": 656,
+        "word_id": 1998,
+        "frequency": 1,
+        "word": "triangle"
+      },
+      {
+        "row_id": 125,
+        "source_id": 656,
+        "word_id": 1514,
+        "frequency": 1,
+        "word": "store"
+      },
+      {
+        "row_id": 131,
+        "source_id": 711,
+        "word_id": 2093,
+        "frequency": 1,
+        "word": "hard"
+      },
+      {
+        "row_id": 132,
+        "source_id": 711,
+        "word_id": 378,
+        "frequency": 1,
+        "word": "core"
+      },
+      {
+        "row_id": 135,
+        "source_id": 711,
+        "word_id": 2094,
+        "frequency": 1,
+        "word": "camp"
+      }
+    ],
+    "child_after": [
+      {
+        "row_id": 75,
+        "source_id": 482,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 118,
+        "source_id": 648,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 119,
+        "source_id": 648,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 126,
+        "source_id": 656,
+        "word_id": 1131,
+        "frequency": 2,
+        "word": "offer"
+      },
+      {
+        "row_id": 129,
+        "source_id": 656,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 133,
+        "source_id": 711,
+        "word_id": 1984,
+        "frequency": 2,
+        "word": "shopper"
+      },
+      {
+        "row_id": 134,
+        "source_id": 711,
+        "word_id": 1088,
+        "frequency": 2,
+        "word": "set"
+      },
+      {
+        "row_id": 136,
+        "source_id": 711,
+        "word_id": 197,
+        "frequency": 2,
+        "word": "early"
+      },
+      {
+        "row_id": 1,
+        "source_id": 14,
+        "word_id": 82,
+        "frequency": 1,
+        "word": "turkey"
+      },
+      {
+        "row_id": 7,
+        "source_id": 33,
+        "word_id": 191,
+        "frequency": 1,
+        "word": "iphone"
+      },
+      {
+        "row_id": 12,
+        "source_id": 33,
+        "word_id": 41,
+        "frequency": 1,
+        "word": "review"
+      },
+      {
+        "row_id": 13,
+        "source_id": 59,
+        "word_id": 320,
+        "frequency": 1,
+        "word": "thing"
+      },
+      {
+        "row_id": 14,
+        "source_id": 59,
+        "word_id": 285,
+        "frequency": 1,
+        "word": "buy"
+      },
+      {
+        "row_id": 16,
+        "source_id": 105,
+        "word_id": 550,
+        "frequency": 1,
+        "word": "guest"
+      },
+      {
+        "row_id": 17,
+        "source_id": 105,
+        "word_id": 551,
+        "frequency": 1,
+        "word": "column"
+      },
+      {
+        "row_id": 18,
+        "source_id": 105,
+        "word_id": 552,
+        "frequency": 1,
+        "word": "bonding"
+      },
+      {
+        "row_id": 25,
+        "source_id": 193,
+        "word_id": 887,
+        "frequency": 1,
+        "word": "ate"
+      },
+      {
+        "row_id": 27,
+        "source_id": 193,
+        "word_id": 888,
+        "frequency": 1,
+        "word": "destroyed"
+      },
+      {
+        "row_id": 29,
+        "source_id": 216,
+        "word_id": 962,
+        "frequency": 1,
+        "word": "feast"
+      },
+      {
+        "row_id": 31,
+        "source_id": 248,
+        "word_id": 605,
+        "frequency": 1,
+        "word": "violence"
+      },
+      {
+        "row_id": 32,
+        "source_id": 248,
+        "word_id": 1049,
+        "frequency": 1,
+        "word": "american"
+      },
+      {
+        "row_id": 34,
+        "source_id": 248,
+        "word_id": 1050,
+        "frequency": 1,
+        "word": "tradition"
+      },
+      {
+        "row_id": 36,
+        "source_id": 249,
+        "word_id": 1051,
+        "frequency": 1,
+        "word": "bleeding"
+      },
+      {
+        "row_id": 37,
+        "source_id": 249,
+        "word_id": 1052,
+        "frequency": 1,
+        "word": "gray"
+      },
+      {
+        "row_id": 38,
+        "source_id": 249,
+        "word_id": 508,
+        "frequency": 1,
+        "word": "thursday"
+      },
+      {
+        "row_id": 52,
+        "source_id": 323,
+        "word_id": 1249,
+        "frequency": 1,
+        "word": "shopyourworld"
+      },
+      {
+        "row_id": 53,
+        "source_id": 323,
+        "word_id": 1250,
+        "frequency": 1,
+        "word": "association"
+      },
+      {
+        "row_id": 54,
+        "source_id": 323,
+        "word_id": 1251,
+        "frequency": 1,
+        "word": "axis"
+      },
+      {
+        "row_id": 55,
+        "source_id": 323,
+        "word_id": 332,
+        "frequency": 1,
+        "word": "bank"
+      },
+      {
+        "row_id": 56,
+        "source_id": 323,
+        "word_id": 1252,
+        "frequency": 1,
+        "word": "celebrates"
+      },
+      {
+        "row_id": 73,
+        "source_id": 482,
+        "word_id": 496,
+        "frequency": 1,
+        "word": "local"
+      },
+      {
+        "row_id": 74,
+        "source_id": 482,
+        "word_id": 1494,
+        "frequency": 1,
+        "word": "shop"
+      },
+      {
+        "row_id": 87,
+        "source_id": 512,
+        "word_id": 1512,
+        "frequency": 1,
+        "word": "area"
+      },
+      {
+        "row_id": 88,
+        "source_id": 512,
+        "word_id": 1704,
+        "frequency": 1,
+        "word": "prohibit"
+      },
+      {
+        "row_id": 90,
+        "source_id": 512,
+        "word_id": 514,
+        "frequency": 1,
+        "word": "shopping"
+      },
+      {
+        "row_id": 91,
+        "source_id": 553,
+        "word_id": 545,
+        "frequency": 1,
+        "word": "best"
+      },
+      {
+        "row_id": 94,
+        "source_id": 553,
+        "word_id": 370,
+        "frequency": 1,
+        "word": "tv"
+      },
+      {
+        "row_id": 95,
+        "source_id": 553,
+        "word_id": 1798,
+        "frequency": 1,
+        "word": "depends"
+      },
+      {
+        "row_id": 96,
+        "source_id": 583,
+        "word_id": 1868,
+        "frequency": 1,
+        "word": "difference"
+      },
+      {
+        "row_id": 102,
+        "source_id": 595,
+        "word_id": 1883,
+        "frequency": 1,
+        "word": "feel"
+      },
+      {
+        "row_id": 103,
+        "source_id": 595,
+        "word_id": 1884,
+        "frequency": 1,
+        "word": "month"
+      },
+      {
+        "row_id": 107,
+        "source_id": 598,
+        "word_id": 17,
+        "frequency": 1,
+        "word": "travel"
+      },
+      {
+        "row_id": 109,
+        "source_id": 598,
+        "word_id": 1890,
+        "frequency": 1,
+        "word": "guidebook"
+      },
+      {
+        "row_id": 120,
+        "source_id": 648,
+        "word_id": 1985,
+        "frequency": 1,
+        "word": "strategy"
+      },
+      {
+        "row_id": 121,
+        "source_id": 648,
+        "word_id": 1986,
+        "frequency": 1,
+        "word": "seeking"
+      },
+      {
+        "row_id": 123,
+        "source_id": 656,
+        "word_id": 1997,
+        "frequency": 1,
+        "word": "historic"
+      },
+      {
+        "row_id": 124,
+        "source_id": 656,
+        "word_id": 1998,
+        "frequency": 1,
+        "word": "triangle"
+      },
+      {
+        "row_id": 125,
+        "source_id": 656,
+        "word_id": 1514,
+        "frequency": 1,
+        "word": "store"
+      },
+      {
+        "row_id": 131,
+        "source_id": 711,
+        "word_id": 2093,
+        "frequency": 1,
+        "word": "hard"
+      },
+      {
+        "row_id": 132,
+        "source_id": 711,
+        "word_id": 378,
+        "frequency": 1,
+        "word": "core"
+      },
+      {
+        "row_id": 135,
+        "source_id": 711,
+        "word_id": 2094,
+        "frequency": 1,
+        "word": "camp"
+      }
+    ]
+  },
+  "construction_events": [
+    {
+      "event": "begin",
+      "alpha": 0.7,
+      "beta": 0.5,
+      "max_frequency": 18,
+      "candidates": [
+        84
+      ],
+      "vocabulary_ranked": [
+        {
+          "word_id": 84,
+          "frequency": 18,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "friday"
+        },
+        {
+          "word_id": 882,
+          "frequency": 7,
+          "alpha_ratio": 0.3888888888888889,
+          "alpha_eligible": false,
+          "word": "nativity"
+        },
+        {
+          "word_id": 85,
+          "frequency": 4,
+          "alpha_ratio": 0.2222222222222222,
+          "alpha_eligible": false,
+          "word": "sale"
+        },
+        {
+          "word_id": 86,
+          "frequency": 4,
+          "alpha_ratio": 0.2222222222222222,
+          "alpha_eligible": false,
+          "word": "cyber"
+        },
+        {
+          "word_id": 87,
+          "frequency": 4,
+          "alpha_ratio": 0.2222222222222222,
+          "alpha_eligible": false,
+          "word": "monday"
+        },
+        {
+          "word_id": 192,
+          "frequency": 4,
+          "alpha_ratio": 0.2222222222222222,
+          "alpha_eligible": false,
+          "word": "deal"
+        },
+        {
+          "word_id": 166,
+          "frequency": 4,
+          "alpha_ratio": 0.2222222222222222,
+          "alpha_eligible": false,
+          "word": "thanksgiving"
+        },
+        {
+          "word_id": 41,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "review"
+        },
+        {
+          "word_id": 637,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "kim"
+        },
+        {
+          "word_id": 638,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "kardashian"
+        },
+        {
+          "word_id": 871,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "rock"
+        },
+        {
+          "word_id": 453,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "kanye"
+        },
+        {
+          "word_id": 454,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "west"
+        },
+        {
+          "word_id": 1459,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "langston"
+        },
+        {
+          "word_id": 1460,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "hughes"
+        },
+        {
+          "word_id": 1131,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "offer"
+        },
+        {
+          "word_id": 1984,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "shopper"
+        },
+        {
+          "word_id": 1088,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "set"
+        },
+        {
+          "word_id": 197,
+          "frequency": 2,
+          "alpha_ratio": 0.1111111111111111,
+          "alpha_eligible": false,
+          "word": "early"
+        },
+        {
+          "word_id": 82,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "turkey"
+        },
+        {
+          "word_id": 191,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "iphone"
+        },
+        {
+          "word_id": 320,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "thing"
+        },
+        {
+          "word_id": 285,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "buy"
+        },
+        {
+          "word_id": 550,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "guest"
+        },
+        {
+          "word_id": 551,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "column"
+        },
+        {
+          "word_id": 552,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "bonding"
+        },
+        {
+          "word_id": 880,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "whitaker"
+        },
+        {
+          "word_id": 881,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "bassett"
+        },
+        {
+          "word_id": 883,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "soar"
+        },
+        {
+          "word_id": 887,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "ate"
+        },
+        {
+          "word_id": 888,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "destroyed"
+        },
+        {
+          "word_id": 962,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "feast"
+        },
+        {
+          "word_id": 605,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "violence"
+        },
+        {
+          "word_id": 1049,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "american"
+        },
+        {
+          "word_id": 1050,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "tradition"
+        },
+        {
+          "word_id": 1051,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "bleeding"
+        },
+        {
+          "word_id": 1052,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "gray"
+        },
+        {
+          "word_id": 508,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "thursday"
+        },
+        {
+          "word_id": 1114,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "gift"
+        },
+        {
+          "word_id": 259,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "family"
+        },
+        {
+          "word_id": 1115,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "connection"
+        },
+        {
+          "word_id": 1116,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "sexy"
+        },
+        {
+          "word_id": 1117,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "lbd"
+        },
+        {
+          "word_id": 1118,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "lipstick"
+        },
+        {
+          "word_id": 1119,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "concert"
+        },
+        {
+          "word_id": 1249,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "shopyourworld"
+        },
+        {
+          "word_id": 1250,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "association"
+        },
+        {
+          "word_id": 1251,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "axis"
+        },
+        {
+          "word_id": 332,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "bank"
+        },
+        {
+          "word_id": 1252,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "celebrates"
+        },
+        {
+          "word_id": 463,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "good"
+        },
+        {
+          "word_id": 1262,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "deed"
+        },
+        {
+          "word_id": 1263,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "song"
+        },
+        {
+          "word_id": 1286,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "bold"
+        },
+        {
+          "word_id": 1287,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "clumsy"
+        },
+        {
+          "word_id": 1458,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "preach"
+        },
+        {
+          "word_id": 513,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "holiday"
+        },
+        {
+          "word_id": 496,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "local"
+        },
+        {
+          "word_id": 1494,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "shop"
+        },
+        {
+          "word_id": 1659,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "dress"
+        },
+        {
+          "word_id": 1660,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "madison"
+        },
+        {
+          "word_id": 1661,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "square"
+        },
+        {
+          "word_id": 1512,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "area"
+        },
+        {
+          "word_id": 1704,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "prohibit"
+        },
+        {
+          "word_id": 514,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "shopping"
+        },
+        {
+          "word_id": 545,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "best"
+        },
+        {
+          "word_id": 370,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "tv"
+        },
+        {
+          "word_id": 1798,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "depends"
+        },
+        {
+          "word_id": 1868,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "difference"
+        },
+        {
+          "word_id": 1883,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "feel"
+        },
+        {
+          "word_id": 1884,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "month"
+        },
+        {
+          "word_id": 17,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "travel"
+        },
+        {
+          "word_id": 1890,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "guidebook"
+        },
+        {
+          "word_id": 908,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "retain"
+        },
+        {
+          "word_id": 630,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "heart"
+        },
+        {
+          "word_id": 1906,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "classic"
+        },
+        {
+          "word_id": 1492,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "story"
+        },
+        {
+          "word_id": 1985,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "strategy"
+        },
+        {
+          "word_id": 1986,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "seeking"
+        },
+        {
+          "word_id": 1997,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "historic"
+        },
+        {
+          "word_id": 1998,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "triangle"
+        },
+        {
+          "word_id": 1514,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "store"
+        },
+        {
+          "word_id": 2093,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "hard"
+        },
+        {
+          "word_id": 378,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "core"
+        },
+        {
+          "word_id": 2094,
+          "frequency": 1,
+          "alpha_ratio": 0.05555555555555555,
+          "alpha_eligible": false,
+          "word": "camp"
+        }
+      ],
+      "hkt_path": "ordinary:black"
+    },
+    {
+      "event": "seed",
+      "word_id": 84,
+      "document_frequency": 18,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "beta_scores": [],
+      "action": "seed",
+      "selected_node_ordinal": 0,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            84
+          ],
+          "sources": [
+            14,
+            33,
+            59,
+            105,
+            193,
+            216,
+            248,
+            249,
+            323,
+            482,
+            512,
+            553,
+            583,
+            595,
+            598,
+            648,
+            656,
+            711
+          ]
+        }
+      ],
+      "hkt_path": "ordinary:black",
+      "word": "friday"
+    },
+    {
+      "event": "end",
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            84
+          ],
+          "sources": [
+            14,
+            33,
+            59,
+            105,
+            193,
+            216,
+            248,
+            249,
+            323,
+            482,
+            512,
+            553,
+            583,
+            595,
+            598,
+            648,
+            656,
+            711
+          ]
+        },
+        {
+          "node_ordinal": -1,
+          "words": [
+            -1
+          ],
+          "sources": [
+            191,
+            278,
+            279,
+            328,
+            337,
+            402,
+            403,
+            492,
+            609
+          ]
+        }
+      ],
+      "hkt_path": "ordinary:black"
+    },
+    {
+      "event": "begin",
+      "alpha": 0.7,
+      "beta": 0.5,
+      "max_frequency": 4,
+      "candidates": [
+        85,
+        86,
+        87,
+        192,
+        166
+      ],
+      "vocabulary_ranked": [
+        {
+          "word_id": 85,
+          "frequency": 4,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "sale"
+        },
+        {
+          "word_id": 86,
+          "frequency": 4,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "cyber"
+        },
+        {
+          "word_id": 87,
+          "frequency": 4,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "monday"
+        },
+        {
+          "word_id": 192,
+          "frequency": 4,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "deal"
+        },
+        {
+          "word_id": 166,
+          "frequency": 4,
+          "alpha_ratio": 1.0,
+          "alpha_eligible": true,
+          "word": "thanksgiving"
+        },
+        {
+          "word_id": 1131,
+          "frequency": 2,
+          "alpha_ratio": 0.5,
+          "alpha_eligible": false,
+          "word": "offer"
+        },
+        {
+          "word_id": 1984,
+          "frequency": 2,
+          "alpha_ratio": 0.5,
+          "alpha_eligible": false,
+          "word": "shopper"
+        },
+        {
+          "word_id": 1088,
+          "frequency": 2,
+          "alpha_ratio": 0.5,
+          "alpha_eligible": false,
+          "word": "set"
+        },
+        {
+          "word_id": 197,
+          "frequency": 2,
+          "alpha_ratio": 0.5,
+          "alpha_eligible": false,
+          "word": "early"
+        },
+        {
+          "word_id": 82,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "turkey"
+        },
+        {
+          "word_id": 191,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "iphone"
+        },
+        {
+          "word_id": 41,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "review"
+        },
+        {
+          "word_id": 320,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "thing"
+        },
+        {
+          "word_id": 285,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "buy"
+        },
+        {
+          "word_id": 550,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "guest"
+        },
+        {
+          "word_id": 551,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "column"
+        },
+        {
+          "word_id": 552,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "bonding"
+        },
+        {
+          "word_id": 887,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "ate"
+        },
+        {
+          "word_id": 888,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "destroyed"
+        },
+        {
+          "word_id": 962,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "feast"
+        },
+        {
+          "word_id": 605,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "violence"
+        },
+        {
+          "word_id": 1049,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "american"
+        },
+        {
+          "word_id": 1050,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "tradition"
+        },
+        {
+          "word_id": 1051,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "bleeding"
+        },
+        {
+          "word_id": 1052,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "gray"
+        },
+        {
+          "word_id": 508,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "thursday"
+        },
+        {
+          "word_id": 1249,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "shopyourworld"
+        },
+        {
+          "word_id": 1250,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "association"
+        },
+        {
+          "word_id": 1251,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "axis"
+        },
+        {
+          "word_id": 332,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "bank"
+        },
+        {
+          "word_id": 1252,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "celebrates"
+        },
+        {
+          "word_id": 496,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "local"
+        },
+        {
+          "word_id": 1494,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "shop"
+        },
+        {
+          "word_id": 1512,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "area"
+        },
+        {
+          "word_id": 1704,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "prohibit"
+        },
+        {
+          "word_id": 514,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "shopping"
+        },
+        {
+          "word_id": 545,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "best"
+        },
+        {
+          "word_id": 370,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "tv"
+        },
+        {
+          "word_id": 1798,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "depends"
+        },
+        {
+          "word_id": 1868,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "difference"
+        },
+        {
+          "word_id": 1883,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "feel"
+        },
+        {
+          "word_id": 1884,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "month"
+        },
+        {
+          "word_id": 17,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "travel"
+        },
+        {
+          "word_id": 1890,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "guidebook"
+        },
+        {
+          "word_id": 1985,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "strategy"
+        },
+        {
+          "word_id": 1986,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "seeking"
+        },
+        {
+          "word_id": 1997,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "historic"
+        },
+        {
+          "word_id": 1998,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "triangle"
+        },
+        {
+          "word_id": 1514,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "store"
+        },
+        {
+          "word_id": 2093,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "hard"
+        },
+        {
+          "word_id": 378,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "core"
+        },
+        {
+          "word_id": 2094,
+          "frequency": 1,
+          "alpha_ratio": 0.25,
+          "alpha_eligible": false,
+          "word": "camp"
+        }
+      ],
+      "hkt_path": "ordinary:black / ordinary:friday"
+    },
+    {
+      "event": "seed",
+      "word_id": 85,
+      "document_frequency": 4,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "beta_scores": [],
+      "action": "seed",
+      "selected_node_ordinal": 0,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            648
+          ]
+        }
+      ],
+      "hkt_path": "ordinary:black / ordinary:friday",
+      "word": "sale"
+    },
+    {
+      "event": "candidate",
+      "word_id": 86,
+      "document_frequency": 4,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "source_ids": [
+        14,
+        33,
+        583,
+        598
+      ],
+      "dictionary_first_word_id": 86,
+      "beta_scores": [
+        {
+          "node_ordinal": 0,
+          "node_words_before": [
+            85
+          ],
+          "intersection": 2,
+          "denominator": 4,
+          "score": 0.5,
+          "eligible": true
+        }
+      ],
+      "action": "join",
+      "selected_node_ordinal": 0,
+      "actual_assigned_word_id": 86,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85,
+            86
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            583,
+            598,
+            648
+          ]
+        }
+      ],
+      "remaining_row_count": 63,
+      "hkt_path": "ordinary:black / ordinary:friday",
+      "word": "cyber",
+      "actual_assigned_word": "cyber"
+    },
+    {
+      "event": "candidate",
+      "word_id": 87,
+      "document_frequency": 4,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "source_ids": [
+        14,
+        33,
+        583,
+        598
+      ],
+      "dictionary_first_word_id": 87,
+      "beta_scores": [
+        {
+          "node_ordinal": 0,
+          "node_words_before": [
+            85,
+            86
+          ],
+          "intersection": 4,
+          "denominator": 6,
+          "score": 0.6666666666666666,
+          "eligible": true
+        }
+      ],
+      "action": "join",
+      "selected_node_ordinal": 0,
+      "actual_assigned_word_id": 87,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85,
+            86,
+            87
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            583,
+            598,
+            648
+          ]
+        }
+      ],
+      "remaining_row_count": 59,
+      "hkt_path": "ordinary:black / ordinary:friday",
+      "word": "monday",
+      "actual_assigned_word": "monday"
+    },
+    {
+      "event": "candidate",
+      "word_id": 192,
+      "document_frequency": 4,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "source_ids": [
+        33,
+        553,
+        598,
+        656
+      ],
+      "dictionary_first_word_id": 192,
+      "beta_scores": [
+        {
+          "node_ordinal": 0,
+          "node_words_before": [
+            85,
+            86,
+            87
+          ],
+          "intersection": 2,
+          "denominator": 6,
+          "score": 0.3333333333333333,
+          "eligible": false
+        }
+      ],
+      "action": "new",
+      "selected_node_ordinal": 1,
+      "actual_assigned_word_id": 192,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85,
+            86,
+            87
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            583,
+            598,
+            648
+          ]
+        },
+        {
+          "node_ordinal": 1,
+          "words": [
+            192
+          ],
+          "sources": [
+            33,
+            553,
+            598,
+            656
+          ]
+        }
+      ],
+      "remaining_row_count": 55,
+      "hkt_path": "ordinary:black / ordinary:friday",
+      "word": "deal",
+      "actual_assigned_word": "deal"
+    },
+    {
+      "event": "candidate",
+      "word_id": 166,
+      "document_frequency": 4,
+      "alpha_ratio": 1.0,
+      "alpha_eligible": true,
+      "source_ids": [
+        193,
+        216,
+        482,
+        583
+      ],
+      "dictionary_first_word_id": 166,
+      "beta_scores": [
+        {
+          "node_ordinal": 0,
+          "node_words_before": [
+            85,
+            86,
+            87
+          ],
+          "intersection": 2,
+          "denominator": 6,
+          "score": 0.3333333333333333,
+          "eligible": false
+        },
+        {
+          "node_ordinal": 1,
+          "node_words_before": [
+            192
+          ],
+          "intersection": 0,
+          "denominator": 4,
+          "score": 0.0,
+          "eligible": false
+        }
+      ],
+      "action": "new",
+      "selected_node_ordinal": 2,
+      "actual_assigned_word_id": 166,
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85,
+            86,
+            87
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            583,
+            598,
+            648
+          ]
+        },
+        {
+          "node_ordinal": 1,
+          "words": [
+            192
+          ],
+          "sources": [
+            33,
+            553,
+            598,
+            656
+          ]
+        },
+        {
+          "node_ordinal": 2,
+          "words": [
+            166
+          ],
+          "sources": [
+            193,
+            216,
+            482,
+            583
+          ]
+        }
+      ],
+      "remaining_row_count": 51,
+      "hkt_path": "ordinary:black / ordinary:friday",
+      "word": "thanksgiving",
+      "actual_assigned_word": "thanksgiving"
+    },
+    {
+      "event": "end",
+      "nodes_after": [
+        {
+          "node_ordinal": 0,
+          "words": [
+            85,
+            86,
+            87
+          ],
+          "sources": [
+            14,
+            33,
+            482,
+            583,
+            598,
+            648
+          ]
+        },
+        {
+          "node_ordinal": 1,
+          "words": [
+            192
+          ],
+          "sources": [
+            33,
+            553,
+            598,
+            656
+          ]
+        },
+        {
+          "node_ordinal": 2,
+          "words": [
+            166
+          ],
+          "sources": [
+            193,
+            216,
+            482,
+            583
+          ]
+        },
+        {
+          "node_ordinal": -1,
+          "words": [
+            -1
+          ],
+          "sources": [
+            59,
+            105,
+            248,
+            249,
+            323,
+            512,
+            595,
+            711
+          ]
+        }
+      ],
+      "hkt_path": "ordinary:black / ordinary:friday"
+    }
+  ],
+  "original_compiled_result": {
+    "parent": [
+      {
+        "words": [
+          "friday"
+        ],
+        "sources": [
+          14,
+          33,
+          59,
+          105,
+          193,
+          216,
+          248,
+          249,
+          323,
+          482,
+          512,
+          553,
+          583,
+          595,
+          598,
+          648,
+          656,
+          711
+        ]
+      },
+      {
+        "words": [
+          "REFUGE"
+        ],
+        "sources": [
+          191,
+          278,
+          279,
+          328,
+          337,
+          402,
+          403,
+          492,
+          609
+        ]
+      }
+    ],
+    "child": [
+      {
+        "words": [
+          "sale",
+          "cyber",
+          "monday"
+        ],
+        "sources": [
+          14,
+          33,
+          482,
+          583,
+          598,
+          648
+        ]
+      },
+      {
+        "words": [
+          "deal"
+        ],
+        "sources": [
+          33,
+          553,
+          598,
+          656
+        ]
+      },
+      {
+        "words": [
+          "thanksgiving"
+        ],
+        "sources": [
+          193,
+          216,
+          482,
+          583
+        ]
+      },
+      {
+        "words": [
+          "REFUGE"
+        ],
+        "sources": [
+          59,
+          105,
+          248,
+          249,
+          323,
+          512,
+          595,
+          711
+        ]
+      }
+    ],
+    "parent_rows_after": 118
+  },
+  "traced_copy_result": {
+    "parent": [
+      {
+        "words": [
+          "friday"
+        ],
+        "sources": [
+          14,
+          33,
+          59,
+          105,
+          193,
+          216,
+          248,
+          249,
+          323,
+          482,
+          512,
+          553,
+          583,
+          595,
+          598,
+          648,
+          656,
+          711
+        ]
+      },
+      {
+        "words": [
+          "REFUGE"
+        ],
+        "sources": [
+          191,
+          278,
+          279,
+          328,
+          337,
+          402,
+          403,
+          492,
+          609
+        ]
+      }
+    ],
+    "child": [
+      {
+        "words": [
+          "sale",
+          "cyber",
+          "monday"
+        ],
+        "sources": [
+          14,
+          33,
+          482,
+          583,
+          598,
+          648
+        ]
+      },
+      {
+        "words": [
+          "deal"
+        ],
+        "sources": [
+          33,
+          553,
+          598,
+          656
+        ]
+      },
+      {
+        "words": [
+          "thanksgiving"
+        ],
+        "sources": [
+          193,
+          216,
+          482,
+          583
+        ]
+      },
+      {
+        "words": [
+          "REFUGE"
+        ],
+        "sources": [
+          59,
+          105,
+          248,
+          249,
+          323,
+          512,
+          595,
+          711
+        ]
+      }
+    ],
+    "parent_rows_after": 118
+  },
+  "observed_saved_csharp_descriptors": [
+    [
+      "thanksgiving"
+    ],
+    [
+      "sale",
+      "cyber",
+      "monday"
+    ],
+    [
+      "deal"
+    ]
+  ],
+  "observed_saved_csharp_nodes": [
+    {
+      "words": [
+        "thanksgiving"
+      ],
+      "sources": [
+        193,
+        216,
+        482,
+        583
+      ]
+    },
+    {
+      "words": [
+        "cyber",
+        "monday",
+        "sale"
+      ],
+      "sources": [
+        14,
+        33,
+        482,
+        583,
+        598,
+        648
+      ]
+    },
+    {
+      "words": [
+        "deal"
+      ],
+      "sources": [
+        33,
+        553,
+        598,
+        656
+      ]
+    },
+    {
+      "words": [
+        "REFUGE"
+      ],
+      "sources": [
+        59,
+        105,
+        248,
+        249,
+        323,
+        512,
+        595,
+        711
+      ]
+    }
+  ],
+  "observed_saved_rust_nodes": [
+    {
+      "words": [
+        "cyber",
+        "deal",
+        "monday"
+      ],
+      "sources": [
+        14,
+        33,
+        553,
+        583,
+        598,
+        656
+      ]
+    },
+    {
+      "words": [
+        "sale"
+      ],
+      "sources": [
+        14,
+        33,
+        482,
+        648
+      ]
+    },
+    {
+      "words": [
+        "thanksgiving"
+      ],
+      "sources": [
+        193,
+        216,
+        482,
+        583
+      ]
+    },
+    {
+      "words": [
+        "REFUGE"
+      ],
+      "sources": [
+        59,
+        105,
+        248,
+        249,
+        323,
+        512,
+        595,
+        711
+      ]
+    }
+  ],
+  "rust_replays": {
+    "rust_lexical": {
+      "steps": [
+        {
+          "word": "cyber",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [],
+          "memberships_after": [
+            [
+              "cyber"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              583,
+              598
+            ]
+          ]
+        },
+        {
+          "word": "deal",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [
+            "0:2/4:0.500000"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "deal"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              553,
+              583,
+              598,
+              656
+            ]
+          ]
+        },
+        {
+          "word": "monday",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [
+            "0:4/6:0.666667"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "deal",
+              "monday"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              553,
+              583,
+              598,
+              656
+            ]
+          ]
+        },
+        {
+          "word": "sale",
+          "frequency": 4,
+          "selected_node_ordinal": 1,
+          "beta_scores": [
+            "0:2/6:0.333333"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "deal",
+              "monday"
+            ],
+            [
+              "sale"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              553,
+              583,
+              598,
+              656
+            ],
+            [
+              14,
+              33,
+              482,
+              648
+            ]
+          ]
+        },
+        {
+          "word": "thanksgiving",
+          "frequency": 4,
+          "selected_node_ordinal": 2,
+          "beta_scores": [
+            "0:1/6:0.166667",
+            "1:1/4:0.250000"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "deal",
+              "monday"
+            ],
+            [
+              "sale"
+            ],
+            [
+              "thanksgiving"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              553,
+              583,
+              598,
+              656
+            ],
+            [
+              14,
+              33,
+              482,
+              648
+            ],
+            [
+              193,
+              216,
+              482,
+              583
+            ]
+          ]
+        }
+      ],
+      "descriptors": [
+        [
+          "cyber",
+          "deal",
+          "monday"
+        ],
+        [
+          "sale"
+        ],
+        [
+          "thanksgiving"
+        ]
+      ],
+      "source_memberships": [
+        [
+          14,
+          33,
+          553,
+          583,
+          598,
+          656
+        ],
+        [
+          14,
+          33,
+          482,
+          648
+        ],
+        [
+          193,
+          216,
+          482,
+          583
+        ]
+      ]
+    },
+    "observed_csharp": {
+      "steps": [
+        {
+          "word": "sale",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [],
+          "memberships_after": [
+            [
+              "sale"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              482,
+              648
+            ]
+          ]
+        },
+        {
+          "word": "cyber",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [
+            "0:2/4:0.500000"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "sale"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              482,
+              583,
+              598,
+              648
+            ]
+          ]
+        },
+        {
+          "word": "monday",
+          "frequency": 4,
+          "selected_node_ordinal": 0,
+          "beta_scores": [
+            "0:4/6:0.666667"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "monday",
+              "sale"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              482,
+              583,
+              598,
+              648
+            ]
+          ]
+        },
+        {
+          "word": "deal",
+          "frequency": 4,
+          "selected_node_ordinal": 1,
+          "beta_scores": [
+            "0:2/6:0.333333"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "monday",
+              "sale"
+            ],
+            [
+              "deal"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              482,
+              583,
+              598,
+              648
+            ],
+            [
+              33,
+              553,
+              598,
+              656
+            ]
+          ]
+        },
+        {
+          "word": "thanksgiving",
+          "frequency": 4,
+          "selected_node_ordinal": 2,
+          "beta_scores": [
+            "0:2/6:0.333333",
+            "1:0/4:0.000000"
+          ],
+          "memberships_after": [
+            [
+              "cyber",
+              "monday",
+              "sale"
+            ],
+            [
+              "deal"
+            ],
+            [
+              "thanksgiving"
+            ]
+          ],
+          "source_memberships_after": [
+            [
+              14,
+              33,
+              482,
+              583,
+              598,
+              648
+            ],
+            [
+              33,
+              553,
+              598,
+              656
+            ],
+            [
+              193,
+              216,
+              482,
+              583
+            ]
+          ]
+        }
+      ],
+      "descriptors": [
+        [
+          "cyber",
+          "monday",
+          "sale"
+        ],
+        [
+          "deal"
+        ],
+        [
+          "thanksgiving"
+        ]
+      ],
+      "source_memberships": [
+        [
+          14,
+          33,
+          482,
+          583,
+          598,
+          648
+        ],
+        [
+          33,
+          553,
+          598,
+          656
+        ],
+        [
+          193,
+          216,
+          482,
+          583
+        ]
+      ]
+    }
+  },
+  "partition_equal_original_and_traced": true,
+  "partition_equal_csharp_order_replay": true
+}

@@ -1,6 +1,6 @@
 # Recursive SECA v2 — scientific and implementation specification
 
-**Status:** Executable research interpretation, updated 26 October 2026.  
+**Status:** Specification-freeze candidate, audited 27 October 2026.
 **Implementation:** `crates/realtime-seca-v2/`.  
 **Scope:** This specification describes v2, not a proposed change to `realtime-seca-core` (v1).
 
@@ -19,7 +19,7 @@ The C# reference is an **output oracle and diagnostic comparator**, not a requir
 
 ## 2. Data model, identity, and parameters
 
-A `Source` has a nonempty external ID and a set of distinct, nonempty normalized tokens. Tokenization and normalization happen **before** v2 receives the source. Repeated tokens within a source count once.
+A `Source` has a nonempty external ID and a set of distinct, nonempty tokens. Tokenization and any normalization happen **before** v2 receives the source. Repeated tokens within a source count once. The News G benchmark adapter splits the upstream MStream `textCleaned` field on whitespace and passes those tokens to v2; it does no additional stemming, lemmatization, stop-word filtering, case folding, or cleaning. The provenance of the upstream `textCleaned` processing is separate from v2.
 
 The model stores:
 
@@ -104,7 +104,7 @@ Ratios with zero denominators evaluate to `0` in the implementation.
    |S_{\mathrm{child}}(z)|\ge\texttt{minimum\_branch\_sources}.
    \]
 
-   Thus the branch minimum is **inclusive** but counts residual-bearing sources, not all sources in the parent node. No child is created from an empty residual dataset.
+   This **explicit v2 interpretation** uses an inclusive minimum over residual-bearing sources, not all sources in the parent node. The publications do not establish that this is a correction to the C# reference. No child is created from an empty residual dataset.
 
 **Interpretation of child scope.** A source containing only words already described at higher levels terminates at its deepest meaningful parent. It is **not** carried into a child refuge merely to preserve parent-source coverage. A source with residual words that do not match an admitted descriptor, however, can enter a child refuge during construction. Original source evidence remains retained in both cases.
 
@@ -206,21 +206,22 @@ The current validation is permissive in another respect: it checks subset relati
 
 `tests/csharp_tree_parity.rs` replays saved C# input batches through v2 and compares recursively normalized trees. Normalization preserves descriptor words, source memberships, refuge nodes, and parent-child attachments, while ignoring numeric IDs, candidate caches, sibling enumeration order, and internal reconstruction traces.
 
-Based on the tested fixture set reported on 26 October 2026, these **nine fixtures match all checked cycles**:
+These **eight active fixtures match all checked cycles**:
 
-`child`, `child_reconstruct`, `root_reconstruct`, `overlap_recursive`, `unmatched`, `one_prominent`, `merge_many`, `separate`, `frequency_vs_vocabulary`.
+`child`, `child_reconstruct`, `root_reconstruct`, `unmatched`, `one_prominent`, `merge_many`, `separate`, `frequency_vs_vocabulary`.
 
-Three strict comparisons remain deliberately **ignored as known output differences**:
+Four strict comparisons remain deliberately **ignored as known output differences**:
 
 | Fixture | C# reference | v2 convention | Reason for retaining v2 |
 | --- | --- | --- | --- |
-| `branch_boundary` | Builds a child when the **parent's total source count** meets the branch minimum | Requires at least that many **residual-bearing** child sources | Better reflects the reduced dataset used for recursive analysis in CA 2020 |
+| `branch_boundary` | Builds a child when the **parent's total source count** meets the branch minimum | Requires at least that many **residual-bearing** child sources | Explicit v2 interpretation of the recursively analysed dataset; neither publication settles the counted-set boundary |
+| `overlap_recursive` | Suppresses reciprocal sibling descendants in the recorded fixture | Allows descriptor reuse across sibling branches, while excluding descriptors on each actual ancestry path | Explicit v2 path-exclusion interpretation; the publication does not settle every sibling-exclusion case |
 | `collision_true_tie` | Chooses the last node attaining the maximum overlap in the recorded execution | Chooses the first-created maximum after deterministic word ordering | Neither tie rule is specified by the papers; deterministic execution is preferable to C# enumeration artifacts |
 | `refuge` | An accepted update adds a source to a **refuge child** but leaves it absent from the **parent refuge** | Adds the source to the existing parent refuge and then propagates it into its eligible child | Maintains the child–parent membership subset invariant |
 
 These ignored tests are **not** passing parity claims; they remain useful strict oracles for diagnosing deliberate divergences. They should not be silenced by changing tree normalization or rewriting the recorded C# outputs.
 
-A further known numerical divergence is the C# reference's cached/stale expected-word frequencies in some consecutive updates. V2 recomputes document frequency from actual retained evidence. This can change reconstruction decisions; it is an intentional correction, not a C# behavioural-parity target.
+A further observed numerical divergence involves cached expected-word frequencies in controlled C# updates. V2 recomputes document frequency from retained evidence. This can change reconstruction decisions; it is an explicit v2 evidence rule, not a C# behavioural-parity target. The News G trigger gap has not been causally assigned to this mechanism.
 
 ## 9. Executable verification
 
