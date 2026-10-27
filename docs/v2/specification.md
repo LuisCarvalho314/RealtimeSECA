@@ -51,7 +51,7 @@ Batches are numbered consecutively from zero. A retained source ID is immutable:
 For each HKT inspection or construction, define:
 
 - \(S\): the HKT's effective source scope;
-- \(X\): words excluded by ancestor / containing HKT levels;
+- \(X\): words excluded by actual ancestry-path descriptors (not sibling nodes);
 - \(W_0\): the **existing descriptor vocabulary** of ordinary nodes in this HKT, before the update; refuge has no descriptor;
 - \(F_S(w)=\{s\in S:w\in\operatorname{words}(s)\}\);
 - \(D_S(w)=|F_S(w)|\), the number of **distinct source identities** containing \(w\).
@@ -90,15 +90,15 @@ Ratios with zero denominators evaluate to `0` in the implementation.
 
    If one or more nodes meet \(\beta\), add \(w\) to the node with the highest eligibility and union \(F_S(w)\) into that node's membership. Exact score ties choose the **first-created** qualifying node. If no node qualifies, create an ordinary node for \(w\).
 5. Calculate sources in \(S\) not represented by **any** ordinary node. If nonempty, create one refuge node containing those sources. This includes sources with no admitted words or no tokens at all at the current scope.
-6. Let \(X'=X\cup\operatorname{Vocabulary}(\text{current HKT})\), where vocabulary is the union of **all** ordinary descriptors at this HKT, not merely those of a particular attachment node.
+6. For each attachment node \(z\), define child-specific exclusions \(X_z=X\cup W(z)\). Sibling descriptors remain eligible; a Refuge Node contributes no descriptors.
 7. For each node \(z\), ordinary or refuge, define its **residual-bearing child scope**:
 
    \[
    S_{\mathrm{child}}(z)=
-   \{s\in S(z):\operatorname{words}(s)\setminus X'\ne\varnothing\}.
+   \{s\in S(z):\operatorname{words}(s)\setminus X_z\ne\varnothing\}.
    \]
 
-   Create its child HKT recursively from \((S_{\mathrm{child}}(z),X')\) only if
+   Create its child HKT recursively from \((S_{\mathrm{child}}(z),X_z)\) only if
 
    \[
    |S_{\mathrm{child}}(z)|\ge\texttt{minimum\_branch\_sources}.
@@ -108,7 +108,7 @@ Ratios with zero denominators evaluate to `0` in the implementation.
 
 **Interpretation of child scope.** A source containing only words already described at higher levels terminates at its deepest meaningful parent. It is **not** carried into a child refuge merely to preserve parent-source coverage. A source with residual words that do not match an admitted descriptor, however, can enter a child refuge during construction. Original source evidence remains retained in both cases.
 
-A source may belong to more than one ordinary sibling node. Descriptor exclusion is local to the **current HKT level and its descendants**; it is not a global ban on reusing a token in independent branches.
+A source may belong to more than one ordinary sibling node. Descriptor exclusion is **cumulative along the actual ancestry path only**. A token may be reused in another branch under the same HKT, but cannot repeat on its own ancestry path.
 
 ## 5. Accepted evolution and conditional reconstruction
 
@@ -126,7 +126,7 @@ For an HKT with effective scope \(S\) and incoming IDs \(I\):
 The effective child scope in step 6 uses the same `residual_scope` rule as construction:
 
 \[
-S_{\mathrm{child}}(z)=\{s\in S(z):\operatorname{words}(s)\setminus X'\ne\varnothing\},
+X_z=X\cup W(z),\qquad S_{\mathrm{child}}(z)=\{s\in S(z):\operatorname{words}(s)\setminus X_z\ne\varnothing\},
 \qquad I_{\mathrm{child}}=I\cap S_{\mathrm{child}}(z).
 \]
 
@@ -198,7 +198,7 @@ Then recursively intersect every node's membership with the remaining retained s
 
 **Ordering matters:** evolution for batch \(t\) runs **before** this forgetting step; the implementation does not first trim the window and then calculate change errors. This is the current operational convention and should be tested separately if strict window-at-decision semantics are required.
 
-The model serializes its configuration, retained evidence, tree, and next batch index. Deserialization validates parameters, retained-evidence timing, node membership subsets, child-parent scope consistency, and at most one refuge per HKT. It intentionally does **not** demand that every retained source occur in a tree node after accepted updates, because unmapped retained evidence is valid.
+The model serializes its configuration, retained evidence, tree, and next batch index. Deserialization validates parameters, retained-evidence timing, node membership subsets, ancestry-path descriptor non-repetition, child-parent scope consistency, and at most one refuge per HKT. It intentionally does **not** demand that every retained source occur in a tree node after accepted updates, because unmapped retained evidence is valid.
 
 The current validation is permissive in another respect: it checks subset relations but does not prove that every existing descriptor-matching source was mapped into the correct node. Strengthening restoration validation without forbidding legitimate unmapped evidence is a separate follow-up.
 

@@ -65,10 +65,10 @@ pub(crate) fn construct(
             ..Node::default()
         });
     }
-    let mut child_excluded = excluded.clone();
-    child_excluded.extend(metrics::vocabulary(&hkt));
-
     for node in &mut hkt.nodes {
+        // Only the current node and its actual ancestors are excluded.
+        let mut child_excluded = excluded.clone();
+        child_excluded.extend(node.words.iter().cloned());
         let child_scope = residual_scope(&node.sources, &child_excluded, evidence);
 
         if child_scope.len() >= config.minimum_branch_sources {
@@ -135,11 +135,10 @@ pub(crate) fn evolve(
         return;
     }
 
-    let mut child_excluded = excluded.clone();
-    child_excluded.extend(metrics::vocabulary(hkt));
-
     for (index, node) in hkt.nodes.iter_mut().enumerate() {
         if let Some(child) = &mut node.child {
+            let mut child_excluded = excluded.clone();
+            child_excluded.extend(node.words.iter().cloned());
             let child_scope = residual_scope(&node.sources, &child_excluded, evidence);
 
             let child_incoming: Sources = child_scope.intersection(incoming).cloned().collect();

@@ -221,7 +221,7 @@ fn residual_branch_boundary_and_refuge() {
 }
 
 #[test]
-fn level_exclusion_prevents_reciprocal_descendants() {
+fn path_exclusion_prevents_ancestor_repetition() {
     let mut m = Model::new(Config {
         alpha: 0.8,
         beta: 0.75,
@@ -244,7 +244,58 @@ fn level_exclusion_prevents_reciprocal_descendants() {
     assert_eq!(child.nodes[1].words, words("c"));
     assert_eq!(child.nodes[0].sources, sources(&[1, 2, 3, 4]));
     assert_eq!(child.nodes[1].sources, sources(&[3, 4, 5, 6]));
-    assert!(child.nodes.iter().all(|n| n.child.is_none()));
+    // Words from a sibling remain eligible: b refines c and c refines b.
+    let b_child = child.nodes[0].child.as_ref().unwrap();
+    let c_child = child.nodes[1].child.as_ref().unwrap();
+    assert_eq!(b_child.nodes[0].words, words("c"));
+    assert_eq!(b_child.nodes[0].sources, sources(&[3, 4]));
+    assert_eq!(c_child.nodes[0].words, words("b"));
+    assert_eq!(c_child.nodes[0].sources, sources(&[3, 4]));
+    assert!(b_child.nodes.iter().all(|n| n.child.is_none()));
+    assert!(c_child.nodes.iter().all(|n| n.child.is_none()));
+}
+
+#[test]
+fn sibling_descriptor_reuse_and_model_restore() {
+    let mut m = Model::new(Config {
+        alpha: 0.8,
+        beta: 0.75,
+        minimum_branch_sources: 1,
+        ..config()
+    })
+    .unwrap();
+    m.update(
+        0,
+        vec![
+            source(1, "a"),
+            source(2, "a"),
+            source(3, "a"),
+            source(4, "a b"),
+            source(5, "b"),
+            source(6, "b"),
+            source(7, "b"),
+        ],
+    )
+    .unwrap();
+    let a = m
+        .root()
+        .nodes
+        .iter()
+        .find(|n| n.words == words("a"))
+        .unwrap();
+    let b = m
+        .root()
+        .nodes
+        .iter()
+        .find(|n| n.words == words("b"))
+        .unwrap();
+    assert_eq!(a.child.as_ref().unwrap().nodes[0].words, words("b"));
+    assert_eq!(b.child.as_ref().unwrap().nodes[0].words, words("a"));
+    assert!(a.child.as_ref().unwrap().nodes[0].child.is_none());
+    assert!(b.child.as_ref().unwrap().nodes[0].child.is_none());
+    m.update(1, vec![source(8, "a b")]).unwrap();
+    let restored: Model = serde_json::from_str(&serde_json::to_string(&m).unwrap()).unwrap();
+    assert_eq!(m, restored);
 }
 
 #[test]
@@ -552,12 +603,8 @@ fn child_reconstruction_matches_fresh_construction() {
     let a_node = &root.nodes[a_index];
     let actual_child = a_node.child.as_deref().unwrap();
 
-    // A child cannot reuse descriptors from its containing HKT.
-    let excluded: Words = root
-        .nodes
-        .iter()
-        .flat_map(|n| n.words.iter().cloned())
-        .collect();
+    // A child cannot repeat its own actual ancestry path.
+    let excluded: Words = a_node.words.clone();
 
     // Independently construct the effective child dataset.
     let child_sources: Vec<Source> = all_sources
@@ -581,14 +628,18 @@ fn child_reconstruction_matches_fresh_construction() {
 
     // Independent expected topology, not just agreement
     // between two calls to the same construction code.
+    let mut b = node("b", &[1, 2, 3, 4]);
+    b.child = Some(Box::new(Hkt {
+        nodes: vec![node("c", &[3, 4])],
+    }));
+    let mut c = node("c", &[3, 4, 5, 6]);
+    c.child = Some(Box::new(Hkt {
+        nodes: vec![node("b", &[3, 4])],
+    }));
     assert_eq!(
         actual_child,
         &Hkt {
-            nodes: vec![
-                node("b", &[1, 2, 3, 4]),
-                node("c", &[3, 4, 5, 6]),
-                node("x", &[15, 16, 17, 18]),
-            ],
+            nodes: vec![b, c, node("x", &[15, 16, 17, 18])],
         }
     );
 }

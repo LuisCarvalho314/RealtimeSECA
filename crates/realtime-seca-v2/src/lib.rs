@@ -221,26 +221,16 @@ impl Model {
             excluded: &Words,
             evidence: &BTreeMap<String, Evidence>,
         ) -> bool {
-            let mut child_excluded = excluded.clone();
-            child_excluded.extend(metrics::vocabulary(h));
-
             h.nodes.iter().filter(|n| n.words.is_empty()).count() <= 1
                 && h.nodes.iter().all(|n| {
                     n.sources.is_subset(scope)
+                        && n.words.is_disjoint(excluded)
                         && n.words.iter().all(|w| !w.trim().is_empty())
                         && n.child.as_ref().is_none_or(|child| {
-                            let child_scope = residual_scope(
-                                &n.sources,
-                                &child_excluded,
-                                evidence,
-                            );
-
-                            tree(
-                                child,
-                                &child_scope,
-                                &child_excluded,
-                                evidence,
-                            )
+                            let mut child_excluded = excluded.clone();
+                            child_excluded.extend(n.words.iter().cloned());
+                            let child_scope = residual_scope(&n.sources, &child_excluded, evidence);
+                            tree(child, &child_scope, &child_excluded, evidence)
                         })
                 })
         }
