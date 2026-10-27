@@ -26,7 +26,14 @@ pub(crate) fn construct(
     let df = frequencies(scope, evidence);
     let admitted = metrics::candidates(&df, &Words::new(), excluded, config.alpha);
     let mut ranked: Vec<_> = admitted.into_iter().collect();
-    ranked.sort_by(|a, b| df[b].len().cmp(&df[a].len()).then_with(|| a.cmp(b)));
+    // The papers specify frequency ranking but no equal-frequency order. Use
+    // exact UTF-8 token bytes as the portable tie key at every HKT scope.
+    ranked.sort_by(|a, b| {
+        df[b]
+            .len()
+            .cmp(&df[a].len())
+            .then_with(|| a.as_bytes().cmp(b.as_bytes()))
+    });
     let mut hkt = Hkt::default();
     for word in ranked {
         let sources = &df[&word];

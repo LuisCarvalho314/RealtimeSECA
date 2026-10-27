@@ -1,0 +1,43 @@
+depth,path,csharp_hkt_id,v2_hkt_id,observed_csharp_scope,observed_v2_scope,scope_jaccard,same_observed_scope,same_ordinary_partition,csharp_only_words,v2_only_words,csharp_only_words_excluded_by_v2,csharp_only_words_excluded_by_path,csharp_only_words_excluded_only_due_to_siblings,csharp_hkt_global_replay_exact,csharp_path_only_replay_exact,v2_hkt_global_replay_exact,v2_path_only_replay_exact
+0,[root HKT],1,1,740,740,1.0,True,True,,,,,,True,True,True,True
+1,REFUGE,18,18,614,614,1.0,True,True,,,,,,True,True,True,True
+1,ordinary:black,7,7,27,27,1.0,True,True,,,,,,True,True,True,True
+1,ordinary:kanye|west,2,2,32,32,1.0,True,True,,,,,,True,True,True,True
+1,ordinary:star,16,16,23,23,1.0,True,True,,,,,,True,True,True,True
+1,ordinary:thanksgiving,9,9,25,25,1.0,True,True,,,,,,True,True,True,True
+1,ordinary:xbox,13,13,24,24,1.0,True,True,,,,,,True,True,True,True
+2,REFUGE / REFUGE,24,24,563,563,1.0,True,True,,,,,,True,True,True,True
+2,REFUGE / ordinary:china,20,20,16,16,1.0,True,True,,,,,,True,True,True,True
+2,REFUGE / ordinary:google,22,22,16,16,1.0,True,True,,,,,,True,True,True,True
+2,REFUGE / ordinary:lumia|nokia,19,19,19,19,1.0,True,True,,,,,,True,True,True,True
+2,ordinary:black / ordinary:friday,8,8,18,18,1.0,True,False,,,,,,False,False,False,True
+2,ordinary:kanye|west / REFUGE,6,6,14,14,1.0,True,True,,,,,,True,True,True,True
+2,ordinary:kanye|west / ordinary:franco|rogen|seth,4,4,11,11,1.0,True,True,,,,,,True,True,True,True
+2,ordinary:kanye|west / ordinary:kardashian|kim,3,3,12,12,1.0,True,False,james|parody,rogen|seth,,,,True,False,False,True
+2,ordinary:star / ordinary:dancing,17,17,14,14,1.0,True,True,,,,,,True,True,True,True
+2,ordinary:thanksgiving / REFUGE,11,11,14,14,1.0,True,True,,,,,,False,True,False,True
+2,ordinary:thanksgiving / ordinary:day|parade,10,10,11,11,1.0,True,True,,,,,,True,True,True,True
+2,ordinary:xbox / REFUGE,14,14,17,17,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / REFUGE,37,37,441,441,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:comet|ison,30,30,11,11,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:deal,29,26,12,12,1.0,True,False,,,,,,True,True,False,False
+3,REFUGE / REFUGE / ordinary:german,28,27,12,12,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:guilty,31,31,11,11,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:hiv,36,32,10,10,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:nsa|porn,32,33,10,10,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:oldboy,35,34,10,10,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:prince|william,27,29,12,12,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:report,26,28,12,12,1.0,True,False,,nsa|porn,,,,True,False,False,True
+3,REFUGE / REFUGE / ordinary:seahawks,33,35,10,10,1.0,True,False,,year,,,,True,False,False,True
+3,REFUGE / REFUGE / ordinary:will,34,36,10,10,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / REFUGE / ordinary:year,25,25,13,13,1.0,True,False,,seahawks,,,,True,False,False,True
+3,REFUGE / ordinary:china / ordinary:zone,21,21,10,10,1.0,True,True,,,,,,True,True,True,True
+3,REFUGE / ordinary:google / REFUGE,23,23,10,10,1.0,True,True,,,,,,True,True,True,True
+3,ordinary:kanye|west / ordinary:franco|rogen|seth / ordinary:bound|james|parody|video,5,5,10,11,0.9090909090909091,False,False,music|react|recreate,kardashian|kim,,,,True,False,False,True
+3,ordinary:thanksgiving / REFUGE / REFUGE,12,12,10,10,1.0,True,True,,,,,,True,True,True,True
+3,ordinary:xbox / REFUGE / REFUGE,15,15,12,12,1.0,True,True,,,,,,True,True,True,True
+4,REFUGE / REFUGE / REFUGE / REFUGE,39,39,300,300,1.0,True,True,,,,,,True,True,True,True
+4,REFUGE / REFUGE / REFUGE / ordinary:andreas|gta|san,38,38,11,11,1.0,True,True,,,,,,True,True,True,True
+5,REFUGE / REFUGE / REFUGE / REFUGE / REFUGE,40,40,206,206,1.0,True,True,,,,,,True,True,True,True
+6,REFUGE / REFUGE / REFUGE / REFUGE / REFUGE / REFUGE,41,41,94,94,1.0,True,False,,,,,,False,False,True,True
+7,REFUGE / REFUGE / REFUGE / REFUGE / REFUGE / REFUGE / REFUGE,42,42,49,49,1.0,True,True,,,,,,True,True,True,True
