@@ -51,7 +51,8 @@ def run(data, output, cycles):
         for engine in ['v1', 'v2']:
             destination = output/f'{mode}-{engine}'
             resource = output/f'{mode}-{engine}-resource.txt'
-            command = ['/usr/bin/time', '-v', '-o', str(resource),
+            timer = 'gtime' if sys.platform == 'darwin' else '/usr/bin/time'
+            command = [timer, '-v', '-o', str(resource),
                        str(ROOT/'target/release/examples/compare_stream'), engine,
                        str(path), str(destination), *map(str,batches)]
             subprocess.run(command, check=True)

@@ -31,7 +31,8 @@ merges count predicted co-members with different truth labels; fragmentation
 counts same-truth pairs assigned to different events. Results are reconstructed
 protocol measurements, not exact replication or causal isolation of E01–E07.
 
-`/usr/bin/time -v` measures process peak RSS independently for each engine/mode.
+GNU `time -v` (`gtime` on macOS, `/usr/bin/time` on Linux) measures process peak
+RSS independently for each engine/mode.
 Per-cycle timings include update plus public export/JSON-value conversion; V1
 also computes its standard diagnostics and V2 does not reproduce them. Input
 parsing, disk output and V2 checked serialization round trips are outside those

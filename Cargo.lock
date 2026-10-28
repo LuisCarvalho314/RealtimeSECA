@@ -384,6 +384,7 @@ dependencies = [
 name = "realtime-seca-v2"
 version = "0.1.0"
 dependencies = [
+ "libc",
  "realtime-seca-core",
  "serde",
  "serde_json",
