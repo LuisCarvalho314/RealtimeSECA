@@ -6,8 +6,8 @@ license.workspace = true
 
 [dependencies]
 serde.workspace = true
+serde_json.workspace = true
 
 [dev-dependencies]
-serde_json.workspace = true
 libc = "0.2"
 realtime-seca-core = { path = "../realtime-seca-core" }
