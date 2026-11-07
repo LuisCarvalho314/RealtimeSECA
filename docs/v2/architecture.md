@@ -11,7 +11,7 @@ word-membership indexes, persistent expectations, pending memberships or plans.
 A child represents the one residual dataset of its parent. General multiple-child
 storage would have no operation creating a second child under this specification.
 
-`recursive::construct` builds any scope from evidence and ancestor exclusions.
+`recursive::construct` builds any scope from evidence and ancestor HKT descriptor exclusions.
 `recursive::evolve` maps incoming sources, computes errors, replaces immediately
 or admits candidates and descends. `map_incoming` is a small local set operation;
 `frequencies` derives temporary source sets. `forget` intersects memberships after
@@ -24,10 +24,13 @@ A successful update covers the complete root source scope. Every child source is
 in its parent's membership; every source reference resolves to retained evidence.
 At most one refuge exists per HKT. Ordinary descriptors are nonempty token sets;
 empty descriptors denote refuge without a marker token. Learned structures survive
-zero support. Construction exclusions are path-local, not a global word blacklist.
-Accepted parent promotion may leave an old descendant adoption, as explicitly
-specified; restoration must permit that state. Candidate/source metrics derive
-freshly from payloads, never from number of node memberships.
+zero support. Each child of an HKT receives the same exclusion set: inherited
+descriptors plus the union of descriptors adopted by all ordinary nodes in that
+HKT. Each child's source scope still comes from its attachment node. Exclusion
+filters candidate vocabulary and residual child scopes, never retained evidence;
+the same keyword may be adopted in independent branches when their ancestors
+have not excluded it. Candidate/source metrics derive freshly from payloads,
+never from number of node memberships.
 
 Input validation, including malformed duplicates, completes before mutation.
 Thereafter update has no recoverable error branch, so no transaction clone or

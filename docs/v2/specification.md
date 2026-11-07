@@ -1,6 +1,6 @@
 # Recursive SECA v2 — scientific and implementation specification
 
-**Status:** Specification-freeze candidate, audited 27 October 2026.
+**Status:** Implementation contract, revised 7 November 2026.
 **Implementation:** `crates/realtime-seca-v2/`.  
 **Scope:** This specification describes v2, not a proposed change to `realtime-seca-core` (v1).
 
@@ -51,7 +51,7 @@ Batches are numbered consecutively from zero. A retained source ID is immutable:
 For each HKT inspection or construction, define:
 
 - \(S\): the HKT's effective source scope;
-- \(X\): words excluded by actual ancestry-path descriptors (not sibling nodes);
+- \(X\): descriptors excluded by ancestor HKTs; each ancestor contributes the union of its ordinary nodes' descriptors;
 - \(W_0\): the **existing descriptor vocabulary** of ordinary nodes in this HKT, before the update; refuge has no descriptor;
 - \(F_S(w)=\{s\in S:w\in\operatorname{words}(s)\}\);
 - \(D_S(w)=|F_S(w)|\), the number of **distinct source identities** containing \(w\).
@@ -90,15 +90,15 @@ Ratios with zero denominators evaluate to `0` in the implementation.
 
    If one or more nodes meet \(\beta\), add \(w\) to the node with the highest eligibility and union \(F_S(w)\) into that node's membership. Exact score ties choose the **first-created** qualifying node. If no node qualifies, create an ordinary node for \(w\).
 5. Calculate sources in \(S\) not represented by **any** ordinary node. If nonempty, create one refuge node containing those sources. This includes sources with no admitted words or no tokens at all at the current scope.
-6. For each attachment node \(z\), define child-specific exclusions \(X_z=X\cup W(z)\). Sibling descriptors remain eligible; a Refuge Node contributes no descriptors.
+6. After descriptor adoption, define the HKT descriptor vocabulary \(W(H)=\bigcup_{z\in\operatorname{nodes}(H)}W(z)\), where refuge nodes contribute the empty set. Every child of \(H\) receives the identical exclusion set \(X_{\mathrm{child}}=X\cup W(H)\).
 7. For each node \(z\), ordinary or refuge, define its **residual-bearing child scope**:
 
    \[
    S_{\mathrm{child}}(z)=
-   \{s\in S(z):\operatorname{words}(s)\setminus X_z\ne\varnothing\}.
+   \{s\in S(z):\operatorname{words}(s)\setminus X_{\mathrm{child}}\ne\varnothing\}.
    \]
 
-   Create its child HKT recursively from \((S_{\mathrm{child}}(z),X_z)\) only if
+   Create its child HKT recursively from \((S_{\mathrm{child}}(z),X_{\mathrm{child}})\) only if
 
    \[
    |S_{\mathrm{child}}(z)|\ge\texttt{minimum\_branch\_sources}.
@@ -108,7 +108,9 @@ Ratios with zero denominators evaluate to `0` in the implementation.
 
 **Interpretation of child scope.** A source containing only words already described at higher levels terminates at its deepest meaningful parent. It is **not** carried into a child refuge merely to preserve parent-source coverage. A source with residual words that do not match an admitted descriptor, however, can enter a child refuge during construction. Original source evidence remains retained in both cases.
 
-A source may belong to more than one ordinary sibling node. Descriptor exclusion is **cumulative along the actual ancestry path only**. A token may be reused in another branch under the same HKT, but cannot repeat on its own ancestry path.
+A source may belong to more than one ordinary sibling node. Each child keeps the source scope of its attachment node, while descriptor exclusion is cumulative over the full vocabulary of every ancestor HKT. A descriptor adopted anywhere in an HKT cannot reappear in any of that HKT's descendants. A keyword not adopted in the HKT remains eligible in its children's source scopes. Independent HKT branches may adopt the same keyword when their respective ancestors have not excluded it. Retained source evidence is never filtered or rewritten by this exclusion.
+
+The publications do not fully formalize exclusion across sibling attachment nodes; HKT-wide exclusion is the explicit v2 interpretation.
 
 ## 5. Accepted evolution and conditional reconstruction
 
@@ -126,7 +128,7 @@ For an HKT with effective scope \(S\) and incoming IDs \(I\):
 The effective child scope in step 6 uses the same `residual_scope` rule as construction:
 
 \[
-X_z=X\cup W(z),\qquad S_{\mathrm{child}}(z)=\{s\in S(z):\operatorname{words}(s)\setminus X_z\ne\varnothing\},
+X_{\mathrm{child}}=X\cup W(H),\qquad S_{\mathrm{child}}(z)=\{s\in S(z):\operatorname{words}(s)\setminus X_{\mathrm{child}}\ne\varnothing\},
 \qquad I_{\mathrm{child}}=I\cap S_{\mathrm{child}}(z).
 \]
 
@@ -198,7 +200,7 @@ Then recursively intersect every node's membership with the remaining retained s
 
 **Ordering matters:** evolution for batch \(t\) runs **before** this forgetting step; the implementation does not first trim the window and then calculate change errors. This is the current operational convention and should be tested separately if strict window-at-decision semantics are required.
 
-The model serializes its configuration, retained evidence, tree, and next batch index. Deserialization validates parameters, retained-evidence timing, node membership subsets, ancestry-path descriptor non-repetition, child-parent scope consistency, and at most one refuge per HKT. It intentionally does **not** demand that every retained source occur in a tree node after accepted updates, because unmapped retained evidence is valid.
+The model serializes its configuration, retained evidence, tree, and next batch index. Deserialization validates parameters, retained-evidence timing, node membership subsets, HKT-wide ancestor descriptor exclusion, child-parent scope consistency, and at most one refuge per HKT. It intentionally does **not** demand that every retained source occur in a tree node after accepted updates, because unmapped retained evidence is valid. Serialized V2 models with sibling-descriptor reuse in descendants are now rejected; continuation requires migration or replay under the new rule.
 
 The current validation is permissive in another respect: it checks subset relations but does not prove that every existing descriptor-matching source was mapped into the correct node. Strengthening restoration validation without forbidding legitimate unmapped evidence is a separate follow-up.
 
@@ -206,16 +208,15 @@ The current validation is permissive in another respect: it checks subset relati
 
 `tests/csharp_tree_parity.rs` replays saved C# input batches through v2 and compares recursively normalized trees. Normalization preserves descriptor words, source memberships, refuge nodes, and parent-child attachments, while ignoring numeric IDs, candidate caches, sibling enumeration order, and internal reconstruction traces.
 
-These **eight active fixtures match all checked cycles**:
+These **nine active fixtures match all checked cycles**:
 
-`child`, `child_reconstruct`, `root_reconstruct`, `unmatched`, `one_prominent`, `merge_many`, `separate`, `frequency_vs_vocabulary`.
+`child`, `child_reconstruct`, `root_reconstruct`, `unmatched`, `one_prominent`, `merge_many`, `separate`, `frequency_vs_vocabulary`, `overlap_recursive`.
 
-Four strict comparisons remain deliberately **ignored as known output differences**:
+Three strict comparisons remain deliberately **ignored as known output differences**:
 
 | Fixture | C# reference | v2 convention | Reason for retaining v2 |
 | --- | --- | --- | --- |
 | `branch_boundary` | Builds a child when the **parent's total source count** meets the branch minimum | Requires at least that many **residual-bearing** child sources | Explicit v2 interpretation of the recursively analysed dataset; neither publication settles the counted-set boundary |
-| `overlap_recursive` | Suppresses reciprocal sibling descendants in the recorded fixture | Allows descriptor reuse across sibling branches, while excluding descriptors on each actual ancestry path | Explicit v2 path-exclusion interpretation; the publication does not settle every sibling-exclusion case |
 | `collision_true_tie` | Chooses the last node attaining the maximum overlap in the recorded execution | Chooses the first-created maximum after deterministic word ordering | Neither tie rule is specified by the papers; deterministic execution is preferable to C# enumeration artifacts |
 | `refuge` | An accepted update adds a source to a **refuge child** but leaves it absent from the **parent refuge** | Adds the source to the existing parent refuge and then propagates it into its eligible child | Maintains the child–parent membership subset invariant |
 
@@ -243,7 +244,7 @@ cargo test -p realtime-seca-v2 --test csharp_tree_parity \
 Particularly relevant regression tests in `tests/mathematics.rs` cover:
 
 - admitted-word ranking and deterministic collision ties;
-- residual-bearing branch and child-source filtering;
+- HKT-wide descriptor exclusion, residual-bearing branch, and child-source filtering;
 - absence of automatic refuge creation during accepted updates;
 - retained-but-unmapped evidence triggering a later reconstruction;
 - independent child reconstruction versus fresh construction;
