@@ -1,0 +1,19 @@
+{
+  "basis_commit": "7fc0ba5c0df4b00f00245414de19ee9ad29fb763",
+  "production_tie_rule": "strict > for rational overlap comparison in crates/realtime-seca-v2/src/recursive.rs; equal maximum retains first-created node",
+  "build": "cargo build -p realtime-seca-v2 --release --example compare_stream",
+  "run": "python3 benchmarks/seca-v2/run_full_v2.py --datasets G --modes Full --output <new directory>; macOS /usr/bin/time -l wrapper omitted in sandbox because sysctl kern.clockrate is denied",
+  "comparison": "trace_seca_first_divergence.py --cycles 3 and probe_seca_baseline_construction.py, using saved C# G.csharp.json",
+  "dataset": "MStream News, 11109 documents, 16 batches; first three batches have 740 documents each",
+  "prepared_first_batch_sha256": "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005",
+  "saved_csharp_reference_sha256": "9d941e7c3fdd754554888860a6f8735396c793e791b179119824a58aba521037",
+  "canonical_tree_sha256_by_cycle": {
+    "1": "1cc62e6ab654ebb987034bc3878abda4216d2ba4859ff6467aa7d89d31f58d88",
+    "2": "a2331875aa6528036ceca254a560b30070a5b3ab4363b80ccc8f7e22fcf518d5",
+    "3": "ad51968c7741d0dfafb5a14df657d0a2c2be983f6c2a5d1ac0947a88b5c6ad71"
+  },
+  "last_wins_attribution": "The previous committed cycle CSV is semantically identical to the saved temporary last-wins trace for cycles 1-3; its 42-row HKT CSV is exactly reproduced by probing that same last-wins run.",
+  "cycle_csv": "news-g-cycle-by-cycle.csv",
+  "baseline_hkt_csv": "news-g-hkt-comparison.csv",
+  "original_csharp_candidate_trace": "news-g-black-friday-csharp-construction-trace.json"
+}

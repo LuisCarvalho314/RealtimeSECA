@@ -1,0 +1,24 @@
+{
+  "ordered_token_sets_sha256_by_adapter": {
+    "shared_json": "3df93c36658a85b86f192a1de2ca3072d9af7bb47be02e4d2a0d8e4fc2944818",
+    "csharp_rows": "3df93c36658a85b86f192a1de2ca3072d9af7bb47be02e4d2a0d8e4fc2944818",
+    "rust_v1": "3df93c36658a85b86f192a1de2ca3072d9af7bb47be02e4d2a0d8e4fc2944818",
+    "rust_v2": "3df93c36658a85b86f192a1de2ca3072d9af7bb47be02e4d2a0d8e4fc2944818"
+  },
+  "batch_documents": [
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000,
+    2000
+  ],
+  "documents": 24000,
+  "vocabulary": 11610
+}

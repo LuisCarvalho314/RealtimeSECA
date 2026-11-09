@@ -20,7 +20,7 @@ depth,path,csharp_hkt_id,v2_hkt_id,observed_csharp_scope,observed_v2_scope,scope
 2,ordinary:xbox / REFUGE,14,14,17,17,1.0,True,True,,,,,,True,True,True,True
 3,REFUGE / REFUGE / REFUGE,37,37,441,441,1.0,True,True,,,,,,True,True,True,True
 3,REFUGE / REFUGE / ordinary:comet|ison,30,30,11,11,1.0,True,True,,,,,,True,True,True,True
-3,REFUGE / REFUGE / ordinary:deal,29,26,12,12,1.0,True,False,,,,,,True,True,False,False
+3,REFUGE / REFUGE / ordinary:deal,29,26,12,12,1.0,True,True,,,,,,True,True,True,True
 3,REFUGE / REFUGE / ordinary:german,28,27,12,12,1.0,True,True,,,,,,True,True,True,True
 3,REFUGE / REFUGE / ordinary:guilty,31,31,11,11,1.0,True,True,,,,,,True,True,True,True
 3,REFUGE / REFUGE / ordinary:hiv,36,32,10,10,1.0,True,True,,,,,,True,True,True,True

@@ -1,0 +1,83 @@
+{
+  "git_sha": "e7050823c0938a9da5bbd7080b1b920c79bcb9ae",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "processor": "arm",
+  "logical_cpu_count": 10,
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "cargo": "cargo 1.92.0 (344c4567c 2025-10-21)",
+  "mono": "Mono JIT compiler version 6.12.0.206 (2020-02/0cbf0e290c3 Tue Feb 13 17:04:08 EST 2024)",
+  "mcs": "Mono C# compiler version 6.12.0.0",
+  "rust_profile": "release",
+  "csharp_build": "original precompiled Release SECA.exe, mcs optimized adapter; in-process first-two-batch JIT warmup",
+  "csharp_assembly_sha256": "1c24e7eafee7344607cc36b72856d6c6ed2f062bc800b284ce7e9d32d97fd157",
+  "csharp_source_sha256": {
+    "SECAAlgorithm.cs": "b95814b18edba0c68ed47b388a23e4955d68be3e83b08ba5d3c5fc42f93ba744",
+    "HKT.cs": "416c0bd709767b593787d2e7b46153ebfea36646a4ed2702af6527b68bc75e49",
+    "Node.cs": "9f3e1967bad47c4bd34fd70631e5e3901acd7f1ee8285305126987cf37a943f7",
+    "AlphaError.cs": "2d91219d46f326bb71b20e4f83fb9747f15d8b79da125e808b1e8955d3fbc005",
+    "BetaError.cs": "faf0408a771ba6307d6f0f80375a68744b401aaf1675cd6dbf8b53ebe15dfce7",
+    "WordImportanceError.cs": "868954fff401b27ed69b1e6542250aaec9f06a1a3cd2d7f381a667087f81fd87"
+  },
+  "config": {
+    "hkt_builder": {
+      "minimum_number_of_sources_to_create_branch_for_node": 10,
+      "minimum_threshold_against_max_word_count": 0.7,
+      "similarity_threshold": 0.5
+    },
+    "max_batches_in_memory": null,
+    "memory_mode": "Full",
+    "seca_thresholds": {
+      "alpha": 0.7,
+      "alpha_error_threshold": 0.1,
+      "beta": 0.5,
+      "beta_error_threshold": 0.2,
+      "word_importance_error_threshold": 0.3
+    }
+  },
+  "config_sha256": "fa92302ac2a17a4afe67fbc3157c1a646d0f9a9eadca7e69b7046c9cd61aae2a",
+  "warmup": 1,
+  "repetitions": 10,
+  "engines": [
+    "csharp",
+    "v1",
+    "v2"
+  ],
+  "dataset": {
+    "theme": "G",
+    "manifest_sha256": "28e7934213dd5c78aeceb5d3274f4f3060c1717d1826b76ae91419cf25a50781",
+    "batch_sha256": [
+      "aecee350c56d5402e5c552c8a4ce7f827063b4f2f01cfd2d5974f3dbca60a005",
+      "7ea61f5ed367382f6888b185bbb2bdbc9267d48ceb39cb04b3bfd024a9885930",
+      "2f032849b7128415f89032bc1579648afd336d4bd599fb9af00de2882c42e3af",
+      "52eec9e594300e77da9ef94b719be4890aa8fb8454563a232fcee1f2d4c2b892",
+      "f1bf9814d750d2e9fc659b4eab4d0170e6127ffdcc39386a319790f315e712e4",
+      "c725d58236a872a1d599ccfe5dfd45b0d2bcc227fbd813d3e8f46b1cda145466",
+      "ec9fd14caf2a1304307effcb0729bbf173ec9157db87ceeeeae2475a79f7926e",
+      "0b166637eddaa729b5e5d47ed73364873da6e9b5d0c4da1d68585be436092de8",
+      "b5593145898c06cf28082cb7028daaf76749ae705ed89454ae8f92a4a179a446",
+      "f396d0d9b4e5afbf9dca9a3febc475989fb3624bd851d563d3cd68c2202cf0f8",
+      "193b69313b5c9c31d06c49cdc3de57570bea90c091c8e96e65bc7954d9165044",
+      "4706d65eaf44e9667db1cc1026d4c350134edbdc8e21aedec8fb1d968b1e1461"
+    ],
+    "ordered_token_sets_sha256": "4a39f43163d0d8dbef54de642678c3d6701bb8bd56e52cec6b93340ec93ef734",
+    "documents": 8880,
+    "vocabulary": 7361,
+    "source_variant": "News",
+    "selection": {
+      "selection": "reconstructed",
+      "ordering": "reconstructed",
+      "exact_paper_reconstruction": false,
+      "method": "First 8880 physical JSONL records of News, in published file order, contiguous batches.",
+      "discarded_tail_documents": 2229,
+      "variant_evidence": "Prefix label count and min/max event sizes match SECA Table 2; variant is inferred, not confirmed.",
+      "uncertainty": "Paper gives no ordered ID list, exact variant filename or truncation procedure; aggregate agreement does not establish exact identity or order."
+    }
+  },
+  "threading": "C# original Parallel.ForEach default Mono thread pool; Rust single thread",
+  "rust_adapter_sha256": "44640a1edaa19fa3773093189a39c209a115d81e76a5f454d7a6d737b45aee7e",
+  "measurement_passes": {
+    "csharp": "original three-way pass; unmodified original assembly adapter",
+    "rust": "separate same-host pass after moving owned SourceBatch into SecaEngine outside caller clone"
+  }
+}

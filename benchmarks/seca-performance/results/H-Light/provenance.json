@@ -1,0 +1,65 @@
+{
+  "git_sha": "e7050823c0938a9da5bbd7080b1b920c79bcb9ae",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "processor": "arm",
+  "logical_cpu_count": 10,
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "cargo": "cargo 1.92.0 (344c4567c 2025-10-21)",
+  "rust_profile": "release",
+  "config": {
+    "hkt_builder": {
+      "minimum_number_of_sources_to_create_branch_for_node": 10,
+      "minimum_threshold_against_max_word_count": 0.7,
+      "similarity_threshold": 0.5
+    },
+    "max_batches_in_memory": 3,
+    "memory_mode": "SlidingWindow",
+    "seca_thresholds": {
+      "alpha": 0.7,
+      "alpha_error_threshold": 0.1,
+      "beta": 0.5,
+      "beta_error_threshold": 0.2,
+      "word_importance_error_threshold": 0.3
+    }
+  },
+  "config_sha256": "5251e7e74b0d8ba0e79b6c720e0d1437ae1ae9fc11f7498f87ba9f85c70a8416",
+  "warmup": 1,
+  "repetitions": 10,
+  "engines": [
+    "v1",
+    "v2"
+  ],
+  "dataset": {
+    "theme": "H",
+    "manifest_sha256": "05a221210775453a3b0960338e1c55b30a67cb3ef47c95eff6beb229e0875dee",
+    "batch_sha256": [
+      "c169ae7d583cd25d5f57df8051d674fc92a647fbfd2f7e37d8ca76189670ad6f",
+      "1cead2171fe26a070e6a3ebc80a1efdf737f2c14724e7833ebdc329adf4b07de",
+      "c8a9b733241b9d2b87e22b9392fe92e7b07e034d23fca767bfccfb67207e6930",
+      "34c80a3190935fcadd817d7638187dade1de53dbb832c17fd831dd37ffda3f64",
+      "49d9a112a780cf741afeb03a56c201c78a417d2b8e502d3cf3b9216f0e38c953",
+      "76baabe622a86a0d5377b450c81db766a39dab3552bca54aa16eb618d5ee5de5",
+      "eab55bb7f8f386ed15ab9c74333b33f1ee42193393568bac1cbad8e2e9dcd7cd",
+      "79610f14bd2ea16da9c04e1d0aedceba4ba79671e96627beb7de108b67599f65",
+      "544521bdc94ddd3e5365d025801917bc2769cf0ba55d05b43d069ee27c14f9b6",
+      "39597af2040ad3f0136dc00180b4795a1b09f9881f1af71cff29add821b9050a",
+      "fe306730f8b60a63c99d3634d92d45fbd99e407fbaf3423290304845a2964b2a",
+      "1d2ae07ba75d611d061473df1b97766f3d90e5b47779288f9217504842158b90"
+    ],
+    "ordered_token_sets_sha256": "3df93c36658a85b86f192a1de2ca3072d9af7bb47be02e4d2a0d8e4fc2944818",
+    "documents": 24000,
+    "vocabulary": 11610,
+    "source_variant": "Tweets-T",
+    "selection": {
+      "selection": "reconstructed",
+      "ordering": "reconstructed",
+      "exact_paper_reconstruction": false,
+      "method": "First 24000 physical JSONL records of Tweets-T, in published file order, contiguous batches.",
+      "discarded_tail_documents": 6322,
+      "variant_evidence": "Prefix label count and min/max event sizes match SECA Table 2; variant is inferred, not confirmed.",
+      "uncertainty": "Paper gives no ordered ID list, exact variant filename or truncation procedure; aggregate agreement does not establish exact identity or order."
+    }
+  },
+  "threading": "C# original Parallel.ForEach default Mono thread pool; Rust single thread"
+}

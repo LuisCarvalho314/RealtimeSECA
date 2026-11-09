@@ -1,0 +1,14 @@
+{
+  "csharp-to-v1": {
+    "algorithm_speedup": 2.500791056536092,
+    "peak_rss_ratio": 2.341193107077085
+  },
+  "v1-to-v2": {
+    "algorithm_speedup": 27.28111509672354,
+    "peak_rss_ratio": 0.9705093833780161
+  },
+  "csharp-to-v2": {
+    "algorithm_speedup": 68.22436864621798,
+    "peak_rss_ratio": 2.2721498787182433
+  }
+}

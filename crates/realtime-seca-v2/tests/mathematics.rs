@@ -221,7 +221,7 @@ fn residual_branch_boundary_and_refuge() {
 }
 
 #[test]
-fn path_exclusion_prevents_ancestor_repetition() {
+fn hkt_wide_exclusion_prevents_sibling_descriptor_repetition() {
     let mut m = Model::new(Config {
         alpha: 0.8,
         beta: 0.75,
@@ -244,19 +244,16 @@ fn path_exclusion_prevents_ancestor_repetition() {
     assert_eq!(child.nodes[1].words, words("c"));
     assert_eq!(child.nodes[0].sources, sources(&[1, 2, 3, 4]));
     assert_eq!(child.nodes[1].sources, sources(&[3, 4, 5, 6]));
-    // Words from a sibling remain eligible: b refines c and c refines b.
-    let b_child = child.nodes[0].child.as_ref().unwrap();
-    let c_child = child.nodes[1].child.as_ref().unwrap();
-    assert_eq!(b_child.nodes[0].words, words("c"));
-    assert_eq!(b_child.nodes[0].sources, sources(&[3, 4]));
-    assert_eq!(c_child.nodes[0].words, words("b"));
-    assert_eq!(c_child.nodes[0].sources, sources(&[3, 4]));
-    assert!(b_child.nodes.iter().all(|n| n.child.is_none()));
-    assert!(c_child.nodes.iter().all(|n| n.child.is_none()));
+    assert!(child.nodes.iter().all(|n| n.child.is_none()));
+    let serialized = serde_json::to_value(&m).unwrap();
+    assert_eq!(
+        serialized["retained"]["3"]["words"],
+        serde_json::json!(["a", "b", "c"])
+    );
 }
 
 #[test]
-fn sibling_descriptor_reuse_and_model_restore() {
+fn root_sibling_descriptors_exclude_each_other_from_children() {
     let mut m = Model::new(Config {
         alpha: 0.8,
         beta: 0.75,
@@ -289,13 +286,94 @@ fn sibling_descriptor_reuse_and_model_restore() {
         .iter()
         .find(|n| n.words == words("b"))
         .unwrap();
-    assert_eq!(a.child.as_ref().unwrap().nodes[0].words, words("b"));
-    assert_eq!(b.child.as_ref().unwrap().nodes[0].words, words("a"));
-    assert!(a.child.as_ref().unwrap().nodes[0].child.is_none());
-    assert!(b.child.as_ref().unwrap().nodes[0].child.is_none());
+    assert!(a.child.is_none());
+    assert!(b.child.is_none());
     m.update(1, vec![source(8, "a b")]).unwrap();
+    assert!(m.root().nodes.iter().all(|n| n.child.is_none()));
     let restored: Model = serde_json::from_str(&serde_json::to_string(&m).unwrap()).unwrap();
     assert_eq!(m, restored);
+}
+
+#[test]
+fn unadopted_keyword_remains_eligible_in_independent_children_and_accepted_updates() {
+    let mut m = Model::new(Config {
+        alpha: 0.75,
+        beta: 0.75,
+        minimum_branch_sources: 1,
+        ..config()
+    })
+    .unwrap();
+    m.update(
+        0,
+        vec![
+            source(1, "a x"),
+            source(2, "a"),
+            source(3, "a"),
+            source(4, "a"),
+            source(5, "b x"),
+            source(6, "b"),
+            source(7, "b"),
+            source(8, "b"),
+        ],
+    )
+    .unwrap();
+    assert_eq!(metrics::vocabulary(m.root()), words("a b"));
+    for node in &m.root().nodes {
+        let child = node.child.as_ref().unwrap();
+        assert_eq!(child.nodes.len(), 1);
+        assert_eq!(child.nodes[0].words, words("x"));
+    }
+    let decisions = m.update(1, vec![source(9, "a b x")]).unwrap();
+    assert!(decisions.iter().all(|d| !d.reconstructed));
+    assert_eq!(metrics::vocabulary(m.root()), words("a b"));
+    for node in &m.root().nodes {
+        assert_eq!(node.child.as_ref().unwrap().nodes[0].words, words("x"));
+        assert!(node.child.as_ref().unwrap().nodes[0].sources.contains("9"));
+    }
+    let serialized = serde_json::to_value(&m).unwrap();
+    assert_eq!(
+        serialized["retained"]["9"]["words"],
+        serde_json::json!(["a", "b", "x"])
+    );
+    let restored: Model = serde_json::from_value(serialized).unwrap();
+    assert_eq!(m, restored);
+}
+
+#[test]
+fn restore_rejects_descriptor_adopted_by_sibling_node() {
+    let mut m = Model::new(Config {
+        alpha: 0.75,
+        beta: 0.75,
+        minimum_branch_sources: 1,
+        ..config()
+    })
+    .unwrap();
+    m.update(
+        0,
+        vec![
+            source(1, "a b x"),
+            source(2, "a"),
+            source(3, "a"),
+            source(4, "a"),
+            source(5, "b"),
+            source(6, "b"),
+            source(7, "b"),
+        ],
+    )
+    .unwrap();
+    let mut serialized = serde_json::to_value(&m).unwrap();
+    let a_index = m
+        .root()
+        .nodes
+        .iter()
+        .position(|n| n.words == words("a"))
+        .unwrap();
+    assert_eq!(
+        m.root().nodes[a_index].child.as_ref().unwrap().nodes[0].words,
+        words("x")
+    );
+    serialized["root"]["nodes"][a_index]["child"]["nodes"][0]["words"] = serde_json::json!(["b"]);
+    assert!(serde_json::from_value::<Model>(serialized).is_err());
 }
 
 #[test]
@@ -603,8 +681,8 @@ fn child_reconstruction_matches_fresh_construction() {
     let a_node = &root.nodes[a_index];
     let actual_child = a_node.child.as_deref().unwrap();
 
-    // A child cannot repeat its own actual ancestry path.
-    let excluded: Words = a_node.words.clone();
+    // A child excludes the complete descriptor vocabulary of its parent HKT.
+    let excluded = metrics::vocabulary(root);
 
     // Independently construct the effective child dataset.
     let child_sources: Vec<Source> = all_sources
@@ -628,18 +706,14 @@ fn child_reconstruction_matches_fresh_construction() {
 
     // Independent expected topology, not just agreement
     // between two calls to the same construction code.
-    let mut b = node("b", &[1, 2, 3, 4]);
-    b.child = Some(Box::new(Hkt {
-        nodes: vec![node("c", &[3, 4])],
-    }));
-    let mut c = node("c", &[3, 4, 5, 6]);
-    c.child = Some(Box::new(Hkt {
-        nodes: vec![node("b", &[3, 4])],
-    }));
     assert_eq!(
         actual_child,
         &Hkt {
-            nodes: vec![b, c, node("x", &[15, 16, 17, 18])],
+            nodes: vec![
+                node("b", &[1, 2, 3, 4]),
+                node("c", &[3, 4, 5, 6]),
+                node("x", &[15, 16, 17, 18])
+            ],
         }
     );
 }

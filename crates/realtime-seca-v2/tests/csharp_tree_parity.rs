@@ -149,7 +149,6 @@ fn csharp_branch_boundary_tree_parity() {
 }
 
 #[test]
-#[ignore = "C# suppresses reciprocal sibling descendants; v2 permits contextual reuse across distinct ancestry paths"]
 fn csharp_overlap_recursive_tree_parity() {
     compare_fixture("overlap_recursive");
 }
